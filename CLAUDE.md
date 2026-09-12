@@ -53,11 +53,14 @@ Full spec: [`adobe_problem_statement.md`](./adobe_problem_statement.md) — read
 *(append dated entries here as work happens)*
 
 - **2026-08-27** — Read full problem statement PDF; transcribed to `adobe_problem_statement.md`; set up this progress tracker. No design/implementation work started yet.
+- **2026-09-12** — v3 (`brand-ai-readiness-audit-v2.1/`, commit f0fb27e) reviewed by five independent judge agents; plan published as the "AI-Readiness Audit v4 Plan" artifact. **v4 built in `brand-ai-readiness-audit-v4/`** (submission candidate): verifier hardened and agent claims capped at low, per-bot robots directives, A1 intent fixed, price/date/entity fixes, noise cut (X2, D5 removed), new checks A5_canonical_missing/A9/A10/A11/C7/E11/E12, E1 split, report counts consistent, IDs in ranked order, polite crawler, docs rewritten. 351 offline tests; validator SUBMITTABLE; replays of 9 real sites compared against v3.
 
 ## Decisions
 *(record architecture/skill-decomposition choices here as they're made, with rationale)*
 
-- *(none yet)*
+- **One folder per version, v4 is the one to zip** (`brand-ai-readiness-audit-v4/`; v2.1 = v3, `-before-v3` and `-before-compress` are restore points). Zip its contents with the top folder named `brand-ai-readiness-audit`.
+- **Scripts measure, the agent judges, a script verifies.** Deterministic scripts do every check that can be measured; the agent's `agent-review-audit` claims enter `findings[]` only after `verify_claims.py` confirms their evidence against the crawl, and are capped at low. Rationale: the rubric scores both "few misses" and "few false positives" plus "deterministic".
+- **No headless browser, search backend or LLM API calls** — size, self-containment and determinism rules; what needs them is listed under "Not assessed" in every report.
 
 ## TODO / Next Steps
 - [ ] **Field research**: find real websites AI assistants cite well vs. poorly/ignore; identify concrete, repeatable signals (not one-off site quirks).

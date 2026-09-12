@@ -29,7 +29,7 @@ sys.dont_write_bytecode = True
 # The marketplace root to check. The gate lives outside it, so it never ships.
 REPO = Path(__file__).resolve().parent.parent
 ROOT = (Path(sys.argv[1]).resolve() if len(sys.argv) > 1
-        else REPO / "brand-ai-readiness-audit-v2.1")
+        else REPO / "brand-ai-readiness-audit-v4")
 FIXTURE = ROOT / "tests" / "fixtures" / "extraction_tiers.bundle.json"
 
 # agentskills.io frontmatter limits
@@ -285,10 +285,22 @@ if report:
             "summary.active_findings matches active findings",
             f"summary={summary['active_findings']} actual={len(active)}",
         )
+    # The spec's counts-by-severity cover EVERY finding, so they add up to
+    # total_findings; the active-only split lives in summary.active_by_severity.
     for sev in ("critical", "high", "medium", "low"):
         if sev in summary:
-            actual = sum(1 for f in active if f.get("severity") == sev)
+            actual = sum(1 for f in findings if f.get("severity") == sev)
             require(summary[sev] == actual, f"summary.{sev} matches findings", f"summary={summary[sev]} actual={actual}")
+    if all(k in summary for k in ("critical", "high", "medium", "low")):
+        banded = summary["critical"] + summary["high"] + summary["medium"] + summary["low"] + summary.get("info", 0)
+        require(banded == len(findings), "severity counts add up to total_findings",
+                f"{banded} != {len(findings)}")
+    if "active_by_severity" in summary:
+        for sev in ("critical", "high", "medium", "low"):
+            actual = sum(1 for f in active if f.get("severity") == sev)
+            require(summary["active_by_severity"].get(sev) == actual,
+                    f"summary.active_by_severity.{sev} matches active findings",
+                    f"summary={summary['active_by_severity'].get(sev)} actual={actual}")
 
     if require(schema_path.is_file(), "audit-report.schema.json exists"):
         try:

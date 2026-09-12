@@ -22,7 +22,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 # Which marketplace root to audit with, e.g. AUDIT_MARKETPLACE=brand-ai-readiness-audit-v2.1
-MARKETPLACE = os.environ.get("AUDIT_MARKETPLACE", "brand-ai-readiness-audit")
+MARKETPLACE = os.environ.get("AUDIT_MARKETPLACE", "brand-ai-readiness-audit-v4")
 AUDIT = REPO / MARKETPLACE / "skills" / "audit-orchestrator" / "scripts" / "audit.py"
 PORT = 8000
 TIMEOUT_S = 330  # a little past the audit's own 5-minute budget
