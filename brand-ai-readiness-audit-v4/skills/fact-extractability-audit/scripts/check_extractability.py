@@ -40,6 +40,11 @@ _AMOUNT = r"\d(?:[\d.,\u00a0\u202f]*\d)?"
 PRICE = re.compile(
     rf"(?:{_CUR_SYMBOL}|(?<![A-Za-z]){_CUR_CODE})\s?(?P<a>{_AMOUNT})"
     rf"|(?P<b>{_AMOUNT})\s?(?:{_CUR_SYMBOL}|{_CUR_CODE}(?![A-Za-z]))")
+# The two readings, searched separately. In one combined pattern the leftmost
+# match wins, so "Article No. 700403 ₹3,990.00" reads as "700403 ₹" and the real
+# "₹3,990.00" is never seen. Searching each form on its own keeps both.
+PRICE_PREFIX = re.compile(rf"(?:{_CUR_SYMBOL}|(?<![A-Za-z]){_CUR_CODE})\s?(?P<a>{_AMOUNT})")
+PRICE_SUFFIX = re.compile(rf"(?P<b>{_AMOUNT})\s?(?:{_CUR_SYMBOL}|{_CUR_CODE}(?![A-Za-z]))")
 
 _PHONE_CANDIDATE = re.compile(r"(?<![\w/.-])\+?\(?\d[\d\s().\-\u00a0]{5,20}\d(?![\w/-])")
 _DATE_LIKE = re.compile(r"^\s*(\d{4}-\d{1,2}-\d{1,2}|\d{1,2}[./-]\d{1,2}[./-]\d{2,4})\s*$")
@@ -181,8 +186,9 @@ def _price_tokens(prose: str) -> set:
     must not be able to satisfy a declared price of 99.
     """
     out = set()
-    for m in PRICE.finditer(prose):
-        value = _as_number(m.group("a") or m.group("b"))
+    matches = [*PRICE_PREFIX.finditer(prose), *PRICE_SUFFIX.finditer(prose)]
+    for m in matches:
+        value = _as_number(m.groupdict().get("a") or m.groupdict().get("b"))
         if value is not None:
             out.add(value)
     return out
@@ -363,21 +369,30 @@ def run(b: dict) -> list[dict]:
 
         # ---- C2: markup vs visible text contradiction --------------------
         prose_prices = _price_tokens(prose)
+        page_declared = []
         for node in ld_nodes:
             offers = node["props"].get("offers")
             if not isinstance(offers, dict) or "price" not in offers:
                 continue
             declared = str(offers["price"]).strip()
             currency = str(offers.get("priceCurrency", "")).strip()
-            # Conservative: only fire on a single unambiguous declared price that
+            # Conservative: only fire on an unambiguous declared price that
             # matches NO currency-marked price on the page, compared as numbers
             # so a year or a phone number cannot satisfy it.
             value = _as_number(declared)
             if value is None or "aggregateoffer" in " ".join(_types_of_offer(offers)):
                 continue
-            # If the page shows no price at all, that is B1's finding, not this one.
-            if prose_prices and value not in prose_prices:
-                contradictions.append((p["url"], declared, currency))
+            page_declared.append((declared, currency, value))
+        declared_values = {v for _, _, v in page_declared}
+        # Variants: a page declaring several prices (Black and Beige, S and XL)
+        # server-renders only the selected one. If any declared price is shown,
+        # the others are variant prices, not a contradiction.
+        variants_shown = len(declared_values) > 1 and bool(declared_values & prose_prices)
+        # If the page shows no price at all, that is B1's finding, not this one.
+        if prose_prices and not variants_shown:
+            for declared, currency, value in page_declared:
+                if value not in prose_prices:
+                    contradictions.append((p["url"], declared, currency))
 
         # ---- C5: question content with no Q&A markup -----------------------
         # An assistant lifting an answer wants a question paired with a
@@ -641,13 +656,14 @@ def run(b: dict) -> list[dict]:
         })
 
     if contradictions:
+        c2_urls = list(dict.fromkeys(u for u, _, _ in contradictions))   # distinct, in order
         out.append({
             "check_id": "C2_markup_text_contradiction",
-            "title": f"Structured-data price not present in the visible text on {len(contradictions)} page(s)",
+            "title": f"Structured-data price not present in the visible text on {len(c2_urls)} page(s)",
             "evidence": "; ".join(f"{u}: JSON-LD declares {c} {v} but those digits do not appear "
                                   f"in the page's extractable text"
                                   for u, v, c in contradictions[:3]),
-            "affected_urls": [u for u, _, _ in contradictions],
+            "affected_urls": c2_urls,
             "blast_radius": "template",
             "confidence": "heuristic",
             "measurement_basis": "static_heuristic",

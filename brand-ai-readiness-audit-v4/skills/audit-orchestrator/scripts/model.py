@@ -215,8 +215,10 @@ class Finding:
             "measurement_basis": self.measurement_basis,
             "blast_radius": self.blast_radius,
             "severity_rationale": self.severity_rationale,
-            "affected_urls": sorted(self.affected_urls)[:25],
-            "affected_url_count": len(self.affected_urls),
+            # Distinct pages: a skill that reports one page per offer or per match
+            # must not inflate the count a reader acts on.
+            "affected_urls": sorted(set(self.affected_urls))[:25],
+            "affected_url_count": len(set(self.affected_urls)),
         }
         if self.blocked_by:
             out["blocked_by"] = self.blocked_by

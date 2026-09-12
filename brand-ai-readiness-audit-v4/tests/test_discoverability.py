@@ -345,3 +345,39 @@ links, _ = bundle_mod.homepage_links(
     "<a href='https://other.example/x'>x</a></body>", "https://example.com/")
 check("absolute www links are kept when the typed host is the apex",
       links, ["https://example.com/about", "https://www.example.com/pricing"])
+
+
+print("\n[C2] prices after an article number, variant prices, distinct page counts (sennheiser)")
+check("a number before a currency-first price does not hide the price",
+      3990.0 in X._price_tokens("4.4MM CABLE Article No. 700403 ₹3,990.00 Why buy directly"), True)
+check("currency-last price lists keep every price", X._price_tokens("10 € 20 € 30 €"), {10.0, 20.0, 30.0})
+check("pack counts and model numbers do not replace the real price",
+      (19.99 in X._price_tokens("Pack of 2 €19.99"), 1299.0 in X._price_tokens("Model 700 €1.299,00")), (True, True))
+
+def _offer_ld(*offers):
+    nodes = ",".join('{"@type":"Product","name":"%s","offers":{"@type":"Offer","price":"%s","priceCurrency":"INR"}}'
+                     % (n, v) for n, v in offers)
+    return '<script type="application/ld+json">{"@type":"ProductGroup","hasVariant":[%s]}</script>' % nodes
+
+article = _page("https://t.test/products/cable", "product",
+                H(_offer_ld(("Cable", "3990.00")), "<p>4.4MM CABLE Article No. 700403 ₹3,990.00 Inclusive of all taxes</p>"))
+check("the Sennheiser accessory page (article number then price) raises no C2",
+      "C2_markup_text_contradiction" in ids(extract([article])), False)
+variants = _page("https://t.test/products/earpad", "product",
+                 H(_offer_ld(("Earpad - Black", "1462.00"), ("Earpad - Beige", "1500.00")),
+                   "<p>Accentum Earpad Article No. 700551 ₹1,462.00</p>"))
+check("variant prices with the selected one shown raise no C2",
+      "C2_markup_text_contradiction" in ids(extract([variants])), False)
+wrong = _page("https://t.test/products/amp", "product",
+              H(_offer_ld(("Amp", "999.00")), "<p>Amplifier Article No. 555001 ₹1,299.00</p>"))
+check("a real markup/text price disagreement still raises C2",
+      "C2_markup_text_contradiction" in ids(extract([wrong])), True)
+two_wrong = _page("https://t.test/products/amp2", "product",
+                  H(_offer_ld(("Amp S", "999.00"), ("Amp L", "1099.00")), "<p>Amplifier ₹1,299.00</p>"))
+c2_two = by(extract([two_wrong]), "C2_markup_text_contradiction")
+check("two contradicting offers on one page count as one page",
+      (c2_two.get("affected_urls"), "on 1 page(s)" in c2_two.get("title", "")), (["https://t.test/products/amp2"], True))
+dup = Finding(check_id="C2_markup_text_contradiction", title="t", evidence="e", suggested_action={},
+              affected_urls=["https://t.test/a", "https://t.test/a", "https://t.test/b"]).finalise(1, 10).to_report()
+check("the report never lists or counts a page twice", (dup["affected_urls"], dup["affected_url_count"]),
+      (["https://t.test/a", "https://t.test/b"], 2))
