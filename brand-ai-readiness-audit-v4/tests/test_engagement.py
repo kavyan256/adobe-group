@@ -213,3 +213,12 @@ child_label = site(_page("https://t.test/p", "generic", H(VP, (
     "<a href='https://y.test/x'><svg aria-label='YouTube'></svg></a>"
     "<a href='https://i.test/x'><span aria-label='Instagram'></span></a>"))))
 check("an aria-label on an icon child names the link (nps.gov)", "E3_unnamed_controls" in ids(eng(child_label)), False)
+
+
+print("\nTemplates: inert <template> content is not on the page (theritzlondon.com)")
+templated = site(_page("https://t.test/p", "generic", H(VP, (
+    "<h1>P</h1><p>copy</p><template><div><form><button></button><button></button>"
+    "<button></button><input name='q' required></form><img src='/a.png'><img src='/b.png'><img src='/c.png'>"
+    "</div></template>"))))
+check("controls, inputs and images inside <template> fire no E3, E1 or E4",
+      [i for i in ids(eng(templated)) if i in ("E3_unnamed_controls", "E1_unlabelled_input", "E4_images_missing_alt")], [])

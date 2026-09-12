@@ -25,7 +25,9 @@ from bs4 import BeautifulSoup
 STALE_MONTHS = 18
 
 COPYRIGHT = re.compile(r"(?:©|&copy;|copyright)\s*(?:\d{4}\s*[-–]\s*)?(\d{4})", re.I)
-ISO_DATE = re.compile(r"\b(20\d{2})-(\d{2})-(\d{2})\b")
+# Digit guards, not \b: the standard datetime "2023-12-11T14:15:55+00:00" has no
+# word boundary between the day and "T", so \b ignored every dated page.
+ISO_DATE = re.compile(r"(?<!\d)(20\d{2})-(\d{2})-(\d{2})(?!\d)")
 # The listing page of a blog or news section is not an article: it has no date
 # of its own and is never stale.
 SECTION_INDEX = re.compile(r"^/(blog|news|articles?|insights|press)/?$", re.I)

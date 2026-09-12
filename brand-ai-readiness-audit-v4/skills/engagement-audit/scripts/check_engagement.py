@@ -221,6 +221,10 @@ def run(b: dict) -> tuple[list[dict], list[dict]]:
 
     for p in pages:
         soup = BeautifulSoup(p["html"], "html.parser")
+        # <template> content is inert until a script clones it: a control, form
+        # or image inside one is not on the page a visitor sees.
+        for tmpl in soup.find_all("template"):
+            tmpl.decompose()
         d = p["derived"]
 
         # -- E5 language -----------------------------------------------------

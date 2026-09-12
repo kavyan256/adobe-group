@@ -381,3 +381,21 @@ dup = Finding(check_id="C2_markup_text_contradiction", title="t", evidence="e", 
               affected_urls=["https://t.test/a", "https://t.test/a", "https://t.test/b"]).finalise(1, 10).to_report()
 check("the report never lists or counts a page twice", (dup["affected_urls"], dup["affected_url_count"]),
       (["https://t.test/a", "https://t.test/b"], 2))
+
+
+print("\n[dates] ISO datetimes are dates (theritzlondon.com, dishoom.com)")
+from bs4 import BeautifulSoup as _BS
+_dt_ld = _BS('<script type="application/ld+json">{"@type":"BlogPosting","headline":"H",'
+             '"datePublished":"2023-12-11T14:15:55+00:00","dateModified":"2025-04-04T16:03:08Z"}</script>', "html.parser")
+check("JSON-LD datetimes are read as dates", bundle_mod.normalise_jsonld(_dt_ld)["dates"], ["2023-12-11", "2025-04-04"])
+check("the freshness date pattern reads a datetime", FRESH.ISO_DATE.findall("2023-12-11T14:15:55+00:00"), [("2023", "12", "11")])
+check("...and still ignores a longer digit run", FRESH.ISO_DATE.findall("12023-12-110"), [])
+_post = '<h1>Post</h1><p>Body copy for a post.</p>'
+ld_dated = _page("https://t.test/blog/a", "blog", H('<script type="application/ld+json">{"@type":"BlogPosting",'
+                 f'"headline":"H","datePublished":"2026-05-01T09:00:00+00:00"}}</script>', _post))
+meta_dated = _page("https://t.test/blog/b", "blog", H('<meta property="article:published_time" content="2026-05-01T09:00:00+00:00">', _post))
+undated = _page("https://t.test/blog/c", "blog", H("", _post))
+d1 = by(fresh([ld_dated, meta_dated, undated]), "D1_no_date_signals")
+check("D1 fires only on the post with no date at all", d1.get("affected_urls"), ["https://t.test/blog/c"])
+old_post = _page("https://t.test/blog/old", "blog", H('<meta property="article:modified_time" content="2021-01-01T00:00:00Z">', _post))
+check("D3 now sees an old datetime", "D3_content_stale" in ids(fresh([old_post])), True)

@@ -275,7 +275,9 @@ def normalise_jsonld(soup: BeautifulSoup) -> dict:
                 sameas.add(v.strip())
         for key, value in n["props"].items():
             if key.lower() in _DATE_KEYS and isinstance(value, str):
-                found = re.search(r"\b(20\d{2}-\d{2}-\d{2})\b", value)
+                # Digit guards, not \b: in "2023-12-11T14:15:55+00:00" there is no
+                # word boundary between "11" and "T", so \b missed every datetime.
+                found = re.search(r"(?<!\d)(20\d{2}-\d{2}-\d{2})(?!\d)", value)
                 if found:
                     dates.add(found.group(1))
 
