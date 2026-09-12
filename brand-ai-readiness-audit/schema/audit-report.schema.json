@@ -10,7 +10,7 @@
       "type": "object",
       "required": ["total_findings", "critical", "high", "medium"],
       "properties": {
-        "total_findings":  { "type": "integer", "description": "ACTIVE findings only; latent are counted separately" },
+        "total_findings":  { "type": "integer", "description": "Equals len(findings[]); active/latent sub-counts follow" },
         "critical":        { "type": "integer" },
         "high":            { "type": "integer" },
         "medium":          { "type": "integer" },
@@ -80,7 +80,8 @@
       }
     },
     "prioritized_actions":      { "type": "array" },
-    "proactive_recommendations":{ "type": "array" },
+    "proactive_recommendations":{ "type": "array", "description": "Only recommendations the site does not already satisfy; each carries applies_because" },
+    "already_in_place":         { "type": "array", "description": "Proactive recommendations the site already implements, with the evidence" },
     "limits":                   { "type": "array", "items": { "type": "string" } },
     "notes":                    { "type": "array", "items": { "type": "string" } }
   }

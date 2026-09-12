@@ -73,6 +73,7 @@ SEVERITY_TABLE: dict[str, dict] = {
     "E4_images_missing_alt":       {"base": "medium",   "gate": "engagement", "mechanism": "C"},
     "E5_no_lang":                  {"base": "low",      "gate": "engagement", "mechanism": "on-site"},
     "E6_heading_structure":        {"base": "low",      "gate": "engagement", "mechanism": "on-site"},
+    "E6_multiple_h1":              {"base": "info",     "gate": "engagement", "mechanism": "on-site"},
     "E7_zoom_disabled":            {"base": "medium",   "gate": "engagement", "mechanism": "on-site"},
     "E9_promise_payoff_mismatch":  {"base": "medium",   "gate": "engagement", "mechanism": "B"},
 }

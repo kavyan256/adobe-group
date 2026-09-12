@@ -9,7 +9,7 @@ intent behind the fields beyond the required minimum.
 |---|---|
 | `site` | Host of the audited site |
 | `audited_at` | UTC ISO-8601 |
-| `summary.total_findings` | **Active findings only.** Latent ones are counted in `summary.latent_findings` — see below |
+| `summary.total_findings` | Always equals `len(findings[])`. Split into `summary.active_findings` and `summary.latent_findings` — see below |
 | `summary.{critical,high,medium,low}` | Counts by severity, active only |
 | `findings[].id` | `F-001`… assigned after deterministic sorting |
 | `findings[].title` | One line, states the defect and its scale |
@@ -17,11 +17,11 @@ intent behind the fields beyond the required minimum.
 | `findings[].evidence` | Must name what was checked, what was found, and how to reproduce it |
 | `findings[].suggested_action` | `summary` + `priority`, plus `effort`, `how[]`, `verify` |
 
-**Note on `total_findings`:** it counts *active* findings, so it will be smaller
-than `len(findings)` whenever latent findings exist. This is deliberate — a
-latent finding is real but currently unobservable, and inflating the headline
-count with problems the operator cannot yet see would misrepresent urgency. Both
-numbers are always present.
+**Note on `total_findings`:** it always equals `len(findings)`, so any external
+validator agrees with the array. The split matters for urgency: a latent finding
+is real but currently unobservable (its access blocker must be fixed first), so
+`active_findings` is the number the operator can act on today and the severity
+counts cover active findings only. All three numbers are always present.
 
 ## Superset fields, and why each exists
 
@@ -38,7 +38,8 @@ numbers are always present.
 | `coverage` + `run_status` | A truncated crawl can never masquerade as a clean one |
 | `checks_skipped[]` | Distinguishes "we looked and found nothing" from "we could not look" — the failure mode that makes audit tools untrustworthy |
 | `prioritized_actions[]` | Ranked by `severity × confidence ÷ effort`, latent demoted |
-| `proactive_recommendations[]` | Improvements worth making even where no defect was detected, kept structurally separate from findings so they are never confused with them |
+| `proactive_recommendations[]` | Improvements worth making even where no defect was detected, kept structurally separate from findings so they are never confused with them. **Conditioned on the site**: each carries `applies_because` naming what was probed (`/llms.txt`, robots.txt agent groups, FAQPage / sameAs markup, hydration payloads) |
+| `already_in_place[]` | The proactive recommendations this site already satisfies, with the evidence — so the reader sees the list was checked, not pasted |
 | `limits[]` | What this audit structurally cannot see |
 
 ## Design rules

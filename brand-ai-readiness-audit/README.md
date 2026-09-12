@@ -8,7 +8,7 @@ as one prioritized JSON report of findings plus suggested actions.
 site. Everything is a GET request; nothing touches authenticated areas.
 
 ```bash
-pip install httpx beautifulsoup4 lxml
+pip install -r requirements.txt
 python3 skills/audit-orchestrator/scripts/audit.py https://example.com -o report.json
 ```
 
@@ -140,7 +140,10 @@ Beyond the required `site` / `audited_at` / `summary` / `findings[]`:
   and found nothing"* from *"we couldn't look"*, which is the failure mode that
   makes audit tools untrustworthy
 - `prioritized_actions[]` — ranked by `severity × confidence ÷ effort`
-- `proactive_recommendations[]` — improvements worth making even with no defect
+- `proactive_recommendations[]` — improvements worth making even with no defect,
+  **conditioned on the site**: `/llms.txt` is probed, robots.txt agent groups,
+  FAQPage / `sameAs` markup and hydration payloads are checked, and anything the
+  site already does moves to `already_in_place[]` with its evidence
 - `limits[]` — what this audit structurally cannot see
 
 Every suggested action carries `how[]` (concrete steps) and `verify` (how to
@@ -178,7 +181,7 @@ Stated plainly, because a declared limitation beats a fabricated measurement:
 
 ## Requirements
 
-Python 3.10+, `httpx`, `beautifulsoup4`, `lxml`. No model weights, no browser,
+Python 3.10+, `httpx`, `beautifulsoup4` (pinned in `requirements.txt`). No model weights, no browser,
 no network services. Total package well under 1 MB.
 
 ## Tests

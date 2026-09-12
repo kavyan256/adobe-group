@@ -6,7 +6,12 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
+
+# Child processes must not litter the tree with bytecode: the gate
+# itself checks for build junk, and a zip must never contain it.
+os.environ.setdefault("PYTHONDONTWRITEBYTECODE", "1")
 import sys
 from pathlib import Path
 

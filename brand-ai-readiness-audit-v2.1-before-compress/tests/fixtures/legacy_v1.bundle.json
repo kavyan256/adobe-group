@@ -1,0 +1,61 @@
+{
+  "site": "synthetic.test",
+  "start_url": "https://synthetic.test",
+  "audited_at": "2026-09-01T10:29:31Z",
+  "user_agent": "AIReadinessAudit/1.0",
+  "run_status": "complete",
+  "coverage": {
+    "pages_attempted": 3,
+    "pages_fetched": 3,
+    "pages_ok": 3,
+    "pages_blocked_by_robots_for_our_ua": 0,
+    "urls_discovered": 3,
+    "elapsed_s": 0.1
+  },
+  "robots": {
+    "present": true,
+    "status": 200,
+    "sitemaps_declared": [],
+    "crawl_delay_declared": null,
+    "agents": {}
+  },
+  "sitemap_urls": [
+    "x"
+  ],
+  "notes": [],
+  "pages": [
+    {
+      "url": "https://synthetic.test/pricing-visible",
+      "final_url": "https://synthetic.test/pricing-visible",
+      "status": 200,
+      "role": "pricing",
+      "headers": {},
+      "html": "<html lang=\"en\"><head><title>Pricing</title></head><body><main>\n<h1>Pricing</h1><p>The Pro plan costs $49/mo billed monthly for teams of any size.</p>\n</main></body></html>",
+      "elapsed_ms": 10,
+      "redirect_chain": [],
+      "error": null
+    },
+    {
+      "url": "https://synthetic.test/pricing-payload",
+      "final_url": "https://synthetic.test/pricing-payload",
+      "status": 200,
+      "role": "pricing",
+      "headers": {},
+      "html": "<html lang=\"en\"><head><title>Pricing</title></head><body>\n<div id=\"__next\"></div>\n<script id=\"__NEXT_DATA__\" type=\"application/json\">\n{\"props\":{\"pageProps\":{\"plan\":{\"name\":\"Pro\",\"price\":\"$49/mo\",\"currency\":\"USD\"}}}}\n</script>\n<p>Choose the plan that fits your team. Contact sales for more information today.</p>\n</body></html>",
+      "elapsed_ms": 10,
+      "redirect_chain": [],
+      "error": null
+    },
+    {
+      "url": "https://synthetic.test/pricing-absent",
+      "final_url": "https://synthetic.test/pricing-absent",
+      "status": 200,
+      "role": "pricing",
+      "headers": {},
+      "html": "<html lang=\"en\"><head><title>Pricing</title></head><body><main>\n<h1>Pricing</h1><p>Flexible plans for teams of every size. Get started today.</p>\n</main></body></html>",
+      "elapsed_ms": 10,
+      "redirect_chain": [],
+      "error": null
+    }
+  ]
+}

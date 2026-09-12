@@ -30,14 +30,19 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urljoin, urlparse, urlunparse
 
-import httpx
+try:
+    import httpx
+except ImportError:  # pragma: no cover
+    sys.exit("bundle.py: missing dependency 'httpx'. Install with:  pip install -r requirements.txt  "
+             "(from the marketplace root)")
 
 sys.path.insert(0, str(Path(__file__).parent))
-from robots import Robots  # noqa: E402  (same-folder module, not a shared lib)
+from robots import Robots, classify_agent  # noqa: E402  (same-folder module, not a shared lib)
 
 USER_AGENT = "AIReadinessAudit/1.0 (+https://github.com/example/brand-ai-readiness-audit)"
 DEFAULT_MAX_PAGES = 20
-DEFAULT_DEADLINE_S = 240        # leaves headroom inside the 5-minute budget
+DEFAULT_DEADLINE_S = 200        # crawl budget; analysis shares the remainder of TOTAL_BUDGET_S
+TOTAL_BUDGET_S = 280            # whole audit, inside the 5-minute limit with margin
 MAX_HONOURED_CRAWL_DELAY = 2.0  # cap; we reduce page count rather than stall
 PER_REQUEST_TIMEOUT = 12.0
 MAX_BYTES = 3_000_000
@@ -99,6 +104,9 @@ class Bundle:
     sitemap_urls: list
     pages: list
     notes: list = field(default_factory=list)
+    # Cheap single-fetch probes used to condition proactive recommendations on
+    # what the site already does, so we never recommend something it has.
+    probes: dict = field(default_factory=dict)
 
     def to_json(self) -> str:
         return json.dumps(asdict(self), indent=2, sort_keys=True, ensure_ascii=False)
@@ -163,6 +171,23 @@ def build(start_url: str, max_pages: int = DEFAULT_MAX_PAGES,
         notes.append(f"robots.txt unreachable: {type(exc).__name__}")
 
     sitemap_urls = _discover_sitemap_urls(client, base, robots_obj, notes)
+
+    # ---- llms.txt probe (one GET, robots-checked like any other URL) ----
+    llms_url = urljoin(base, "/llms.txt")
+    llms = {"url": llms_url, "present": False, "status": None}
+    if robots_obj.allowed(USER_AGENT, llms_url):
+        try:
+            lr = client.get(llms_url, timeout=PER_REQUEST_TIMEOUT)
+            ctype = lr.headers.get("content-type", "")
+            llms["status"] = lr.status_code
+            # Many hosts answer 200 with an HTML 404 page; require text/plain-ish.
+            llms["present"] = lr.status_code == 200 and "html" not in ctype and bool(lr.text.strip())
+        except httpx.HTTPError as exc:
+            notes.append(f"llms.txt probe failed: {type(exc).__name__}")
+    ai_agents_named = sorted({
+        a for g in robots_obj.groups for a in g.agents
+        if classify_agent(a) in ("retrieval", "training", "ambiguous")
+    }, key=str.lower)
 
     # ---- crawl-delay policy -------------------------------------------
     declared_delay = robots_obj.crawl_delay(USER_AGENT) or 0.0
@@ -270,6 +295,7 @@ def build(start_url: str, max_pages: int = DEFAULT_MAX_PAGES,
         sitemap_urls=sitemap_urls[:50],
         pages=[asdict(p) for p in pages],
         notes=notes,
+        probes={"llms_txt": llms, "ai_agents_named_in_robots": ai_agents_named},
     )
 
 

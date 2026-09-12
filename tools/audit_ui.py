@@ -14,13 +14,16 @@ root on purpose: it must never end up inside the submission zip.
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-AUDIT = REPO / "brand-ai-readiness-audit" / "skills" / "audit-orchestrator" / "scripts" / "audit.py"
+# Which marketplace root to audit with, e.g. AUDIT_MARKETPLACE=brand-ai-readiness-audit-v2.1
+MARKETPLACE = os.environ.get("AUDIT_MARKETPLACE", "brand-ai-readiness-audit")
+AUDIT = REPO / MARKETPLACE / "skills" / "audit-orchestrator" / "scripts" / "audit.py"
 PORT = 8000
 TIMEOUT_S = 330  # a little past the audit's own 5-minute budget
 
@@ -64,6 +67,15 @@ PAGE = r"""<!doctype html>
   .sev{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:#fff;
        padding:2px 8px;border-radius:4px}
   .fid{color:var(--muted);font-size:12px;font-weight:500;font-family:ui-monospace,monospace}
+  .hurts{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;border:1px solid}
+  .hurts.ai_discoverability{color:#6d28d9;border-color:#c4b5fd;background:#f5f3ff}
+  .hurts.user_retention{color:#0f766e;border-color:#99f6e4;background:#f0fdfa}
+  .hurts.both{color:#b45309;border-color:#fcd34d;background:#fffbeb}
+  .hurts.unknown{color:var(--muted);border-color:var(--line)}
+  .filters{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 16px;align-items:center}
+  .filters .q{font-size:12.5px;color:var(--muted);margin-right:3px}
+  .filters button.hurts{cursor:pointer;font-size:12.5px;padding:5px 11px}
+  .filters button.hurts.off{opacity:.4}
   .latent{background:#eef2f7;color:var(--muted);font-size:11px;padding:2px 7px;border-radius:4px;font-weight:600}
   .ev{margin:11px 0;font-size:14px}
   .lbl{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
@@ -122,6 +134,8 @@ PAGE = r"""<!doctype html>
 const SEV = ['critical','high','medium','low','info'];
 const COLOR = {critical:'var(--critical)',high:'var(--high)',medium:'var(--medium)',
                low:'var(--low)',info:'var(--info)'};
+const HURTS = {ai_discoverability:'AI discoverability', user_retention:'User retention',
+               both:'Both', unknown:'Untagged'};
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const $ = id => document.getElementById(id);
 let REPORT = null, SITE = '';
@@ -176,6 +190,13 @@ function render(){
 
   if (s.headline) out.push(`<div class="headline">${esc(s.headline)}</div>`);
 
+  const hc = {};
+  rep.findings.forEach(f => { const h = f.hurts || 'unknown'; hc[h] = (hc[h]||0) + 1; });
+  out.push('<div class="filters"><span class="q">Hurts:</span>' +
+    Object.keys(HURTS).filter(h => hc[h]).map(h =>
+      `<button class="hurts ${h}" data-h="${h}">${HURTS[h]} · ${hc[h]}</button>`).join('') +
+    '</div>');
+
   out.push('<div class="tally" id="tally"></div>');
 
   const order = f => SEV.indexOf(f.severity);
@@ -197,16 +218,30 @@ function render(){
 
   $('out').innerHTML = out.join('');
   document.querySelectorAll('.v').forEach(b => b.addEventListener('click', onVerdict));
+  document.querySelectorAll('.filters button').forEach(b => b.addEventListener('click', onFilter));
   paintVerdicts(); tally();
+}
+
+// Click a tag to show only that kind; click it again to show everything.
+let FILTER = '';
+function onFilter(e){
+  const h = e.currentTarget.dataset.h;
+  FILTER = FILTER === h ? '' : h;
+  document.querySelectorAll('.filters button').forEach(b =>
+    b.classList.toggle('off', !!FILTER && b.dataset.h !== FILTER));
+  document.querySelectorAll('.f[data-id]').forEach(c =>
+    c.hidden = !!FILTER && c.dataset.hurts !== FILTER);
 }
 
 function card(f){
   const urls = f.affected_urls || [];
   const shown = urls.slice(0,6);
   const a = f.suggested_action || {};
-  return `<div class="f" data-id="${esc(f.id)}" style="border-left-color:${COLOR[f.severity]||'var(--line)'}">
+  const h = HURTS[f.hurts] ? f.hurts : 'unknown';
+  return `<div class="f" data-id="${esc(f.id)}" data-hurts="${h}" style="border-left-color:${COLOR[f.severity]||'var(--line)'}">
     <h3>
       <span class="sev" style="background:${COLOR[f.severity]||'var(--info)'}">${esc(f.severity)}</span>
+      <span class="hurts ${h}">${HURTS[h]}</span>
       <span>${esc(f.title)}</span>
       <span class="fid">${esc(f.id)}${f.check_id ? ' · '+esc(f.check_id) : ''}</span>
       ${f.status === 'latent' ? '<span class="latent">latent — hidden behind an access block</span>' : ''}
@@ -276,7 +311,7 @@ function tally(){
 
 function exportVerdicts(){
   const rows = REPORT.findings.map(f => ({
-    site: SITE, id: f.id, check_id: f.check_id, severity: f.severity,
+    site: SITE, id: f.id, check_id: f.check_id, severity: f.severity, hurts: f.hurts,
     title: f.title, verdict: getV(SITE, f.id) || 'unjudged'
   }));
   const blob = new Blob([JSON.stringify(rows,null,2)], {type:'application/json'});
@@ -361,7 +396,7 @@ def main() -> None:
     if not AUDIT.is_file():
         sys.exit(f"cannot find the entrypoint script at {AUDIT}")
     port = int(sys.argv[1]) if len(sys.argv) > 1 else PORT
-    print(f"Audit Verifier  ->  http://localhost:{port}")
+    print(f"Audit Verifier  ->  http://localhost:{port}   [{MARKETPLACE}]")
     print("Ctrl-C to stop.\n")
     try:
         ThreadingHTTPServer(("127.0.0.1", port), Handler).serve_forever()

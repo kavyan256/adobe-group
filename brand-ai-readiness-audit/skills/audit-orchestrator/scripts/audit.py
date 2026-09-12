@@ -26,8 +26,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -46,44 +48,114 @@ SUB_SKILLS = [
 SEV_WEIGHT = {"critical": 5, "high": 4, "medium": 3, "low": 2, "info": 1}
 EFFORT_WEIGHT = {"low": 1.0, "medium": 1.6, "high": 2.4}
 
+# Proactive recommendations are conditioned on the site. Each carries an
+# `applies(bundle, check_ids)` test; ones the site already satisfies are listed
+# under `already_in_place` rather than recommended again. A recommendation the
+# site has already implemented is not "beyond the problem" -- it is noise.
+HYDRATION_MARKERS = re.compile(r"__NEXT_DATA__|self\.__next_f|__NUXT__|__APOLLO_STATE__|__INITIAL_STATE__")
+FAQ_MARKER = re.compile(r'"@type"\s*:\s*"FAQPage"', re.I)
+SAMEAS_MARKER = re.compile(r'"sameAs"\s*:', re.I)
+
+
+def _ok_html(b: dict):
+    return [p["html"] for p in b["pages"] if 200 <= p["status"] < 300 and p["html"]]
+
+
+def _has_llms_txt(b, _):
+    return bool(b.get("probes", {}).get("llms_txt", {}).get("present"))
+
+
+def _names_ai_agents(b, _):
+    return bool(b.get("probes", {}).get("ai_agents_named_in_robots"))
+
+
+def _has_faq_markup(b, _):
+    return any(FAQ_MARKER.search(h) for h in _ok_html(b))
+
+
+def _has_sameas(b, _):
+    return any(SAMEAS_MARKER.search(h) for h in _ok_html(b))
+
+
+def _is_hydrated_app(b, _):
+    return any(HYDRATION_MARKERS.search(h) for h in _ok_html(b))
+
+
 PROACTIVE = [
     {"title": "Publish an llms.txt describing your site for AI clients",
      "rationale": "An emerging convention: a short, stable, plain-text map of what your site "
                   "covers and where the authoritative pages are. Cheap to add, and it gives "
                   "retrieval agents an unambiguous starting point.",
-     "effort": "low"},
+     "effort": "low",
+     "applies": lambda b, c: not _has_llms_txt(b, c),
+     "applies_because": "GET /llms.txt did not return a plain-text document",
+     "in_place_because": "/llms.txt is present"},
     {"title": "Decide your AI-crawler policy deliberately, and write it down",
      "rationale": "Training access and retrieval access are separate decisions. Blocking training "
                   "crawlers while explicitly allowing retrieval agents is a coherent, defensible "
                   "position - but it has to be configured on purpose, per user-agent.",
-     "effort": "low"},
+     "effort": "low",
+     "applies": lambda b, c: not _names_ai_agents(b, c),
+     "applies_because": "robots.txt names no AI retrieval or training agent, so the current "
+                        "policy is whatever the wildcard group happens to say",
+     "in_place_because": "robots.txt already addresses AI agents by name"},
     {"title": "Add a machine-readable FAQ layer shaped for quotation",
      "rationale": "FAQPage structured data pairs a question with a self-contained answer. That is "
                   "exactly the shape an assistant wants to lift, and it survives text extraction.",
-     "effort": "medium"},
+     "effort": "medium",
+     "applies": lambda b, c: not _has_faq_markup(b, c),
+     "applies_because": "no crawled page carries FAQPage JSON-LD",
+     "in_place_because": "FAQPage JSON-LD found on at least one crawled page"},
     {"title": "Publish a stable, citable facts page",
      "rationale": "Founding date, leadership, HQ, product line, pricing - in one durable URL that "
                   "third parties can cite verbatim. Corroboration across independent sources is "
                   "what makes a claim credible to a machine, and you can seed it.",
-     "effort": "medium"},
+     "effort": "medium",
+     "applies": lambda b, c: not _has_sameas(b, c),
+     "applies_because": "no crawled page declares Organization sameAs links, so there is no "
+                        "anchor for third parties to corroborate against",
+     "in_place_because": "Organization sameAs links are already published"},
     {"title": "Server-render your most-quoted facts even inside a SPA",
      "rationale": "You do not have to abandon client-side rendering. Server-render the handful of "
                   "facts you most want cited - price, what you do, how to contact you - and let "
                   "the rest hydrate.",
-     "effort": "high"},
+     "effort": "high",
+     # Only relevant to a hydrated app; and if B1/B4 already fired, the finding
+     # carries this exact fix and repeating it here would be padding.
+     "applies": lambda b, c: _is_hydrated_app(b, c)
+                             and not ({"B1_fact_script_only", "B4_empty_shell", "B1_fact_absent"} & c),
+     "applies_because": "the site ships a client-side hydration payload; its key facts currently "
+                        "extract fine, so this is about keeping it that way as the app grows",
+     "in_place_because": "not a client-rendered app, or a specific finding already covers it"},
 ]
 
 
-def run_sub_skill(folder: str, script: str, bundle_path: Path) -> tuple[list, list]:
+def proactive_for(b: dict, findings: list) -> tuple[list[dict], list[dict]]:
+    check_ids = {f.check_id for f in findings}
+    applies, in_place = [], []
+    for rec in PROACTIVE:
+        public = {k: v for k, v in rec.items() if k not in ("applies", "applies_because", "in_place_because")}
+        if rec["applies"](b, check_ids):
+            applies.append({**public, "applies_because": rec["applies_because"]})
+        else:
+            in_place.append({"title": rec["title"], "because": rec["in_place_because"]})
+    return applies, in_place
+
+
+def run_sub_skill(folder: str, script: str, bundle_path: Path,
+                  timeout_s: float) -> tuple[list, list]:
     path = SKILLS_DIR / folder / script
     if not path.exists():
         return [], [{"check": folder, "reason": f"skill script not found at {path}",
                      "impact": "this concern was not audited"}]
+    if timeout_s <= 0:
+        return [], [{"check": folder, "reason": "runtime budget exhausted before this skill ran",
+                     "impact": "this concern was not audited"}]
     try:
         proc = subprocess.run([sys.executable, str(path), str(bundle_path)],
-                              capture_output=True, text=True, timeout=90)
+                              capture_output=True, text=True, timeout=timeout_s)
     except subprocess.TimeoutExpired:
-        return [], [{"check": folder, "reason": "sub-skill timed out after 90s",
+        return [], [{"check": folder, "reason": f"sub-skill timed out after {timeout_s:.0f}s",
                      "impact": "this concern was not audited"}]
     if proc.returncode != 0:
         return [], [{"check": folder,
@@ -143,6 +215,7 @@ def build_report(b: dict, findings: list[Finding], skipped: list[dict],
                  checks_run: list[str]) -> dict:
     active = [f for f in findings if f.status == "active"]
     latent = [f for f in findings if f.status == "latent"]
+    proactive, in_place = proactive_for(b, findings)
     counts = {s: sum(1 for f in active if f.severity == s)
               for s in ("critical", "high", "medium", "low", "info")}
     ordered = sorted(findings, key=lambda f: (-priority_score(f), f.check_id))
@@ -152,9 +225,13 @@ def build_report(b: dict, findings: list[Finding], skipped: list[dict],
         "site": b["site"],
         "audited_at": b["audited_at"],
         "summary": {
-            "total_findings": len(active),
+            # total_findings == len(findings[]) so any external validator agrees
+            # with the array; severity counts cover active findings only, since
+            # latent ones are capped at "low" and not yet observable.
+            "total_findings": len(findings),
             **{k: v for k, v in counts.items() if k != "info"},
             # ---- superset ----
+            "active_findings": len(active),
             "latent_findings": len(latent),
             "info": counts["info"],
             "run_status": b["run_status"],
@@ -181,7 +258,8 @@ def build_report(b: dict, findings: list[Finding], skipped: list[dict],
              "action": f.suggested_action["summary"]}
             for i, f in enumerate(ordered[:15])
         ],
-        "proactive_recommendations": PROACTIVE,
+        "proactive_recommendations": proactive,
+        "already_in_place": in_place,
         "limits": [
             "Findings are derived from the raw HTTP response with no JavaScript executed - "
             "which is what non-rendering AI retrieval agents also see.",
@@ -225,6 +303,7 @@ def main() -> int:
     ap.add_argument("--bundle", help="also save the fetched bundle here")
     ap.add_argument("--max-pages", type=int, default=bundle_mod.DEFAULT_MAX_PAGES)
     args = ap.parse_args()
+    t_start = time.monotonic()
 
     if args.replay:
         b = json.loads(Path(args.replay).read_text(encoding="utf-8"))
@@ -240,9 +319,12 @@ def main() -> int:
         ap.error("provide a URL or --replay BUNDLE")
         return 2
 
+    # Analysis shares whatever the crawl left of the total budget, so the whole
+    # audit is bounded inside the 5-minute limit rather than per-stage.
     raw, skipped, checks_run = [], [], []
     for folder, script in SUB_SKILLS:
-        f, s = run_sub_skill(folder, script, bundle_path)
+        remaining = bundle_mod.TOTAL_BUDGET_S - (time.monotonic() - t_start)
+        f, s = run_sub_skill(folder, script, bundle_path, min(30.0, remaining))
         raw += f
         skipped += s
         checks_run.append(folder)
@@ -268,7 +350,7 @@ def main() -> int:
     text = json.dumps(report, indent=2, ensure_ascii=False)
     if args.out:
         Path(args.out).write_text(text, encoding="utf-8")
-        print(f"wrote {args.out}  ({report['summary']['total_findings']} active, "
+        print(f"wrote {args.out}  ({report['summary']['active_findings']} active, "
               f"{report['summary']['latent_findings']} latent, "
               f"run_status={report['summary']['run_status']})")
     else:

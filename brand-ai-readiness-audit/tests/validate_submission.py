@@ -16,6 +16,10 @@ import json
 import os
 import re
 import subprocess
+
+# Child processes must not litter the tree with bytecode: the gate
+# itself checks for build junk, and a zip must never contain it.
+os.environ.setdefault("PYTHONDONTWRITEBYTECODE", "1")
 import sys
 import zipfile
 from datetime import datetime
@@ -252,9 +256,15 @@ if report:
     active = [f for f in findings if f.get("status") != "latent"]
     if "total_findings" in summary:
         require(
-            summary["total_findings"] == len(active),
-            "summary.total_findings matches active findings",
-            f"summary={summary['total_findings']} actual={len(active)}",
+            summary["total_findings"] == len(findings),
+            "summary.total_findings matches len(findings)",
+            f"summary={summary['total_findings']} actual={len(findings)}",
+        )
+    if "active_findings" in summary:
+        require(
+            summary["active_findings"] == len(active),
+            "summary.active_findings matches active findings",
+            f"summary={summary['active_findings']} actual={len(active)}",
         )
     for sev in ("critical", "high", "medium", "low"):
         if sev in summary:

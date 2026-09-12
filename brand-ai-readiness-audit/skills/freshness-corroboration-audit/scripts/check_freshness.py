@@ -28,10 +28,22 @@ from datetime import datetime, timezone
 
 from bs4 import BeautifulSoup
 
+# Set from the bundle's audited_at in run(), never from the wall clock: a replay
+# of the same bundle must produce the same staleness verdicts on any day.
 NOW = datetime.now(timezone.utc)
 STALE_MONTHS = 18
+
 COPYRIGHT = re.compile(r"(?:©|&copy;|copyright)\s*(?:\d{4}\s*[-–]\s*)?(\d{4})", re.I)
 ISO_DATE = re.compile(r"\b(20\d{2})-(\d{2})-(\d{2})\b")
+PRESS_PATH = re.compile(r"(^|/)(press|newsroom|news|media-cent(er|re)|in-the-news)(/|$|\?|#)", re.I)
+SAMEAS_KEY = re.compile(r'"sameAs"\s*:', re.I)
+
+
+def _clock_from(b: dict) -> datetime:
+    try:
+        return datetime.fromisoformat(b["audited_at"].replace("Z", "+00:00"))
+    except (KeyError, ValueError, AttributeError):
+        return datetime.now(timezone.utc)
 
 
 def load_bundle() -> dict:
@@ -49,6 +61,8 @@ def _months_since(y: int, m: int, d: int) -> float:
 
 
 def run(b: dict) -> tuple[list[dict], list[dict]]:
+    global NOW
+    NOW = _clock_from(b)
     findings: list[dict] = []
     skipped: list[dict] = []
     pages = [p for p in b["pages"] if 200 <= p["status"] < 300 and p["html"]]
@@ -87,7 +101,9 @@ def run(b: dict) -> tuple[list[dict], list[dict]]:
 
         blob = " ".join(signals)
         dates = ISO_DATE.findall(blob)
-        if p["role"] in ("blog", "home") and not dates:
+        # Blog/article pages only. A homepage routinely and correctly carries no
+        # date; firing there would be a false positive on most sites.
+        if p["role"] == "blog" and not dates:
             no_dates.append((p["url"], p["role"]))
         elif dates:
             ages = [_months_since(int(y), int(mo), int(d)) for y, mo, d in dates]
@@ -101,9 +117,16 @@ def run(b: dict) -> tuple[list[dict], list[dict]]:
             prices_by_page[p["url"]] = found
 
         # -- D5 corroboration hooks -----------------------------------------
-        if re.search(r'/(press|news|media|newsroom)', p["html"], re.I):
-            has_press = True
-        if "sameas" in p["html"].lower():
+        # Press: a *link* whose path segment is a press/news section -- not any
+        # substring, which would match /media/logo.png or /wp-content/media/.
+        for a in soup.find_all("a", href=True):
+            if PRESS_PATH.search(a["href"]):
+                has_press = True
+                break
+        # sameAs: a key inside parsed JSON-LD, not the bare word anywhere in the
+        # page (which would match prose, comments or an unrelated script).
+        if not org_sameas and any(SAMEAS_KEY.search(t.string or "") for t in soup.find_all(
+                "script", attrs={"type": re.compile("ld\\+json", re.I)})):
             org_sameas = True
 
     # ---- emit ------------------------------------------------------------

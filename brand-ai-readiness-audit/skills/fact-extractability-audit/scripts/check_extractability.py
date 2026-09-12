@@ -270,7 +270,14 @@ def run(b: dict) -> list[dict]:
                     "verify": f"curl -s <url> | grep -i '<{ft} value>' returns a match with "
                               f"JavaScript disabled.",
                 },
-                "detail": {"fact_type": ft, "tier": "T3"},
+                "detail": {
+                    "fact_type": ft, "tier": "T3",
+                    "measured_on": "raw HTTP response, no JavaScript executed",
+                    "limit": ("If this value is fetched by client-side XHR after load, a human in a "
+                              "browser sees it and a non-rendering retrieval agent does not. The "
+                              "finding stands for the agent; verify with JavaScript disabled, not "
+                              "by viewing the page in a browser."),
+                },
             })
 
     if t2_hits:
@@ -316,6 +323,12 @@ def run(b: dict) -> list[dict]:
                         "At minimum, server-render the title, the primary heading, and a "
                         "one-sentence description."],
                 "verify": "curl -s <url> | wc -w shows substantive content with no JS executed.",
+            },
+            "detail": {
+                "measured_on": "raw HTTP response, no JavaScript executed",
+                "limit": ("The page may look complete in a browser once its script runs. That is "
+                          "not what a non-rendering retrieval agent receives; the finding describes "
+                          "the agent's view."),
             },
         })
 

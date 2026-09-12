@@ -106,7 +106,7 @@ def run(b: dict) -> tuple[list[dict], list[dict]]:
     total = len(pages)
 
     heavy_forms, vague, unnamed, no_alt = [], [], [], []
-    no_lang, bad_headings, zoom_blocked, mismatch = [], [], [], []
+    no_lang, no_h1, multi_h1, zoom_blocked, mismatch = [], [], [], [], []
 
     for p in pages:
         soup = BeautifulSoup(p["html"], "html.parser")
@@ -157,9 +157,14 @@ def run(b: dict) -> tuple[list[dict], list[dict]]:
             no_alt.append((p["url"], len(missing), len(imgs)))
 
         # -- E6 heading structure ----------------------------------------------
+        # Zero h1 is a defect: nothing tells an extractor what the page is about.
+        # Several h1s are legal HTML5 with sectioning and common in practice --
+        # reported as info only, never as a problem to fix.
         h1s = soup.find_all("h1")
-        if len(h1s) != 1:
-            bad_headings.append((p["url"], f"{len(h1s)} h1 elements"))
+        if not h1s:
+            no_h1.append(p["url"])
+        elif len(h1s) > 1:
+            multi_h1.append((p["url"], len(h1s)))
 
         # -- E7 zoom disabled ---------------------------------------------------
         vp = soup.find("meta", attrs={"name": re.compile("^viewport$", re.I)})
@@ -252,16 +257,30 @@ def run(b: dict) -> tuple[list[dict], list[dict]]:
              "verify": "Every page's <html> element carries a lang attribute."},
             blast="site_wide" if len(no_lang) == total else "template")
 
-    if bad_headings:
+    if no_h1:
         add("E6_heading_structure",
-            f"Heading structure problems on {len(bad_headings)} page(s)",
-            "; ".join(f"{u}: {why}" for u, why in bad_headings[:4]),
-            [u for u, _ in bad_headings],
-            {"summary": "Give each page exactly one h1 describing that page.",
+            f"No h1 heading on {len(no_h1)} page(s)",
+            f"{len(no_h1)}/{total} pages contain no h1 element at all. Examples: {no_h1[:4]}. "
+            f"Extractors and assistants use the top heading to decide what a page is about.",
+            no_h1,
+            {"summary": "Give each page one h1 that states its subject.",
              "priority": "low", "effort": "low",
-             "how": ["Use a single h1 for the page subject, then h2/h3 for sections in order.",
-                     "Extraction tools use heading hierarchy to decide what a passage is about."],
-             "verify": "Each page has exactly one h1 and no skipped heading levels."})
+             "how": ["Add a single h1 naming the page subject, then h2/h3 for sections in order.",
+                     "If the visual title is styled as a div or span, change the element, not the CSS."],
+             "verify": "Each page has an h1 and its text matches the page's subject."},
+            blast="site_wide" if len(no_h1) == total else "template")
+
+    if multi_h1:
+        add("E6_multiple_h1",
+            f"More than one h1 on {len(multi_h1)} page(s)",
+            "; ".join(f"{u}: {n} h1 elements" for u, n in multi_h1[:4])
+            + ". Legal HTML5 with sectioning; noted because some extractors take only the first h1 as the page subject.",
+            [u for u, _ in multi_h1],
+            {"summary": "Optional: keep one h1 per page if the extra ones are not sectioning roots.",
+             "priority": "low", "effort": "low",
+             "how": ["No action required if each h1 heads its own <section>/<article>.",
+                     "Otherwise demote the secondary headings to h2."],
+             "verify": "The first h1 on the page names the page's subject."})
 
     if zoom_blocked:
         add("E7_zoom_disabled", f"Pinch-zoom suppressed on {len(zoom_blocked)} page(s)",

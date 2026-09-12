@@ -1,0 +1,567 @@
+{
+  "site": "stripe.com",
+  "audited_at": "2026-09-10T09:54:47Z",
+  "summary": {
+    "total_findings": 5,
+    "critical": 0,
+    "high": 0,
+    "medium": 4,
+    "low": 1
+  },
+  "crawl_status": {
+    "pages_discovered": 21,
+    "pages_sampled": 10,
+    "bot_interstitials": 0,
+    "http_errors": []
+  },
+  "findings": [
+    {
+      "title": "Incomplete structured data coverage across site sections",
+      "severity": "medium",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "Crawled 10 of 21 discovered pages; only 1/10 pages contain valid Schema.org markup.",
+      "suggested_action": {
+        "summary": "Extend JSON-LD structured markup to all product, article, and service templates.",
+        "priority": "medium"
+      },
+      "id": "F-001"
+    },
+    {
+      "title": "Client-side rendering extraction gap (low text-to-code ratio)",
+      "severity": "medium",
+      "category": "discoverability",
+      "confidence": "medium",
+      "evidence": "2/10 sampled pages exhibited a text-to-HTML ratio under 4% (proxy heuristic for client-side JavaScript hydration walls). Lightweight AI fetchers may index these pages as blank.",
+      "suggested_action": {
+        "summary": "Implement Server-Side Rendering (SSR) or Static Site Generation (SSG) so raw HTML payloads contain complete indexable copy.",
+        "priority": "medium"
+      },
+      "id": "F-002"
+    },
+    {
+      "title": "Multiple competing H1 headings detected",
+      "severity": "medium",
+      "category": "engagement",
+      "confidence": "high",
+      "evidence": "5/6 audited pages contain multiple distinct <h1> elements, dividing visitor focus and fragmenting automated reading parsers.",
+      "suggested_action": {
+        "summary": "Consolidate to a single primary <h1> per page and demote secondary section titles to <h2>.",
+        "priority": "medium"
+      },
+      "id": "F-003"
+    },
+    {
+      "title": "Missing FAQPage structured data for conversational question content",
+      "severity": "medium",
+      "category": "engagement",
+      "confidence": "high",
+      "evidence": "Audited pages feature conversational question headings ('Don't code?') but lack Schema.org FAQPage or Question JSON-LD markup. Conversational search engines favor direct Q&A markup for zero-click quoting.",
+      "suggested_action": {
+        "summary": "Incorporate Schema.org FAQPage JSON-LD markup matching the existing conversational question sections.",
+        "priority": "medium"
+      },
+      "id": "F-004"
+    },
+    {
+      "title": "Proactive: Provide semantic tabular structures for numerical specifications",
+      "severity": "low",
+      "category": "engagement",
+      "confidence": "high",
+      "evidence": "Raw body copy contains pricing or numerical specifications embedded inside unstructured text elements. LLM citation extractors achieve significantly higher precision when extracting pricing tiers from semantic HTML <table> elements.",
+      "suggested_action": {
+        "summary": "Encapsulate feature comparison matrices and pricing tiers in semantic <table> markup with descriptive <th> headers.",
+        "priority": "low"
+      },
+      "id": "F-005"
+    }
+  ]
+}
+
+{
+  "site": "www.wikipedia.org",
+  "audited_at": "2026-09-10T09:55:08Z",
+  "summary": {
+    "total_findings": 4,
+    "critical": 0,
+    "high": 2,
+    "medium": 2,
+    "low": 0
+  },
+  "crawl_status": {
+    "pages_discovered": 20,
+    "pages_sampled": 1,
+    "bot_interstitials": 19,
+    "http_errors": []
+  },
+  "findings": [
+    {
+      "title": "Missing JSON-LD structured data across all audited pages",
+      "severity": "high",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "Crawled 1 of 20 discovered pages; 0/1 contain Schema.org structured data.",
+      "suggested_action": {
+        "summary": "Deploy Schema.org JSON-LD (Organization, Product, WebSite) across core templates.",
+        "priority": "high"
+      },
+      "id": "F-001"
+    },
+    {
+      "title": "No Organization/Brand entity schema found on audited pages",
+      "severity": "high",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "1 pages audited; none declare an Organization/Brand entity in JSON-LD, so there is no anchor point for sameAs corroboration to Wikidata/Wikipedia/Crunchbase/LinkedIn.",
+      "suggested_action": {
+        "summary": "Add an Organization (or Brand) JSON-LD block with a sameAs array linking to authoritative external entity pages (Wikidata QID, Wikipedia article, verified LinkedIn/Crunchbase page).",
+        "priority": "high"
+      },
+      "id": "F-002"
+    },
+    {
+      "title": "Brand facts locked in non-text (missing image alt text)",
+      "severity": "medium",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "Across 1 audited pages, 7/7 images (100%) lack descriptive 'alt' attributes.",
+      "suggested_action": {
+        "summary": "Add factual alt text to product and infographic images to allow machine text extraction.",
+        "priority": "medium"
+      },
+      "id": "F-003"
+    },
+    {
+      "title": "Missing canonical URL link tags",
+      "severity": "medium",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "1/1 audited pages lack a valid <link rel='canonical'> tag, risking split citation authority across URL variants.",
+      "suggested_action": {
+        "summary": "Ensure every public page declares an explicit absolute canonical URL in <head>.",
+        "priority": "medium"
+      },
+      "id": "F-004"
+    }
+  ]
+}
+
+{
+  "site": "react.dev",
+  "audited_at": "2026-09-10T09:55:24Z",
+  "summary": {
+    "total_findings": 7,
+    "critical": 0,
+    "high": 2,
+    "medium": 5,
+    "low": 0
+  },
+  "crawl_status": {
+    "pages_discovered": 20,
+    "pages_sampled": 10,
+    "bot_interstitials": 0,
+    "http_errors": []
+  },
+  "findings": [
+    {
+      "title": "Missing JSON-LD structured data across all audited pages",
+      "severity": "high",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "Crawled 10 of 20 discovered pages; 0/10 contain Schema.org structured data.",
+      "suggested_action": {
+        "summary": "Deploy Schema.org JSON-LD (Organization, Product, WebSite) across core templates.",
+        "priority": "high"
+      },
+      "id": "F-001"
+    },
+    {
+      "title": "No Organization/Brand entity schema found on audited pages",
+      "severity": "high",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "6 pages audited; none declare an Organization/Brand entity in JSON-LD, so there is no anchor point for sameAs corroboration to Wikidata/Wikipedia/Crunchbase/LinkedIn.",
+      "suggested_action": {
+        "summary": "Add an Organization (or Brand) JSON-LD block with a sameAs array linking to authoritative external entity pages (Wikidata QID, Wikipedia article, verified LinkedIn/Crunchbase page).",
+        "priority": "high"
+      },
+      "id": "F-002"
+    },
+    {
+      "title": "No Sitemap declared in robots.txt",
+      "severity": "medium",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "robots.txt at https://react.dev/robots.txt contains no 'Sitemap:' directive.",
+      "suggested_action": {
+        "summary": "Declare 'Sitemap: https://react.dev/sitemap.xml' in robots.txt to guide multi-page crawler discovery.",
+        "priority": "medium"
+      },
+      "id": "F-003"
+    },
+    {
+      "title": "Client-side rendering extraction gap (low text-to-code ratio)",
+      "severity": "medium",
+      "category": "discoverability",
+      "confidence": "medium",
+      "evidence": "5/10 sampled pages exhibited a text-to-HTML ratio under 4% (proxy heuristic for client-side JavaScript hydration walls). Lightweight AI fetchers may index these pages as blank.",
+      "suggested_action": {
+        "summary": "Implement Server-Side Rendering (SSR) or Static Site Generation (SSG) so raw HTML payloads contain complete indexable copy.",
+        "priority": "medium"
+      },
+      "id": "F-004"
+    },
+    {
+      "title": "Brand facts locked in non-text (missing image alt text)",
+      "severity": "medium",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "Across 10 audited pages, 24/60 images (40%) lack descriptive 'alt' attributes.",
+      "suggested_action": {
+        "summary": "Add factual alt text to product and infographic images to allow machine text extraction.",
+        "priority": "medium"
+      },
+      "id": "F-005"
+    },
+    {
+      "title": "Multiple competing H1 headings detected",
+      "severity": "medium",
+      "category": "engagement",
+      "confidence": "high",
+      "evidence": "1/6 audited pages contain multiple distinct <h1> elements, dividing visitor focus and fragmenting automated reading parsers.",
+      "suggested_action": {
+        "summary": "Consolidate to a single primary <h1> per page and demote secondary section titles to <h2>.",
+        "priority": "medium"
+      },
+      "id": "F-006"
+    },
+    {
+      "title": "Missing FAQPage structured data for conversational question content",
+      "severity": "medium",
+      "category": "engagement",
+      "confidence": "high",
+      "evidence": "Audited pages feature conversational question headings ('How to Upgrade to React 18') but lack Schema.org FAQPage or Question JSON-LD markup. Conversational search engines favor direct Q&A markup for zero-click quoting.",
+      "suggested_action": {
+        "summary": "Incorporate Schema.org FAQPage JSON-LD markup matching the existing conversational question sections.",
+        "priority": "medium"
+      },
+      "id": "F-007"
+    }
+  ]
+}
+
+{
+  "site": "news.ycombinator.com",
+  "audited_at": "2026-09-10T09:55:45Z",
+  "summary": {
+    "total_findings": 10,
+    "critical": 1,
+    "high": 4,
+    "medium": 5,
+    "low": 0
+  },
+  "crawl_status": {
+    "pages_discovered": 20,
+    "pages_sampled": 10,
+    "bot_interstitials": 0,
+    "http_errors": []
+  },
+  "findings": [
+    {
+      "title": "Page-level meta or header directives blocking indexing",
+      "severity": "critical",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "4/10 sampled pages emit 'noindex' or 'noai' in meta tags or X-Robots-Tag headers.",
+      "suggested_action": {
+        "summary": "Remove restrictive noindex/noai headers from public indexable pages.",
+        "priority": "critical"
+      },
+      "id": "F-001"
+    },
+    {
+      "title": "Missing JSON-LD structured data across all audited pages",
+      "severity": "high",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "Crawled 10 of 20 discovered pages; 0/10 contain Schema.org structured data.",
+      "suggested_action": {
+        "summary": "Deploy Schema.org JSON-LD (Organization, Product, WebSite) across core templates.",
+        "priority": "high"
+      },
+      "id": "F-002"
+    },
+    {
+      "title": "No Organization/Brand entity schema found on audited pages",
+      "severity": "high",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "6 pages audited; none declare an Organization/Brand entity in JSON-LD, so there is no anchor point for sameAs corroboration to Wikidata/Wikipedia/Crunchbase/LinkedIn.",
+      "suggested_action": {
+        "summary": "Add an Organization (or Brand) JSON-LD block with a sameAs array linking to authoritative external entity pages (Wikidata QID, Wikipedia article, verified LinkedIn/Crunchbase page).",
+        "priority": "high"
+      },
+      "id": "F-003"
+    },
+    {
+      "title": "Missing primary H1 value proposition",
+      "severity": "high",
+      "category": "engagement",
+      "confidence": "high",
+      "evidence": "6/6 audited pages contain zero visible <h1> elements. Visitors arriving from conversational AI lack an instant orienting headline.",
+      "suggested_action": {
+        "summary": "Add a prominent, declarative <h1> to all key templates communicating the core value proposition.",
+        "priority": "high"
+      },
+      "id": "F-004"
+    },
+    {
+      "title": "Missing clear above-the-fold Call to Action (CTA)",
+      "severity": "high",
+      "category": "engagement",
+      "confidence": "high",
+      "evidence": "Landing page contains no prominent action buttons or links matching standard CTA patterns ('Get Started', 'Try Free', 'Sign Up', 'Contact Sales'). Referred visitors have no clear next step and bounce.",
+      "suggested_action": {
+        "summary": "Place a prominent, high-contrast CTA button above the fold guiding visitors to a conversion path.",
+        "priority": "high"
+      },
+      "id": "F-005"
+    },
+    {
+      "title": "No Sitemap declared in robots.txt",
+      "severity": "medium",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "robots.txt at https://news.ycombinator.com/robots.txt contains no 'Sitemap:' directive.",
+      "suggested_action": {
+        "summary": "Declare 'Sitemap: https://news.ycombinator.com/sitemap.xml' in robots.txt to guide multi-page crawler discovery.",
+        "priority": "medium"
+      },
+      "id": "F-006"
+    },
+    {
+      "title": "Brand facts locked in non-text (missing image alt text)",
+      "severity": "medium",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "Across 10 audited pages, 48/48 images (100%) lack descriptive 'alt' attributes.",
+      "suggested_action": {
+        "summary": "Add factual alt text to product and infographic images to allow machine text extraction.",
+        "priority": "medium"
+      },
+      "id": "F-007"
+    },
+    {
+      "title": "Missing canonical URL link tags",
+      "severity": "medium",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "10/10 audited pages lack a valid <link rel='canonical'> tag, risking split citation authority across URL variants.",
+      "suggested_action": {
+        "summary": "Ensure every public page declares an explicit absolute canonical URL in <head>.",
+        "priority": "medium"
+      },
+      "id": "F-008"
+    },
+    {
+      "title": "Missing OpenGraph and Twitter Card conversational preview metadata",
+      "severity": "medium",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "10/10 pages omit complete og:title or og:description tags required by conversational AI assistants (SearchGPT, Claude, Perplexity) when rendering citation cards.",
+      "suggested_action": {
+        "summary": "Implement OpenGraph and Twitter Card tags across all public page templates.",
+        "priority": "medium"
+      },
+      "id": "F-009"
+    },
+    {
+      "title": "Missing semantic orientation landmarks (<nav>, <main>)",
+      "severity": "medium",
+      "category": "engagement",
+      "confidence": "high",
+      "evidence": "6/6 audited pages lack semantic <nav> or <main> container landmarks.",
+      "suggested_action": {
+        "summary": "Encapsulate primary content in <main> and navigation links in <nav> for predictable user orientation and screen-reader parsing.",
+        "priority": "medium"
+      },
+      "id": "F-010"
+    }
+  ]
+}
+
+{
+  "site": "www.amazon.in",
+  "audited_at": "2026-09-10T09:56:20Z",
+  "summary": {
+    "total_findings": 13,
+    "critical": 1,
+    "high": 3,
+    "medium": 7,
+    "low": 2
+  },
+  "crawl_status": {
+    "pages_discovered": 20,
+    "pages_sampled": 10,
+    "bot_interstitials": 0,
+    "http_errors": []
+  },
+  "findings": [
+    {
+      "title": "Combined Critical: Brand is functionally invisible to AI assistants",
+      "severity": "critical",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "Cross-skill correlation detected compound retrieval failure: robots.txt disallows primary AI crawlers (GPTBot, ClaudeBot) AND pages lack Schema.org structured data. Conversational models cannot discover, index, or quote the brand.",
+      "suggested_action": {
+        "summary": "Immediately remove AI crawler disallow rules in robots.txt and deploy Schema.org Organization/WebSite JSON-LD structured data across key templates.",
+        "priority": "critical"
+      },
+      "id": "F-001"
+    },
+    {
+      "title": "No Organization/Brand entity schema found on audited pages",
+      "severity": "high",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "6 pages audited; none declare an Organization/Brand entity in JSON-LD, so there is no anchor point for sameAs corroboration to Wikidata/Wikipedia/Crunchbase/LinkedIn.",
+      "suggested_action": {
+        "summary": "Add an Organization (or Brand) JSON-LD block with a sameAs array linking to authoritative external entity pages (Wikidata QID, Wikipedia article, verified LinkedIn/Crunchbase page).",
+        "priority": "high"
+      },
+      "id": "F-002"
+    },
+    {
+      "title": "Missing primary H1 value proposition",
+      "severity": "high",
+      "category": "engagement",
+      "confidence": "high",
+      "evidence": "4/6 audited pages contain zero visible <h1> elements. Visitors arriving from conversational AI lack an instant orienting headline.",
+      "suggested_action": {
+        "summary": "Add a prominent, declarative <h1> to all key templates communicating the core value proposition.",
+        "priority": "high"
+      },
+      "id": "F-003"
+    },
+    {
+      "title": "Missing mobile viewport meta tag",
+      "severity": "high",
+      "category": "engagement",
+      "confidence": "high",
+      "evidence": "5/6 audited pages lack a valid <meta name='viewport'> tag, causing broken desktop-scale rendering on mobile screens.",
+      "suggested_action": {
+        "summary": "Add standard responsive viewport meta tags in <head> across all pages.",
+        "priority": "high"
+      },
+      "id": "F-004"
+    },
+    {
+      "title": "No Sitemap declared in robots.txt",
+      "severity": "medium",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "robots.txt at https://www.amazon.in/robots.txt contains no 'Sitemap:' directive.",
+      "suggested_action": {
+        "summary": "Declare 'Sitemap: https://www.amazon.in/sitemap.xml' in robots.txt to guide multi-page crawler discovery.",
+        "priority": "medium"
+      },
+      "id": "F-005"
+    },
+    {
+      "title": "Client-side rendering extraction gap (low text-to-code ratio)",
+      "severity": "medium",
+      "category": "discoverability",
+      "confidence": "medium",
+      "evidence": "10/10 sampled pages exhibited a text-to-HTML ratio under 4% (proxy heuristic for client-side JavaScript hydration walls). Lightweight AI fetchers may index these pages as blank.",
+      "suggested_action": {
+        "summary": "Implement Server-Side Rendering (SSR) or Static Site Generation (SSG) so raw HTML payloads contain complete indexable copy.",
+        "priority": "medium"
+      },
+      "id": "F-006"
+    },
+    {
+      "title": "Brand facts locked in non-text (missing image alt text)",
+      "severity": "medium",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "Across 10 audited pages, 101/243 images (41%) lack descriptive 'alt' attributes.",
+      "suggested_action": {
+        "summary": "Add factual alt text to product and infographic images to allow machine text extraction.",
+        "priority": "medium"
+      },
+      "id": "F-007"
+    },
+    {
+      "title": "Missing canonical URL link tags",
+      "severity": "medium",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "2/10 audited pages lack a valid <link rel='canonical'> tag, risking split citation authority across URL variants.",
+      "suggested_action": {
+        "summary": "Ensure every public page declares an explicit absolute canonical URL in <head>.",
+        "priority": "medium"
+      },
+      "id": "F-008"
+    },
+    {
+      "title": "Missing OpenGraph and Twitter Card conversational preview metadata",
+      "severity": "medium",
+      "category": "discoverability",
+      "confidence": "high",
+      "evidence": "9/10 pages omit complete og:title or og:description tags required by conversational AI assistants (SearchGPT, Claude, Perplexity) when rendering citation cards.",
+      "suggested_action": {
+        "summary": "Implement OpenGraph and Twitter Card tags across all public page templates.",
+        "priority": "medium"
+      },
+      "id": "F-009"
+    },
+    {
+      "title": "Missing FAQPage structured data for conversational question content",
+      "severity": "medium",
+      "category": "engagement",
+      "confidence": "high",
+      "evidence": "Audited pages feature conversational question headings ('How to sell on Amazon.in?' | 'Why become a seller on Amazon.in?') but lack Schema.org FAQPage or Question JSON-LD markup. Conversational search engines favor direct Q&A markup for zero-click quoting.",
+      "suggested_action": {
+        "summary": "Incorporate Schema.org FAQPage JSON-LD markup matching the existing conversational question sections.",
+        "priority": "medium"
+      },
+      "id": "F-010"
+    },
+    {
+      "title": "Missing semantic orientation landmarks (<nav>, <main>)",
+      "severity": "medium",
+      "category": "engagement",
+      "confidence": "high",
+      "evidence": "4/6 audited pages lack semantic <nav> or <main> container landmarks.",
+      "suggested_action": {
+        "summary": "Encapsulate primary content in <main> and navigation links in <nav> for predictable user orientation and screen-reader parsing.",
+        "priority": "medium"
+      },
+      "id": "F-011"
+    },
+    {
+      "title": "Proactive: Provide semantic tabular structures for numerical specifications",
+      "severity": "low",
+      "category": "engagement",
+      "confidence": "high",
+      "evidence": "Raw body copy contains pricing or numerical specifications embedded inside unstructured text elements. LLM citation extractors achieve significantly higher precision when extracting pricing tiers from semantic HTML <table> elements.",
+      "suggested_action": {
+        "summary": "Encapsulate feature comparison matrices and pricing tiers in semantic <table> markup with descriptive <th> headers.",
+        "priority": "low"
+      },
+      "id": "F-012"
+    },
+    {
+      "title": "High cognitive load / complex sentence structure",
+      "severity": "low",
+      "category": "engagement",
+      "confidence": "medium",
+      "evidence": "5/6 pages have excessively dense sentence structures (averaging 40.9 words/sentence, 38.5 words/sentence), increasing cognitive fatigue and reducing visitor retention.",
+      "suggested_action": {
+        "summary": "Shorten complex sentences to under 20 words and use scannable bullet points for technical claims.",
+        "priority": "low"
+      },
+      "id": "F-013"
+    }
+  ]
+}

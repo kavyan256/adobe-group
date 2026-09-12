@@ -6,6 +6,6 @@ venv/
 
 # audit artefacts produced while testing
 *.bundle.json
-!brand-ai-readiness-audit/tests/fixtures/*.bundle.json
+!brand-ai-readiness-audit*/tests/fixtures/*.bundle.json
 report*.json
 verdicts-*.json

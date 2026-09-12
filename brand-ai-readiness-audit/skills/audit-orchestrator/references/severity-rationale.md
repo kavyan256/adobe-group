@@ -60,6 +60,7 @@ prevalence would flag a fixed fraction of sites by construction.
 | `D5_no_corroboration_hooks` | medium | Isolated claims are fragile. |
 | `D2_stale_copyright` | low | A cue, not a cause. |
 | `E*` (all engagement) | low–medium | All are `static_heuristic` and therefore capped at medium regardless of base. |
+| `E6_multiple_h1` | info | Several `h1`s are legal HTML5 with sectioning. Recorded so the reader knows it was checked, never as a defect to fix. |
 
 ## Why latent, not suppressed
 
