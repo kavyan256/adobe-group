@@ -116,6 +116,11 @@ def accessible_name(el, soup) -> str:
     svg_title = el.find("title")
     if svg_title is not None and svg_title.get_text(" ", strip=True):
         return svg_title.get_text(" ", strip=True)
+    # An icon child labelled for assistive tech names its parent link too:
+    # <a href=...><svg aria-label="Facebook"></svg></a> (USWDS, most icon sets).
+    labelled_child = el.find(attrs={"aria-label": True})
+    if labelled_child is not None and (labelled_child.get("aria-label") or "").strip():
+        return labelled_child["aria-label"].strip()
     return el.get_text(" ", strip=True)
 
 
@@ -265,7 +270,12 @@ def run(b: dict) -> tuple[list[dict], list[dict]]:
             [a for a in anchors] + \
             [i for i in soup.find_all("input")
              if (i.get("type") or "").lower() in ("submit", "button", "image")]
-        controls = [c for c in controls if not framework_bound(c)]
+        # A control hidden from assistive technology (aria-hidden) or taken out
+        # of the tab order (tabindex=-1) is decorative by declaration: a card's
+        # duplicate icon button, a carousel arrow mirrored for layout.
+        controls = [c for c in controls if not framework_bound(c)
+                    and (c.get("aria-hidden") or "").lower() != "true"
+                    and (c.get("tabindex") or "").strip() != "-1"]
         nameless = [c for c in controls if not accessible_name(c, soup)]
         if len(nameless) >= 3:
             unnamed.append((p["url"], len(nameless), len(controls)))

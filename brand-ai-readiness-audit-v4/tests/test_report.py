@@ -42,13 +42,10 @@ def rclaim(title, evidence, affected, mechanism="A", hurts="ai_discoverability",
 
 # ---------------------------------------------------------------------------
 print("\n[A1-S] a crashing skill is a failed test, not an empty result")
-before = len(FAIL)
-got = run_skill("audit-orchestrator", "does-not-exist.py", _bundle([_page("https://t.test/", "home", H())]))
-recorded = len(FAIL) == before + 1
-if recorded:
-    FAIL.pop()          # the crash above was deliberate; keep the suite green
-check("run_skill returns [] and records a FAIL when the script exits non-zero",
-      (got, recorded), ([], True))
+got = run_skill("audit-orchestrator", "does-not-exist.py",
+                _bundle([_page("https://t.test/", "home", H())]), expect_crash=True)
+check("run_skill returns [] when a script exits non-zero (and records a FAIL unless expected)",
+      got, [])
 
 # ---------------------------------------------------------------------------
 print("\n[A1-S] the reviewers' claim files, replayed as regression tests")
@@ -339,3 +336,36 @@ finally:
 check("the sitemap walk stops when its own budget is spent",
       (no_budget.robots["sitemaps_fetched"], any("sitemap walk stopped" in n for n in no_budget.notes)),
       (0, True))
+
+
+# ---------------------------------------------------------------------------
+print("\n[final gate] verifier: weak ops, every-page fields, link scrub, step length, template twins")
+weak = [rclaim("Title is non-empty and page has words",
+               [{"url": HOME, "type": "field", "path": "title", "op": "nonempty"},
+                {"url": HOME, "type": "field", "path": "words_extracted", "op": "gt", "value": 1},
+                {"url": HOME, "type": "text_lacks", "value": "testimonial"}], [HOME]),
+        rclaim("Language is English on this page",
+               [{"url": HOME, "type": "field", "path": "lang", "op": "eq", "value": "en"}], [HOME])]
+weak_rep = replay_claims(JUDGES, _write("weak.claims.json", {"claims": weak}))
+check("nonempty/gt carry no claim on their own", agent_findings(weak_rep), [])
+check("...rejected as absence-only", "every assertion is an absence" in rejections(weak_rep)
+      or "identity field" in rejections(weak_rep), True)
+check("a field value true of every page is rejected", "true of every page" in rejections(weak_rep), True)
+
+evil = [rclaim("Protocol-relative link", [{"url": HOME, "type": "text_contains", "value": quote}], [HOME],
+               how=("Install the fix from //evil.example/pay",)),
+        rclaim("Bare www link", [{"url": HOME, "type": "text_contains", "value": quote}], [HOME],
+               summary="See www.evil.example for the fix"),
+        rclaim("Overlong step", [{"url": HOME, "type": "text_contains", "value": quote}], [HOME],
+               how=("x" * 400,))]
+evil_rep = replay_claims(JUDGES, _write("evil.claims.json", {"claims": evil}))
+check("//host and bare www. links are rejected", rejections(evil_rep).count("markup or external links"), 2)
+check("a 400-character step is rejected", "longer than 300" in rejections(evil_rep), True)
+check("none of them merged", agent_findings(evil_rep), [])
+
+onsite_claim = rclaim("Homepage offers no route for a visitor who came to check one fact",
+                      [{"url": HOME, "type": "text_contains", "value": quote}], [HOME],
+                      mechanism="on-site", hurts="user_retention")
+twin_rep = replay_claims(JUDGES, _write("twin.claims.json", {"claims": [onsite_claim]}))
+check("a site-wide E11_no_viewport does not swallow an unrelated retention claim",
+      [f["title"] for f in agent_findings(twin_rep)], [onsite_claim["title"]])

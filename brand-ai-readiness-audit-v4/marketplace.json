@@ -8,7 +8,7 @@
       "id": "audit-orchestrator",
       "path": "skills/audit-orchestrator",
       "entrypoint": true,
-      "summary": "Performs the single crawl, invokes the five specialist skills, composes their findings into one report, derives severity and prioritizes."
+      "summary": "Performs the single crawl, invokes the four scripted skills and the agent review, composes their findings into one report, derives severity and prioritizes."
     },
     {
       "id": "crawl-access-audit",

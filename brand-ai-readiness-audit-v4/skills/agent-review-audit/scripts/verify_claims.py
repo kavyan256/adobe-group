@@ -40,6 +40,10 @@ EFFORTS = ("low", "medium", "high")
 TEXT_TYPES = {"html_contains", "html_lacks", "text_contains", "text_lacks", "header_contains"}
 FIELD_OPS = {"eq", "ne", "contains", "lacks", "gt", "lt", "empty", "nonempty"}
 POSITIVE_FIELD_OPS = {"eq", "contains", "gt", "lt", "nonempty"}
+# Ops that name no claim-specific value: "words_extracted gt 1" or "title
+# nonempty" is true of almost any page. They may support a claim, never carry it.
+WEAK_POSITIVE_OPS = {"gt", "lt", "nonempty"}
+MAX_STEP_CHARS = 300
 # Fields that say WHICH page this is, not what is wrong with it. They may
 # support a claim ("the pricing page ...") but never carry it on their own:
 # "status eq 200" is true of every page the crawl kept.
@@ -47,7 +51,12 @@ IDENTITY_FIELDS = {"url", "final_url", "status", "role", "content_type", "redire
 # Claim text reaches a human reader as-is, so it may not smuggle markup or
 # point off the audited site.
 _MARKUP = re.compile(r"<\s*/?\s*[a-zA-Z!?]|javascript\s*:", re.I)
-_URL_HOST = re.compile(r"https?://([^\s/\"'<>]+)", re.I)
+_URL_HOST = re.compile(r"(?:https?:)?//([^\s/\"'<>]+)|(?<![\w.-])(www\.[^\s/\"'<>]+)", re.I)
+
+
+def _hosts_in(text: str) -> list[str]:
+    """Every host a reader could follow: absolute, protocol-relative (//host) or bare www."""
+    return [(a or b).lower().rstrip(".,;:)") for a, b in _URL_HOST.findall(text)]
 
 
 class Rejected(Exception):
@@ -126,6 +135,14 @@ class Crawl:
     def header(self, url: str, name: str) -> str:
         return _norm((self.pages[url].get("headers") or {}).get(name, ""))
 
+    def field_holds(self, url: str, path: str, op: str, expected) -> bool:
+        """Does this page's profile field satisfy the same assertion? A field
+        assertion that every readable page satisfies distinguishes nothing."""
+        try:
+            return _field_holds(get_field(self.profile(url), path), op, expected)
+        except (KeyError, Rejected):
+            return False
+
     def field_has(self, url: str, path: str, needle: str) -> bool:
         try:
             actual = get_field(self.profile(url), path)
@@ -198,12 +215,11 @@ def check_assertion(a, crawl: Crawl) -> tuple[bool, str, bool]:
             raise Rejected(f"{url} has no profile field {path!r}")
         expected = a.get("value")
         holds = _field_holds(actual, op, expected)
-        positive = (op in POSITIVE_FIELD_OPS
+        positive = (op in POSITIVE_FIELD_OPS and op not in WEAK_POSITIVE_OPS
                     and path.split(".")[0] not in IDENTITY_FIELDS
                     and not (op == "eq" and expected in (None, "")))   # eq null is an absence
-        if holds and positive and op == "contains" \
-                and crawl.everywhere(lambda u: crawl.field_has(u, path, _norm(expected))):
-            raise Rejected(f"evidence is true of every page: {path} contains {expected!r}")
+        if holds and positive and crawl.everywhere(lambda u: crawl.field_holds(u, path, op, expected)):
+            raise Rejected(f"evidence is true of every page: {path} {op} {expected!r}")
         shown = json.dumps(actual, ensure_ascii=False)
         if len(shown) > 120:
             shown = shown[:117] + "..."
@@ -220,7 +236,7 @@ def _same_site(host: str, site: str) -> bool:
 
 def _scrub(text: str, site: str) -> str:
     """Reject markup, javascript: and links off the audited site in reader-facing text."""
-    if _MARKUP.search(text) or any(not _same_site(h, site) for h in _URL_HOST.findall(text)):
+    if _MARKUP.search(text) or any(not _same_site(h, site) for h in _hosts_in(text)):
         raise Rejected("claim text contains markup or external links")
     return text
 
@@ -237,6 +253,8 @@ def _require_steps(obj: dict, key: str, site: str) -> list[str]:
     if not isinstance(steps, list) or not steps or len(steps) > MAX_STEPS \
             or not all(isinstance(s, str) and s.strip() for s in steps):
         raise Rejected(f"'{key}' must list 1-{MAX_STEPS} non-empty steps")
+    if any(len(s) > MAX_STEP_CHARS for s in steps):
+        raise Rejected(f"a '{key}' step is longer than {MAX_STEP_CHARS} characters")
     return [_scrub(" ".join(s.split()), site) for s in steps]
 
 

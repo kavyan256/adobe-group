@@ -57,7 +57,7 @@ sys.dont_write_bytecode = True  # keep __pycache__ out of the marketplace
 sys.path.insert(0, str(Path(__file__).parent))
 from robots import Robots, classify_agent  # noqa: E402  (same-folder module, not a shared lib)
 
-USER_AGENT = "AIReadinessAudit/1.0 (+https://github.com/example/brand-ai-readiness-audit)"
+USER_AGENT = "AIReadinessAudit/1.0 (+https://github.com/kavyan256/adobe-group)"
 DEFAULT_MAX_PAGES = 20
 DEFAULT_DEADLINE_S = 200        # crawl budget; analysis shares the remainder of TOTAL_BUDGET_S
 TOTAL_BUDGET_S = 280            # whole audit, inside the 5-minute limit with margin
@@ -393,6 +393,12 @@ _ASSET_URL = re.compile(r"\.(css|m?js|json|xml|rss|atom|txt|ico|png|jpe?g|gif|sv
                         r"woff2?|ttf|otf|eot|mp4|webm|mov|mp3|wav|zip|gz|pdf)$", re.I)
 
 
+def _same_host(a: str, b: str) -> bool:
+    """example.com and www.example.com are one site: the typed host and the
+    host the site redirects to must not split the crawl."""
+    return a.lower().removeprefix("www.") == b.lower().removeprefix("www.")
+
+
 def homepage_links(html: str, base: str) -> tuple[list[str], dict[str, str]]:
     """Same-host page links from <a href> only, sorted, plus each link's label.
 
@@ -407,7 +413,7 @@ def homepage_links(html: str, base: str) -> tuple[list[str], dict[str, str]]:
         if not href or href.lower().startswith(("mailto:", "tel:", "javascript:", "data:")):
             continue
         target = normalise(urljoin(base, href))
-        if urlparse(target).netloc != host or _ASSET_URL.search(urlparse(target).path):
+        if not _same_host(urlparse(target).netloc, host) or _ASSET_URL.search(urlparse(target).path):
             continue
         targets.add(target)
         label = " ".join(a.get_text(" ", strip=True).split())
@@ -594,7 +600,7 @@ def build(start_url: str, max_pages: int = DEFAULT_MAX_PAGES,
     frontier: list[str] = [base]
     seen = {base}
     for u in sitemap_urls:                       # sitemap order first
-        if urlparse(u).netloc == host and u not in seen and not _ASSET_URL.search(urlparse(u).path):
+        if _same_host(urlparse(u).netloc, host) and u not in seen and not _ASSET_URL.search(urlparse(u).path):
             seen.add(u)
             frontier.append(u)
 

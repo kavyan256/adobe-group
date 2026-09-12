@@ -62,9 +62,18 @@ about the page that is wrong or unusual:
   `redirect_hops` are never positive: they say which page this is, not what is
   wrong with it. Use them as supporting assertions.
 - `eq null` / `eq ""` is an absence, not positive.
-- A `*_contains` or `field … contains` value that is present on **every** readable
-  page of the crawl (`</html>`, the site name, a shared header) is rejected
-  outright: `evidence is true of every page`.
+- `nonempty`, `gt` and `lt` never carry a claim on their own (`title nonempty`,
+  `words_extracted gt 1` are true of almost any page). Use `eq` or `contains` with a
+  value specific to the problem.
+- Any positive assertion that holds on **every** readable page of the crawl
+  (`</html>`, the site name, `lang eq "en"`, a shared header) is rejected outright:
+  `evidence is true of every page`.
+- Steps, `verify` and the summary may not carry markup, `javascript:`, or links
+  off the audited site (absolute, `//host` or bare `www.host`); each step is at
+  most 300 characters.
+- Known residual: a claim that restates a scripted finding under a *different*
+  mechanism letter can slip past duplicate detection. It is capped at low like
+  every claim; do not do it on purpose.
 
 **Why one positive assertion is required:** "this page lacks a price" is true of
 every page that is not about prices, and "status eq 200" is true of every page

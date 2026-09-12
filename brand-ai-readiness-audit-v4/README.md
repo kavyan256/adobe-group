@@ -99,14 +99,14 @@ audit.py --replay b.json --agent-claims claims.json ──► verify_claims.py �
 The required `site`, `audited_at`, `summary` and `findings[]` (`id`, `title`,
 `severity`, `evidence`, `suggested_action`), plus what a non-expert needs to act:
 
-- **`summary.{critical,high,medium,low}`** count every finding and add up to
+- **`summary.{critical,high,medium,low}`** count every finding and, with `summary.info`, add up to
   `total_findings`; **`summary.active_by_severity`** counts the ones to act on today
 - **`hurts`** on every finding — `ai_discoverability`, `user_retention` or `both` —
   counted in `summary.by_hurts`
 - **`suggested_action.how[]`** (concrete steps), **`verify`** (how to confirm the fix),
   and where an agent review supplied one, **`site_specific[]`** grounded on a quote
   from the page
-- **`findings[]` ordered** by severity band, then `severity × confidence ÷ effort`, with
+- **`findings[]` ordered** by severity band, then `severity × confidence × status ÷ effort`, with
   ids in that order; **`prioritized_actions[]`** is the top of the same list
 - **`proactive_recommendations[]`**, only ones the site doesn't already satisfy; the
   rest appear in `already_in_place[]` with the evidence

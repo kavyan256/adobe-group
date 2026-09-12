@@ -42,13 +42,13 @@ A site bundle, as a path argument or on stdin.
 3. A conversion form (action or a field name/id containing contact, demo, quote,
    signup, register, checkout, order or apply) with more than five required fields
    or more than eight visible fields → `E1_form_friction`.
-4. Three or more links, or 15% of links, reading "click here", "read more" and the
+4. Three or more links, and at least 15% of links, reading "click here", "read more" and the
    like, with no descriptive `aria-label` or `title` → `E2_vague_link_text`.
 5. Three or more buttons or links with no accessible name from text, `aria-label`,
    `aria-labelledby`, `title`, SVG `<title>` or image `alt` → `E3_unnamed_controls`.
    Controls carrying framework binding attributes (`v-`, `x-`, `ng-`, `:`, `@`, `[`,
    `data-bind`) are assumed named at runtime and skipped.
-6. Three or more content images, or 30%, with no `alt` attribute →
+6. Three or more content images, and at least 30%, with no `alt` attribute →
    `E4_images_missing_alt`. `alt=""` is a correct decorative declaration; tracking
    pixels, images inside `<noscript>`, `role="presentation"` and `aria-hidden` do not count.
 7. No `h1` → `E6_heading_structure`.

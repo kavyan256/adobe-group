@@ -334,3 +334,14 @@ bare_site = _bundle([_page("https://t.test/", "home", H()),
 b1_bare = next((f for f in audit_replay(bare_site)["findings"] if f["check_id"] == "B1_fact_absent"), {})
 check("a contact page with neither a form nor a phone/email stays an active defect",
       (b1_bare.get("status"), b1_bare.get("severity")), ("active", "high"))
+
+
+print("\n[final gate] apex and www are one site")
+check("_same_host treats www. and apex as one host",
+      (bundle_mod._same_host("www.example.com", "example.com"), bundle_mod._same_host("example.com", "WWW.example.com"),
+       bundle_mod._same_host("shop.example.com", "example.com")), (True, True, False))
+links, _ = bundle_mod.homepage_links(
+    "<body><a href='https://www.example.com/pricing'>Pricing</a><a href='https://example.com/about'>About</a>"
+    "<a href='https://other.example/x'>x</a></body>", "https://example.com/")
+check("absolute www links are kept when the typed host is the apex",
+      links, ["https://example.com/about", "https://www.example.com/pricing"])

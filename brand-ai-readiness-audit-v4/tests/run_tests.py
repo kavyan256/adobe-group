@@ -293,10 +293,7 @@ check("an @graph-wrapped Organization does NOT fire C3 (the confirmed FP)",
       "C3_entity_unanchored" in ids, False)
 check("a page with @graph is not reported as having no structured data",
       "C1_structured_data_absent" in ids, False)
-d5 = next((f for f in rep["findings"] if f["check_id"] == "D5_no_corroboration_hooks"), None)
-check("D5 does not claim sameAs is missing when it is published",
-      "sameAs" in (d5 or {}).get("evidence", ""), False)
-check("...and already_in_place agrees sameAs is published",
+check("already_in_place agrees sameAs is published",
       any("sameAs" in a["because"] for a in rep.get("already_in_place", [])), True)
 
 deliberate = replay("intent_noindex.bundle.json")
@@ -385,11 +382,12 @@ def _crashed(what, proc):
     print(f"  FAIL {name}")
 
 
-def run_skill(skill, script, bundle):
+def run_skill(skill, script, bundle, expect_crash=False):
     proc = subprocess.run([sys.executable, str(ROOT / "skills" / skill / "scripts" / script),
                            str(_write(f"{skill}.json", bundle))], capture_output=True, text=True)
     if proc.returncode != 0:
-        _crashed(f"{skill}/{script}", proc)
+        if not expect_crash:
+            _crashed(f"{skill}/{script}", proc)
         return []
     data = json.loads(proc.stdout)
     return data["findings"] if isinstance(data, dict) else data

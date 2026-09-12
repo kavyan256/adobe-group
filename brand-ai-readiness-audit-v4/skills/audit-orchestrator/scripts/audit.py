@@ -305,6 +305,14 @@ def run_agent_review(bundle_path: Path, claims_path: Path | None,
     return data.get("findings", []), skipped, review, data.get("fixes", [])
 
 
+# Template-level checks say something about every page of a site, nothing about
+# the topic of a claim: a missing viewport tag must not silence a review claim
+# about a dead-end page that happens to share the URL.
+TEMPLATE_CHECKS = {"E11_no_viewport", "C7_title_problem", "E5_no_lang", "E6_heading_structure",
+                   "E12_no_orientation", "C1_structured_data_absent", "A5_canonical_missing",
+                   "E4_images_missing_alt", "E1_unlabelled_input"}
+
+
 def _restates(claim_detail: dict, scripted: dict) -> bool:
     """Is this scripted finding the same problem the claim describes?
 
@@ -316,7 +324,7 @@ def _restates(claim_detail: dict, scripted: dict) -> bool:
     spec = SEVERITY_TABLE.get(scripted["check_id"], {})
     if claim_detail.get("nearest_check") == scripted["check_id"]:
         return True
-    if spec.get("base", "low") == "low":
+    if spec.get("base", "low") == "low" or scripted["check_id"] in TEMPLATE_CHECKS:
         return False
     hurts = hurts_for(scripted["check_id"], spec.get("gate", ""))
     same_audience = hurts == claim_detail.get("hurts") or "both" in (hurts, claim_detail.get("hurts"))

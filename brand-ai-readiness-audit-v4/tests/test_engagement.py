@@ -199,3 +199,17 @@ check("with zero readable pages the skill reports itself as not run, with the fi
       ("engagement-audit" in blocked_skipped, "E_colour_contrast" in blocked_skipped,
        raw_blocked.get("findings")), (True, True, []))
 check("...and says why", "no page returned readable HTML" in blocked_skipped.get("engagement-audit", {}).get("reason", ""), True)
+
+
+print("\nE3: controls hidden from assistive tech are not unnamed controls (ikea.com)")
+hidden_ctl = site(_page("https://t.test/p", "generic", H(VP, (
+    "<h1>P</h1><button aria-hidden='true' tabindex='-1'><span class='icon'></span></button>"
+    "<button aria-hidden='true'><span></span></button><a href='/x' tabindex='-1'></a>"
+    "<button tabindex='-1'></button>"))))
+check("aria-hidden or tabindex=-1 controls do not fire E3", "E3_unnamed_controls" in ids(eng(hidden_ctl)), False)
+
+child_label = site(_page("https://t.test/p", "generic", H(VP, (
+    "<h1>P</h1><a href='https://f.test/x'><svg aria-label='Facebook'></svg></a>"
+    "<a href='https://y.test/x'><svg aria-label='YouTube'></svg></a>"
+    "<a href='https://i.test/x'><span aria-label='Instagram'></span></a>"))))
+check("an aria-label on an icon child names the link (nps.gov)", "E3_unnamed_controls" in ids(eng(child_label)), False)

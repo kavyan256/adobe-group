@@ -7,7 +7,7 @@ description: >-
   entity ambiguity, staleness, and on-site engagement risk factors. Use when
   diagnosing why a brand is missing or misrepresented in AI assistants, or why
   visitors who arrive from an AI answer do not stay. This is the marketplace
-  entrypoint: it performs the single crawl, invokes the five specialist audit
+  entrypoint: it performs the single crawl, invokes the four scripted audit skills and the agent review
   skills, and composes their findings into one report.
 license: Apache-2.0
 allowed-tools: Bash Read Write

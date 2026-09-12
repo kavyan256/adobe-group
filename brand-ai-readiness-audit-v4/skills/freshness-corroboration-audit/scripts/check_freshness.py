@@ -276,8 +276,10 @@ def run(b: dict) -> tuple[list[dict], list[dict]]:
     # proactive "citable facts page" recommendation covers the rest.
     skipped.append({
         "check": "D6_cross_web_corroboration",
-        "reason": "third-party agreement cannot be verified without a search backend, which "
-                  "this marketplace does not assume",
+        "reason": "Not assessed: whether independent third parties agree with this site's "
+                  "claims. Reason: that needs a search backend, which this marketplace does "
+                  "not assume. How to check it yourself: search your brand plus a key fact "
+                  "(price, founding year, HQ) and count independent sources that agree.",
         "impact": "Claims that exist only on this site are not distinguished from claims "
                   "corroborated across the web. The on-site corroboration checks still ran.",
     })

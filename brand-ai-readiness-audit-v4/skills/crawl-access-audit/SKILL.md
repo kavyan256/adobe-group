@@ -40,8 +40,8 @@ as a path argument or on stdin.
    policy in `site_profile.ai_policy`.
 3. Per page, read `X-Robots-Tag` and every `<meta name="robots|<bot>">`, scoped per
    bot. Only directives aimed at an unscoped tag, `googlebot`, `bingbot` or a
-   retrieval agent count; `googlebot-news: noindex` is recorded in `detail`, not
-   fired. `noindex`, or `none` as a whole value → `A3_noindex`. `nosnippet`,
+   retrieval agent count; `googlebot-news: noindex` never fires on its own (it is
+   listed in `detail` when an A3 finding exists). `noindex`, or `none` as a whole value → `A3_noindex`. `nosnippet`,
    `max-snippet:0`, or `data-nosnippet` wrapping the h1, `<main>`/`<article>` or the
    first substantial paragraph → `A2_snippet_suppressed`. `noarchive` controls cached
    copies, not quoting, and is ignored.
