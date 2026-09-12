@@ -1,0 +1,407 @@
+{
+  "site": "docs.python.org",
+  "audited_at": "2026-09-12T17:03:18Z",
+  "summary": {
+    "total_findings": 6,
+    "critical": 0,
+    "high": 0,
+    "medium": 3,
+    "low": 3,
+    "active_findings": 6,
+    "latent_findings": 0,
+    "confirm_intent_findings": 0,
+    "info": 0,
+    "active_by_severity": {
+      "critical": 0,
+      "high": 0,
+      "medium": 3,
+      "low": 3
+    },
+    "by_hurts": {
+      "ai_discoverability": 2,
+      "user_retention": 3,
+      "both": 1
+    },
+    "run_status": "complete",
+    "headline": "6 finding(s); most severe: Brand identity is not anchored to any external profile"
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "title": "Brand identity is not anchored to any external profile",
+      "severity": "medium",
+      "evidence": "None of the 12 crawled page(s) declares Organization, LocalBusiness or similar structured data with sameAs links. Without sameAs, an assistant has nothing distinguishing this brand from others sharing the name, which is the standard cause of mistaken identity.",
+      "suggested_action": {
+        "summary": "Publish Organization JSON-LD with sameAs links to authoritative profiles.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Add Organization markup with \"sameAs\": [Wikidata, LinkedIn, Crunchbase, and your primary social profiles].",
+          "Use the identical legal/brand name across title tags, markup and body copy."
+        ],
+        "verify": "Rich Results Test shows Organization with a populated sameAs array."
+      },
+      "check_id": "C3_entity_unanchored",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "interpretability",
+      "mechanism": "D",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "site_wide",
+      "severity_rationale": "base=medium (interpretability/C3_entity_unanchored); blast=site_wide x1.0 => medium",
+      "affected_urls": [
+        "https://docs.python.org/3"
+      ],
+      "affected_url_count": 1
+    },
+    {
+      "id": "F-002",
+      "title": "No viewport meta tag on 4 page(s)",
+      "severity": "medium",
+      "evidence": "4/12 crawled page(s) have no <meta name=\"viewport\"> at all. Examples: ['https://docs.python.org/2.6', 'https://docs.python.org/2.7', 'https://docs.python.org/3.0']. Without it, mobile browsers lay the page out at a desktop width (about 980px) and shrink it to fit, so text is unreadable until the visitor pinch-zooms.",
+      "suggested_action": {
+        "summary": "Add a viewport meta tag to every page template.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Add <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> inside <head> in the base template.",
+          "Do not add user-scalable=no or a maximum-scale below 2 while you are there (see E7)."
+        ],
+        "verify": "On a phone, the page text is readable without zooming and no horizontal scrollbar appears."
+      },
+      "check_id": "E11_no_viewport",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "template",
+      "severity_rationale": "base=medium (engagement/E11_no_viewport); blast=template x0.8 => medium",
+      "affected_urls": [
+        "https://docs.python.org/2.6",
+        "https://docs.python.org/2.7",
+        "https://docs.python.org/3.0",
+        "https://docs.python.org/3.1"
+      ],
+      "affected_url_count": 4
+    },
+    {
+      "id": "F-003",
+      "title": "Form field(s) without a label in a template used on 3 page(s)",
+      "severity": "medium",
+      "evidence": "Form action='search.html' (fields: q) appears on 3 page(s); 1 of 1 field(s) have no associated label: q (unlabelled). Placeholder text disappears once typing starts, so a required field with nothing else naming it is easy to get wrong.",
+      "suggested_action": {
+        "summary": "Label every form field programmatically.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Associate every input with a <label for=\"id\">, or an aria-label where there is no room for visible text.",
+          "Keep the placeholder as an example value, not as the only name.",
+          "Add autocomplete tokens and the right type/inputmode so mobile keyboards match."
+        ],
+        "verify": "Every input, select and textarea resolves to a non-empty accessible name without relying on its placeholder."
+      },
+      "check_id": "E1_unlabelled_input",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "template",
+      "severity_rationale": "base=medium (engagement/E1_unlabelled_input); blast=template x0.8 => medium",
+      "affected_urls": [
+        "https://docs.python.org/2.6",
+        "https://docs.python.org/3.0",
+        "https://docs.python.org/3.1"
+      ],
+      "affected_url_count": 3
+    },
+    {
+      "id": "F-004",
+      "title": "Copyright year is out of date on 8 page(s)",
+      "severity": "low",
+      "evidence": "https://docs.python.org/3: latest copyright year 2001 (now 2026); https://docs.python.org/3.14: latest copyright year 2001 (now 2026); https://docs.python.org/3.15: latest copyright year 2001 (now 2026); https://docs.python.org/3.16: latest copyright year 2001 (now 2026)",
+      "suggested_action": {
+        "summary": "Render the copyright year dynamically.",
+        "priority": "low",
+        "effort": "low",
+        "how": [
+          "Generate the year at build or request time rather than hard-coding it.",
+          "A stale year is a cheap but widely-used freshness cue - it suggests the whole site may be unmaintained."
+        ],
+        "verify": "The footer shows the current year."
+      },
+      "check_id": "D2_stale_copyright",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "freshness",
+      "mechanism": "D",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "template",
+      "severity_rationale": "base=low (freshness/D2_stale_copyright); blast=template x0.8 => low",
+      "affected_urls": [
+        "https://docs.python.org/2.6",
+        "https://docs.python.org/2.7",
+        "https://docs.python.org/3",
+        "https://docs.python.org/3.0",
+        "https://docs.python.org/3.1",
+        "https://docs.python.org/3.14",
+        "https://docs.python.org/3.15",
+        "https://docs.python.org/3.16"
+      ],
+      "affected_url_count": 8
+    },
+    {
+      "id": "F-005",
+      "title": "No lang attribute on 5 page(s)",
+      "severity": "low",
+      "evidence": "5/12 pages omit <html lang>. Examples: ['https://docs.python.org/3.10', 'https://docs.python.org/2.6', 'https://docs.python.org/2.7']. Language declaration affects pronunciation in screen readers and helps any consumer pick the right processing rules.",
+      "suggested_action": {
+        "summary": "Declare the page language.",
+        "priority": "low",
+        "effort": "low",
+        "how": [
+          "Set <html lang=\"en\"> (or the correct BCP-47 tag) on every page."
+        ],
+        "verify": "Every page's <html> element carries a lang attribute."
+      },
+      "check_id": "E5_no_lang",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "template",
+      "severity_rationale": "base=low (engagement/E5_no_lang); blast=template x0.8 => low",
+      "affected_urls": [
+        "https://docs.python.org/2.6",
+        "https://docs.python.org/2.7",
+        "https://docs.python.org/3.0",
+        "https://docs.python.org/3.1",
+        "https://docs.python.org/3.10"
+      ],
+      "affected_url_count": 5
+    },
+    {
+      "id": "F-006",
+      "title": "Page content is mostly site-wide filler on 2 page(s)",
+      "severity": "low",
+      "evidence": "https://docs.python.org/3.11: 47% of the extractable text also appears on most other pages; https://docs.python.org/3.12: 47% of the extractable text also appears on most other pages. A summariser given this page has little that is actually about this page to work with, so the specific claim gets dropped in favour of the boilerplate.",
+      "suggested_action": {
+        "summary": "Raise the share of each page that is unique to that page.",
+        "priority": "low",
+        "effort": "medium",
+        "how": [
+          "Move repeated legal, promotional or navigational copy out of the main content area and into <footer>/<aside>, so extractors treat it as chrome instead of substance.",
+          "Lead each page with two or three sentences that are true only of that page -- that is what a summariser will lift."
+        ],
+        "verify": "Two different pages, run through a readability extractor, no longer share most of their sentences."
+      },
+      "check_id": "B6_filler_heavy",
+      "source": "scripted",
+      "hurts": "both",
+      "gate": "extractability",
+      "mechanism": "F",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "template",
+      "severity_rationale": "base=low (extractability/B6_filler_heavy); blast=template x0.8 => low",
+      "affected_urls": [
+        "https://docs.python.org/3.11",
+        "https://docs.python.org/3.12"
+      ],
+      "affected_url_count": 2
+    }
+  ],
+  "site_profile": {
+    "start_url": "https://docs.python.org/3",
+    "pages_crawled": 12,
+    "roles_seen": [
+      "generic"
+    ],
+    "robots_present": true,
+    "ai_policy": {
+      "retrieval_agents_blocked": [],
+      "training_agents_blocked": [],
+      "interpretation": "Blocking training agents is a licensing choice and does not affect whether assistants can cite you. Only retrieval agents gate citation."
+    },
+    "user_agent_used": "AIReadinessAudit/1.0 (+https://github.com/kavyan256/adobe-group)"
+  },
+  "coverage": {
+    "elapsed_s": 17.9,
+    "pages_attempted": 12,
+    "pages_blocked_by_robots_for_our_ua": 0,
+    "pages_fetched": 12,
+    "pages_ok": 12,
+    "urls_discovered": 42
+  },
+  "checks_skipped": [
+    {
+      "check": "D6_cross_web_corroboration",
+      "reason": "Not assessed: whether independent third parties agree with this site's claims. Reason: that needs a search backend, which this marketplace does not assume. How to check it yourself: search your brand plus a key fact (price, founding year, HQ) and count independent sources that agree.",
+      "impact": "Claims that exist only on this site are not distinguished from claims corroborated across the web. The on-site corroboration checks still ran."
+    },
+    {
+      "check": "E_authenticated_flows",
+      "reason": "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account.",
+      "impact": "How to check it yourself: walk the signup, checkout or booking flow on a phone with a test account and count the required steps and fields."
+    },
+    {
+      "check": "E_behaviour_metrics",
+      "reason": "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion rate). Reason: they are observed, not inferred from markup, and a short visit from an AI answer is often a success - the visitor came to verify one fact and did.",
+      "impact": "How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate, not their bounce rate, with search traffic."
+    },
+    {
+      "check": "E_colour_contrast",
+      "reason": "Not assessed: colour contrast (WCAG 1.4.3). Reason: contrast ratios need computed styles, which need a browser; this marketplace runs without one to stay portable and deterministic.",
+      "impact": "How to check it yourself: run axe DevTools or Lighthouse on the top 3 page templates and read the contrast section."
+    },
+    {
+      "check": "E_copy_quality",
+      "reason": "Not assessed: copy quality, persuasion and jargon. Reason: subjective; no static threshold separates plain language from marketing copy across industries and languages without a high false-positive rate.",
+      "impact": "How to check it yourself: read the first paragraph of the homepage and one product page aloud to someone outside the company and ask what the site offers and for whom."
+    },
+    {
+      "check": "E_core_web_vitals",
+      "reason": "Not assessed: Core Web Vitals (LCP, CLS, INP). Reason: these are field metrics at the 75th percentile; a single synthetic fetch is not a measurement and INP cannot be measured synthetically at all.",
+      "impact": "How to check it yourself: open Google Search Console's Core Web Vitals report, which uses real-user data, or run Lighthouse for lab LCP/CLS."
+    },
+    {
+      "check": "E_rendered_experience",
+      "reason": "Not assessed: the rendered experience (overlay and cookie-banner timing, tap target size, focus visibility, layout at phone width). Reason: all of it depends on CSS and JavaScript executing, which needs a browser.",
+      "impact": "How to check it yourself: run Lighthouse and axe on the top 3 templates at phone width, then tab through each page once to confirm focus is visible."
+    }
+  ],
+  "agent_review": {
+    "status": "not_run"
+  },
+  "prioritized_actions": [
+    {
+      "rank": 1,
+      "finding_id": "F-001",
+      "title": "Brand identity is not anchored to any external profile",
+      "priority_score": 3.0,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "low",
+      "action": "Publish Organization JSON-LD with sameAs links to authoritative profiles."
+    },
+    {
+      "rank": 2,
+      "finding_id": "F-002",
+      "title": "No viewport meta tag on 4 page(s)",
+      "priority_score": 3.0,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Add a viewport meta tag to every page template."
+    },
+    {
+      "rank": 3,
+      "finding_id": "F-003",
+      "title": "Form field(s) without a label in a template used on 3 page(s)",
+      "priority_score": 2.1,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Label every form field programmatically."
+    },
+    {
+      "rank": 4,
+      "finding_id": "F-004",
+      "title": "Copyright year is out of date on 8 page(s)",
+      "priority_score": 2.0,
+      "severity": "low",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "low",
+      "action": "Render the copyright year dynamically."
+    },
+    {
+      "rank": 5,
+      "finding_id": "F-005",
+      "title": "No lang attribute on 5 page(s)",
+      "priority_score": 1.4,
+      "severity": "low",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Declare the page language."
+    },
+    {
+      "rank": 6,
+      "finding_id": "F-006",
+      "title": "Page content is mostly site-wide filler on 2 page(s)",
+      "priority_score": 1.25,
+      "severity": "low",
+      "status": "active",
+      "hurts": "both",
+      "effort": "medium",
+      "action": "Raise the share of each page that is unique to that page."
+    }
+  ],
+  "proactive_recommendations": [
+    {
+      "title": "Publish an llms.txt describing your site for AI clients",
+      "rationale": "An emerging convention: a short, stable, plain-text map of what your site covers and where the authoritative pages are. Cheap to add, and it gives retrieval agents an unambiguous starting point.",
+      "effort": "low",
+      "applies_because": "GET /llms.txt did not return a plain-text document"
+    },
+    {
+      "title": "Decide your AI-crawler policy deliberately, and write it down",
+      "rationale": "Training access and retrieval access are separate decisions. Blocking training crawlers while explicitly allowing retrieval agents is a coherent, defensible position - but it has to be configured on purpose, per user-agent.",
+      "effort": "low",
+      "applies_because": "robots.txt names no AI retrieval or training agent, so the current policy is whatever the wildcard group happens to say"
+    },
+    {
+      "title": "Add a machine-readable FAQ layer shaped for quotation",
+      "rationale": "FAQPage structured data pairs a question with a self-contained answer. That is exactly the shape an assistant wants to lift, and it survives text extraction.",
+      "effort": "medium",
+      "applies_because": "no crawled page carries FAQPage JSON-LD"
+    },
+    {
+      "title": "Publish a stable, citable facts page",
+      "rationale": "Founding date, leadership, HQ, product line, pricing - in one durable URL that third parties can cite verbatim. Corroboration across independent sources is what makes a claim credible to a machine, and you can seed it.",
+      "effort": "medium",
+      "applies_because": "no crawled page declares Organization sameAs links, so there is no anchor for third parties to corroborate against"
+    }
+  ],
+  "already_in_place": [
+    {
+      "title": "Server-render your most-quoted facts even inside a SPA",
+      "because": "not a client-rendered app, or a specific finding already covers it"
+    },
+    {
+      "title": "Answer the question visitors arrive with on the first screen",
+      "because": "the homepage's first 60 words already name the site or state a concrete figure"
+    },
+    {
+      "title": "Every deep page links to its parent section and a contact route",
+      "because": "every substantial deep page already links onward from its content"
+    }
+  ],
+  "limits": [
+    "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion). Reason: a crawl sees markup, never visitors; engagement findings are structural risk factors, capped at medium for that reason. How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate with search traffic.",
+    "Not assessed: the rendered experience (layout, overlays and cookie banners, colour contrast, Core Web Vitals) and facts loaded by client-side requests after page load. Reason: no JavaScript is executed and no browser is used - which is also what non-rendering AI retrieval agents see; a fact fetched only by XHR can be a false negative here. How to check it yourself: run Lighthouse and axe on the top three templates, and open a key page with JavaScript disabled to see what a bot gets.",
+    "Not assessed: copy quality - whether the words persuade, or answer the visitor's question well. Reason: subjective, with no static threshold that holds across industries and languages; the scripted checks measure only structure and vocabulary overlap. How to check it yourself: read the first paragraph of the homepage and one product page to someone outside the company and ask what the site offers and for whom.",
+    "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account. How to check it yourself: walk the signup, checkout or booking flow with a test account and count the required steps and fields.",
+    "Not assessed: personalization of AI answers (appendix E). Reason: it happens inside the assistant, from the user's own context, and no site-side measurement exists; the site-side lever - self-contained, quotable facts - is what the extraction and quotability checks cover. How to check it yourself: ask an assistant the same question about your brand in a fresh session and in a long-running one, and compare.",
+    "Not assessed: cross-web corroboration - whether independent sources agree with the site's facts. Reason: it needs a search backend and off-site fetches, which this audit does not make; only on-site corroboration hooks (sameAs, press links) are checked. How to check it yourself: search Wikipedia, Wikidata, Crunchbase and the press for your founding date, HQ, leadership and pricing, and reconcile differences.",
+    "Not assessed: problems outside the scripted checks, unless an agent review ran (see agent_review). Reason: a fixed list of checks misses what it does not list. How to check it yourself: follow agent-review-audit/SKILL.md; every claim it admits was checked against the crawl and is capped at low severity."
+  ],
+  "notes": []
+}

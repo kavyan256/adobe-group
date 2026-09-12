@@ -161,30 +161,32 @@ def _canonical_href(soup: BeautifulSoup) -> str | None:
 # as confirm_intent (a question, capped at low). Rules in
 # references/deliberate-vs-defect.md.
 
-# Templates a site routinely and legitimately keeps out of a search index.
-EXCLUDABLE_ROLES = {"legal", "utility", "search"}
 # Templates whose exclusion is never routine: these ARE the brand's answer surface.
 CONTENT_ROLES = {"home", "product", "pricing", "about", "blog", "contact"}
-MAX_DELIBERATE_NOINDEX_SHARE = 0.34
+MAX_DELIBERATE_NOINDEX_SHARE = 0.5
 
 
 def _classify_noindex(noindex_pages: list, total: int) -> tuple[str, list]:
-    """Is this noindex confined to templates a site routinely excludes?"""
+    """Is this noindex on pages a site routinely keeps out of an index?
+
+    Critical when it reaches a key page (home, pricing, product, about, blog,
+    contact) or most of the crawl. Elsewhere -- profiles, archives, pagination,
+    legal and utility pages -- it is usually deliberate, so it is asked about,
+    not asserted (5 such cases were reported as critical in the 100-site
+    evaluation: user profiles, tribunal decisions, reward pages, teasers,
+    pagination).
+    """
     roles = {p["role"] for p in noindex_pages}
     share = len(noindex_pages) / total if total else 1.0
-    if (len(noindex_pages) < total
-            and share <= MAX_DELIBERATE_NOINDEX_SHARE
-            and roles <= EXCLUDABLE_ROLES
-            and not (roles & CONTENT_ROLES)):
-        return "confirm_intent", [
-            f"{len(noindex_pages)} of {total} crawled pages ({share:.0%}) carry noindex",
-            f"all of them are on {'/'.join(sorted(roles))} templates: "
-            f"{sorted(p['url'] for p in noindex_pages)[:3]}",
-            "no noindex was found on home, pricing, product, about, blog or contact templates",
-            "confining noindex to legal and utility templates is a common deliberate "
-            "configuration, not a defect",
-        ]
-    return "active", []
+    if roles & CONTENT_ROLES or share > MAX_DELIBERATE_NOINDEX_SHARE or len(noindex_pages) == total:
+        return "active", []
+    return "confirm_intent", [
+        f"{len(noindex_pages)} of {total} crawled pages ({share:.0%}) carry noindex",
+        f"none of them is a home, pricing, product, about, blog or contact page: "
+        f"{sorted(p['url'] for p in noindex_pages)[:3]}",
+        "sites routinely keep profiles, archives, pagination, legal and utility pages out of "
+        "an index on purpose",
+    ]
 
 
 def _classify_ai_block(b: dict, agents: dict, blocked_retrieval: dict) -> tuple[str, list]:
@@ -250,11 +252,19 @@ def run(b: dict) -> list[dict]:
         statuses = sorted({p["status"] for p in b["pages"] if p.get("status")})
         refused = [s for s in statuses if s in (401, 403, 429, 503)]
         errors = sorted({p["error"] for p in b["pages"] if p.get("error")})
+        challenges = sorted({p["error"].split(":", 1)[1] for p in b["pages"]
+                             if (p.get("error") or "").startswith("bot_challenge:")})
         title = "Site could not be read by an automated client"
         confidence = "deterministic"
         if b["run_status"] == "blocked":
             reason = (_robots_unfetched_reason(b)
                       or "robots.txt disallows our auditor's user-agent")
+        elif challenges:
+            title = "Site serves a bot-challenge page to automated clients"
+            reason = (f"instead of the page, the server returned a bot-challenge page "
+                      f"({', '.join(challenges)}), which a client that does not run a browser "
+                      f"cannot pass. AI retrieval agents are commonly stopped by the same wall")
+            confidence = "heuristic"
         elif refused:
             codes = "/".join(map(str, refused))
             title = f"Site refuses automated clients (HTTP {codes})"
@@ -415,14 +425,15 @@ def run(b: dict) -> list[dict]:
             "check_id": "A3_noindex_utility" if deliberate else "A3_noindex",
             "status": status,
             "intent_signals": signals,
-            "title": (f"Confirm intent: {len(noindex)} {'/'.join(roles)} page(s) carry noindex"
+            "title": (f"Confirm intent: {len(noindex)} page(s) outside the key templates carry noindex"
                       if deliberate else
                       f"{len(noindex)} page(s) carry a noindex directive"),
             "evidence": (f"{len(noindex)}/{total} crawled pages emit noindex via meta robots or "
                          f"X-Robots-Tag. Examples: {urls[:3]}. A noindex page is removed from "
                          f"the indexes that assistants draw on."
-                         + (f" All of them are on {'/'.join(roles)} templates, which sites "
-                            f"routinely exclude on purpose." if deliberate else "")),
+                         + (" None of them is a home, pricing, product, about, blog or contact "
+                            f"page ({'/'.join(roles)} templates); pages like these are often "
+                            f"excluded on purpose." if deliberate else "")),
             "affected_urls": urls,
             "blast_radius": "site_wide" if len(noindex) == total else "template",
             "confidence": "deterministic",

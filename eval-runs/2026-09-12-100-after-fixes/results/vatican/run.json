@@ -1,0 +1,13 @@
+{
+ "slug": "vatican",
+ "url": "https://www.vatican.va",
+ "category": "Religious institution",
+ "expect": "frames/legacy HTML, multilingual",
+ "rc": 0,
+ "wall_s": 8.8,
+ "finished_at": "2026-09-12T17:09:30Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

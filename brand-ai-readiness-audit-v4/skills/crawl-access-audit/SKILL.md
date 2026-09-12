@@ -56,8 +56,8 @@ as a path argument or on stdin.
    and transport errors are excluded; those are refusals, covered by A7). A
    `<meta http-equiv="refresh">` to another URL → `A10_meta_refresh`. HTTP 200 whose
    title or h1 reads as a not-found page → `A11_soft_404` (heuristic).
-7. Where the configuration reads as deliberate — noindex confined to legal, utility
-   or search templates (`A3_noindex_utility`), or retrieval agents blocked by name
+7. Where the configuration reads as deliberate — noindex confined to pages other than home, pricing,
+   product, about, blog or contact (`A3_noindex_utility`), or retrieval agents blocked by name
    while another stays fully allowed — set `status: "confirm_intent"` and record why
    in `intent_signals`.
 

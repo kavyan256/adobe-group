@@ -1,0 +1,677 @@
+{
+  "site": "stackexchange.com",
+  "audited_at": "2026-09-12T17:09:35Z",
+  "summary": {
+    "total_findings": 12,
+    "critical": 0,
+    "high": 0,
+    "medium": 5,
+    "low": 6,
+    "active_findings": 12,
+    "latent_findings": 0,
+    "confirm_intent_findings": 0,
+    "info": 1,
+    "active_by_severity": {
+      "critical": 0,
+      "high": 0,
+      "medium": 5,
+      "low": 6
+    },
+    "by_hurts": {
+      "ai_discoverability": 4,
+      "user_retention": 6,
+      "both": 2
+    },
+    "run_status": "complete",
+    "headline": "12 finding(s); most severe: Missing, generic or duplicated <title> on 7 page(s)"
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "title": "Missing, generic or duplicated <title> on 7 page(s)",
+      "severity": "medium",
+      "evidence": "https://stackexchange.com/: title 'Hot Questions - Stack Exchange' shared by 7 pages; https://stackexchange.com/?page=2: title 'Hot Questions - Stack Exchange' shared by 7 pages; https://stackexchange.com/?page=3: title 'Hot Questions - Stack Exchange' shared by 7 pages; https://stackexchange.com/?page=4: title 'Hot Questions - Stack Exchange' shared by 7 pages. The title is the first thing an index stores and the label an assistant shows next to a citation; a blank or shared one gives the page no identity of its own.",
+      "suggested_action": {
+        "summary": "Give every page a unique title that names its subject.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Template the title as '<page subject> | <brand>' so no two pages share one.",
+          "Never ship the CMS default ('Home', 'Untitled', 'Document')."
+        ],
+        "verify": "curl -s <url> | grep -o '<title>[^<]*' differs across pages and is never empty."
+      },
+      "check_id": "C7_title_problem",
+      "source": "scripted",
+      "hurts": "both",
+      "gate": "interpretability",
+      "mechanism": "B",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "template",
+      "severity_rationale": "base=medium (interpretability/C7_title_problem); blast=template x0.8 => medium",
+      "affected_urls": [
+        "https://stackexchange.com/",
+        "https://stackexchange.com/?page=2",
+        "https://stackexchange.com/?page=3",
+        "https://stackexchange.com/?page=4",
+        "https://stackexchange.com/?pagesize=15",
+        "https://stackexchange.com/?pagesize=30",
+        "https://stackexchange.com/?pagesize=50"
+      ],
+      "affected_url_count": 7
+    },
+    {
+      "id": "F-002",
+      "title": "No viewport meta tag on 10 page(s)",
+      "severity": "medium",
+      "evidence": "10/12 crawled page(s) have no <meta name=\"viewport\"> at all. Examples: ['https://stackexchange.com/', 'https://stackexchange.com/about/moderators', 'https://stackexchange.com/?page=2']. Without it, mobile browsers lay the page out at a desktop width (about 980px) and shrink it to fit, so text is unreadable until the visitor pinch-zooms.",
+      "suggested_action": {
+        "summary": "Add a viewport meta tag to every page template.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Add <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> inside <head> in the base template.",
+          "Do not add user-scalable=no or a maximum-scale below 2 while you are there (see E7)."
+        ],
+        "verify": "On a phone, the page text is readable without zooming and no horizontal scrollbar appears."
+      },
+      "check_id": "E11_no_viewport",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "template",
+      "severity_rationale": "base=medium (engagement/E11_no_viewport); blast=template x0.8 => medium",
+      "affected_urls": [
+        "https://stackexchange.com/",
+        "https://stackexchange.com/?page=2",
+        "https://stackexchange.com/?page=3",
+        "https://stackexchange.com/?page=4",
+        "https://stackexchange.com/?pagesize=15",
+        "https://stackexchange.com/?pagesize=30",
+        "https://stackexchange.com/?pagesize=50",
+        "https://stackexchange.com/about/moderators",
+        "https://stackexchange.com/about/security",
+        "https://stackexchange.com/digests"
+      ],
+      "affected_url_count": 10
+    },
+    {
+      "id": "F-003",
+      "title": "No route onward from the content on 2 page(s)",
+      "severity": "medium",
+      "evidence": "https://stackexchange.com/about/moderators: 13939 words of content, no in-content link, form, tel: or mailto:; https://stackexchange.com/about/security: 329 words of content, no in-content link, form, tel: or mailto:. A visitor who arrives here from an AI answer, checks the one fact they came for and wants to go further has nothing in the content to act on. Anchors to '#', 'javascript:' or the page itself were not counted as routes.",
+      "suggested_action": {
+        "summary": "Give each substantial page at least one relevant next step in the content itself.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Link to the obvious follow-on page from within the body copy -- pricing from a product page, the product from a blog post.",
+          "A site-wide nav bar does not count here: it is the same on every page, so it says nothing about where THIS page should lead."
+        ],
+        "verify": "Each page over 200 words contains at least one in-content link, form or contact route."
+      },
+      "check_id": "E10_no_next_step",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "template",
+      "severity_rationale": "base=medium (engagement/E10_no_next_step); blast=template x0.8 => medium",
+      "affected_urls": [
+        "https://stackexchange.com/about/moderators",
+        "https://stackexchange.com/about/security"
+      ],
+      "affected_url_count": 2
+    },
+    {
+      "id": "F-004",
+      "title": "Interactive controls without an accessible name on 1 page(s)",
+      "severity": "medium",
+      "evidence": "https://stackexchange.com/about/moderators: 183/2304 controls expose no text, aria-label, aria-labelledby, title, SVG title or image alt. Controls whose name is bound by a JS framework (v-, x-, ng-, :, @, [) were assumed named at runtime and not counted.",
+      "suggested_action": {
+        "summary": "Give every control a name a machine can read.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Add visible text, or aria-label where the control is icon-only.",
+          "An unnamed control is unusable with a screen reader and invisible to any agent trying to understand what actions the page offers."
+        ],
+        "verify": "Every button/link resolves to a non-empty accessible name."
+      },
+      "check_id": "E3_unnamed_controls",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "template",
+      "severity_rationale": "base=medium (engagement/E3_unnamed_controls); blast=template x0.8 => medium",
+      "affected_urls": [
+        "https://stackexchange.com/about/moderators"
+      ],
+      "affected_url_count": 1
+    },
+    {
+      "id": "F-005",
+      "title": "Images missing alt attributes on 1 page(s)",
+      "severity": "medium",
+      "evidence": "https://stackexchange.com/about/moderators: 182/182 images have no alt attribute. Tracking pixels, images inside <noscript> and images marked presentational or aria-hidden are not counted.",
+      "suggested_action": {
+        "summary": "Add alt text to content images; use alt=\"\" for decorative ones.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Describe what the image conveys, not that it is an image.",
+          "If a price, specification table or contact detail exists only inside an image, restate it as text: retrieval agents do not read images.",
+          "Decorative images should carry an explicit empty alt=\"\" so assistive tech skips them."
+        ],
+        "verify": "No content <img> lacks an alt attribute entirely."
+      },
+      "check_id": "E4_images_missing_alt",
+      "source": "scripted",
+      "hurts": "both",
+      "gate": "engagement",
+      "mechanism": "C",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "template",
+      "severity_rationale": "base=medium (engagement/E4_images_missing_alt); blast=template x0.8 => medium",
+      "affected_urls": [
+        "https://stackexchange.com/about/moderators"
+      ],
+      "affected_url_count": 1
+    },
+    {
+      "id": "F-006",
+      "title": "No usable XML sitemap discovered",
+      "severity": "low",
+      "evidence": "robots.txt declared 0 sitemap(s) and /sitemap.xml yielded no parsable <loc> entries. Crawlers then rely entirely on link discovery.",
+      "suggested_action": {
+        "summary": "Publish an XML sitemap and reference it from robots.txt.",
+        "priority": "low",
+        "effort": "low",
+        "how": [
+          "Generate /sitemap.xml listing every canonical URL with an accurate <lastmod>.",
+          "Add 'Sitemap: https://<host>/sitemap.xml' to robots.txt."
+        ],
+        "verify": "curl -s https://<host>/sitemap.xml | grep -c '<loc>' returns > 0."
+      },
+      "check_id": "A6_sitemap_missing",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "access",
+      "mechanism": "A",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "site_wide",
+      "severity_rationale": "base=low (access/A6_sitemap_missing); blast=site_wide x1.0 => low",
+      "affected_urls": [
+        "https://stackexchange.com/"
+      ],
+      "affected_url_count": 1
+    },
+    {
+      "id": "F-007",
+      "title": "Questions are not paired with self-contained answers on 7 page(s)",
+      "severity": "low",
+      "evidence": "https://stackexchange.com/ asks 14 questions in its own headings, e.g. ['What lane am I in?', 'How to apply a different material to instances based on a noise texture in geometry nodes?', 'Why are disc brakes seen as better than rim brakes?'], but nothing on the page pairs each question with a self-contained answer: no FAQPage or Question structured data. An assistant lifting an answer takes the question plus the answer as one unit, and here it has to guess where each answer ends.",
+      "suggested_action": {
+        "summary": "Pair each question heading with one self-contained answer, and say so in FAQPage JSON-LD.",
+        "priority": "low",
+        "effort": "low",
+        "how": [
+          "Under each question heading, open with a one- or two-sentence answer that stands on its own before any elaboration.",
+          "Emit one Question node per heading you already have, with that answer in acceptedAnswer -- do not write new content for this."
+        ],
+        "verify": "Each question heading is followed by an answer that makes sense with the rest of the page hidden, and the FAQPage block lists it."
+      },
+      "check_id": "C5_faq_content_unmarked",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "interpretability",
+      "mechanism": "B",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "template",
+      "severity_rationale": "base=low (interpretability/C5_faq_content_unmarked); blast=template x0.8 => low",
+      "affected_urls": [
+        "https://stackexchange.com/",
+        "https://stackexchange.com/?page=2",
+        "https://stackexchange.com/?page=3",
+        "https://stackexchange.com/?page=4",
+        "https://stackexchange.com/?pagesize=15",
+        "https://stackexchange.com/?pagesize=30",
+        "https://stackexchange.com/?pagesize=50"
+      ],
+      "affected_url_count": 7
+    },
+    {
+      "id": "F-008",
+      "title": "Long conversion form on 1 page(s)",
+      "severity": "low",
+      "evidence": "https://stackexchange.com/about/contact: form '/contact/submit' has 33 visible fields, 0 required",
+      "suggested_action": {
+        "summary": "Ask for less up front on contact, demo, signup and checkout forms.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Completion drops sharply beyond about five required fields - ask only for what you need now and collect the rest later.",
+          "Split a long form into steps with a visible progress indicator, and never make the first step the long one.",
+          "Add autocomplete tokens and correct type/inputmode so mobile keyboards match."
+        ],
+        "verify": "No conversion form asks for more than five required fields, or more than eight fields in total, on its first step."
+      },
+      "check_id": "E1_form_friction",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "single_page",
+      "severity_rationale": "base=medium (engagement/E1_form_friction); blast=single_page x0.5; -> demoted to low => low",
+      "affected_urls": [
+        "https://stackexchange.com/about/contact"
+      ],
+      "affected_url_count": 1
+    },
+    {
+      "id": "F-009",
+      "title": "Form field(s) without a label in a template used on 1 page(s)",
+      "severity": "low",
+      "evidence": "Form action='/contact/submit' (fields: contact-group, contact-group, contact-group, contact-group, contact-type, contact-type, contact-type, contact-type, cont) appears on 1 page(s); 1 of 33 field(s) have no associated label: g-recaptcha-response (unlabelled). Placeholder text disappears once typing starts, so a required field with nothing else naming it is easy to get wrong.",
+      "suggested_action": {
+        "summary": "Label every form field programmatically.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Associate every input with a <label for=\"id\">, or an aria-label where there is no room for visible text.",
+          "Keep the placeholder as an example value, not as the only name.",
+          "Add autocomplete tokens and the right type/inputmode so mobile keyboards match."
+        ],
+        "verify": "Every input, select and textarea resolves to a non-empty accessible name without relying on its placeholder."
+      },
+      "check_id": "E1_unlabelled_input",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "single_page",
+      "severity_rationale": "base=medium (engagement/E1_unlabelled_input); blast=single_page x0.5; -> demoted to low => low",
+      "affected_urls": [
+        "https://stackexchange.com/about/contact"
+      ],
+      "affected_url_count": 1
+    },
+    {
+      "id": "F-010",
+      "title": "No h1 heading on 3 page(s)",
+      "severity": "low",
+      "evidence": "3/12 pages contain no h1 element at all. Examples: ['https://stackexchange.com/about/moderators', 'https://stackexchange.com/about/security', 'https://stackexchange.com/digests']. Extractors and assistants use the top heading to decide what a page is about.",
+      "suggested_action": {
+        "summary": "Give each page one h1 that states its subject.",
+        "priority": "low",
+        "effort": "low",
+        "how": [
+          "Add a single h1 naming the page subject, then h2/h3 for sections in order.",
+          "If the visual title is styled as a div or span, change the element, not the CSS."
+        ],
+        "verify": "Each page has an h1 and its text matches the page's subject."
+      },
+      "check_id": "E6_heading_structure",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "template",
+      "severity_rationale": "base=low (engagement/E6_heading_structure); blast=template x0.8 => low",
+      "affected_urls": [
+        "https://stackexchange.com/about/moderators",
+        "https://stackexchange.com/about/security",
+        "https://stackexchange.com/digests"
+      ],
+      "affected_url_count": 3
+    },
+    {
+      "id": "F-011",
+      "title": "No structured data on 9 significant page(s)",
+      "severity": "low",
+      "evidence": "9/12 crawled pages of type ['about', 'home'] contain no JSON-LD. Structured data is read by the indexing crawlers that build the search index assistants query, and it states a fact with a type attached. Examples: ['https://stackexchange.com/', 'https://stackexchange.com/about/moderators', 'https://stackexchange.com/?page=2']",
+      "suggested_action": {
+        "summary": "Add schema.org JSON-LD appropriate to each page type.",
+        "priority": "low",
+        "effort": "medium",
+        "how": [
+          "Homepage/About -> Organization with name, url, logo, description, sameAs.",
+          "Pricing -> Product or Service per tier, or an Offer list.",
+          "Article/blog -> Article with headline, datePublished, dateModified, author."
+        ],
+        "verify": "A schema.org validator reports a detected item type with no errors."
+      },
+      "check_id": "C1_structured_data_absent",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "interpretability",
+      "mechanism": "C",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "template",
+      "severity_rationale": "base=low (interpretability/C1_structured_data_absent); blast=template x0.8 => low",
+      "affected_urls": [
+        "https://stackexchange.com/",
+        "https://stackexchange.com/?page=2",
+        "https://stackexchange.com/?page=3",
+        "https://stackexchange.com/?page=4",
+        "https://stackexchange.com/?pagesize=15",
+        "https://stackexchange.com/?pagesize=30",
+        "https://stackexchange.com/?pagesize=50",
+        "https://stackexchange.com/about/moderators",
+        "https://stackexchange.com/about/security"
+      ],
+      "affected_url_count": 9
+    },
+    {
+      "id": "F-012",
+      "title": "Long redirect chains on 1 URL(s)",
+      "severity": "info",
+      "evidence": "https://stackexchange.com/about/contact: 3 hops",
+      "suggested_action": {
+        "summary": "Collapse redirect chains to a single hop.",
+        "priority": "low",
+        "effort": "low",
+        "how": [
+          "Rewrite the redirect rules so the first URL points straight at the final destination.",
+          "Prefer 301 for permanent moves."
+        ],
+        "verify": "curl -sIL <url> shows at most one 3xx before the 200."
+      },
+      "check_id": "A4_redirect_chain",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "access",
+      "mechanism": "A",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "single_page",
+      "severity_rationale": "base=low (access/A4_redirect_chain); blast=single_page x0.5; -> demoted to info => info",
+      "affected_urls": [
+        "https://stackexchange.com/about/contact"
+      ],
+      "affected_url_count": 1
+    }
+  ],
+  "site_profile": {
+    "start_url": "https://stackexchange.com/",
+    "pages_crawled": 12,
+    "roles_seen": [
+      "about",
+      "contact",
+      "generic",
+      "home"
+    ],
+    "robots_present": false,
+    "ai_policy": {
+      "retrieval_agents_blocked": [],
+      "training_agents_blocked": [],
+      "interpretation": "Blocking training agents is a licensing choice and does not affect whether assistants can cite you. Only retrieval agents gate citation."
+    },
+    "user_agent_used": "AIReadinessAudit/1.0 (+https://github.com/kavyan256/adobe-group)"
+  },
+  "coverage": {
+    "elapsed_s": 26.0,
+    "pages_attempted": 12,
+    "pages_blocked_by_robots_for_our_ua": 0,
+    "pages_fetched": 12,
+    "pages_ok": 12,
+    "urls_discovered": 19
+  },
+  "checks_skipped": [
+    {
+      "check": "D6_cross_web_corroboration",
+      "reason": "Not assessed: whether independent third parties agree with this site's claims. Reason: that needs a search backend, which this marketplace does not assume. How to check it yourself: search your brand plus a key fact (price, founding year, HQ) and count independent sources that agree.",
+      "impact": "Claims that exist only on this site are not distinguished from claims corroborated across the web. The on-site corroboration checks still ran."
+    },
+    {
+      "check": "E_authenticated_flows",
+      "reason": "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account.",
+      "impact": "How to check it yourself: walk the signup, checkout or booking flow on a phone with a test account and count the required steps and fields."
+    },
+    {
+      "check": "E_behaviour_metrics",
+      "reason": "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion rate). Reason: they are observed, not inferred from markup, and a short visit from an AI answer is often a success - the visitor came to verify one fact and did.",
+      "impact": "How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate, not their bounce rate, with search traffic."
+    },
+    {
+      "check": "E_colour_contrast",
+      "reason": "Not assessed: colour contrast (WCAG 1.4.3). Reason: contrast ratios need computed styles, which need a browser; this marketplace runs without one to stay portable and deterministic.",
+      "impact": "How to check it yourself: run axe DevTools or Lighthouse on the top 3 page templates and read the contrast section."
+    },
+    {
+      "check": "E_copy_quality",
+      "reason": "Not assessed: copy quality, persuasion and jargon. Reason: subjective; no static threshold separates plain language from marketing copy across industries and languages without a high false-positive rate.",
+      "impact": "How to check it yourself: read the first paragraph of the homepage and one product page aloud to someone outside the company and ask what the site offers and for whom."
+    },
+    {
+      "check": "E_core_web_vitals",
+      "reason": "Not assessed: Core Web Vitals (LCP, CLS, INP). Reason: these are field metrics at the 75th percentile; a single synthetic fetch is not a measurement and INP cannot be measured synthetically at all.",
+      "impact": "How to check it yourself: open Google Search Console's Core Web Vitals report, which uses real-user data, or run Lighthouse for lab LCP/CLS."
+    },
+    {
+      "check": "E_rendered_experience",
+      "reason": "Not assessed: the rendered experience (overlay and cookie-banner timing, tap target size, focus visibility, layout at phone width). Reason: all of it depends on CSS and JavaScript executing, which needs a browser.",
+      "impact": "How to check it yourself: run Lighthouse and axe on the top 3 templates at phone width, then tab through each page once to confirm focus is visible."
+    }
+  ],
+  "agent_review": {
+    "status": "not_run"
+  },
+  "prioritized_actions": [
+    {
+      "rank": 1,
+      "finding_id": "F-001",
+      "title": "Missing, generic or duplicated <title> on 7 page(s)",
+      "priority_score": 3.0,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "both",
+      "effort": "low",
+      "action": "Give every page a unique title that names its subject."
+    },
+    {
+      "rank": 2,
+      "finding_id": "F-002",
+      "title": "No viewport meta tag on 10 page(s)",
+      "priority_score": 3.0,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Add a viewport meta tag to every page template."
+    },
+    {
+      "rank": 3,
+      "finding_id": "F-003",
+      "title": "No route onward from the content on 2 page(s)",
+      "priority_score": 2.1,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Give each substantial page at least one relevant next step in the content itself."
+    },
+    {
+      "rank": 4,
+      "finding_id": "F-004",
+      "title": "Interactive controls without an accessible name on 1 page(s)",
+      "priority_score": 2.1,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Give every control a name a machine can read."
+    },
+    {
+      "rank": 5,
+      "finding_id": "F-005",
+      "title": "Images missing alt attributes on 1 page(s)",
+      "priority_score": 2.1,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "both",
+      "effort": "low",
+      "action": "Add alt text to content images; use alt=\"\" for decorative ones."
+    },
+    {
+      "rank": 6,
+      "finding_id": "F-006",
+      "title": "No usable XML sitemap discovered",
+      "priority_score": 2.0,
+      "severity": "low",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "low",
+      "action": "Publish an XML sitemap and reference it from robots.txt."
+    },
+    {
+      "rank": 7,
+      "finding_id": "F-007",
+      "title": "Questions are not paired with self-contained answers on 7 page(s)",
+      "priority_score": 2.0,
+      "severity": "low",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "low",
+      "action": "Pair each question heading with one self-contained answer, and say so in FAQPage JSON-LD."
+    },
+    {
+      "rank": 8,
+      "finding_id": "F-008",
+      "title": "Long conversion form on 1 page(s)",
+      "priority_score": 1.4,
+      "severity": "low",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Ask for less up front on contact, demo, signup and checkout forms."
+    },
+    {
+      "rank": 9,
+      "finding_id": "F-009",
+      "title": "Form field(s) without a label in a template used on 1 page(s)",
+      "priority_score": 1.4,
+      "severity": "low",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Label every form field programmatically."
+    },
+    {
+      "rank": 10,
+      "finding_id": "F-010",
+      "title": "No h1 heading on 3 page(s)",
+      "priority_score": 1.4,
+      "severity": "low",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Give each page one h1 that states its subject."
+    },
+    {
+      "rank": 11,
+      "finding_id": "F-011",
+      "title": "No structured data on 9 significant page(s)",
+      "priority_score": 1.25,
+      "severity": "low",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "medium",
+      "action": "Add schema.org JSON-LD appropriate to each page type."
+    },
+    {
+      "rank": 12,
+      "finding_id": "F-012",
+      "title": "Long redirect chains on 1 URL(s)",
+      "priority_score": 1.0,
+      "severity": "info",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "low",
+      "action": "Collapse redirect chains to a single hop."
+    }
+  ],
+  "proactive_recommendations": [
+    {
+      "title": "Publish an llms.txt describing your site for AI clients",
+      "rationale": "An emerging convention: a short, stable, plain-text map of what your site covers and where the authoritative pages are. Cheap to add, and it gives retrieval agents an unambiguous starting point.",
+      "effort": "low",
+      "applies_because": "GET /llms.txt did not return a plain-text document"
+    },
+    {
+      "title": "Decide your AI-crawler policy deliberately, and write it down",
+      "rationale": "Training access and retrieval access are separate decisions. Blocking training crawlers while explicitly allowing retrieval agents is a coherent, defensible position - but it has to be configured on purpose, per user-agent.",
+      "effort": "low",
+      "applies_because": "robots.txt names no AI retrieval or training agent, so the current policy is whatever the wildcard group happens to say"
+    },
+    {
+      "title": "Add a machine-readable FAQ layer shaped for quotation",
+      "rationale": "FAQPage structured data pairs a question with a self-contained answer. That is exactly the shape an assistant wants to lift, and it survives text extraction.",
+      "effort": "medium",
+      "applies_because": "no crawled page carries FAQPage JSON-LD"
+    },
+    {
+      "title": "Server-render your most-quoted facts even inside a SPA",
+      "rationale": "You do not have to abandon client-side rendering. Server-render the handful of facts you most want cited - price, what you do, how to contact you - and let the rest hydrate.",
+      "effort": "high",
+      "applies_because": "the site ships a client-side hydration payload; its key facts currently extract fine, so this is about keeping it that way as the app grows"
+    },
+    {
+      "title": "Every deep page links to its parent section and a contact route",
+      "rationale": "AI answers send visitors to deep pages, not the homepage. From there the two moves they most often want are 'show me the rest of this section' and 'let me ask someone'. A breadcrumb (with BreadcrumbList JSON-LD) and one contact link inside the content give both without relying on the site-wide nav, and the breadcrumb doubles as an orientation and citation signal.",
+      "effort": "low",
+      "applies_because": "E10_no_next_step fired, or at least one non-home page of 100+ words has no in-content link to another page on the site"
+    }
+  ],
+  "already_in_place": [
+    {
+      "title": "Publish a stable, citable facts page",
+      "because": "Organization sameAs links are already published"
+    },
+    {
+      "title": "Answer the question visitors arrive with on the first screen",
+      "because": "the homepage's first 60 words already name the site or state a concrete figure"
+    }
+  ],
+  "limits": [
+    "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion). Reason: a crawl sees markup, never visitors; engagement findings are structural risk factors, capped at medium for that reason. How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate with search traffic.",
+    "Not assessed: the rendered experience (layout, overlays and cookie banners, colour contrast, Core Web Vitals) and facts loaded by client-side requests after page load. Reason: no JavaScript is executed and no browser is used - which is also what non-rendering AI retrieval agents see; a fact fetched only by XHR can be a false negative here. How to check it yourself: run Lighthouse and axe on the top three templates, and open a key page with JavaScript disabled to see what a bot gets.",
+    "Not assessed: copy quality - whether the words persuade, or answer the visitor's question well. Reason: subjective, with no static threshold that holds across industries and languages; the scripted checks measure only structure and vocabulary overlap. How to check it yourself: read the first paragraph of the homepage and one product page to someone outside the company and ask what the site offers and for whom.",
+    "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account. How to check it yourself: walk the signup, checkout or booking flow with a test account and count the required steps and fields.",
+    "Not assessed: personalization of AI answers (appendix E). Reason: it happens inside the assistant, from the user's own context, and no site-side measurement exists; the site-side lever - self-contained, quotable facts - is what the extraction and quotability checks cover. How to check it yourself: ask an assistant the same question about your brand in a fresh session and in a long-running one, and compare.",
+    "Not assessed: cross-web corroboration - whether independent sources agree with the site's facts. Reason: it needs a search backend and off-site fetches, which this audit does not make; only on-site corroboration hooks (sameAs, press links) are checked. How to check it yourself: search Wikipedia, Wikidata, Crunchbase and the press for your founding date, HQ, leadership and pricing, and reconcile differences.",
+    "Not assessed: problems outside the scripted checks, unless an agent review ran (see agent_review). Reason: a fixed list of checks misses what it does not list. How to check it yourself: follow agent-review-audit/SKILL.md; every claim it admits was checked against the crawl and is capped at low severity."
+  ],
+  "notes": []
+}

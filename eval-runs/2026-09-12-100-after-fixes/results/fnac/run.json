@@ -1,0 +1,13 @@
+{
+ "slug": "fnac",
+ "url": "https://www.fnac.com",
+ "category": "Electronics/books retailer (French)",
+ "expect": "French, €, bot protection",
+ "rc": 0,
+ "wall_s": 5.7,
+ "finished_at": "2026-09-12T17:10:51Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

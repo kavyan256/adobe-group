@@ -389,6 +389,39 @@ class Bundle:
 
 
 _TITLE_TAG = re.compile(r"<title[^>]*>(.*?)</title>", re.I | re.S)
+# Bot-management layers answer automated clients with a small interstitial, often
+# with HTTP 200. Analysed as the real page, its noindex, empty body and missing
+# markup become false findings about the site (boots.com and nypl.org in the
+# 100-site evaluation). Vendor markers are trusted only on a small document, so a
+# real page that merely loads a vendor script is left alone.
+_CHALLENGE_TITLE = re.compile(r"<title[^>]*>\s*(pardon our interruption|just a moment\.{0,3}|"
+                              r"attention required! \| cloudflare|access denied|are you a (human|robot)\??|"
+                              r"security check(point)?|verifying you are human|one more step)\s*</title>", re.I)
+_CHALLENGE_VENDORS = (
+    ("Incapsula", re.compile(r"_Incapsula_Resource|Incapsula incident ID", re.I)),
+    ("Cloudflare", re.compile(r"cf_chl_opt|cf-browser-verification", re.I)),
+    ("PerimeterX", re.compile(r"px-captcha|captcha\.px-cdn\.net", re.I)),
+    ("DataDome", re.compile(r"captcha-delivery\.com", re.I)),
+    ("Akamai", re.compile(r"Reference&#32;&#35;|Reference #\d+\.[0-9a-f]+", re.I)),
+)
+CHALLENGE_MAX_BYTES = 60_000
+# Vendors inject their script into REAL pages too (glastonburyfestivals.co.uk loads
+# _Incapsula_Resource on its homepage), so a vendor marker alone proves nothing.
+# A challenge title does; otherwise the page must also carry almost no text.
+CHALLENGE_MAX_WORDS = 60
+_SCRIPT_OR_STYLE = re.compile(r"<(script|style|noscript)\b.*?</\1>", re.I | re.S)
+_ANY_TAG = re.compile(r"<[^>]+>")
+
+
+def bot_challenge(html: str) -> str | None:
+    """The vendor of a bot-challenge interstitial, or None for a real page."""
+    if not html or len(html) > CHALLENGE_MAX_BYTES:
+        return None
+    vendor = next((name for name, pat in _CHALLENGE_VENDORS if pat.search(html)), None)
+    if _CHALLENGE_TITLE.search(html[:4000]):
+        return vendor or "unrecognised vendor"
+    words = len(_ANY_TAG.sub(" ", _SCRIPT_OR_STYLE.sub(" ", html)).split())
+    return vendor if vendor and words < CHALLENGE_MAX_WORDS else None
 # URLs that are never HTML pages. Following them spends the page budget on
 # stylesheets and images, and turns a healthy crawl into "partial".
 _ASSET_URL = re.compile(r"\.(css|m?js|json|xml|rss|atom|txt|ico|png|jpe?g|gif|svg|webp|avif|bmp|"
@@ -626,6 +659,9 @@ def build(start_url: str, max_pages: int = DEFAULT_MAX_PAGES,
         try:
             r = client.get(url)
             body = r.text[:MAX_BYTES] if "html" in r.headers.get("content-type", "") else ""
+            challenge = bot_challenge(body)
+            if challenge:
+                body = ""                      # the interstitial is not the site
             title_m = _TITLE_TAG.search(body) if body else None
             page = Page(
                 url=url,
@@ -639,6 +675,7 @@ def build(start_url: str, max_pages: int = DEFAULT_MAX_PAGES,
                 elapsed_ms=int(r.elapsed.total_seconds() * 1000),
                 redirect_chain=[str(h.url) for h in r.history],
                 derived=derive(body) if body else derive(""),
+                error=f"bot_challenge:{challenge}" if challenge else None,
             )
         except _HTTP_ERROR as exc:
             page = Page(url=url, final_url=url, status=0,
@@ -646,6 +683,11 @@ def build(start_url: str, max_pages: int = DEFAULT_MAX_PAGES,
                         headers={}, html="", elapsed_ms=0, error=type(exc).__name__,
                         derived=derive(""))
         pages.append(page)
+
+        if page.error and page.error.startswith("bot_challenge:"):
+            notes.append(f"server returned a bot-challenge page ({page.error.split(':', 1)[1]}) at "
+                         f"{url}; crawl stopped, as further requests would meet the same wall")
+            break
 
         # 429 is explicit: stop at once. A single 503 on an inner page may be one
         # bad backend, so the crawl continues; on the start URL or twice in a

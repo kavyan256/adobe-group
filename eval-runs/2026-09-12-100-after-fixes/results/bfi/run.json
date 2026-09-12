@@ -1,0 +1,13 @@
+{
+ "slug": "bfi",
+ "url": "https://www.bfi.org.uk",
+ "category": "Film institute / cinema",
+ "expect": "events, membership prices",
+ "rc": 0,
+ "wall_s": 23.4,
+ "finished_at": "2026-09-12T17:09:07Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

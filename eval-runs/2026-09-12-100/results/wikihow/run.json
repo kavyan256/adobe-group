@@ -1,0 +1,13 @@
+{
+ "slug": "wikihow",
+ "url": "https://www.wikihow.com",
+ "category": "How-to guides",
+ "expect": "HowTo/FAQ markup, images alt",
+ "rc": 0,
+ "wall_s": 30.3,
+ "finished_at": "2026-09-12T16:30:52Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

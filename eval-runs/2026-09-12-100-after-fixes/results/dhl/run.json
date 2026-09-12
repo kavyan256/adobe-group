@@ -1,0 +1,13 @@
+{
+ "slug": "dhl",
+ "url": "https://www.dhl.com",
+ "category": "Logistics company",
+ "expect": "country selector redirect, contact per country",
+ "rc": 0,
+ "wall_s": 78.7,
+ "finished_at": "2026-09-12T17:07:59Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

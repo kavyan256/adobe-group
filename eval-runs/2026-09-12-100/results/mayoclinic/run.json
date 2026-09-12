@@ -1,0 +1,13 @@
+{
+ "slug": "mayoclinic",
+ "url": "https://www.mayoclinic.org",
+ "category": "Hospital / health information",
+ "expect": "medical articles dates, bot protection",
+ "rc": 0,
+ "wall_s": 7.0,
+ "finished_at": "2026-09-12T16:23:46Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

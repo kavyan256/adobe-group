@@ -1,0 +1,13 @@
+{
+ "slug": "webflow",
+ "url": "https://webflow.com",
+ "category": "Website builder (Webflow-built)",
+ "expect": "marketing site, canonical, pricing",
+ "rc": 0,
+ "wall_s": 42.3,
+ "finished_at": "2026-09-12T16:21:46Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

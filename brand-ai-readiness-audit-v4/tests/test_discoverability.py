@@ -399,3 +399,78 @@ d1 = by(fresh([ld_dated, meta_dated, undated]), "D1_no_date_signals")
 check("D1 fires only on the post with no date at all", d1.get("affected_urls"), ["https://t.test/blog/c"])
 old_post = _page("https://t.test/blog/old", "blog", H('<meta property="article:modified_time" content="2021-01-01T00:00:00Z">', _post))
 check("D3 now sees an old datetime", "D3_content_stale" in ids(fresh([old_post])), True)
+
+
+print("\n[evaluation fixes] B1 obligations need evidence (notion, pfizer, linear, carvana, smittenkitchen, gov.uk, metoffice, bfi)")
+def _b1(pages):
+    return [f for f in extract(pages) if f["check_id"].startswith("B1")]
+check("a SaaS /products/ feature page owes no price",
+      _b1([_page("https://t.test/products/ai/use-cases/reporting", "product", H(body="<h1>Automate reporting</h1><p>Save hours every week.</p>"))]), [])
+check("a /plan feature page owes no price",
+      _b1([_page("https://t.test/plan", "pricing", H(body="<h1>Plan and navigate from idea to launch</h1><p>Roadmaps.</p>"))]), [])
+check("a /subscribe newsletter page owes no price",
+      _b1([_page("https://t.test/subscribe", "pricing", H(body="<h1>Subscribe to the digest</h1><p>Weekly recipes by email.</p>"))]), [])
+check("a /pricing page with no price still fires B1",
+      [f["check_id"] for f in _b1([_page("https://t.test/pricing", "pricing", H(body="<h1>Plans</h1><p>Talk to us.</p>"))])], ["B1_fact_absent"])
+check("a product page with og:type product and no price still fires B1",
+      [f["check_id"] for f in _b1([_page("https://t.test/products/lamp", "product",
+          H('<meta property="og:type" content="product">', "<h1>Lamp</h1><p>A lovely lamp.</p>"))])], ["B1_fact_absent"])
+check("a price in the footer satisfies the obligation",
+      _b1([_page("https://t.test/pricing", "pricing", H(body="<h1>Plans</h1><p>Talk to us.</p>").replace("</main>", "</main><footer>From $9 a month</footer>"))]), [])
+directory = "".join(f"<a href='/contact/service-{i}'>Service {i}</a>" for i in range(6))
+check("a contact directory owes no phone or email",
+      _b1([_page("https://t.test/contact", "contact", H(body=f"<h1>Find contact details for services</h1>{directory}"))]), [])
+check("a directions sub-page under /contact owes no phone or email",
+      _b1([_page("https://t.test/about/contact/how-to-find-our-offices", "contact", H(body="<h1>How to find our offices</h1><p>Take the train.</p>"))]), [])
+state = _page("https://t.test/contact-us", "contact", H(body="<h1>Contact us</h1><p>Choose a topic.</p><script>var initialPageState = {\"url\":\"mailto:shop@t.test\"};</script>"))
+check("an email held only in a page-state script is script-only, not absent",
+      [f["check_id"] for f in _b1([state])], ["B1_fact_script_only"])
+check("a non-commerce /products/ page is not C1_product_markup_absent",
+      "C1_product_markup_absent" in ids(extract([_page("https://t.test/products/how-drugs-are-made", "product",
+                                                         H(body="<h1>Branded vs generic</h1><p>How medicines are made.</p>"))])), False)
+
+print("\n[evaluation fixes] noindex severity (webflow profiles, gov.uk decisions, msf rewards)")
+_six = [_page("https://t.test/", "home", H()), _page("https://t.test/about", "about", H()),
+        _page("https://t.test/a", "generic", H()), _page("https://t.test/b", "generic", H()),
+        _page("https://t.test/@user1", "generic", H('<meta name="robots" content="noindex, follow">')),
+        _page("https://t.test/@user2", "generic", H('<meta name="robots" content="noindex, follow">'))]
+a3g = [f for f in access(_six) if f["check_id"].startswith("A3")]
+check("noindex on 2 of 6 generic pages is a confirm-intent question",
+      [(f["check_id"], f["status"]) for f in a3g], [("A3_noindex_utility", "confirm_intent")])
+_most = [_page("https://t.test/", "home", H())] + [_page(f"https://t.test/p{i}", "generic", H('<meta name="robots" content="noindex">')) for i in range(4)]
+check("noindex on most of the crawl stays critical",
+      [f["status"] for f in access(_most) if f["check_id"].startswith("A3")], ["active"])
+_home = [_page("https://t.test/", "home", H('<meta name="robots" content="noindex">')), _page("https://t.test/a", "generic", H()), _page("https://t.test/b", "generic", H())]
+check("noindex on the homepage stays critical", [f["check_id"] for f in access(_home) if f["check_id"].startswith("A3")], ["A3_noindex"])
+
+print("\n[evaluation fixes] bot-challenge pages (boots, nypl)")
+_boots = '<html><head><title>Pardon Our Interruption</title></head><body><p>As you were browsing something about your browser made us think you were a bot.</p><script src="/_Incapsula_Resource?SWJIYLWA=1"></script></body></html>'
+check("an Incapsula interstitial is recognised", bundle_mod.bot_challenge(_boots), "Incapsula")
+check("an unbranded 'Just a moment...' interstitial is recognised",
+      bundle_mod.bot_challenge("<html><head><title>Just a moment...</title></head><body></body></html>"), "unrecognised vendor")
+check("a real page that loads a vendor script is not a challenge",
+      bundle_mod.bot_challenge("<html><head><title>Shop</title></head><body>" + "<p>Real content here.</p>" * 4000 + '<script src="/_Incapsula_Resource"></script></body></html>'), None)
+check("an ordinary small page is not a challenge", bundle_mod.bot_challenge(H()), None)
+_chal = _bundle([dict(_page("https://t.test/", "home", ""), error="bot_challenge:Incapsula")])
+_chal["run_status"], _chal["coverage"]["pages_ok"] = "failed", 0
+_a7c = by(run_skill("crawl-access-audit", "check_access.py", _chal), "A7_site_unreadable")
+check("A7 names the bot-challenge wall", ("bot-challenge" in _a7c.get("title", ""), "Incapsula" in _a7c.get("evidence", "")), (True, True))
+
+govuk_like = "".join(f"<a href='/contact-the-office-{i}'>Office {i}</a>" for i in range(6))
+check("a directory linking to contact pages elsewhere on the site owes no phone or email (gov.uk)",
+      _b1([_page("https://t.test/contact", "contact", H(body=f"<h1>Find contact details for services</h1>{govuk_like}"))]), [])
+footer_links = "".join(f"<a href='/contact-{i}'>Contact {i}</a>" for i in range(6))
+check("contact links only in the footer do not make a contact page a directory",
+      [f["check_id"] for f in _b1([_page("https://t.test/contact", "contact",
+          H(body="<h1>Contact us</h1><p>We read every message.</p>").replace("</main>", f"</main><footer>{footer_links}</footer>"))])],
+      ["B1_fact_absent"])
+
+_glasto = ("<html><head><title>Glastonbury Festival - Home</title></head><body><main><h1>Glastonbury Festival</h1>"
+           + "<p>Tickets, line-up news and everything about the festival at Worthy Farm in Somerset.</p>" * 12
+           + '</main><script type="text/javascript" src="/_Incapsula_Resource?SWJIYLWA=719d"></script></body></html>')
+check("a real page that loads the Incapsula script is not a challenge (glastonburyfestivals.co.uk)",
+      bundle_mod.bot_challenge(_glasto), None)
+check("an empty page carrying only the Incapsula script is a challenge (nypl.org)",
+      bundle_mod.bot_challenge('<html><head></head><body><script src="/_Incapsula_Resource?SWJIYLWA=1"></script></body></html>'), "Incapsula")
+check("an Akamai 'Access Denied' page is a challenge (easyjet.com)",
+      bundle_mod.bot_challenge('<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD><BODY><H1>Access Denied</H1>You don\'t have permission to access this server.<P>Reference&#32;&#35;18&#46;7361ab8</BODY></HTML>'), "Akamai")

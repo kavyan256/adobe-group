@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 import re
 import sys
+from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup
 
@@ -131,6 +132,60 @@ ROLE_OBLIGATIONS = {
     "product": [["price"]],
     "contact": [["phone", "email"]],
 }
+
+# An obligation comes from what a page is FOR, and the URL alone is a weak guide:
+# "/products/..." on a SaaS or pharma site, a "/plan" feature page, a "/buy"
+# category hub and a "/subscribe" newsletter page all owe no price (11 false high
+# findings in the 100-site evaluation). A price is owed only with commerce
+# evidence on the page itself, and contact details only on the contact page.
+_STRONG_PRICING_SLUG = re.compile(r"(^|[-_])(pricing|prices|price|preise|tarifs?|tarifas|precios|prezzi|prijzen)($|[-_.])", re.I)
+_PRICING_HEADING = re.compile(r"\b(pricing|prices?|price list|subscriptions?|tariffs?|fees|membership plans|"
+                              r"preise|tarifs?|precios|prezzi|prijzen)\b", re.I)
+_CART_ACTION = re.compile(r"cart|checkout|basket", re.I)
+_CONTACT_LEAF = re.compile(r"contact|kontakt|contatt|contato|contacto|get-in-touch", re.I)
+CONTACT_HUB_LINKS = 5     # a page linking to this many narrower /contact/... pages is a directory
+
+
+def _commerce_evidence(soup, d: dict, url: str, full_text: str, include_markup: bool = True) -> str | None:
+    """Why this page owes a price, or None.
+
+    Markup is left out when the question is whether markup is missing (C1), which
+    would otherwise be circular.
+    """
+    if include_markup and set(d["jsonld"]["types_present"]) & {"product", "productgroup", "offer", "aggregateoffer"}:
+        return "Product/Offer structured data"
+    og = soup.find("meta", attrs={"property": re.compile(r"^og:type$", re.I)})
+    if og and "product" in (og.get("content") or "").lower():
+        return "og:type product"
+    if any(_CART_ACTION.search(f.get("action") or "") for f in soup.find_all("form")):
+        return "an add-to-cart or checkout form"
+    if _find_price(full_text):
+        return "a price shown on the page"
+    leaf = urlparse(url).path.rstrip("/").rsplit("/", 1)[-1]
+    if _STRONG_PRICING_SLUG.search(leaf):
+        return f"its URL ({leaf})"
+    heading = " ".join([soup.title.get_text(" ", strip=True) if soup.title else ""]
+                       + [h.get_text(" ", strip=True) for h in soup.find_all("h1")])
+    if _PRICING_HEADING.search(heading):
+        return "its title or main heading"
+    return None
+
+
+def _is_contact_page(url: str, soup) -> bool:
+    """The contact page itself: its own URL segment says contact, and it is not a
+    directory routing visitors to many narrower contact pages."""
+    path = urlparse(url).path.rstrip("/")
+    if not _CONTACT_LEAF.search(path.rsplit("/", 1)[-1]):
+        return False
+    # A directory routes visitors onward from its content: to pages below it
+    # (/contact/press, glastonburyfestivals.co.uk) or to contact pages elsewhere
+    # on the site (/contact-the-dvla, gov.uk). Nav and footer links do not count.
+    onward = {urlparse(a["href"]).path.rstrip("/") for a in soup.find_all("a", href=True)
+              if a.find_parent(["nav", "header", "footer", "aside"]) is None
+              and _CONTACT_LEAF.search(urlparse(a["href"]).path)
+              and urlparse(a["href"]).path.rstrip("/") != path}
+    return len(onward) < CONTACT_HUB_LINKS
+
 
 ANAPHORA = re.compile(r'\b(this|these|those|it|they|our platform|our product|the above|'
                       r'as mentioned|as noted|as described above|the former|the latter)\b', re.I)
@@ -311,8 +366,23 @@ def run(b: dict) -> list[dict]:
         # ---- B1: extraction tiering over obligated facts -----------------
         # An obligation group is satisfied by its BEST tier across alternatives:
         # an email at T0 discharges a contact page's duty even with no phone.
-        for group in ROLE_OBLIGATIONS.get(p["role"], []):
-            tiers = {ft: tier_of(ft, prose, ld_text, meta_text, payload)
+        # Visible text is the whole rendered text (footer and forms included): a
+        # price or phone shown anywhere on the page is not "absent".
+        full_text = d["text"]["full"]
+        obligations = ROLE_OBLIGATIONS.get(p["role"], [])
+        if p["role"] in ("pricing", "product") and not _commerce_evidence(soup, d, p["url"], full_text):
+            obligations = []
+        if p["role"] == "contact" and not _is_contact_page(p["url"], soup):
+            obligations = []
+        # Contact details are often held in a page-state script (bfi.org.uk), not
+        # a named hydration island. Only contact facts search every script: JS
+        # code is full of "$1"-style strings that would read as prices.
+        script_text = (" | ".join(s.get_text() for s in soup.find_all("script")
+                                  if "ld+json" not in (s.get("type") or "").lower())
+                       if any({"phone", "email"} & set(g) for g in obligations) else "")
+        for group in obligations:
+            group_payload = payload + " | " + script_text if {"phone", "email"} & set(group) else payload
+            tiers = {ft: tier_of(ft, full_text, ld_text, meta_text, group_payload)
                      for ft in group}
             # A visible tel:/mailto: link is a quotable contact route even when
             # its label reads "Call us" rather than the number itself.
@@ -336,8 +406,10 @@ def run(b: dict) -> list[dict]:
             else:                              # T2: present, but only in a script blob
                 ft = next(f for f, t in tiers.items() if t == "T2")
                 sample = FACT_FINDERS[ft](payload) or FACT_FINDERS[ft](meta_text)
-                t2_hits.append((p["url"], ft, sample or "?",
-                                ", ".join(island_names) or "meta tags"))
+                source = ", ".join(island_names) if FACT_FINDERS[ft](payload) else "meta tags"
+                if not sample and script_text:
+                    sample, source = FACT_FINDERS[ft](script_text), "a page-state script"
+                t2_hits.append((p["url"], ft, sample or "?", source))
 
         # ---- B4: empty shell (only where role gave us nothing) -----------
         body = soup.find("body")
@@ -351,7 +423,8 @@ def run(b: dict) -> list[dict]:
         # An unknown @type or a missing property is not malformed.
         if d["jsonld"]["malformed_blocks"]:
             malformed.append(p["url"])
-        elif p["role"] == "product" and "product" not in d["jsonld"]["types_present"]:
+        elif (p["role"] == "product" and "product" not in d["jsonld"]["types_present"]
+              and _commerce_evidence(soup, d, p["url"], d["text"]["full"], include_markup=False)):
             # A product page is the one place structured data carries the fact
             # itself (Offer.price), so its absence is graded above the rest.
             no_product_markup.append(p["url"])

@@ -1,0 +1,344 @@
+[
+ {
+  "site": "carvana",
+  "check_id": "B1_fact_absent",
+  "verdict": "false",
+  "reason": "/buy is a category hub (role inferred from URL)"
+ },
+ {
+  "site": "cliffordchance",
+  "check_id": "B1_fact_absent",
+  "verdict": "false",
+  "reason": "/subscribe is a newsletter page"
+ },
+ {
+  "site": "smittenkitchen",
+  "check_id": "B1_fact_absent",
+  "verdict": "false",
+  "reason": "/subscribe is a newsletter page"
+ },
+ {
+  "site": "linear",
+  "check_id": "B1_fact_absent",
+  "verdict": "false",
+  "reason": "/plan is a feature page, not pricing (price obligation)"
+ },
+ {
+  "site": "notion",
+  "check_id": "B1_fact_absent",
+  "verdict": "false",
+  "reason": "/product/ai/use-cases is a SaaS feature page (price obligation)"
+ },
+ {
+  "site": "pfizer",
+  "check_id": "B1_fact_absent",
+  "verdict": "false",
+  "reason": "/products/how-drugs-are-made is an information page"
+ },
+ {
+  "site": "mistral",
+  "check_id": "B1_fact_absent",
+  "verdict": "false",
+  "reason": "/products/* are SaaS product pages without retail prices"
+ },
+ {
+  "site": "rhs",
+  "check_id": "B1_fact_absent",
+  "verdict": "false",
+  "reason": "/shop/garden-centres and /shop/licensed-products are section pages"
+ },
+ {
+  "site": "metoffice",
+  "check_id": "B1_fact_absent",
+  "verdict": "false",
+  "reason": "office-directions sub-page under /contact"
+ },
+ {
+  "site": "govuk",
+  "check_id": "B1_fact_absent",
+  "verdict": "false",
+  "reason": "/contact is a directory of service contacts"
+ },
+ {
+  "site": "bfi",
+  "check_id": "B1_fact_absent",
+  "verdict": "overstated",
+  "reason": "email exists in a script JSON payload: script-only, not absent"
+ },
+ {
+  "site": "logitech",
+  "check_id": "B1_fact_absent",
+  "verdict": "true",
+  "reason": "product pages carry no price in raw HTML"
+ },
+ {
+  "site": "thehindu",
+  "check_id": "B1_fact_absent",
+  "verdict": "true",
+  "reason": "subscription page shows no price without JavaScript"
+ },
+ {
+  "site": "compass",
+  "check_id": "B1_fact_absent",
+  "verdict": "true",
+  "reason": "homes-for-sale renders nothing without JavaScript"
+ },
+ {
+  "site": "bbc",
+  "check_id": "B1_fact_absent",
+  "verdict": "true",
+  "reason": "contact page offers no phone or email"
+ },
+ {
+  "site": "glastonbury",
+  "check_id": "B1_fact_absent",
+  "verdict": "true",
+  "reason": "contact page offers no phone or email in HTML"
+ },
+ {
+  "site": "msf",
+  "check_id": "B1_fact_absent",
+  "verdict": "true",
+  "reason": "contact page offers no phone or email in HTML"
+ },
+ {
+  "site": "linear",
+  "check_id": "B1_fact_absent",
+  "verdict": "true",
+  "reason": "contact/sales has no contact route in raw HTML"
+ },
+ {
+  "site": "webflow",
+  "check_id": "B1_fact_absent",
+  "verdict": "true",
+  "reason": "contact-sales form rendered client-side"
+ },
+ {
+  "site": "zoho",
+  "check_id": "B1_fact_absent",
+  "verdict": "true",
+  "reason": "contact page with no phone/email in HTML"
+ },
+ {
+  "site": "notion",
+  "check_id": "B1_fact_absent",
+  "verdict": "true",
+  "reason": "contact-sales page is an empty shell"
+ },
+ {
+  "site": "boots",
+  "check_id": "A3_noindex",
+  "verdict": "false",
+  "reason": "Incapsula bot-challenge page served with 200 analysed as homepage"
+ },
+ {
+  "site": "nypl",
+  "check_id": "A3_noindex",
+  "verdict": "false",
+  "reason": "empty Incapsula challenge response analysed as homepage"
+ },
+ {
+  "site": "govuk",
+  "check_id": "A3_noindex",
+  "verdict": "overstated",
+  "reason": "deliberate noindex on tribunal decisions"
+ },
+ {
+  "site": "webflow",
+  "check_id": "A3_noindex",
+  "verdict": "overstated",
+  "reason": "deliberate noindex on user profile pages"
+ },
+ {
+  "site": "msf",
+  "check_id": "A3_noindex",
+  "verdict": "overstated",
+  "reason": "deliberate noindex on reward/translation pages"
+ },
+ {
+  "site": "ethz",
+  "check_id": "A3_noindex",
+  "verdict": "overstated",
+  "reason": "deliberate noindex on news teaser fragments"
+ },
+ {
+  "site": "gymshark",
+  "check_id": "A3_noindex",
+  "verdict": "overstated",
+  "reason": "deliberate noindex on a pagination page"
+ },
+ {
+  "site": "mcmaster",
+  "check_id": "A3_noindex",
+  "verdict": "true",
+  "reason": "10 of 12 catalog pages carry noindex"
+ },
+ {
+  "site": "wework",
+  "check_id": "A3_noindex",
+  "verdict": "true",
+  "reason": "contact page carries noindex"
+ },
+ {
+  "site": "bbc",
+  "check_id": "A1_retrieval_agent_blocked",
+  "verdict": "posture",
+  "reason": "named publisher block of OpenAI/Perplexity agents reported as a critical defect"
+ },
+ {
+  "site": "npr",
+  "check_id": "A1_retrieval_agent_blocked",
+  "verdict": "posture",
+  "reason": "named publisher block of OpenAI/Perplexity agents reported as a critical defect"
+ },
+ {
+  "site": "thehindu",
+  "check_id": "A1_retrieval_agent_blocked",
+  "verdict": "posture",
+  "reason": "named publisher block of OpenAI/Perplexity agents reported as a critical defect"
+ },
+ {
+  "site": "wikihow",
+  "check_id": "A1_retrieval_agent_blocked",
+  "verdict": "posture",
+  "reason": "named publisher block of OpenAI/Perplexity agents reported as a critical defect"
+ },
+ {
+  "site": "bhaskar",
+  "check_id": "A1_retrieval_agent_blocked",
+  "verdict": "posture",
+  "reason": "named publisher block of OpenAI/Perplexity agents reported as a critical defect"
+ },
+ {
+  "site": "spiegel",
+  "check_id": "A1_retrieval_agent_blocked",
+  "verdict": "posture",
+  "reason": "named publisher block of OpenAI/Perplexity agents reported as a critical defect"
+ },
+ {
+  "site": "curl",
+  "check_id": "A7_site_unreadable",
+  "verdict": "false",
+  "reason": "single robots.txt timeout; robots.txt returns 200 on retry"
+ },
+ {
+  "site": "jio",
+  "check_id": "A7_site_unreadable",
+  "verdict": "true",
+  "reason": "robots.txt unreachable for non-browser clients on retry"
+ },
+ {
+  "site": "kraken",
+  "check_id": "A7_site_unreadable",
+  "verdict": "true",
+  "reason": "robots.txt unreachable for non-browser clients on retry"
+ },
+ {
+  "site": "muji",
+  "check_id": "A7_site_unreadable",
+  "verdict": "true",
+  "reason": "robots.txt unreachable for non-browser clients on retry"
+ },
+ {
+  "site": "lobsters",
+  "check_id": "A7_site_unreadable",
+  "verdict": "true",
+  "reason": "User-agent * Disallow / ; but A1 (AI crawlers blocked) not reported"
+ },
+ {
+  "site": "bluebottle",
+  "check_id": "B4_empty_shell",
+  "verdict": "true",
+  "reason": "raw HTML carries almost no text behind a JS mount"
+ },
+ {
+  "site": "duolingo",
+  "check_id": "B4_empty_shell",
+  "verdict": "true",
+  "reason": "raw HTML carries almost no text behind a JS mount"
+ },
+ {
+  "site": "notion",
+  "check_id": "B4_empty_shell",
+  "verdict": "true",
+  "reason": "raw HTML carries almost no text behind a JS mount"
+ },
+ {
+  "site": "supercell",
+  "check_id": "B4_empty_shell",
+  "verdict": "true",
+  "reason": "raw HTML carries almost no text behind a JS mount"
+ },
+ {
+  "site": "websummit",
+  "check_id": "B4_empty_shell",
+  "verdict": "true",
+  "reason": "raw HTML carries almost no text behind a JS mount"
+ },
+ {
+  "site": "aspendental",
+  "check_id": "C1_structured_data_invalid",
+  "verdict": "true",
+  "reason": "JSON-LD is HTML-escaped"
+ },
+ {
+  "site": "weworkremotely",
+  "check_id": "C1_structured_data_invalid",
+  "verdict": "true",
+  "reason": "raw control characters in JSON strings"
+ },
+ {
+  "site": "framer",
+  "check_id": "A2_snippet_suppressed",
+  "verdict": "false (likely)",
+  "reason": "data-nosnippet on a brand-links block"
+ },
+ {
+  "site": "bbc",
+  "check_id": "C3_entity_unanchored",
+  "verdict": "true",
+  "reason": "no organisation node with sameAs on any crawled page"
+ },
+ {
+  "site": "nature",
+  "check_id": "C3_entity_unanchored",
+  "verdict": "true",
+  "reason": "no organisation node with sameAs on any crawled page"
+ },
+ {
+  "site": "britannica",
+  "check_id": "C3_entity_unanchored",
+  "verdict": "true",
+  "reason": "no organisation node with sameAs on any crawled page"
+ },
+ {
+  "site": "glossier",
+  "check_id": "C2_markup_text_contradiction",
+  "verdict": "false",
+  "reason": "$16 is in the full text, outside the extracted area"
+ },
+ {
+  "site": "bhaskar",
+  "check_id": "C2_markup_text_contradiction",
+  "verdict": "false",
+  "reason": "declared price 0 for a free offer"
+ },
+ {
+  "site": "supercell",
+  "check_id": "A11_soft_404",
+  "verdict": "true",
+  "reason": "/404 returns 200 with a not-found page"
+ },
+ {
+  "site": "wikihow",
+  "check_id": "A11_soft_404",
+  "verdict": "false",
+  "reason": "'0404 Angel Number' matched '404' inside a word"
+ },
+ {
+  "site": "glossier",
+  "check_id": "E1_unlabelled_input",
+  "verdict": "flooding",
+  "reason": "9 separate findings, one per form template"
+ }
+]

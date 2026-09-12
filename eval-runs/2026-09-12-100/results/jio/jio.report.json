@@ -1,0 +1,205 @@
+{
+  "site": "www.jio.com",
+  "audited_at": "2026-09-12T16:25:00Z",
+  "summary": {
+    "total_findings": 1,
+    "critical": 1,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "active_findings": 1,
+    "latent_findings": 0,
+    "confirm_intent_findings": 0,
+    "info": 0,
+    "active_by_severity": {
+      "critical": 1,
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    },
+    "by_hurts": {
+      "ai_discoverability": 1,
+      "user_retention": 0,
+      "both": 0
+    },
+    "run_status": "blocked",
+    "headline": "The site could not be read by an automated client - fix access before anything else."
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "title": "Site could not be read by an automated client",
+      "severity": "critical",
+      "evidence": "robots.txt could not be fetched, and an unreachable robots.txt is treated as disallow-all, so no page was requested. Attempted 1 URL(s); 0 returned usable HTML. run_status=blocked.",
+      "suggested_action": {
+        "summary": "Make the site reachable by non-browser clients before anything else.",
+        "priority": "critical",
+        "effort": "medium",
+        "how": [
+          "Confirm the site returns HTTP 200 to a plain GET with a non-browser User-Agent (test: curl -A 'AIReadinessAudit/1.0' -I <url>).",
+          "If a WAF or bot-management rule is challenging non-browser clients, add an allow rule for documented assistant retrieval agents.",
+          "If robots.txt is blocking broadly, narrow the Disallow rules.",
+          "If robots.txt itself could not be fetched, make sure /robots.txt answers HTTP 200 (or 404): crawlers treat an unreachable one as disallow-all."
+        ],
+        "verify": "curl -sI <url> returns 200 and curl -s <url> returns HTML containing your main heading."
+      },
+      "check_id": "A7_site_unreadable",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "access",
+      "mechanism": "A",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "site_wide",
+      "severity_rationale": "base=critical (access/A7_site_unreadable); coverage=0<3: no blast escalation => critical",
+      "affected_urls": [
+        "https://www.jio.com/"
+      ],
+      "affected_url_count": 1
+    }
+  ],
+  "site_profile": {
+    "start_url": "https://www.jio.com/",
+    "pages_crawled": 0,
+    "roles_seen": [],
+    "robots_present": false,
+    "ai_policy": {
+      "retrieval_agents_blocked": [
+        "Applebot",
+        "Bingbot",
+        "ChatGPT-User",
+        "Claude-SearchBot",
+        "Claude-User",
+        "Googlebot",
+        "OAI-SearchBot",
+        "Perplexity-User",
+        "PerplexityBot"
+      ],
+      "training_agents_blocked": [
+        "Applebot-Extended",
+        "Bytespider",
+        "CCBot",
+        "ClaudeBot",
+        "GPTBot",
+        "Google-Extended"
+      ],
+      "interpretation": "Blocking training agents is a licensing choice and does not affect whether assistants can cite you. Only retrieval agents gate citation."
+    },
+    "user_agent_used": "AIReadinessAudit/1.0 (+https://github.com/kavyan256/adobe-group)"
+  },
+  "coverage": {
+    "elapsed_s": 12.6,
+    "pages_attempted": 1,
+    "pages_blocked_by_robots_for_our_ua": 1,
+    "pages_fetched": 0,
+    "pages_ok": 0,
+    "urls_discovered": 1
+  },
+  "checks_skipped": [
+    {
+      "check": "E_authenticated_flows",
+      "reason": "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account.",
+      "impact": "How to check it yourself: walk the signup, checkout or booking flow on a phone with a test account and count the required steps and fields."
+    },
+    {
+      "check": "E_behaviour_metrics",
+      "reason": "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion rate). Reason: they are observed, not inferred from markup, and a short visit from an AI answer is often a success - the visitor came to verify one fact and did.",
+      "impact": "How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate, not their bounce rate, with search traffic."
+    },
+    {
+      "check": "E_colour_contrast",
+      "reason": "Not assessed: colour contrast (WCAG 1.4.3). Reason: contrast ratios need computed styles, which need a browser; this marketplace runs without one to stay portable and deterministic.",
+      "impact": "How to check it yourself: run axe DevTools or Lighthouse on the top 3 page templates and read the contrast section."
+    },
+    {
+      "check": "E_copy_quality",
+      "reason": "Not assessed: copy quality, persuasion and jargon. Reason: subjective; no static threshold separates plain language from marketing copy across industries and languages without a high false-positive rate.",
+      "impact": "How to check it yourself: read the first paragraph of the homepage and one product page aloud to someone outside the company and ask what the site offers and for whom."
+    },
+    {
+      "check": "E_core_web_vitals",
+      "reason": "Not assessed: Core Web Vitals (LCP, CLS, INP). Reason: these are field metrics at the 75th percentile; a single synthetic fetch is not a measurement and INP cannot be measured synthetically at all.",
+      "impact": "How to check it yourself: open Google Search Console's Core Web Vitals report, which uses real-user data, or run Lighthouse for lab LCP/CLS."
+    },
+    {
+      "check": "E_rendered_experience",
+      "reason": "Not assessed: the rendered experience (overlay and cookie-banner timing, tap target size, focus visibility, layout at phone width). Reason: all of it depends on CSS and JavaScript executing, which needs a browser.",
+      "impact": "How to check it yourself: run Lighthouse and axe on the top 3 templates at phone width, then tab through each page once to confirm focus is visible."
+    },
+    {
+      "check": "engagement-audit",
+      "reason": "no page returned readable HTML, so no engagement check ran",
+      "impact": "On-site engagement was not assessed at all. Fix the access problem reported by crawl-access-audit, then re-run."
+    }
+  ],
+  "agent_review": {
+    "status": "not_run"
+  },
+  "prioritized_actions": [
+    {
+      "rank": 1,
+      "finding_id": "F-001",
+      "title": "Site could not be read by an automated client",
+      "priority_score": 3.125,
+      "severity": "critical",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "medium",
+      "action": "Make the site reachable by non-browser clients before anything else."
+    }
+  ],
+  "proactive_recommendations": [
+    {
+      "title": "Publish an llms.txt describing your site for AI clients",
+      "rationale": "An emerging convention: a short, stable, plain-text map of what your site covers and where the authoritative pages are. Cheap to add, and it gives retrieval agents an unambiguous starting point.",
+      "effort": "low",
+      "applies_because": "GET /llms.txt did not return a plain-text document"
+    },
+    {
+      "title": "Decide your AI-crawler policy deliberately, and write it down",
+      "rationale": "Training access and retrieval access are separate decisions. Blocking training crawlers while explicitly allowing retrieval agents is a coherent, defensible position - but it has to be configured on purpose, per user-agent.",
+      "effort": "low",
+      "applies_because": "robots.txt names no AI retrieval or training agent, so the current policy is whatever the wildcard group happens to say"
+    },
+    {
+      "title": "Add a machine-readable FAQ layer shaped for quotation",
+      "rationale": "FAQPage structured data pairs a question with a self-contained answer. That is exactly the shape an assistant wants to lift, and it survives text extraction.",
+      "effort": "medium",
+      "applies_because": "no crawled page carries FAQPage JSON-LD"
+    },
+    {
+      "title": "Publish a stable, citable facts page",
+      "rationale": "Founding date, leadership, HQ, product line, pricing - in one durable URL that third parties can cite verbatim. Corroboration across independent sources is what makes a claim credible to a machine, and you can seed it.",
+      "effort": "medium",
+      "applies_because": "no crawled page declares Organization sameAs links, so there is no anchor for third parties to corroborate against"
+    }
+  ],
+  "already_in_place": [
+    {
+      "title": "Server-render your most-quoted facts even inside a SPA",
+      "because": "not a client-rendered app, or a specific finding already covers it"
+    },
+    {
+      "title": "Answer the question visitors arrive with on the first screen",
+      "because": "the homepage's first 60 words already name the site or state a concrete figure"
+    },
+    {
+      "title": "Every deep page links to its parent section and a contact route",
+      "because": "every substantial deep page already links onward from its content"
+    }
+  ],
+  "limits": [
+    "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion). Reason: a crawl sees markup, never visitors; engagement findings are structural risk factors, capped at medium for that reason. How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate with search traffic.",
+    "Not assessed: the rendered experience (layout, overlays and cookie banners, colour contrast, Core Web Vitals) and facts loaded by client-side requests after page load. Reason: no JavaScript is executed and no browser is used - which is also what non-rendering AI retrieval agents see; a fact fetched only by XHR can be a false negative here. How to check it yourself: run Lighthouse and axe on the top three templates, and open a key page with JavaScript disabled to see what a bot gets.",
+    "Not assessed: copy quality - whether the words persuade, or answer the visitor's question well. Reason: subjective, with no static threshold that holds across industries and languages; the scripted checks measure only structure and vocabulary overlap. How to check it yourself: read the first paragraph of the homepage and one product page to someone outside the company and ask what the site offers and for whom.",
+    "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account. How to check it yourself: walk the signup, checkout or booking flow with a test account and count the required steps and fields.",
+    "Not assessed: personalization of AI answers (appendix E). Reason: it happens inside the assistant, from the user's own context, and no site-side measurement exists; the site-side lever - self-contained, quotable facts - is what the extraction and quotability checks cover. How to check it yourself: ask an assistant the same question about your brand in a fresh session and in a long-running one, and compare.",
+    "Not assessed: cross-web corroboration - whether independent sources agree with the site's facts. Reason: it needs a search backend and off-site fetches, which this audit does not make; only on-site corroboration hooks (sameAs, press links) are checked. How to check it yourself: search Wikipedia, Wikidata, Crunchbase and the press for your founding date, HQ, leadership and pricing, and reconcile differences.",
+    "Not assessed: problems outside the scripted checks, unless an agent review ran (see agent_review). Reason: a fixed list of checks misses what it does not list. How to check it yourself: follow agent-review-audit/SKILL.md; every claim it admits was checked against the crawl and is capped at low severity."
+  ],
+  "notes": [
+    "robots.txt unreachable: ReadTimeout",
+    "sitemap not fetched (robots.txt disallows it for our UA): https://www.jio.com/sitemap.xml"
+  ]
+}

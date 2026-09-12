@@ -1,0 +1,1824 @@
+{
+ "sites": 100,
+ "per_site": {
+  "bbc": {
+   "url": "https://www.bbc.co.uk",
+   "category": "National broadcaster news (UK)",
+   "rc": 0,
+   "wall_s": 35.1,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 3,
+   "checks": [
+    "A1_retrieval_agent_blocked",
+    "C3_entity_unanchored",
+    "C5_faq_content_unmarked"
+   ]
+  },
+  "thehindu": {
+   "url": "https://www.thehindu.com",
+   "category": "Newspaper (India)",
+   "rc": 0,
+   "wall_s": 24.4,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 6,
+   "checks": [
+    "A1_retrieval_agent_blocked",
+    "B1_fact_absent",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E3_unnamed_controls",
+    "E6_heading_structure"
+   ]
+  },
+  "spiegel": {
+   "url": "https://www.spiegel.de",
+   "category": "News magazine (German)",
+   "rc": 0,
+   "wall_s": 48.9,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 2,
+   "checks": [
+    "A1_retrieval_agent_blocked",
+    "E6_heading_structure"
+   ]
+  },
+  "bhaskar": {
+   "url": "https://www.bhaskar.com",
+   "category": "Hindi-language news",
+   "rc": 0,
+   "wall_s": 35.9,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 6,
+   "checks": [
+    "A1_retrieval_agent_blocked",
+    "C2_markup_text_contradiction",
+    "D2_stale_copyright",
+    "E3_unnamed_controls",
+    "E6_heading_structure",
+    "E9_promise_payoff_mismatch"
+   ]
+  },
+  "theverge": {
+   "url": "https://www.theverge.com",
+   "category": "Tech magazine",
+   "rc": 0,
+   "wall_s": 32.6,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 4,
+   "checks": [
+    "A1_retrieval_agent_blocked",
+    "B1_fact_script_only",
+    "C1_structured_data_absent",
+    "E6_heading_structure"
+   ]
+  },
+  "smittenkitchen": {
+   "url": "https://smittenkitchen.com",
+   "category": "Recipe blog (WordPress)",
+   "rc": 0,
+   "wall_s": 39.4,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 3,
+   "checks": [
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E3_unnamed_controls"
+   ]
+  },
+  "paulgraham": {
+   "url": "https://www.paulgraham.com",
+   "category": "Personal essay site (hand-written HTML)",
+   "rc": 0,
+   "wall_s": 7.5,
+   "run_status": "complete",
+   "pages_ok": 2,
+   "total": 7,
+   "checks": [
+    "A6_sitemap_missing",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E11_no_viewport",
+    "E4_images_missing_alt",
+    "E5_no_lang",
+    "E6_heading_structure"
+   ]
+  },
+  "pythondocs": {
+   "url": "https://docs.python.org/3/",
+   "category": "Language documentation",
+   "rc": 0,
+   "wall_s": 20.5,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 6,
+   "checks": [
+    "B6_filler_heavy",
+    "C3_entity_unanchored",
+    "D2_stale_copyright",
+    "E11_no_viewport",
+    "E1_unlabelled_input",
+    "E5_no_lang"
+   ]
+  },
+  "curl": {
+   "url": "https://curl.se",
+   "category": "Open-source project site",
+   "rc": 0,
+   "wall_s": 24.4,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 7,
+   "checks": [
+    "A6_sitemap_missing",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "C5_faq_content_unmarked",
+    "E1_unlabelled_input",
+    "E5_no_lang",
+    "E6_heading_structure"
+   ]
+  },
+  "linear": {
+   "url": "https://linear.app",
+   "category": "SaaS with pricing page (Next.js)",
+   "rc": 0,
+   "wall_s": 42.8,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 3,
+   "checks": [
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E3_unnamed_controls"
+   ]
+  },
+  "notion": {
+   "url": "https://www.notion.com",
+   "category": "Productivity SaaS (JS heavy)",
+   "rc": 0,
+   "wall_s": 39.9,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 8,
+   "checks": [
+    "B1_fact_absent",
+    "B4_empty_shell",
+    "C1_product_markup_absent",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "C7_title_problem",
+    "E3_unnamed_controls",
+    "E6_heading_structure"
+   ]
+  },
+  "webflow": {
+   "url": "https://webflow.com",
+   "category": "Website builder (Webflow-built)",
+   "rc": 0,
+   "wall_s": 41.6,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 5,
+   "checks": [
+    "A3_noindex_utility",
+    "B1_fact_script_only",
+    "C1_structured_data_absent",
+    "E3_unnamed_controls",
+    "E6_heading_structure"
+   ]
+  },
+  "framer": {
+   "url": "https://www.framer.com",
+   "category": "Design tool (Framer-built)",
+   "rc": 0,
+   "wall_s": 45.3,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 7,
+   "checks": [
+    "A2_snippet_suppressed",
+    "C1_product_markup_absent",
+    "C5_faq_content_unmarked",
+    "E1_unlabelled_input",
+    "E3_unnamed_controls"
+   ]
+  },
+  "ghost": {
+   "url": "https://ghost.org",
+   "category": "Publishing platform",
+   "rc": 0,
+   "wall_s": 37.4,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 5,
+   "checks": [
+    "C3_entity_unanchored",
+    "E11_no_viewport",
+    "E3_unnamed_controls",
+    "E4_images_missing_alt",
+    "E6_heading_structure"
+   ]
+  },
+  "ruggable": {
+   "url": "https://ruggable.com",
+   "category": "DTC home goods (Shopify)",
+   "rc": 0,
+   "wall_s": 50.6,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 2,
+   "checks": [
+    "B1_fact_absent",
+    "C1_structured_data_absent"
+   ]
+  },
+  "gymshark": {
+   "url": "https://www.gymshark.com",
+   "category": "DTC fashion (bot-protected)",
+   "rc": 0,
+   "wall_s": 77.8,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 5,
+   "checks": [
+    "A3_noindex_utility",
+    "C1_structured_data_absent",
+    "E3_unnamed_controls",
+    "E4_images_missing_alt",
+    "E6_heading_structure"
+   ]
+  },
+  "boots": {
+   "url": "https://www.boots.com",
+   "category": "Pharmacy retailer (UK enterprise e-com)",
+   "rc": 0,
+   "wall_s": 18.4,
+   "run_status": "failed",
+   "pages_ok": 0,
+   "total": 1,
+   "checks": [
+    "A7_site_unreadable"
+   ]
+  },
+  "bigbasket": {
+   "url": "https://www.bigbasket.com",
+   "category": "Online grocery (India)",
+   "rc": 0,
+   "wall_s": 52.9,
+   "run_status": "partial",
+   "pages_ok": 11,
+   "total": 12,
+   "checks": [
+    "A9_broken_pages",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E11_no_viewport",
+    "E1_unlabelled_input",
+    "E3_unnamed_controls",
+    "E4_images_missing_alt",
+    "E5_no_lang",
+    "E6_heading_structure",
+    "E7_zoom_disabled",
+    "X1_low_quotability"
+   ]
+  },
+  "deliveroo": {
+   "url": "https://deliveroo.co.uk",
+   "category": "Food delivery marketplace",
+   "rc": 0,
+   "wall_s": 32.8,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 4,
+   "checks": [
+    "B1_fact_script_only",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E4_images_missing_alt"
+   ]
+  },
+  "shakeshack": {
+   "url": "https://shakeshack.com",
+   "category": "Restaurant chain (US)",
+   "rc": 0,
+   "wall_s": 24.9,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 3,
+   "checks": [
+    "A6_sitemap_missing",
+    "B1_fact_absent",
+    "C1_structured_data_absent"
+   ]
+  },
+  "bluebottle": {
+   "url": "https://bluebottlecoffee.com",
+   "category": "Coffee roaster + cafes",
+   "rc": 0,
+   "wall_s": 21.1,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 7,
+   "checks": [
+    "A5_canonical_missing",
+    "A6_sitemap_missing",
+    "B4_empty_shell",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "C7_title_problem",
+    "E6_heading_structure"
+   ]
+  },
+  "thehoxton": {
+   "url": "https://thehoxton.com",
+   "category": "Boutique hotel group",
+   "rc": 0,
+   "wall_s": 49.4,
+   "run_status": "partial",
+   "pages_ok": 10,
+   "total": 8,
+   "checks": [
+    "B6_filler_heavy",
+    "E1_unlabelled_input",
+    "E3_unnamed_controls",
+    "E6_heading_structure"
+   ]
+  },
+  "easyjet": {
+   "url": "https://www.easyjet.com",
+   "category": "Low-cost airline",
+   "rc": 0,
+   "wall_s": 33.4,
+   "run_status": "failed",
+   "pages_ok": 0,
+   "total": 1,
+   "checks": [
+    "A7_site_unreadable"
+   ]
+  },
+  "visitportugal": {
+   "url": "https://www.visitportugal.com",
+   "category": "National tourism board",
+   "rc": 0,
+   "wall_s": 75.1,
+   "run_status": "partial",
+   "pages_ok": 19,
+   "total": 12,
+   "checks": [
+    "A6_sitemap_missing",
+    "A9_broken_pages",
+    "B6_filler_heavy",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "C7_title_problem",
+    "E12_no_orientation",
+    "E1_form_friction",
+    "E1_unlabelled_input",
+    "E3_unnamed_controls"
+   ]
+  },
+  "britishmuseum": {
+   "url": "https://www.britishmuseum.org",
+   "category": "Museum",
+   "rc": 0,
+   "wall_s": 6.7,
+   "run_status": "failed",
+   "pages_ok": 0,
+   "total": 1,
+   "checks": [
+    "A7_site_unreadable"
+   ]
+  },
+  "nypl": {
+   "url": "https://www.nypl.org",
+   "category": "Public library",
+   "rc": 0,
+   "wall_s": 11.9,
+   "run_status": "failed",
+   "pages_ok": 0,
+   "total": 1,
+   "checks": [
+    "A7_site_unreadable"
+   ]
+  },
+  "mit": {
+   "url": "https://www.mit.edu",
+   "category": "University (US)",
+   "rc": 0,
+   "wall_s": 21.4,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 6,
+   "checks": [
+    "A5_canonical_problem",
+    "A6_sitemap_missing",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E12_no_orientation",
+    "E3_unnamed_controls"
+   ]
+  },
+  "ethz": {
+   "url": "https://ethz.ch",
+   "category": "University (Switzerland, DE/EN)",
+   "rc": 0,
+   "wall_s": 20.7,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 6,
+   "checks": [
+    "A3_noindex_utility",
+    "A6_sitemap_missing",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "C7_title_problem",
+    "E6_heading_structure"
+   ]
+  },
+  "eton": {
+   "url": "https://www.etoncollege.com",
+   "category": "Independent school",
+   "rc": 0,
+   "wall_s": 40.5,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 5,
+   "checks": [
+    "C3_entity_unanchored",
+    "E1_form_friction",
+    "E3_unnamed_controls",
+    "E4_images_missing_alt",
+    "E6_heading_structure"
+   ]
+  },
+  "khanacademy": {
+   "url": "https://www.khanacademy.org",
+   "category": "Online learning (React SPA)",
+   "rc": 0,
+   "wall_s": 27.0,
+   "run_status": "complete",
+   "pages_ok": 8,
+   "total": 4,
+   "checks": [
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "C7_title_problem",
+    "E6_heading_structure"
+   ]
+  },
+  "duolingo": {
+   "url": "https://www.duolingo.com",
+   "category": "Language-learning app",
+   "rc": 0,
+   "wall_s": 30.5,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 8,
+   "checks": [
+    "A10_meta_refresh",
+    "B4_empty_shell",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "C7_title_problem",
+    "E5_no_lang",
+    "E6_heading_structure",
+    "E7_zoom_disabled"
+   ]
+  },
+  "mayoclinic": {
+   "url": "https://www.mayoclinic.org",
+   "category": "Hospital / health information",
+   "rc": 0,
+   "wall_s": 5.7,
+   "run_status": "failed",
+   "pages_ok": 0,
+   "total": 1,
+   "checks": [
+    "A7_site_unreadable"
+   ]
+  },
+  "aspendental": {
+   "url": "https://www.aspendental.com",
+   "category": "Dental clinic chain",
+   "rc": 0,
+   "wall_s": 43.5,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 4,
+   "checks": [
+    "C1_structured_data_absent",
+    "C1_structured_data_invalid",
+    "C3_entity_unanchored",
+    "C5_faq_content_unmarked"
+   ]
+  },
+  "pfizer": {
+   "url": "https://www.pfizer.com",
+   "category": "Pharmaceutical company",
+   "rc": 0,
+   "wall_s": 18.7,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 6,
+   "checks": [
+    "C1_product_markup_absent",
+    "E1_form_friction",
+    "E1_unlabelled_input",
+    "E3_unnamed_controls"
+   ]
+  },
+  "nhs": {
+   "url": "https://www.nhs.uk",
+   "category": "Public health service (gov)",
+   "rc": 0,
+   "wall_s": 33.1,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 4,
+   "checks": [
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E10_no_next_step",
+    "X1_low_quotability"
+   ]
+  },
+  "govuk": {
+   "url": "https://www.gov.uk",
+   "category": "Central government portal",
+   "rc": 0,
+   "wall_s": 36.8,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 4,
+   "checks": [
+    "A3_noindex_utility",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "D2_stale_copyright"
+   ]
+  },
+  "nycgov": {
+   "url": "https://www.nyc.gov",
+   "category": "City government",
+   "rc": 0,
+   "wall_s": 5.8,
+   "run_status": "failed",
+   "pages_ok": 0,
+   "total": 1,
+   "checks": [
+    "A7_site_unreadable"
+   ]
+  },
+  "incometax": {
+   "url": "https://www.incometax.gov.in",
+   "category": "Tax authority (India, Angular)",
+   "rc": 0,
+   "wall_s": 23.9,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 4,
+   "checks": [
+    "A6_sitemap_missing",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E1_unlabelled_input"
+   ]
+  },
+  "hdfcbank": {
+   "url": "https://www.hdfcbank.com",
+   "category": "Retail bank (India)",
+   "rc": 0,
+   "wall_s": 93.5,
+   "run_status": "partial",
+   "pages_ok": 1,
+   "total": 3,
+   "checks": [
+    "A6_sitemap_missing",
+    "C3_entity_unanchored",
+    "E3_unnamed_controls"
+   ]
+  },
+  "monzo": {
+   "url": "https://monzo.com",
+   "category": "Neobank (UK)",
+   "rc": 0,
+   "wall_s": 24.5,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 3,
+   "checks": [
+    "C1_structured_data_absent",
+    "C5_faq_content_unmarked",
+    "D1_no_date_signals"
+   ]
+  },
+  "lemonade": {
+   "url": "https://www.lemonade.com",
+   "category": "Insurance (insurtech)",
+   "rc": 0,
+   "wall_s": 4.8,
+   "run_status": "failed",
+   "pages_ok": 0,
+   "total": 1,
+   "checks": [
+    "A7_site_unreadable"
+   ]
+  },
+  "kraken": {
+   "url": "https://www.kraken.com",
+   "category": "Crypto exchange",
+   "rc": 0,
+   "wall_s": 3.4,
+   "run_status": "blocked",
+   "pages_ok": 0,
+   "total": 1,
+   "checks": [
+    "A7_site_unreadable"
+   ]
+  },
+  "cliffordchance": {
+   "url": "https://www.cliffordchance.com",
+   "category": "International law firm",
+   "rc": 0,
+   "wall_s": 84.5,
+   "run_status": "complete",
+   "pages_ok": 20,
+   "total": 6,
+   "checks": [
+    "A4_redirect_chain",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E1_unlabelled_input",
+    "E3_unnamed_controls",
+    "X1_low_quotability"
+   ]
+  },
+  "rightmove": {
+   "url": "https://www.rightmove.co.uk",
+   "category": "Property portal",
+   "rc": 0,
+   "wall_s": 43.6,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 3,
+   "checks": [
+    "B6_filler_heavy",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored"
+   ]
+  },
+  "compass": {
+   "url": "https://www.compass.com",
+   "category": "Real-estate brokerage (US)",
+   "rc": 0,
+   "wall_s": 43.3,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 4,
+   "checks": [
+    "A5_canonical_missing",
+    "C1_structured_data_absent",
+    "C7_title_problem",
+    "E3_unnamed_controls"
+   ]
+  },
+  "tesla": {
+   "url": "https://www.tesla.com",
+   "category": "Automotive brand",
+   "rc": 0,
+   "wall_s": 5.2,
+   "run_status": "failed",
+   "pages_ok": 0,
+   "total": 1,
+   "checks": [
+    "A7_site_unreadable"
+   ]
+  },
+  "carvana": {
+   "url": "https://www.carvana.com",
+   "category": "Online used-car dealer",
+   "rc": 0,
+   "wall_s": 33.5,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 1,
+   "checks": [
+    "C1_structured_data_absent"
+   ]
+  },
+  "jio": {
+   "url": "https://www.jio.com",
+   "category": "Telecom operator (India)",
+   "rc": 0,
+   "wall_s": 13.6,
+   "run_status": "blocked",
+   "pages_ok": 0,
+   "total": 1,
+   "checks": [
+    "A7_site_unreadable"
+   ]
+  },
+  "octopus": {
+   "url": "https://octopus.energy",
+   "category": "Energy utility (UK)",
+   "rc": 0,
+   "wall_s": 35.3,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 1,
+   "checks": [
+    "E10_no_next_step"
+   ]
+  },
+  "dhl": {
+   "url": "https://www.dhl.com",
+   "category": "Logistics company",
+   "rc": 0,
+   "wall_s": 78.7,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 2,
+   "checks": [
+    "C3_entity_unanchored",
+    "E6_heading_structure"
+   ]
+  },
+  "bosch": {
+   "url": "https://www.bosch.de",
+   "category": "Industrial manufacturer (German)",
+   "rc": 0,
+   "wall_s": 25.6,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 4,
+   "checks": [
+    "A6_sitemap_missing",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E10_no_next_step"
+   ]
+  },
+  "mcmaster": {
+   "url": "https://www.mcmaster.com",
+   "category": "Industrial supply catalog",
+   "rc": 0,
+   "wall_s": 33.3,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 7,
+   "checks": [
+    "A3_noindex",
+    "A5_canonical_missing",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "C7_title_problem",
+    "E1_unlabelled_input",
+    "E6_heading_structure"
+   ]
+  },
+  "logitech": {
+   "url": "https://www.logitech.com",
+   "category": "Consumer electronics brand",
+   "rc": 0,
+   "wall_s": 38.2,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 3,
+   "checks": [
+    "B1_fact_absent",
+    "C1_product_markup_absent",
+    "C3_entity_unanchored"
+   ]
+  },
+  "article": {
+   "url": "https://www.article.com",
+   "category": "DTC furniture",
+   "rc": 0,
+   "wall_s": 54.3,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 2,
+   "checks": [
+    "C1_product_markup_absent",
+    "E6_heading_structure"
+   ]
+  },
+  "glossier": {
+   "url": "https://www.glossier.com",
+   "category": "Cosmetics DTC",
+   "rc": 0,
+   "wall_s": 44.8,
+   "run_status": "partial",
+   "pages_ok": 11,
+   "total": 14,
+   "checks": [
+    "B6_filler_heavy",
+    "C1_structured_data_absent",
+    "C2_markup_text_contradiction",
+    "C3_entity_unanchored",
+    "E1_unlabelled_input",
+    "E6_heading_structure"
+   ]
+  },
+  "lego": {
+   "url": "https://www.lego.com",
+   "category": "Toy brand",
+   "rc": 0,
+   "wall_s": 138.7,
+   "run_status": "partial",
+   "pages_ok": 3,
+   "total": 2,
+   "checks": [
+    "A9_key_page_broken",
+    "E6_heading_structure"
+   ]
+  },
+  "chewy": {
+   "url": "https://www.chewy.com",
+   "category": "Pet supplies retailer",
+   "rc": 0,
+   "wall_s": 21.7,
+   "run_status": "partial",
+   "pages_ok": 3,
+   "total": 1,
+   "checks": [
+    "C5_faq_content_unmarked"
+   ]
+  },
+  "rhs": {
+   "url": "https://www.rhs.org.uk",
+   "category": "Gardening charity / advice",
+   "rc": 0,
+   "wall_s": 29.3,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 6,
+   "checks": [
+    "A5_canonical_missing",
+    "A6_sitemap_missing",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E3_unnamed_controls",
+    "E4_images_missing_alt"
+   ]
+  },
+  "festool": {
+   "url": "https://www.festool.com",
+   "category": "Power-tool manufacturer",
+   "rc": 0,
+   "wall_s": 6.2,
+   "run_status": "failed",
+   "pages_ok": 0,
+   "total": 1,
+   "checks": [
+    "A7_site_unreadable"
+   ]
+  },
+  "manutd": {
+   "url": "https://www.manutd.com",
+   "category": "Football club",
+   "rc": 0,
+   "wall_s": 51.0,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 5,
+   "checks": [
+    "C3_entity_unanchored",
+    "C5_faq_content_unmarked",
+    "C7_title_problem",
+    "E12_no_orientation",
+    "E2_vague_link_text"
+   ]
+  },
+  "nba": {
+   "url": "https://www.nba.com",
+   "category": "Sports league",
+   "rc": 0,
+   "wall_s": 5.4,
+   "run_status": "failed",
+   "pages_ok": 0,
+   "total": 1,
+   "checks": [
+    "A7_site_unreadable"
+   ]
+  },
+  "strava": {
+   "url": "https://www.strava.com",
+   "category": "Fitness app",
+   "rc": 0,
+   "wall_s": 46.8,
+   "run_status": "partial",
+   "pages_ok": 4,
+   "total": 4,
+   "checks": [
+    "B6_filler_heavy",
+    "C1_structured_data_absent",
+    "E6_heading_structure",
+    "E7_zoom_disabled"
+   ]
+  },
+  "puregym": {
+   "url": "https://www.puregym.com",
+   "category": "Gym chain (UK)",
+   "rc": 0,
+   "wall_s": 25.5,
+   "run_status": "partial",
+   "pages_ok": 7,
+   "total": 4,
+   "checks": [
+    "A9_broken_pages",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E10_no_next_step"
+   ]
+  },
+  "supercell": {
+   "url": "https://supercell.com",
+   "category": "Video-game studio",
+   "rc": 0,
+   "wall_s": 30.4,
+   "run_status": "partial",
+   "pages_ok": 11,
+   "total": 8,
+   "checks": [
+    "A11_soft_404",
+    "A9_broken_pages",
+    "B4_empty_shell",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "C7_title_problem",
+    "E6_heading_structure",
+    "E7_zoom_disabled"
+   ]
+  },
+  "gog": {
+   "url": "https://www.gog.com",
+   "category": "PC game store",
+   "rc": 0,
+   "wall_s": 35.5,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 6,
+   "checks": [
+    "A6_sitemap_missing",
+    "C1_structured_data_absent",
+    "C7_title_problem",
+    "E3_unnamed_controls",
+    "E4_images_missing_alt",
+    "E6_heading_structure"
+   ]
+  },
+  "bandcamp": {
+   "url": "https://bandcamp.com",
+   "category": "Music marketplace",
+   "rc": 0,
+   "wall_s": 31.4,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 7,
+   "checks": [
+    "A6_sitemap_missing",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "C5_faq_content_unmarked",
+    "C7_title_problem",
+    "E4_images_missing_alt",
+    "E6_heading_structure"
+   ]
+  },
+  "thisamericanlife": {
+   "url": "https://www.thisamericanlife.org",
+   "category": "Podcast / radio show",
+   "rc": 0,
+   "wall_s": 70.5,
+   "run_status": "partial",
+   "pages_ok": 19,
+   "total": 10,
+   "checks": [
+    "A6_sitemap_missing",
+    "A9_broken_pages",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E1_unlabelled_input",
+    "E3_unnamed_controls",
+    "E5_no_lang",
+    "E6_heading_structure",
+    "E7_zoom_disabled"
+   ]
+  },
+  "bfi": {
+   "url": "https://www.bfi.org.uk",
+   "category": "Film institute / cinema",
+   "rc": 0,
+   "wall_s": 23.4,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 5,
+   "checks": [
+    "A5_canonical_missing",
+    "C3_entity_unanchored",
+    "C5_faq_content_unmarked",
+    "E10_no_next_step",
+    "X1_low_quotability"
+   ]
+  },
+  "glastonbury": {
+   "url": "https://www.glastonburyfestivals.co.uk",
+   "category": "Music festival",
+   "rc": 0,
+   "wall_s": 40.0,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 4,
+   "checks": [
+    "B6_filler_heavy",
+    "C3_entity_unanchored",
+    "D3_content_stale",
+    "E3_unnamed_controls"
+   ]
+  },
+  "websummit": {
+   "url": "https://websummit.com",
+   "category": "Tech conference",
+   "rc": 0,
+   "wall_s": 26.6,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 1,
+   "checks": [
+    "B4_empty_shell"
+   ]
+  },
+  "weworkremotely": {
+   "url": "https://weworkremotely.com",
+   "category": "Job board",
+   "rc": 0,
+   "wall_s": 27.8,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 3,
+   "checks": [
+    "C1_structured_data_invalid",
+    "E3_unnamed_controls",
+    "E5_no_lang"
+   ]
+  },
+  "hinge": {
+   "url": "https://hinge.co",
+   "category": "Dating app",
+   "rc": 0,
+   "wall_s": 17.8,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 4,
+   "checks": [
+    "C3_entity_unanchored",
+    "C5_faq_content_unmarked",
+    "E10_no_next_step",
+    "E6_heading_structure"
+   ]
+  },
+  "lobsters": {
+   "url": "https://lobste.rs",
+   "category": "Link aggregator community",
+   "rc": 0,
+   "wall_s": 2.0,
+   "run_status": "blocked",
+   "pages_ok": 0,
+   "total": 1,
+   "checks": [
+    "A7_site_unreadable"
+   ]
+  },
+  "stackexchange": {
+   "url": "https://stackexchange.com",
+   "category": "Q&A network hub",
+   "rc": 0,
+   "wall_s": 34.7,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 12,
+   "checks": [
+    "A4_redirect_chain",
+    "A6_sitemap_missing",
+    "C1_structured_data_absent",
+    "C5_faq_content_unmarked",
+    "C7_title_problem",
+    "E10_no_next_step",
+    "E11_no_viewport",
+    "E1_form_friction",
+    "E1_unlabelled_input",
+    "E3_unnamed_controls",
+    "E4_images_missing_alt",
+    "E6_heading_structure"
+   ]
+  },
+  "msf": {
+   "url": "https://www.msf.org",
+   "category": "International medical charity",
+   "rc": 0,
+   "wall_s": 42.2,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 4,
+   "checks": [
+    "A3_noindex",
+    "B1_fact_absent",
+    "E12_no_orientation",
+    "E3_unnamed_controls"
+   ]
+  },
+  "vatican": {
+   "url": "https://www.vatican.va",
+   "category": "Religious institution",
+   "rc": 0,
+   "wall_s": 8.8,
+   "run_status": "complete",
+   "pages_ok": 1,
+   "total": 6,
+   "checks": [
+    "A6_sitemap_missing",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E11_no_viewport",
+    "E5_no_lang",
+    "E6_heading_structure"
+   ]
+  },
+  "greenpeace": {
+   "url": "https://www.greenpeace.org/international/",
+   "category": "Environmental NGO",
+   "rc": 0,
+   "wall_s": 28.6,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 4,
+   "checks": [
+    "A6_sitemap_missing",
+    "E3_unnamed_controls",
+    "E4_images_missing_alt",
+    "X1_low_quotability"
+   ]
+  },
+  "brookings": {
+   "url": "https://www.brookings.edu",
+   "category": "Think tank",
+   "rc": 0,
+   "wall_s": 30.6,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 4,
+   "checks": [
+    "C3_entity_unanchored",
+    "E1_unlabelled_input",
+    "E3_unnamed_controls",
+    "E6_heading_structure"
+   ]
+  },
+  "nature": {
+   "url": "https://www.nature.com",
+   "category": "Scientific journal publisher",
+   "rc": 0,
+   "wall_s": 52.6,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 4,
+   "checks": [
+    "A1_retrieval_agent_blocked",
+    "A5_canonical_missing",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored"
+   ]
+  },
+  "britannica": {
+   "url": "https://www.britannica.com",
+   "category": "Reference encyclopedia",
+   "rc": 0,
+   "wall_s": 29.9,
+   "run_status": "partial",
+   "pages_ok": 8,
+   "total": 4,
+   "checks": [
+    "C3_entity_unanchored",
+    "E1_unlabelled_input",
+    "E3_unnamed_controls",
+    "E6_heading_structure"
+   ]
+  },
+  "metoffice": {
+   "url": "https://www.metoffice.gov.uk",
+   "category": "Weather service",
+   "rc": 0,
+   "wall_s": 26.5,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 2,
+   "checks": [
+    "C1_structured_data_absent",
+    "D1_no_date_signals"
+   ]
+  },
+  "tfl": {
+   "url": "https://tfl.gov.uk",
+   "category": "Public transport authority",
+   "rc": 0,
+   "wall_s": 23.9,
+   "run_status": "partial",
+   "pages_ok": 5,
+   "total": 4,
+   "checks": [
+    "A6_sitemap_missing",
+    "A9_broken_pages",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored"
+   ]
+  },
+  "wework": {
+   "url": "https://www.wework.com",
+   "category": "Coworking spaces",
+   "rc": 0,
+   "wall_s": 5.4,
+   "run_status": "failed",
+   "pages_ok": 0,
+   "total": 1,
+   "checks": [
+    "A7_site_unreadable"
+   ]
+  },
+  "theknot": {
+   "url": "https://www.theknot.com",
+   "category": "Wedding planning marketplace",
+   "rc": 0,
+   "wall_s": 76.3,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 2,
+   "checks": [
+    "C1_structured_data_absent",
+    "X1_low_quotability"
+   ]
+  },
+  "unsplash": {
+   "url": "https://unsplash.com",
+   "category": "Stock photo platform",
+   "rc": 0,
+   "wall_s": 93.9,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 4,
+   "checks": [
+    "A1_retrieval_agent_blocked",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E3_unnamed_controls"
+   ]
+  },
+  "zahahadid": {
+   "url": "https://www.zaha-hadid.com",
+   "category": "Architecture firm",
+   "rc": 0,
+   "wall_s": 20.4,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 2,
+   "checks": [
+    "C3_entity_unanchored",
+    "E2_vague_link_text"
+   ]
+  },
+  "pentagram": {
+   "url": "https://www.pentagram.com",
+   "category": "Design agency portfolio",
+   "rc": 0,
+   "wall_s": 32.1,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 3,
+   "checks": [
+    "D1_no_date_signals",
+    "E12_no_orientation",
+    "E3_unnamed_controls"
+   ]
+  },
+  "zoho": {
+   "url": "https://www.zoho.com",
+   "category": "Business software suite (India)",
+   "rc": 0,
+   "wall_s": 25.2,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 3,
+   "checks": [
+    "B1_fact_absent",
+    "E10_no_next_step",
+    "E3_unnamed_controls"
+   ]
+  },
+  "raycast": {
+   "url": "https://www.raycast.com",
+   "category": "Developer productivity tool",
+   "rc": 0,
+   "wall_s": 24.3,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 6,
+   "checks": [
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "C5_faq_content_unmarked",
+    "E1_unlabelled_input",
+    "E3_unnamed_controls",
+    "E6_heading_structure"
+   ]
+  },
+  "mistral": {
+   "url": "https://mistral.ai",
+   "category": "AI model company",
+   "rc": 0,
+   "wall_s": 39.0,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 3,
+   "checks": [
+    "C1_product_markup_absent",
+    "E10_no_next_step",
+    "E3_unnamed_controls"
+   ]
+  },
+  "muji": {
+   "url": "https://www.muji.com/jp/ja/",
+   "category": "Retail brand (Japanese)",
+   "rc": 0,
+   "wall_s": 16.0,
+   "run_status": "blocked",
+   "pages_ok": 0,
+   "total": 1,
+   "checks": [
+    "A7_site_unreadable"
+   ]
+  },
+  "fnac": {
+   "url": "https://www.fnac.com",
+   "category": "Electronics/books retailer (French)",
+   "rc": 0,
+   "wall_s": 5.7,
+   "run_status": "failed",
+   "pages_ok": 0,
+   "total": 1,
+   "checks": [
+    "A7_site_unreadable"
+   ]
+  },
+  "bbva": {
+   "url": "https://www.bbva.com",
+   "category": "Bank corporate site (Spanish/EN)",
+   "rc": 0,
+   "wall_s": 39.1,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 2,
+   "checks": [
+    "C3_entity_unanchored",
+    "E3_unnamed_controls"
+   ]
+  },
+  "magalu": {
+   "url": "https://www.magazineluiza.com.br",
+   "category": "E-commerce marketplace (Brazil)",
+   "rc": 0,
+   "wall_s": 5.4,
+   "run_status": "failed",
+   "pages_ok": 0,
+   "total": 1,
+   "checks": [
+    "A7_site_unreadable"
+   ]
+  },
+  "wikihow": {
+   "url": "https://www.wikihow.com",
+   "category": "How-to guides",
+   "rc": 0,
+   "wall_s": 27.5,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 7,
+   "checks": [
+    "A11_soft_404",
+    "A1_retrieval_agent_blocked",
+    "C1_structured_data_absent",
+    "C5_faq_content_unmarked",
+    "E1_unlabelled_input",
+    "E3_unnamed_controls",
+    "E4_images_missing_alt"
+   ]
+  },
+  "craigslist": {
+   "url": "https://www.craigslist.org",
+   "category": "Classifieds (minimal legacy HTML)",
+   "rc": 0,
+   "wall_s": 51.9,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 5,
+   "checks": [
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E1_unlabelled_input",
+    "E5_no_lang",
+    "E6_heading_structure"
+   ]
+  },
+  "archiveorg": {
+   "url": "https://archive.org",
+   "category": "Digital archive",
+   "rc": 0,
+   "wall_s": 38.2,
+   "run_status": "complete",
+   "pages_ok": 1,
+   "total": 3,
+   "checks": [
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E6_heading_structure"
+   ]
+  },
+  "berkshirehathaway": {
+   "url": "https://www.berkshirehathaway.com",
+   "category": "Holding company (1990s HTML)",
+   "rc": 0,
+   "wall_s": 20.6,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 9,
+   "checks": [
+    "A5_canonical_missing",
+    "A6_sitemap_missing",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E10_no_next_step",
+    "E11_no_viewport",
+    "E4_images_missing_alt",
+    "E5_no_lang",
+    "E6_heading_structure"
+   ]
+  },
+  "npr": {
+   "url": "https://www.npr.org",
+   "category": "Public radio news (US)",
+   "rc": 0,
+   "wall_s": 47.2,
+   "run_status": "complete",
+   "pages_ok": 12,
+   "total": 5,
+   "checks": [
+    "A1_retrieval_agent_blocked",
+    "C1_structured_data_absent",
+    "C3_entity_unanchored",
+    "E3_unnamed_controls",
+    "E6_heading_structure"
+   ]
+  },
+  "powells": {
+   "url": "https://www.powells.com",
+   "category": "Independent bookstore",
+   "rc": 0,
+   "wall_s": 5.0,
+   "run_status": "failed",
+   "pages_ok": 0,
+   "total": 1,
+   "checks": [
+    "A7_site_unreadable"
+   ]
+  }
+ },
+ "problems": {
+  "same_check_repeated_over_3_times": [
+   [
+    "thehoxton",
+    "E1_unlabelled_input",
+    5
+   ],
+   [
+    "glossier",
+    "E1_unlabelled_input",
+    9
+   ]
+  ]
+ },
+ "run_status": {
+  "complete": 69,
+  "failed": 14,
+  "partial": 13,
+  "blocked": 4
+ },
+ "wall_s": {
+  "median": 31.0,
+  "max": 138.7
+ },
+ "check_fire_rate_over_readable_sites": {
+  "C3_entity_unanchored": {
+   "sites": 52,
+   "rate": 0.63,
+   "severities": {
+    "medium": 52
+   }
+  },
+  "C1_structured_data_absent": {
+   "sites": 51,
+   "rate": 0.62,
+   "severities": {
+    "low": 51
+   }
+  },
+  "E1_unlabelled_input": {
+   "sites": 38,
+   "rate": 0.46,
+   "severities": {
+    "medium": 18,
+    "low": 20
+   }
+  },
+  "E6_heading_structure": {
+   "sites": 37,
+   "rate": 0.45,
+   "severities": {
+    "low": 37
+   }
+  },
+  "E3_unnamed_controls": {
+   "sites": 36,
+   "rate": 0.44,
+   "severities": {
+    "medium": 36
+   }
+  },
+  "A6_sitemap_missing": {
+   "sites": 19,
+   "rate": 0.23,
+   "severities": {
+    "low": 19
+   }
+  },
+  "A7_site_unreadable": {
+   "sites": 18,
+   "rate": 0.22,
+   "severities": {
+    "high": 14,
+    "critical": 4
+   }
+  },
+  "C5_faq_content_unmarked": {
+   "sites": 13,
+   "rate": 0.16,
+   "severities": {
+    "low": 13
+   }
+  },
+  "E4_images_missing_alt": {
+   "sites": 13,
+   "rate": 0.16,
+   "severities": {
+    "medium": 13
+   }
+  },
+  "C7_title_problem": {
+   "sites": 13,
+   "rate": 0.16,
+   "severities": {
+    "medium": 13
+   }
+  },
+  "E5_no_lang": {
+   "sites": 10,
+   "rate": 0.12,
+   "severities": {
+    "low": 10
+   }
+  },
+  "E10_no_next_step": {
+   "sites": 10,
+   "rate": 0.12,
+   "severities": {
+    "medium": 10
+   }
+  },
+  "A1_retrieval_agent_blocked": {
+   "sites": 9,
+   "rate": 0.11,
+   "severities": {
+    "critical": 6,
+    "low": 3
+   }
+  },
+  "B1_fact_absent": {
+   "sites": 7,
+   "rate": 0.09,
+   "severities": {
+    "high": 5,
+    "low": 2
+   }
+  },
+  "E11_no_viewport": {
+   "sites": 7,
+   "rate": 0.09,
+   "severities": {
+    "medium": 7
+   }
+  },
+  "B6_filler_heavy": {
+   "sites": 7,
+   "rate": 0.09,
+   "severities": {
+    "low": 7
+   }
+  },
+  "A5_canonical_missing": {
+   "sites": 7,
+   "rate": 0.09,
+   "severities": {
+    "low": 7
+   }
+  },
+  "C1_product_markup_absent": {
+   "sites": 6,
+   "rate": 0.07,
+   "severities": {
+    "medium": 6
+   }
+  },
+  "A9_broken_pages": {
+   "sites": 6,
+   "rate": 0.07,
+   "severities": {
+    "low": 5,
+    "medium": 1
+   }
+  },
+  "X1_low_quotability": {
+   "sites": 6,
+   "rate": 0.07,
+   "severities": {
+    "low": 6
+   }
+  },
+  "B4_empty_shell": {
+   "sites": 5,
+   "rate": 0.06,
+   "severities": {
+    "high": 5
+   }
+  },
+  "E7_zoom_disabled": {
+   "sites": 5,
+   "rate": 0.06,
+   "severities": {
+    "medium": 5
+   }
+  },
+  "E12_no_orientation": {
+   "sites": 5,
+   "rate": 0.06,
+   "severities": {
+    "low": 5
+   }
+  },
+  "A3_noindex_utility": {
+   "sites": 4,
+   "rate": 0.05,
+   "severities": {
+    "low": 4
+   }
+  },
+  "E1_form_friction": {
+   "sites": 4,
+   "rate": 0.05,
+   "severities": {
+    "low": 4
+   }
+  },
+  "D2_stale_copyright": {
+   "sites": 3,
+   "rate": 0.04,
+   "severities": {
+    "low": 3
+   }
+  },
+  "B1_fact_script_only": {
+   "sites": 3,
+   "rate": 0.04,
+   "severities": {
+    "medium": 3
+   }
+  },
+  "D1_no_date_signals": {
+   "sites": 3,
+   "rate": 0.04,
+   "severities": {
+    "medium": 3
+   }
+  },
+  "C2_markup_text_contradiction": {
+   "sites": 2,
+   "rate": 0.02,
+   "severities": {
+    "medium": 2
+   }
+  },
+  "C1_structured_data_invalid": {
+   "sites": 2,
+   "rate": 0.02,
+   "severities": {
+    "high": 2
+   }
+  },
+  "A4_redirect_chain": {
+   "sites": 2,
+   "rate": 0.02,
+   "severities": {
+    "info": 2
+   }
+  },
+  "A3_noindex": {
+   "sites": 2,
+   "rate": 0.02,
+   "severities": {
+    "critical": 2
+   }
+  },
+  "E2_vague_link_text": {
+   "sites": 2,
+   "rate": 0.02,
+   "severities": {
+    "low": 2
+   }
+  },
+  "A11_soft_404": {
+   "sites": 2,
+   "rate": 0.02,
+   "severities": {
+    "low": 2
+   }
+  },
+  "E9_promise_payoff_mismatch": {
+   "sites": 1,
+   "rate": 0.01,
+   "severities": {
+    "medium": 1
+   }
+  },
+  "A2_snippet_suppressed": {
+   "sites": 1,
+   "rate": 0.01,
+   "severities": {
+    "high": 1
+   }
+  },
+  "A5_canonical_problem": {
+   "sites": 1,
+   "rate": 0.01,
+   "severities": {
+    "medium": 1
+   }
+  },
+  "A10_meta_refresh": {
+   "sites": 1,
+   "rate": 0.01,
+   "severities": {
+    "low": 1
+   }
+  },
+  "A9_key_page_broken": {
+   "sites": 1,
+   "rate": 0.01,
+   "severities": {
+    "medium": 1
+   }
+  },
+  "D3_content_stale": {
+   "sites": 1,
+   "rate": 0.01,
+   "severities": {
+    "low": 1
+   }
+  }
+ },
+ "checks_never_fired": [
+  "A8_robots_token_unrecognised",
+  "C6_entity_name_conflict",
+  "D4_internal_contradiction",
+  "R_agent_review"
+ ],
+ "findings_per_site": {
+  "median": 4.0,
+  "max": [
+   "glossier",
+   14
+  ]
+ }
+}

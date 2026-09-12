@@ -1,0 +1,761 @@
+{
+ "status_changes": [
+  [
+   "curl",
+   "blocked",
+   "complete"
+  ],
+  [
+   "boots",
+   "complete",
+   "failed"
+  ],
+  [
+   "easyjet",
+   "partial",
+   "failed"
+  ],
+  [
+   "nypl",
+   "complete",
+   "failed"
+  ],
+  [
+   "mit",
+   "partial",
+   "complete"
+  ],
+  [
+   "britannica",
+   "complete",
+   "partial"
+  ],
+  [
+   "wework",
+   "partial",
+   "failed"
+  ]
+ ],
+ "severe_removed": [
+  [
+   "bbc",
+   "B1_fact_absent",
+   "true"
+  ],
+  [
+   "smittenkitchen",
+   "B1_fact_absent",
+   "false"
+  ],
+  [
+   "curl",
+   "A7_site_unreadable",
+   "false"
+  ],
+  [
+   "linear",
+   "B1_fact_absent",
+   "false"
+  ],
+  [
+   "notion",
+   "B1_fact_absent",
+   "false"
+  ],
+  [
+   "webflow",
+   "A3_noindex",
+   "overstated"
+  ],
+  [
+   "webflow",
+   "B1_fact_absent",
+   "true"
+  ],
+  [
+   "gymshark",
+   "A3_noindex",
+   "overstated"
+  ],
+  [
+   "boots",
+   "A3_noindex",
+   "false"
+  ],
+  [
+   "nypl",
+   "A3_noindex",
+   "false"
+  ],
+  [
+   "ethz",
+   "A3_noindex",
+   "overstated"
+  ],
+  [
+   "pfizer",
+   "B1_fact_absent",
+   "false"
+  ],
+  [
+   "govuk",
+   "A3_noindex",
+   "overstated"
+  ],
+  [
+   "govuk",
+   "B1_fact_absent",
+   "false"
+  ],
+  [
+   "cliffordchance",
+   "B1_fact_absent",
+   "false"
+  ],
+  [
+   "compass",
+   "B1_fact_absent",
+   "true"
+  ],
+  [
+   "carvana",
+   "B1_fact_absent",
+   "false"
+  ],
+  [
+   "rhs",
+   "B1_fact_absent",
+   "false"
+  ],
+  [
+   "bfi",
+   "B1_fact_absent",
+   "overstated"
+  ],
+  [
+   "glastonbury",
+   "B1_fact_absent",
+   "true"
+  ],
+  [
+   "metoffice",
+   "B1_fact_absent",
+   "false"
+  ],
+  [
+   "wework",
+   "A3_noindex",
+   "true"
+  ],
+  [
+   "mistral",
+   "B1_fact_absent",
+   "false"
+  ]
+ ],
+ "severe_added": [
+  [
+   "boots",
+   "A7_site_unreadable",
+   "unchecked"
+  ],
+  [
+   "easyjet",
+   "A7_site_unreadable",
+   "unchecked"
+  ],
+  [
+   "nypl",
+   "A7_site_unreadable",
+   "unchecked"
+  ],
+  [
+   "wework",
+   "A7_site_unreadable",
+   "unchecked"
+  ]
+ ],
+ "other_changes": {
+  "bbc": {
+   "gone": [
+    [
+     "B1_fact_absent",
+     "high",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "thehindu": {
+   "gone": [
+    [
+     "B6_filler_heavy",
+     "low",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "smittenkitchen": {
+   "gone": [
+    [
+     "B1_fact_absent",
+     "high",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "curl": {
+   "gone": [
+    [
+     "A7_site_unreadable",
+     "critical",
+     "active"
+    ]
+   ],
+   "new": [
+    [
+     "C3_entity_unanchored",
+     "medium",
+     "active"
+    ],
+    [
+     "A6_sitemap_missing",
+     "low",
+     "active"
+    ],
+    [
+     "C5_faq_content_unmarked",
+     "low",
+     "active"
+    ],
+    [
+     "E1_unlabelled_input",
+     "low",
+     "active"
+    ],
+    [
+     "E5_no_lang",
+     "low",
+     "active"
+    ],
+    [
+     "E6_heading_structure",
+     "low",
+     "active"
+    ],
+    [
+     "C1_structured_data_absent",
+     "low",
+     "active"
+    ]
+   ]
+  },
+  "linear": {
+   "gone": [
+    [
+     "B1_fact_absent",
+     "high",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "notion": {
+   "gone": [
+    [
+     "B1_fact_absent",
+     "high",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "webflow": {
+   "gone": [
+    [
+     "A3_noindex",
+     "critical",
+     "active"
+    ],
+    [
+     "B1_fact_absent",
+     "high",
+     "active"
+    ]
+   ],
+   "new": [
+    [
+     "B1_fact_script_only",
+     "medium",
+     "active"
+    ],
+    [
+     "A3_noindex_utility",
+     "low",
+     "confirm_intent"
+    ]
+   ]
+  },
+  "gymshark": {
+   "gone": [
+    [
+     "A3_noindex",
+     "critical",
+     "active"
+    ]
+   ],
+   "new": [
+    [
+     "A3_noindex_utility",
+     "low",
+     "confirm_intent"
+    ]
+   ]
+  },
+  "boots": {
+   "gone": [
+    [
+     "A3_noindex",
+     "critical",
+     "active"
+    ],
+    [
+     "E5_no_lang",
+     "low",
+     "active"
+    ],
+    [
+     "C3_entity_unanchored",
+     "low",
+     "latent"
+    ],
+    [
+     "C1_structured_data_absent",
+     "low",
+     "latent"
+    ]
+   ],
+   "new": [
+    [
+     "A7_site_unreadable",
+     "high",
+     "active"
+    ]
+   ]
+  },
+  "bigbasket": {
+   "gone": [
+    [
+     "B6_filler_heavy",
+     "low",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "bluebottle": {
+   "gone": [
+    [
+     "B1_fact_script_only",
+     "medium",
+     "active"
+    ],
+    [
+     "C1_product_markup_absent",
+     "medium",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "easyjet": {
+   "gone": [
+    [
+     "E3_unnamed_controls",
+     "medium",
+     "active"
+    ],
+    [
+     "E7_zoom_disabled",
+     "medium",
+     "active"
+    ]
+   ],
+   "new": [
+    [
+     "A7_site_unreadable",
+     "high",
+     "active"
+    ]
+   ]
+  },
+  "nypl": {
+   "gone": [
+    [
+     "A3_noindex",
+     "critical",
+     "active"
+    ],
+    [
+     "C7_title_problem",
+     "medium",
+     "active"
+    ],
+    [
+     "E11_no_viewport",
+     "medium",
+     "active"
+    ],
+    [
+     "E1_unlabelled_input",
+     "medium",
+     "active"
+    ],
+    [
+     "E3_unnamed_controls",
+     "medium",
+     "active"
+    ],
+    [
+     "E5_no_lang",
+     "low",
+     "active"
+    ],
+    [
+     "E6_heading_structure",
+     "low",
+     "active"
+    ],
+    [
+     "C3_entity_unanchored",
+     "low",
+     "latent"
+    ],
+    [
+     "C1_structured_data_absent",
+     "low",
+     "latent"
+    ]
+   ],
+   "new": [
+    [
+     "A7_site_unreadable",
+     "high",
+     "active"
+    ]
+   ]
+  },
+  "mit": {
+   "gone": [
+    [
+     "A9_broken_pages",
+     "medium",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "ethz": {
+   "gone": [
+    [
+     "A3_noindex",
+     "critical",
+     "active"
+    ]
+   ],
+   "new": [
+    [
+     "A3_noindex_utility",
+     "low",
+     "confirm_intent"
+    ]
+   ]
+  },
+  "eton": {
+   "gone": [
+    [
+     "B1_fact_absent",
+     "low",
+     "confirm_intent"
+    ]
+   ],
+   "new": []
+  },
+  "pfizer": {
+   "gone": [
+    [
+     "B1_fact_absent",
+     "high",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "govuk": {
+   "gone": [
+    [
+     "A3_noindex",
+     "critical",
+     "active"
+    ],
+    [
+     "B1_fact_absent",
+     "high",
+     "active"
+    ],
+    [
+     "B1_fact_absent",
+     "low",
+     "confirm_intent"
+    ]
+   ],
+   "new": [
+    [
+     "A3_noindex_utility",
+     "low",
+     "confirm_intent"
+    ]
+   ]
+  },
+  "cliffordchance": {
+   "gone": [
+    [
+     "B1_fact_absent",
+     "high",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "compass": {
+   "gone": [
+    [
+     "B1_fact_absent",
+     "high",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "carvana": {
+   "gone": [
+    [
+     "B1_fact_absent",
+     "high",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "mcmaster": {
+   "gone": [
+    [
+     "B1_fact_absent",
+     "low",
+     "latent"
+    ],
+    [
+     "C1_product_markup_absent",
+     "low",
+     "latent"
+    ]
+   ],
+   "new": []
+  },
+  "article": {
+   "gone": [
+    [
+     "B1_fact_script_only",
+     "medium",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "lego": {
+   "gone": [
+    [
+     "B1_fact_script_only",
+     "medium",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "rhs": {
+   "gone": [
+    [
+     "B1_fact_absent",
+     "high",
+     "active"
+    ],
+    [
+     "B1_fact_script_only",
+     "medium",
+     "active"
+    ],
+    [
+     "C1_product_markup_absent",
+     "medium",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "puregym": {
+   "gone": [
+    [
+     "C7_title_problem",
+     "medium",
+     "active"
+    ],
+    [
+     "E6_heading_structure",
+     "low",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "bfi": {
+   "gone": [
+    [
+     "B1_fact_absent",
+     "high",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "glastonbury": {
+   "gone": [
+    [
+     "B1_fact_absent",
+     "high",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "stackexchange": {
+   "gone": [
+    [
+     "B1_fact_absent",
+     "low",
+     "confirm_intent"
+    ]
+   ],
+   "new": []
+  },
+  "metoffice": {
+   "gone": [
+    [
+     "B1_fact_absent",
+     "high",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "wework": {
+   "gone": [
+    [
+     "A3_noindex",
+     "critical",
+     "active"
+    ],
+    [
+     "E10_no_next_step",
+     "medium",
+     "active"
+    ],
+    [
+     "C5_faq_content_unmarked",
+     "low",
+     "active"
+    ],
+    [
+     "E6_heading_structure",
+     "low",
+     "active"
+    ],
+    [
+     "B4_empty_shell",
+     "low",
+     "latent"
+    ],
+    [
+     "A4_redirect_chain",
+     "info",
+     "active"
+    ]
+   ],
+   "new": [
+    [
+     "A7_site_unreadable",
+     "high",
+     "active"
+    ]
+   ]
+  },
+  "theknot": {
+   "gone": [],
+   "new": [
+    [
+     "X1_low_quotability",
+     "low",
+     "active"
+    ]
+   ]
+  },
+  "raycast": {
+   "gone": [
+    [
+     "B1_fact_script_only",
+     "medium",
+     "active"
+    ],
+    [
+     "C1_product_markup_absent",
+     "medium",
+     "active"
+    ]
+   ],
+   "new": []
+  },
+  "mistral": {
+   "gone": [
+    [
+     "B1_fact_absent",
+     "high",
+     "active"
+    ]
+   ],
+   "new": []
+  }
+ },
+ "severe_verdict_tally": {
+  "before": {
+   "posture": 6,
+   "true": 21,
+   "false": 15,
+   "overstated": 6,
+   "false (likely)": 1,
+   "unchecked": 10
+  },
+  "after": {
+   "posture": 6,
+   "true": 16,
+   "false": 1,
+   "false (likely)": 1,
+   "unchecked": 14,
+   "overstated": 1
+  }
+ },
+ "severe_totals": {
+  "before": 59,
+  "after": 39
+ }
+}

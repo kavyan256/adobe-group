@@ -1,0 +1,13 @@
+{
+ "slug": "logitech",
+ "url": "https://www.logitech.com",
+ "category": "Consumer electronics brand",
+ "expect": "locale redirect, product markup",
+ "rc": 0,
+ "wall_s": 48.2,
+ "finished_at": "2026-09-12T16:26:28Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

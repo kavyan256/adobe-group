@@ -1,0 +1,13 @@
+{
+ "slug": "unsplash",
+ "url": "https://unsplash.com",
+ "category": "Stock photo platform",
+ "expect": "image alt coverage, SPA",
+ "rc": 0,
+ "wall_s": 93.9,
+ "finished_at": "2026-09-12T17:11:36Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

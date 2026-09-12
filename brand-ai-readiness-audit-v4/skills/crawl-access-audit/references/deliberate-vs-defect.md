@@ -18,12 +18,14 @@ This is a judgement the audit makes explicitly and shows its work for, in
 `A3_noindex_utility` instead of `A3_noindex` when **all** of:
 
 1. noindex is not site-wide, and
-2. it covers at most 34% of crawled pages, and
-3. every affected page is on a `legal`, `utility` or `search` template, and
-4. no affected page is on `home`, `product`, `pricing`, `about`, `blog` or `contact`.
+2. it covers at most half of the crawled pages, and
+3. no affected page is on `home`, `product`, `pricing`, `about`, `blog` or `contact`.
 
-Keeping terms of service, a login screen or a search-results page out of an
-index is routine. Keeping the pricing page out is not — that stays `critical`.
+Keeping terms of service, a login screen, search results, user profiles, archives
+or pagination out of an index is routine; in the 100-site evaluation all five
+critical noindex reports on such pages (profiles, tribunal decisions, reward pages,
+teasers, pagination) were deliberate. Keeping the pricing page out is not — that
+stays `critical`, and so does noindex on most of a site.
 
 ## AI crawler blocks
 
@@ -51,6 +53,6 @@ rather than calling it a bug.
 ## What this is not
 
 This is not a way to soften findings generally. The classifier has to
-discriminate, and the test suite proves it does: noindex confined to legal pages
+discriminate, and the test suite proves it does: noindex confined to non-key pages
 is `confirm_intent` at `low`; noindex on the homepage and pricing page stays
 `active` at `critical`.

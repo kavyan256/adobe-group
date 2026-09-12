@@ -1,0 +1,13 @@
+{
+ "slug": "glossier",
+ "url": "https://www.glossier.com",
+ "category": "Cosmetics DTC",
+ "expect": "Shopify, reviews widgets JS",
+ "rc": 0,
+ "wall_s": 44.8,
+ "finished_at": "2026-09-12T17:07:58Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

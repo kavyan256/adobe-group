@@ -1,0 +1,13 @@
+{
+ "slug": "britannica",
+ "url": "https://www.britannica.com",
+ "category": "Reference encyclopedia",
+ "expect": "AI-bot blocks, ads, quotability",
+ "rc": 0,
+ "wall_s": 37.6,
+ "finished_at": "2026-09-12T16:29:21Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

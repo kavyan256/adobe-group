@@ -1,0 +1,281 @@
+{
+  "site": "www.lego.com",
+  "audited_at": "2026-09-12T16:28:24Z",
+  "summary": {
+    "total_findings": 3,
+    "critical": 0,
+    "high": 0,
+    "medium": 2,
+    "low": 1,
+    "active_findings": 3,
+    "latent_findings": 0,
+    "confirm_intent_findings": 0,
+    "info": 0,
+    "active_by_severity": {
+      "critical": 0,
+      "high": 0,
+      "medium": 2,
+      "low": 1
+    },
+    "by_hurts": {
+      "ai_discoverability": 1,
+      "user_retention": 1,
+      "both": 1
+    },
+    "run_status": "partial",
+    "headline": "3 finding(s); most severe: 1 linked page(s) are broken, including a product page"
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "title": "1 linked page(s) are broken, including a product page",
+      "severity": "medium",
+      "evidence": "https://www.lego.com/product/disney-tim-burton-s-the-nightmare-before-christmas-21351: HTTP 404 (product page). These URLs were reached from the homepage or the sitemap, so a crawler and a visitor both arrive at an error instead of the page.",
+      "suggested_action": {
+        "summary": "Restore or redirect the broken key page(s) first, then the rest.",
+        "priority": "high",
+        "effort": "low",
+        "how": [
+          "For a moved page, add a 301 to its new URL.",
+          "For a page that is gone, return 410 and remove it from the sitemap and internal links.",
+          "For a 5xx, check the server log for that route."
+        ],
+        "verify": "curl -sI <url> returns 200 or a single 301 to a 200 page."
+      },
+      "check_id": "A9_key_page_broken",
+      "source": "scripted",
+      "hurts": "both",
+      "gate": "access",
+      "mechanism": "A",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "single_page",
+      "severity_rationale": "base=high (access/A9_key_page_broken); blast=single_page x0.5; -> demoted to medium => medium",
+      "affected_urls": [
+        "https://www.lego.com/product/disney-tim-burton-s-the-nightmare-before-christmas-21351"
+      ],
+      "affected_url_count": 1,
+      "detail": {
+        "hurts_both": true,
+        "statuses": [
+          404
+        ],
+        "sitemap_listed": []
+      }
+    },
+    {
+      "id": "F-002",
+      "title": "Key facts exist only inside script payloads on 1 page(s)",
+      "severity": "medium",
+      "evidence": "https://www.lego.com/en-in/service: phone '1-800-835-4386' found only in __NEXT_DATA__, application/json, absent from extracted text",
+      "suggested_action": {
+        "summary": "Promote these facts from the hydration payload into server-rendered text.",
+        "priority": "medium",
+        "effort": "medium",
+        "how": [
+          "The value is in the bytes, so a determined parser could reach it - but boilerplate extractors strip <script> before the model sees the page, so in practice it is invisible.",
+          "Server-render the same value into visible prose, and also state it in JSON-LD, which the indexing crawlers that build the search index assistants query do read."
+        ],
+        "verify": "The value appears in the output of a text-extraction tool (e.g. `python -c \"import trafilatura,sys;print(trafilatura.extract(sys.stdin.read()))\"`)."
+      },
+      "check_id": "B1_fact_script_only",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "extractability",
+      "mechanism": "C",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "template",
+      "severity_rationale": "base=medium (extractability/B1_fact_script_only); blast=template x0.8 => medium",
+      "affected_urls": [
+        "https://www.lego.com/en-in/service"
+      ],
+      "affected_url_count": 1,
+      "detail": {
+        "tier": "T2"
+      }
+    },
+    {
+      "id": "F-003",
+      "title": "No h1 heading on 2 page(s)",
+      "severity": "low",
+      "evidence": "2/3 pages contain no h1 element at all. Examples: ['https://www.lego.com/', 'https://www.lego.com/?consent-modal=show']. Extractors and assistants use the top heading to decide what a page is about.",
+      "suggested_action": {
+        "summary": "Give each page one h1 that states its subject.",
+        "priority": "low",
+        "effort": "low",
+        "how": [
+          "Add a single h1 naming the page subject, then h2/h3 for sections in order.",
+          "If the visual title is styled as a div or span, change the element, not the CSS."
+        ],
+        "verify": "Each page has an h1 and its text matches the page's subject."
+      },
+      "check_id": "E6_heading_structure",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "template",
+      "severity_rationale": "base=low (engagement/E6_heading_structure); blast=template x0.8 => low",
+      "affected_urls": [
+        "https://www.lego.com/",
+        "https://www.lego.com/?consent-modal=show"
+      ],
+      "affected_url_count": 2
+    }
+  ],
+  "site_profile": {
+    "start_url": "https://www.lego.com/",
+    "pages_crawled": 3,
+    "roles_seen": [
+      "contact",
+      "generic",
+      "home",
+      "legal",
+      "product"
+    ],
+    "robots_present": true,
+    "ai_policy": {
+      "retrieval_agents_blocked": [],
+      "training_agents_blocked": [],
+      "interpretation": "Blocking training agents is a licensing choice and does not affect whether assistants can cite you. Only retrieval agents gate citation."
+    },
+    "user_agent_used": "AIReadinessAudit/1.0 (+https://github.com/kavyan256/adobe-group)"
+  },
+  "coverage": {
+    "elapsed_s": 142.1,
+    "pages_attempted": 12,
+    "pages_blocked_by_robots_for_our_ua": 0,
+    "pages_fetched": 12,
+    "pages_ok": 3,
+    "urls_discovered": 219
+  },
+  "checks_skipped": [
+    {
+      "check": "D6_cross_web_corroboration",
+      "reason": "Not assessed: whether independent third parties agree with this site's claims. Reason: that needs a search backend, which this marketplace does not assume. How to check it yourself: search your brand plus a key fact (price, founding year, HQ) and count independent sources that agree.",
+      "impact": "Claims that exist only on this site are not distinguished from claims corroborated across the web. The on-site corroboration checks still ran."
+    },
+    {
+      "check": "E_authenticated_flows",
+      "reason": "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account.",
+      "impact": "How to check it yourself: walk the signup, checkout or booking flow on a phone with a test account and count the required steps and fields."
+    },
+    {
+      "check": "E_behaviour_metrics",
+      "reason": "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion rate). Reason: they are observed, not inferred from markup, and a short visit from an AI answer is often a success - the visitor came to verify one fact and did.",
+      "impact": "How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate, not their bounce rate, with search traffic."
+    },
+    {
+      "check": "E_colour_contrast",
+      "reason": "Not assessed: colour contrast (WCAG 1.4.3). Reason: contrast ratios need computed styles, which need a browser; this marketplace runs without one to stay portable and deterministic.",
+      "impact": "How to check it yourself: run axe DevTools or Lighthouse on the top 3 page templates and read the contrast section."
+    },
+    {
+      "check": "E_copy_quality",
+      "reason": "Not assessed: copy quality, persuasion and jargon. Reason: subjective; no static threshold separates plain language from marketing copy across industries and languages without a high false-positive rate.",
+      "impact": "How to check it yourself: read the first paragraph of the homepage and one product page aloud to someone outside the company and ask what the site offers and for whom."
+    },
+    {
+      "check": "E_core_web_vitals",
+      "reason": "Not assessed: Core Web Vitals (LCP, CLS, INP). Reason: these are field metrics at the 75th percentile; a single synthetic fetch is not a measurement and INP cannot be measured synthetically at all.",
+      "impact": "How to check it yourself: open Google Search Console's Core Web Vitals report, which uses real-user data, or run Lighthouse for lab LCP/CLS."
+    },
+    {
+      "check": "E_rendered_experience",
+      "reason": "Not assessed: the rendered experience (overlay and cookie-banner timing, tap target size, focus visibility, layout at phone width). Reason: all of it depends on CSS and JavaScript executing, which needs a browser.",
+      "impact": "How to check it yourself: run Lighthouse and axe on the top 3 templates at phone width, then tab through each page once to confirm focus is visible."
+    }
+  ],
+  "agent_review": {
+    "status": "not_run"
+  },
+  "prioritized_actions": [
+    {
+      "rank": 1,
+      "finding_id": "F-001",
+      "title": "1 linked page(s) are broken, including a product page",
+      "priority_score": 3.0,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "both",
+      "effort": "low",
+      "action": "Restore or redirect the broken key page(s) first, then the rest."
+    },
+    {
+      "rank": 2,
+      "finding_id": "F-002",
+      "title": "Key facts exist only inside script payloads on 1 page(s)",
+      "priority_score": 1.875,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "medium",
+      "action": "Promote these facts from the hydration payload into server-rendered text."
+    },
+    {
+      "rank": 3,
+      "finding_id": "F-003",
+      "title": "No h1 heading on 2 page(s)",
+      "priority_score": 1.4,
+      "severity": "low",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Give each page one h1 that states its subject."
+    }
+  ],
+  "proactive_recommendations": [
+    {
+      "title": "Publish an llms.txt describing your site for AI clients",
+      "rationale": "An emerging convention: a short, stable, plain-text map of what your site covers and where the authoritative pages are. Cheap to add, and it gives retrieval agents an unambiguous starting point.",
+      "effort": "low",
+      "applies_because": "GET /llms.txt did not return a plain-text document"
+    },
+    {
+      "title": "Decide your AI-crawler policy deliberately, and write it down",
+      "rationale": "Training access and retrieval access are separate decisions. Blocking training crawlers while explicitly allowing retrieval agents is a coherent, defensible position - but it has to be configured on purpose, per user-agent.",
+      "effort": "low",
+      "applies_because": "robots.txt names no AI retrieval or training agent, so the current policy is whatever the wildcard group happens to say"
+    },
+    {
+      "title": "Add a machine-readable FAQ layer shaped for quotation",
+      "rationale": "FAQPage structured data pairs a question with a self-contained answer. That is exactly the shape an assistant wants to lift, and it survives text extraction.",
+      "effort": "medium",
+      "applies_because": "no crawled page carries FAQPage JSON-LD"
+    }
+  ],
+  "already_in_place": [
+    {
+      "title": "Publish a stable, citable facts page",
+      "because": "Organization sameAs links are already published"
+    },
+    {
+      "title": "Server-render your most-quoted facts even inside a SPA",
+      "because": "not a client-rendered app, or a specific finding already covers it"
+    },
+    {
+      "title": "Answer the question visitors arrive with on the first screen",
+      "because": "the homepage's first 60 words already name the site or state a concrete figure"
+    },
+    {
+      "title": "Every deep page links to its parent section and a contact route",
+      "because": "every substantial deep page already links onward from its content"
+    }
+  ],
+  "limits": [
+    "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion). Reason: a crawl sees markup, never visitors; engagement findings are structural risk factors, capped at medium for that reason. How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate with search traffic.",
+    "Not assessed: the rendered experience (layout, overlays and cookie banners, colour contrast, Core Web Vitals) and facts loaded by client-side requests after page load. Reason: no JavaScript is executed and no browser is used - which is also what non-rendering AI retrieval agents see; a fact fetched only by XHR can be a false negative here. How to check it yourself: run Lighthouse and axe on the top three templates, and open a key page with JavaScript disabled to see what a bot gets.",
+    "Not assessed: copy quality - whether the words persuade, or answer the visitor's question well. Reason: subjective, with no static threshold that holds across industries and languages; the scripted checks measure only structure and vocabulary overlap. How to check it yourself: read the first paragraph of the homepage and one product page to someone outside the company and ask what the site offers and for whom.",
+    "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account. How to check it yourself: walk the signup, checkout or booking flow with a test account and count the required steps and fields.",
+    "Not assessed: personalization of AI answers (appendix E). Reason: it happens inside the assistant, from the user's own context, and no site-side measurement exists; the site-side lever - self-contained, quotable facts - is what the extraction and quotability checks cover. How to check it yourself: ask an assistant the same question about your brand in a fresh session and in a long-running one, and compare.",
+    "Not assessed: cross-web corroboration - whether independent sources agree with the site's facts. Reason: it needs a search backend and off-site fetches, which this audit does not make; only on-site corroboration hooks (sameAs, press links) are checked. How to check it yourself: search Wikipedia, Wikidata, Crunchbase and the press for your founding date, HQ, leadership and pricing, and reconcile differences.",
+    "Not assessed: problems outside the scripted checks, unless an agent review ran (see agent_review). Reason: a fixed list of checks misses what it does not list. How to check it yourself: follow agent-review-audit/SKILL.md; every claim it admits was checked against the crawl and is capped at low severity."
+  ],
+  "notes": []
+}

@@ -1,0 +1,13 @@
+{
+ "slug": "compass",
+ "url": "https://www.compass.com",
+ "category": "Real-estate brokerage (US)",
+ "expect": "listings JS, agent contact",
+ "rc": 0,
+ "wall_s": 43.3,
+ "finished_at": "2026-09-12T17:06:47Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

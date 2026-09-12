@@ -1,0 +1,262 @@
+{
+  "site": "www.spiegel.de",
+  "audited_at": "2026-09-12T16:20:55Z",
+  "summary": {
+    "total_findings": 2,
+    "critical": 1,
+    "high": 0,
+    "medium": 0,
+    "low": 1,
+    "active_findings": 2,
+    "latent_findings": 0,
+    "confirm_intent_findings": 0,
+    "info": 0,
+    "active_by_severity": {
+      "critical": 1,
+      "high": 0,
+      "medium": 0,
+      "low": 1
+    },
+    "by_hurts": {
+      "ai_discoverability": 1,
+      "user_retention": 1,
+      "both": 0
+    },
+    "run_status": "complete",
+    "headline": "2 finding(s); most severe: robots.txt blocks 4 AI retrieval agent(s)"
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "title": "robots.txt blocks 4 AI retrieval agent(s)",
+      "severity": "critical",
+      "evidence": "robots.txt disallows these retrieval/indexing agents: ChatGPT-User, Claude-SearchBot, Claude-User, OAI-SearchBot. Blocked paths sampled: ['/', '/ausland/9-11-im-historischen-liveticker-george-w-bush-kuendigt-vergeltung-an-die-usa-haetten-ihre-feinde-immer-bezwungen-und-wir-werden-das-auch-diesmal-a-90101f5e-8ae8-42f4-b752-fd4efd297ae5', '/geschichte/am-anfang-war-die-gewalt-a-79572678-0002-0001-0000-000207602129', '/geschichte/denis-diderot-neue-analyse-seiner-schriften-der-falsche-star-der-aufklaerung-a-d223684d-aaa5-4157-9acd-d7759a068a59', '/kontakt', '/netzwelt/raketen-entwicklung-huthi-miliz-wollte-waffen-offenbar-mit-anthropic-ki-verbessern-a-a8ff5e39-094a-4fb2-b49c-099a1bde6a3f']. These agents fetch pages in order to answer user questions, so pages they cannot reach cannot be cited. (Note: Applebot-Extended, Bytespider, CCBot, ClaudeBot, GPTBot are also blocked, but those are training-only agents and do not affect citation -- reported separately as policy, not as a defect.) Deciding robots.txt rule(s): ['Disallow: /'].",
+      "suggested_action": {
+        "summary": "Allow retrieval agents even if you continue to block training crawlers.",
+        "priority": "critical",
+        "effort": "low",
+        "how": [
+          "In robots.txt, add explicit Allow groups for the retrieval agents you want citing you: OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User, Applebot.",
+          "Keep any GPTBot / ClaudeBot / Google-Extended / CCBot blocks if refusing training is a deliberate policy -- those are independent of citation.",
+          "Example:\n  User-agent: OAI-SearchBot\n  Allow: /\n\n  User-agent: GPTBot\n  Disallow: /"
+        ],
+        "verify": "Re-run this audit; A1 should no longer fire for retrieval agents."
+      },
+      "check_id": "A1_retrieval_agent_blocked",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "access",
+      "mechanism": "A",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "site_wide",
+      "severity_rationale": "base=critical (access/A1_retrieval_agent_blocked); blast=site_wide x1.0 => critical",
+      "affected_urls": [
+        "https://www.spiegel.de/robots.txt"
+      ],
+      "affected_url_count": 1,
+      "detail": {
+        "blocked_retrieval_agents": [
+          "ChatGPT-User",
+          "Claude-SearchBot",
+          "Claude-User",
+          "OAI-SearchBot"
+        ],
+        "blocked_training_agents": [
+          "Applebot-Extended",
+          "Bytespider",
+          "CCBot",
+          "ClaudeBot",
+          "GPTBot"
+        ],
+        "blocked_paths": [
+          "/",
+          "/ausland/9-11-im-historischen-liveticker-george-w-bush-kuendigt-vergeltung-an-die-usa-haetten-ihre-feinde-immer-bezwungen-und-wir-werden-das-auch-diesmal-a-90101f5e-8ae8-42f4-b752-fd4efd297ae5",
+          "/geschichte/am-anfang-war-die-gewalt-a-79572678-0002-0001-0000-000207602129",
+          "/geschichte/denis-diderot-neue-analyse-seiner-schriften-der-falsche-star-der-aufklaerung-a-d223684d-aaa5-4157-9acd-d7759a068a59",
+          "/kontakt",
+          "/netzwelt/raketen-entwicklung-huthi-miliz-wollte-waffen-offenbar-mit-anthropic-ki-verbessern-a-a8ff5e39-094a-4fb2-b49c-099a1bde6a3f",
+          "/panorama/justiz/hamburg-neugraben-schuesse-auf-linienbus-a-e6feb227-8a20-48ec-a040-e2a3d63cfd93",
+          "/panorama/polizei-irrtum-in-heidenheim-sek-stuermt-falsche-wohnung-a-3ab1bf0a-d0c8-4020-8412-1bf45ffbd1ca",
+          "/sport/fussball/fussball-bundesliga-borussia-dortmund-glaenzt-gladbach-geht-in-freiburg-unter-a-a92316f6-fa23-4413-8a21-c2cb353a2655",
+          "/sport/tennis/us-open-alexander-zverev-trifft-im-finale-auf-aufschlagriese-ben-shelton-a-1c206c67-3441-45a6-9451-7346db252e19",
+          "/wirtschaft/service/baufinanzierung-warum-ihr-hauskredit-gerade-teurer-wird-und-was-donald-trump-damit-zu-tun-hat-kolumne-a-0ff92b36-4e66-4d95-a8b7-72a526b7b3ce"
+        ]
+      }
+    },
+    {
+      "id": "F-002",
+      "title": "No h1 heading on 1 page(s)",
+      "severity": "low",
+      "evidence": "1/12 pages contain no h1 element at all. Examples: ['https://www.spiegel.de/']. Extractors and assistants use the top heading to decide what a page is about.",
+      "suggested_action": {
+        "summary": "Give each page one h1 that states its subject.",
+        "priority": "low",
+        "effort": "low",
+        "how": [
+          "Add a single h1 naming the page subject, then h2/h3 for sections in order.",
+          "If the visual title is styled as a div or span, change the element, not the CSS."
+        ],
+        "verify": "Each page has an h1 and its text matches the page's subject."
+      },
+      "check_id": "E6_heading_structure",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "template",
+      "severity_rationale": "base=low (engagement/E6_heading_structure); blast=template x0.8 => low",
+      "affected_urls": [
+        "https://www.spiegel.de/"
+      ],
+      "affected_url_count": 1
+    }
+  ],
+  "site_profile": {
+    "start_url": "https://www.spiegel.de/",
+    "pages_crawled": 12,
+    "roles_seen": [
+      "contact",
+      "generic",
+      "home"
+    ],
+    "robots_present": true,
+    "ai_policy": {
+      "retrieval_agents_blocked": [
+        "Claude-SearchBot",
+        "Claude-User"
+      ],
+      "training_agents_blocked": [
+        "Applebot-Extended",
+        "Bytespider",
+        "CCBot",
+        "ClaudeBot",
+        "GPTBot"
+      ],
+      "interpretation": "Blocking training agents is a licensing choice and does not affect whether assistants can cite you. Only retrieval agents gate citation."
+    },
+    "user_agent_used": "AIReadinessAudit/1.0 (+https://github.com/kavyan256/adobe-group)"
+  },
+  "coverage": {
+    "elapsed_s": 39.0,
+    "pages_attempted": 12,
+    "pages_blocked_by_robots_for_our_ua": 0,
+    "pages_fetched": 12,
+    "pages_ok": 12,
+    "urls_discovered": 372
+  },
+  "checks_skipped": [
+    {
+      "check": "D6_cross_web_corroboration",
+      "reason": "Not assessed: whether independent third parties agree with this site's claims. Reason: that needs a search backend, which this marketplace does not assume. How to check it yourself: search your brand plus a key fact (price, founding year, HQ) and count independent sources that agree.",
+      "impact": "Claims that exist only on this site are not distinguished from claims corroborated across the web. The on-site corroboration checks still ran."
+    },
+    {
+      "check": "E_authenticated_flows",
+      "reason": "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account.",
+      "impact": "How to check it yourself: walk the signup, checkout or booking flow on a phone with a test account and count the required steps and fields."
+    },
+    {
+      "check": "E_behaviour_metrics",
+      "reason": "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion rate). Reason: they are observed, not inferred from markup, and a short visit from an AI answer is often a success - the visitor came to verify one fact and did.",
+      "impact": "How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate, not their bounce rate, with search traffic."
+    },
+    {
+      "check": "E_colour_contrast",
+      "reason": "Not assessed: colour contrast (WCAG 1.4.3). Reason: contrast ratios need computed styles, which need a browser; this marketplace runs without one to stay portable and deterministic.",
+      "impact": "How to check it yourself: run axe DevTools or Lighthouse on the top 3 page templates and read the contrast section."
+    },
+    {
+      "check": "E_copy_quality",
+      "reason": "Not assessed: copy quality, persuasion and jargon. Reason: subjective; no static threshold separates plain language from marketing copy across industries and languages without a high false-positive rate.",
+      "impact": "How to check it yourself: read the first paragraph of the homepage and one product page aloud to someone outside the company and ask what the site offers and for whom."
+    },
+    {
+      "check": "E_core_web_vitals",
+      "reason": "Not assessed: Core Web Vitals (LCP, CLS, INP). Reason: these are field metrics at the 75th percentile; a single synthetic fetch is not a measurement and INP cannot be measured synthetically at all.",
+      "impact": "How to check it yourself: open Google Search Console's Core Web Vitals report, which uses real-user data, or run Lighthouse for lab LCP/CLS."
+    },
+    {
+      "check": "E_rendered_experience",
+      "reason": "Not assessed: the rendered experience (overlay and cookie-banner timing, tap target size, focus visibility, layout at phone width). Reason: all of it depends on CSS and JavaScript executing, which needs a browser.",
+      "impact": "How to check it yourself: run Lighthouse and axe on the top 3 templates at phone width, then tab through each page once to confirm focus is visible."
+    }
+  ],
+  "agent_review": {
+    "status": "not_run"
+  },
+  "prioritized_actions": [
+    {
+      "rank": 1,
+      "finding_id": "F-001",
+      "title": "robots.txt blocks 4 AI retrieval agent(s)",
+      "priority_score": 5.0,
+      "severity": "critical",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "low",
+      "action": "Allow retrieval agents even if you continue to block training crawlers."
+    },
+    {
+      "rank": 2,
+      "finding_id": "F-002",
+      "title": "No h1 heading on 1 page(s)",
+      "priority_score": 1.4,
+      "severity": "low",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Give each page one h1 that states its subject."
+    }
+  ],
+  "proactive_recommendations": [
+    {
+      "title": "Publish an llms.txt describing your site for AI clients",
+      "rationale": "An emerging convention: a short, stable, plain-text map of what your site covers and where the authoritative pages are. Cheap to add, and it gives retrieval agents an unambiguous starting point.",
+      "effort": "low",
+      "applies_because": "GET /llms.txt did not return a plain-text document"
+    },
+    {
+      "title": "Add a machine-readable FAQ layer shaped for quotation",
+      "rationale": "FAQPage structured data pairs a question with a self-contained answer. That is exactly the shape an assistant wants to lift, and it survives text extraction.",
+      "effort": "medium",
+      "applies_because": "no crawled page carries FAQPage JSON-LD"
+    }
+  ],
+  "already_in_place": [
+    {
+      "title": "Decide your AI-crawler policy deliberately, and write it down",
+      "because": "robots.txt already addresses AI agents by name"
+    },
+    {
+      "title": "Publish a stable, citable facts page",
+      "because": "Organization sameAs links are already published"
+    },
+    {
+      "title": "Server-render your most-quoted facts even inside a SPA",
+      "because": "not a client-rendered app, or a specific finding already covers it"
+    },
+    {
+      "title": "Answer the question visitors arrive with on the first screen",
+      "because": "the homepage's first 60 words already name the site or state a concrete figure"
+    },
+    {
+      "title": "Every deep page links to its parent section and a contact route",
+      "because": "every substantial deep page already links onward from its content"
+    }
+  ],
+  "limits": [
+    "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion). Reason: a crawl sees markup, never visitors; engagement findings are structural risk factors, capped at medium for that reason. How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate with search traffic.",
+    "Not assessed: the rendered experience (layout, overlays and cookie banners, colour contrast, Core Web Vitals) and facts loaded by client-side requests after page load. Reason: no JavaScript is executed and no browser is used - which is also what non-rendering AI retrieval agents see; a fact fetched only by XHR can be a false negative here. How to check it yourself: run Lighthouse and axe on the top three templates, and open a key page with JavaScript disabled to see what a bot gets.",
+    "Not assessed: copy quality - whether the words persuade, or answer the visitor's question well. Reason: subjective, with no static threshold that holds across industries and languages; the scripted checks measure only structure and vocabulary overlap. How to check it yourself: read the first paragraph of the homepage and one product page to someone outside the company and ask what the site offers and for whom.",
+    "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account. How to check it yourself: walk the signup, checkout or booking flow with a test account and count the required steps and fields.",
+    "Not assessed: personalization of AI answers (appendix E). Reason: it happens inside the assistant, from the user's own context, and no site-side measurement exists; the site-side lever - self-contained, quotable facts - is what the extraction and quotability checks cover. How to check it yourself: ask an assistant the same question about your brand in a fresh session and in a long-running one, and compare.",
+    "Not assessed: cross-web corroboration - whether independent sources agree with the site's facts. Reason: it needs a search backend and off-site fetches, which this audit does not make; only on-site corroboration hooks (sameAs, press links) are checked. How to check it yourself: search Wikipedia, Wikidata, Crunchbase and the press for your founding date, HQ, leadership and pricing, and reconcile differences.",
+    "Not assessed: problems outside the scripted checks, unless an agent review ran (see agent_review). Reason: a fixed list of checks misses what it does not list. How to check it yourself: follow agent-review-audit/SKILL.md; every claim it admits was checked against the crawl and is capped at low severity."
+  ],
+  "notes": []
+}

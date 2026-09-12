@@ -1,0 +1,13 @@
+{
+ "slug": "curl",
+ "url": "https://curl.se",
+ "category": "Open-source project site",
+ "expect": "minimal markup, no sitemap?, old copyright?",
+ "rc": 0,
+ "wall_s": 13.5,
+ "finished_at": "2026-09-12T16:21:05Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

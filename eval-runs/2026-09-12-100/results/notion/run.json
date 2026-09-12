@@ -1,0 +1,13 @@
+{
+ "slug": "notion",
+ "url": "https://www.notion.com",
+ "category": "Productivity SaaS (JS heavy)",
+ "expect": "script-only facts, pricing",
+ "rc": 0,
+ "wall_s": 47.9,
+ "finished_at": "2026-09-12T16:21:45Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

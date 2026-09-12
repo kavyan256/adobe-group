@@ -1,0 +1,325 @@
+{
+  "site": "www.aspendental.com",
+  "audited_at": "2026-09-12T17:05:48Z",
+  "summary": {
+    "total_findings": 4,
+    "critical": 0,
+    "high": 1,
+    "medium": 1,
+    "low": 2,
+    "active_findings": 4,
+    "latent_findings": 0,
+    "confirm_intent_findings": 0,
+    "info": 0,
+    "active_by_severity": {
+      "critical": 0,
+      "high": 1,
+      "medium": 1,
+      "low": 2
+    },
+    "by_hurts": {
+      "ai_discoverability": 4,
+      "user_retention": 0,
+      "both": 0
+    },
+    "run_status": "complete",
+    "headline": "4 finding(s); most severe: Malformed JSON-LD on 2 page(s)"
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "title": "Malformed JSON-LD on 2 page(s)",
+      "severity": "high",
+      "evidence": "application/ld+json blocks failed to parse as JSON on: ['https://www.aspendental.com/mottoaligners/pricing', 'https://www.aspendental.com/mottoaligners/results']. Invalid markup is discarded entirely, so it provides no benefit.",
+      "suggested_action": {
+        "summary": "Fix the JSON syntax in the structured-data blocks.",
+        "priority": "high",
+        "effort": "low",
+        "how": [
+          "Validate each block with a JSON parser and with Google's Rich Results Test.",
+          "Watch for unescaped quotes in templated values and trailing commas."
+        ],
+        "verify": "python -c 'import json,sys;json.load(sys.stdin)' succeeds for each block."
+      },
+      "check_id": "C1_structured_data_invalid",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "interpretability",
+      "mechanism": "C",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "template",
+      "severity_rationale": "base=high (interpretability/C1_structured_data_invalid); blast=template x0.8 => high",
+      "affected_urls": [
+        "https://www.aspendental.com/mottoaligners/pricing",
+        "https://www.aspendental.com/mottoaligners/results"
+      ],
+      "affected_url_count": 2
+    },
+    {
+      "id": "F-002",
+      "title": "Brand identity is not anchored to any external profile",
+      "severity": "medium",
+      "evidence": "None of the 12 crawled page(s) declares Organization, LocalBusiness or similar structured data with sameAs links. Without sameAs, an assistant has nothing distinguishing this brand from others sharing the name, which is the standard cause of mistaken identity.",
+      "suggested_action": {
+        "summary": "Publish Organization JSON-LD with sameAs links to authoritative profiles.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Add Organization markup with \"sameAs\": [Wikidata, LinkedIn, Crunchbase, and your primary social profiles].",
+          "Use the identical legal/brand name across title tags, markup and body copy."
+        ],
+        "verify": "Rich Results Test shows Organization with a populated sameAs array."
+      },
+      "check_id": "C3_entity_unanchored",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "interpretability",
+      "mechanism": "D",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "site_wide",
+      "severity_rationale": "base=medium (interpretability/C3_entity_unanchored); blast=site_wide x1.0 => medium",
+      "affected_urls": [
+        "https://www.aspendental.com/"
+      ],
+      "affected_url_count": 1
+    },
+    {
+      "id": "F-003",
+      "title": "Questions are not paired with self-contained answers on 7 page(s)",
+      "severity": "low",
+      "evidence": "https://www.aspendental.com/mottoaligners/pricing asks 9 questions in its own headings, e.g. ['DOES INSURANCE COVER MOTTO CLEAR ALIGNERS?', 'WHAT’S INCLUDED IN YOUR MOTTO CLEAR ALIGNER TREATMENT?', 'How much\\xa0do\\xa0Motto clear aligners cost?'], but nothing on the page pairs each question with a self-contained answer: no FAQPage or Question structured data. An assistant lifting an answer takes the question plus the answer as one unit, and here it has to guess where each answer ends.",
+      "suggested_action": {
+        "summary": "Pair each question heading with one self-contained answer, and say so in FAQPage JSON-LD.",
+        "priority": "low",
+        "effort": "low",
+        "how": [
+          "Under each question heading, open with a one- or two-sentence answer that stands on its own before any elaboration.",
+          "Emit one Question node per heading you already have, with that answer in acceptedAnswer -- do not write new content for this."
+        ],
+        "verify": "Each question heading is followed by an answer that makes sense with the rest of the page hidden, and the FAQPage block lists it."
+      },
+      "check_id": "C5_faq_content_unmarked",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "interpretability",
+      "mechanism": "B",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "template",
+      "severity_rationale": "base=low (interpretability/C5_faq_content_unmarked); blast=template x0.8 => low",
+      "affected_urls": [
+        "https://www.aspendental.com/mottoaligners",
+        "https://www.aspendental.com/mottoaligners/clear-aligner-experts",
+        "https://www.aspendental.com/mottoaligners/clear-aligners-technology",
+        "https://www.aspendental.com/mottoaligners/how-do-aligners-work",
+        "https://www.aspendental.com/mottoaligners/national-align-your-teeth-day",
+        "https://www.aspendental.com/mottoaligners/pricing",
+        "https://www.aspendental.com/mottoaligners/results"
+      ],
+      "affected_url_count": 7
+    },
+    {
+      "id": "F-004",
+      "title": "No structured data on 3 significant page(s)",
+      "severity": "low",
+      "evidence": "3/12 crawled pages of type ['about', 'home'] contain no JSON-LD. Structured data is read by the indexing crawlers that build the search index assistants query, and it states a fact with a type attached. Examples: ['https://www.aspendental.com/', 'https://www.aspendental.com/about', 'https://www.aspendental.com/about/aspen-dental-reviews']",
+      "suggested_action": {
+        "summary": "Add schema.org JSON-LD appropriate to each page type.",
+        "priority": "low",
+        "effort": "medium",
+        "how": [
+          "Homepage/About -> Organization with name, url, logo, description, sameAs.",
+          "Pricing -> Product or Service per tier, or an Offer list.",
+          "Article/blog -> Article with headline, datePublished, dateModified, author."
+        ],
+        "verify": "A schema.org validator reports a detected item type with no errors."
+      },
+      "check_id": "C1_structured_data_absent",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "interpretability",
+      "mechanism": "C",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "template",
+      "severity_rationale": "base=low (interpretability/C1_structured_data_absent); blast=template x0.8 => low",
+      "affected_urls": [
+        "https://www.aspendental.com/",
+        "https://www.aspendental.com/about",
+        "https://www.aspendental.com/about/aspen-dental-reviews"
+      ],
+      "affected_url_count": 3
+    }
+  ],
+  "site_profile": {
+    "start_url": "https://www.aspendental.com/",
+    "pages_crawled": 12,
+    "roles_seen": [
+      "about",
+      "contact",
+      "generic",
+      "home",
+      "pricing",
+      "search"
+    ],
+    "robots_present": true,
+    "ai_policy": {
+      "retrieval_agents_blocked": [],
+      "training_agents_blocked": [],
+      "interpretation": "Blocking training agents is a licensing choice and does not affect whether assistants can cite you. Only retrieval agents gate citation."
+    },
+    "user_agent_used": "AIReadinessAudit/1.0 (+https://github.com/kavyan256/adobe-group)"
+  },
+  "coverage": {
+    "elapsed_s": 38.0,
+    "pages_attempted": 12,
+    "pages_blocked_by_robots_for_our_ua": 0,
+    "pages_fetched": 12,
+    "pages_ok": 12,
+    "urls_discovered": 233
+  },
+  "checks_skipped": [
+    {
+      "check": "D6_cross_web_corroboration",
+      "reason": "Not assessed: whether independent third parties agree with this site's claims. Reason: that needs a search backend, which this marketplace does not assume. How to check it yourself: search your brand plus a key fact (price, founding year, HQ) and count independent sources that agree.",
+      "impact": "Claims that exist only on this site are not distinguished from claims corroborated across the web. The on-site corroboration checks still ran."
+    },
+    {
+      "check": "E_authenticated_flows",
+      "reason": "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account.",
+      "impact": "How to check it yourself: walk the signup, checkout or booking flow on a phone with a test account and count the required steps and fields."
+    },
+    {
+      "check": "E_behaviour_metrics",
+      "reason": "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion rate). Reason: they are observed, not inferred from markup, and a short visit from an AI answer is often a success - the visitor came to verify one fact and did.",
+      "impact": "How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate, not their bounce rate, with search traffic."
+    },
+    {
+      "check": "E_colour_contrast",
+      "reason": "Not assessed: colour contrast (WCAG 1.4.3). Reason: contrast ratios need computed styles, which need a browser; this marketplace runs without one to stay portable and deterministic.",
+      "impact": "How to check it yourself: run axe DevTools or Lighthouse on the top 3 page templates and read the contrast section."
+    },
+    {
+      "check": "E_copy_quality",
+      "reason": "Not assessed: copy quality, persuasion and jargon. Reason: subjective; no static threshold separates plain language from marketing copy across industries and languages without a high false-positive rate.",
+      "impact": "How to check it yourself: read the first paragraph of the homepage and one product page aloud to someone outside the company and ask what the site offers and for whom."
+    },
+    {
+      "check": "E_core_web_vitals",
+      "reason": "Not assessed: Core Web Vitals (LCP, CLS, INP). Reason: these are field metrics at the 75th percentile; a single synthetic fetch is not a measurement and INP cannot be measured synthetically at all.",
+      "impact": "How to check it yourself: open Google Search Console's Core Web Vitals report, which uses real-user data, or run Lighthouse for lab LCP/CLS."
+    },
+    {
+      "check": "E_rendered_experience",
+      "reason": "Not assessed: the rendered experience (overlay and cookie-banner timing, tap target size, focus visibility, layout at phone width). Reason: all of it depends on CSS and JavaScript executing, which needs a browser.",
+      "impact": "How to check it yourself: run Lighthouse and axe on the top 3 templates at phone width, then tab through each page once to confirm focus is visible."
+    }
+  ],
+  "agent_review": {
+    "status": "not_run"
+  },
+  "prioritized_actions": [
+    {
+      "rank": 1,
+      "finding_id": "F-001",
+      "title": "Malformed JSON-LD on 2 page(s)",
+      "priority_score": 4.0,
+      "severity": "high",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "low",
+      "action": "Fix the JSON syntax in the structured-data blocks."
+    },
+    {
+      "rank": 2,
+      "finding_id": "F-002",
+      "title": "Brand identity is not anchored to any external profile",
+      "priority_score": 3.0,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "low",
+      "action": "Publish Organization JSON-LD with sameAs links to authoritative profiles."
+    },
+    {
+      "rank": 3,
+      "finding_id": "F-003",
+      "title": "Questions are not paired with self-contained answers on 7 page(s)",
+      "priority_score": 2.0,
+      "severity": "low",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "low",
+      "action": "Pair each question heading with one self-contained answer, and say so in FAQPage JSON-LD."
+    },
+    {
+      "rank": 4,
+      "finding_id": "F-004",
+      "title": "No structured data on 3 significant page(s)",
+      "priority_score": 1.25,
+      "severity": "low",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "medium",
+      "action": "Add schema.org JSON-LD appropriate to each page type."
+    }
+  ],
+  "proactive_recommendations": [
+    {
+      "title": "Publish an llms.txt describing your site for AI clients",
+      "rationale": "An emerging convention: a short, stable, plain-text map of what your site covers and where the authoritative pages are. Cheap to add, and it gives retrieval agents an unambiguous starting point.",
+      "effort": "low",
+      "applies_because": "GET /llms.txt did not return a plain-text document"
+    },
+    {
+      "title": "Decide your AI-crawler policy deliberately, and write it down",
+      "rationale": "Training access and retrieval access are separate decisions. Blocking training crawlers while explicitly allowing retrieval agents is a coherent, defensible position - but it has to be configured on purpose, per user-agent.",
+      "effort": "low",
+      "applies_because": "robots.txt names no AI retrieval or training agent, so the current policy is whatever the wildcard group happens to say"
+    },
+    {
+      "title": "Add a machine-readable FAQ layer shaped for quotation",
+      "rationale": "FAQPage structured data pairs a question with a self-contained answer. That is exactly the shape an assistant wants to lift, and it survives text extraction.",
+      "effort": "medium",
+      "applies_because": "no crawled page carries FAQPage JSON-LD"
+    },
+    {
+      "title": "Publish a stable, citable facts page",
+      "rationale": "Founding date, leadership, HQ, product line, pricing - in one durable URL that third parties can cite verbatim. Corroboration across independent sources is what makes a claim credible to a machine, and you can seed it.",
+      "effort": "medium",
+      "applies_because": "no crawled page declares Organization sameAs links, so there is no anchor for third parties to corroborate against"
+    },
+    {
+      "title": "Server-render your most-quoted facts even inside a SPA",
+      "rationale": "You do not have to abandon client-side rendering. Server-render the handful of facts you most want cited - price, what you do, how to contact you - and let the rest hydrate.",
+      "effort": "high",
+      "applies_because": "the site ships a client-side hydration payload; its key facts currently extract fine, so this is about keeping it that way as the app grows"
+    }
+  ],
+  "already_in_place": [
+    {
+      "title": "Answer the question visitors arrive with on the first screen",
+      "because": "the homepage's first 60 words already name the site or state a concrete figure"
+    },
+    {
+      "title": "Every deep page links to its parent section and a contact route",
+      "because": "every substantial deep page already links onward from its content"
+    }
+  ],
+  "limits": [
+    "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion). Reason: a crawl sees markup, never visitors; engagement findings are structural risk factors, capped at medium for that reason. How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate with search traffic.",
+    "Not assessed: the rendered experience (layout, overlays and cookie banners, colour contrast, Core Web Vitals) and facts loaded by client-side requests after page load. Reason: no JavaScript is executed and no browser is used - which is also what non-rendering AI retrieval agents see; a fact fetched only by XHR can be a false negative here. How to check it yourself: run Lighthouse and axe on the top three templates, and open a key page with JavaScript disabled to see what a bot gets.",
+    "Not assessed: copy quality - whether the words persuade, or answer the visitor's question well. Reason: subjective, with no static threshold that holds across industries and languages; the scripted checks measure only structure and vocabulary overlap. How to check it yourself: read the first paragraph of the homepage and one product page to someone outside the company and ask what the site offers and for whom.",
+    "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account. How to check it yourself: walk the signup, checkout or booking flow with a test account and count the required steps and fields.",
+    "Not assessed: personalization of AI answers (appendix E). Reason: it happens inside the assistant, from the user's own context, and no site-side measurement exists; the site-side lever - self-contained, quotable facts - is what the extraction and quotability checks cover. How to check it yourself: ask an assistant the same question about your brand in a fresh session and in a long-running one, and compare.",
+    "Not assessed: cross-web corroboration - whether independent sources agree with the site's facts. Reason: it needs a search backend and off-site fetches, which this audit does not make; only on-site corroboration hooks (sameAs, press links) are checked. How to check it yourself: search Wikipedia, Wikidata, Crunchbase and the press for your founding date, HQ, leadership and pricing, and reconcile differences.",
+    "Not assessed: problems outside the scripted checks, unless an agent review ran (see agent_review). Reason: a fixed list of checks misses what it does not list. How to check it yourself: follow agent-review-audit/SKILL.md; every claim it admits was checked against the crawl and is capped at low severity."
+  ],
+  "notes": []
+}

@@ -53,7 +53,19 @@ own title segments, then the homepage link text that points to it.
 | contact | `/contact`, `/contact-us`, `/get-in-touch`; likewise `/contact-sales`, "Contact us", `/kontakt` | a phone number or an email address |
 
 "Only role words and connectors" is what keeps `/how-to-buy-a-house` from becoming a
-pricing page. `/help` and `/support` are deliberately not contact roles; they are
+pricing page.
+
+**A role is a hint; the obligation needs evidence.** A pricing or product page owes a
+price only when the page itself shows it sells something: Product/Offer markup,
+`og:type product`, an add-to-cart or checkout form, a price shown anywhere on the page,
+a pricing URL segment (`/pricing`, `/preise`), or "pricing / prices / subscription /
+fees" in its title or h1. Without that, `/products/…` on a SaaS or pharma site, a
+`/plan` feature page, a `/buy` category hub and a `/subscribe` newsletter page owe
+nothing (11 false high findings in the 100-site evaluation). A contact page owes a
+phone or email only when its own URL segment says contact and it is not a directory
+linking to five or more narrower `/contact/…` pages. Facts are looked for in the whole
+visible text, footer and forms included; contact details held only in a page-state
+script count as T2, not T3. `/help` and `/support` are deliberately not contact roles; they are
 usually documentation hubs. A contact page that offers a contact form (a textarea or
 email field) but no phone number or address is reported as `confirm_intent` at low:
 the visitor can still act, but an assistant asked "how do I contact them?" has

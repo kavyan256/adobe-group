@@ -1,0 +1,13 @@
+{
+ "slug": "supercell",
+ "url": "https://supercell.com",
+ "category": "Video-game studio",
+ "expect": "minimal text, JS, careers",
+ "rc": 0,
+ "wall_s": 30.4,
+ "finished_at": "2026-09-12T17:08:36Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

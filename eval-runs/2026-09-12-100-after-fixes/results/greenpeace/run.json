@@ -1,0 +1,13 @@
+{
+ "slug": "greenpeace",
+ "url": "https://www.greenpeace.org/international/",
+ "category": "Environmental NGO",
+ "expect": "country redirects, petitions forms",
+ "rc": 0,
+ "wall_s": 28.6,
+ "finished_at": "2026-09-12T17:09:57Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

@@ -31,15 +31,18 @@ pre-normalised in `page["derived"]`; this skill never parses JSON-LD itself.
 
 ## Procedure
 
-1. **Grade obligated facts T0–T3.** A page's URL role obligates it to a fact: pricing
-   and product pages a price, contact pages a phone number or email (a `tel:` or
-   `mailto:` link counts). T0 extracted
-   prose, T1 JSON-LD, T2 only in meta tags or a hydration payload, T3 nowhere.
+1. **Grade obligated facts T0–T3.** A page's role obligates it to a fact, but only with
+   evidence: pricing and product pages a price when the page shows it sells something
+   (Product/Offer markup, a cart form, a price on the page, a pricing URL or title);
+   the contact page itself (not a directory or sub-page) a phone number or email (a
+   `tel:` or `mailto:` link counts). T0 visible
+   text, T1 JSON-LD, T2 only in meta tags or a hydration payload, T3 nowhere.
    T3 → `B1_fact_absent`; T2 → `B1_fact_script_only`.
 2. **Empty shells.** Under 30 words of extracted text plus a `#root`, `#app`,
    `#__next` or `#__nuxt` mount element → `B4_empty_shell`.
 3. **Structured data.** A block that fails `json.loads` → `C1_structured_data_invalid`.
-   A product page with no `Product` node → `C1_product_markup_absent` (medium: that
+   A product page that shows it sells something (a cart form, `og:type product` or a
+   visible price) but has no `Product` node → `C1_product_markup_absent` (medium: that
    is where the price itself should be typed). No JSON-LD at all on a home, pricing,
    about or blog page → `C1_structured_data_absent` (low).
 4. **Contradiction.** A single declared `Offer.price` that matches none of the

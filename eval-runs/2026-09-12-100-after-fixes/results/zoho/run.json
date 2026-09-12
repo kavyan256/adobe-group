@@ -1,0 +1,13 @@
+{
+ "slug": "zoho",
+ "url": "https://www.zoho.com",
+ "category": "Business software suite (India)",
+ "expect": "pricing ₹/$ locale, many products",
+ "rc": 0,
+ "wall_s": 25.2,
+ "finished_at": "2026-09-12T17:10:44Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}
