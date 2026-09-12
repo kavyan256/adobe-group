@@ -54,6 +54,7 @@ Full spec: [`adobe_problem_statement.md`](./adobe_problem_statement.md) — read
 
 - **2026-08-27** — Read full problem statement PDF; transcribed to `adobe_problem_statement.md`; set up this progress tracker. No design/implementation work started yet.
 - **2026-09-12** — v3 (`brand-ai-readiness-audit-v2.1/`, commit f0fb27e) reviewed by five independent judge agents; plan published as the "AI-Readiness Audit v4 Plan" artifact. **v4 built in `brand-ai-readiness-audit-v4/`** (submission candidate): verifier hardened and agent claims capped at low, per-bot robots directives, A1 intent fixed, price/date/entity fixes, noise cut (X2, D5 removed), new checks A5_canonical_missing/A9/A10/A11/C7/E11/E12, E1 split, report counts consistent, IDs in ranked order, polite crawler, docs rewritten. 351 offline tests; validator SUBMITTABLE; replays of 9 real sites compared against v3.
+- **2026-09-12 (later)** — Final gate: grader + red team re-reviewed v4; fixed www/apex crawl collapse, verifier weak-op/every-page/link-scrub gaps, template-check dedupe, E3 hidden-control FPs (ikea.com, nps.gov), form-only contact pages. 361 tests. **Submission zip built: `submission/brand-ai-readiness-audit.zip`** (170 KB, top folder `brand-ai-readiness-audit`), verified by unzip-and-run. Live checks: basecamp, djangoproject, ikea.com/de, nps.gov all complete 12/12 in 26–40 s.
 
 ## Decisions
 *(record architecture/skill-decomposition choices here as they're made, with rationale)*
