@@ -1,0 +1,78 @@
+{
+  "claims": [
+    {
+      "title": "The first URL in the sitemap, /beauty-trends, redirects to the homepage",
+      "why": "The sitemap tells crawlers /beauty-trends is a page worth indexing, but the URL now redirects to the homepage. Any search result or AI answer that still points at the old beauty article lands visitors on a generic hotel page, and crawlers spend their visit re-reading the homepage under a second address.",
+      "mechanism": "A",
+      "hurts": "both",
+      "severity": "medium",
+      "nearest_check": null,
+      "affected_urls": [
+        "https://www.theritzlondon.com/beauty-trends"
+      ],
+      "evidence": [
+        {
+          "url": "https://www.theritzlondon.com/beauty-trends",
+          "type": "field",
+          "path": "title",
+          "op": "eq",
+          "value": "The Ritz London | Luxury 5-Star Hotel in Mayfair"
+        },
+        {
+          "url": "https://www.theritzlondon.com/beauty-trends",
+          "type": "field",
+          "path": "final_url",
+          "op": "eq",
+          "value": "https://www.theritzlondon.com/"
+        },
+        {
+          "url": "https://www.theritzlondon.com/beauty-trends",
+          "type": "field",
+          "path": "redirect_hops",
+          "op": "gt",
+          "value": 0
+        }
+      ],
+      "suggested_action": {
+        "summary": "Either restore the beauty article at /beauty-trends or remove the URL from the sitemap and redirect it to the closest related page.",
+        "how": [
+          "If the beauty article is retired, delete /beauty-trends from the sitemap so crawlers stop being sent there.",
+          "Redirect it to the most closely related page, such as the spa or beauty treatments page, rather than to the homepage.",
+          "If the article still exists under another address, redirect to that address and list only the new one in the sitemap."
+        ],
+        "verify": "The sitemap no longer lists /beauty-trends, and requesting it lands on a page about beauty rather than the homepage.",
+        "effort": "low"
+      }
+    }
+  ],
+  "fixes": [
+    {
+      "check_id": "E3_unnamed_controls",
+      "url": "https://www.theritzlondon.com/",
+      "quote": "Welcome to THE RITZ LONDON",
+      "site_specific": [
+        "Give the menu close button (class c-menu__close) and the pop-up close button (class c-popup__close) aria-label Close; both are empty or icon-only.",
+        "Give the header logo link an aria-label of The Ritz London home page, since its only content is an SVG logo.",
+        "Give the icon-only shopping bag link an aria-label of Shopping bag."
+      ]
+    },
+    {
+      "check_id": "E2_vague_link_text",
+      "url": "https://www.theritzlondon.com/",
+      "quote": "Find Out More",
+      "site_specific": [
+        "The suite cards all link with the same text, Find Out More; name the suite in each link, for example Find out more about The Arlington Suite.",
+        "Where the visual design must keep the short label, add an aria-label that names the suite."
+      ]
+    },
+    {
+      "check_id": "B6_filler_heavy",
+      "url": "https://www.theritzlondon.com/contact-us",
+      "quote": "CONTACT The Ritz",
+      "site_specific": [
+        "The Contact page repeats the suite booking blocks shared by every page; move those into the page footer so the contact details lead the page text.",
+        "Open the Contact page with one short paragraph that states the hotel's address and main reservations number in plain text."
+      ]
+    }
+  ]
+}
