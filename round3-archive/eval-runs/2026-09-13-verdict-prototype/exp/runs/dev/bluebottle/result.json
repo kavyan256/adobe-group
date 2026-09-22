@@ -1,0 +1,32 @@
+{
+ "slug": "bluebottle",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 247.7,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 23,
+ "duration_ms": 244034,
+ "total_cost_usd": 0.8027736000000002,
+ "result": "`adjudicated.json` is written. Results: 3 verdicts submitted, all 3 applied (0 rejected) — B4_empty_shell and C3_entity_unanchored confirmed, C7_title_problem removed as a duplicate of B4; 0 claims submitted (no unscripted defects found evidence for); 3 fixes submitted, all 3 verified and merged, 0 rejected.",
+ "permission_denials": [
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01AUWCHBgUueUhLKzbVS2RqQ",
+   "tool_input": {
+    "command": "\\\npython3 skills/agent-review-audit/scripts/page_profile.py /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/bluebottle/bundle.json /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/bluebottle/report.json > /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/bluebottle/profile.json\necho EXIT:$?\nwc -l /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/bluebottle/profile.json"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01NewLpXt5A2iBGYhVKG3mDz",
+   "tool_input": {
+    "command": "WORK=/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/bluebottle\npython3 skills/agent-review-audit/scripts/page_profile.py \"$WORK/bundle.json\" \"$WORK/report.json\" > \"$WORK/profile.json\"\necho EXIT:$?\nwc -l \"$WORK/profile.json\""
+   }
+  }
+ ],
+ "raw_stdout": null
+}

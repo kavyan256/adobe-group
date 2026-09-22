@@ -1,0 +1,358 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Brand AI-Readiness Audit Report",
+  "type": "object",
+  "required": [
+    "site",
+    "audited_at",
+    "summary",
+    "findings"
+  ],
+  "properties": {
+    "site": {
+      "type": "string"
+    },
+    "audited_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "total_findings",
+        "critical",
+        "high",
+        "medium"
+      ],
+      "properties": {
+        "total_findings": {
+          "type": "integer",
+          "description": "Equals len(findings[]); active/latent sub-counts follow"
+        },
+        "critical": {
+          "type": "integer"
+        },
+        "high": {
+          "type": "integer"
+        },
+        "medium": {
+          "type": "integer"
+        },
+        "low": {
+          "type": "integer"
+        },
+        "info": {
+          "type": "integer"
+        },
+        "latent_findings": {
+          "type": "integer",
+          "description": "real findings currently unobservable behind an access blocker"
+        },
+        "by_hurts": {
+          "type": "object",
+          "description": "active findings counted by what they hurt",
+          "properties": {
+            "ai_discoverability": {
+              "type": "integer"
+            },
+            "user_retention": {
+              "type": "integer"
+            },
+            "both": {
+              "type": "integer"
+            }
+          }
+        },
+        "run_status": {
+          "enum": [
+            "complete",
+            "partial",
+            "blocked",
+            "failed"
+          ]
+        },
+        "headline": {
+          "type": "string"
+        },
+        "active_findings": {
+          "type": "integer",
+          "description": "findings that are live defects right now"
+        },
+        "confirm_intent_findings": {
+          "type": "integer",
+          "description": "configuration that looks deliberate; reported for confirmation, capped at low"
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "severity",
+          "evidence",
+          "suggested_action"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^F-[0-9]{3}$"
+          },
+          "title": {
+            "type": "string"
+          },
+          "severity": {
+            "enum": [
+              "critical",
+              "high",
+              "medium",
+              "low",
+              "info"
+            ]
+          },
+          "evidence": {
+            "type": "string",
+            "description": "reproducible; names what was checked, what was found, and how to confirm"
+          },
+          "suggested_action": {
+            "type": "object",
+            "required": [
+              "summary",
+              "priority"
+            ],
+            "properties": {
+              "summary": {
+                "type": "string"
+              },
+              "priority": {
+                "enum": [
+                  "critical",
+                  "high",
+                  "medium",
+                  "low"
+                ]
+              },
+              "effort": {
+                "enum": [
+                  "low",
+                  "medium",
+                  "high"
+                ]
+              },
+              "how": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "verify": {
+                "type": "string",
+                "description": "how to confirm the fix worked"
+              }
+            }
+          },
+          "check_id": {
+            "type": "string"
+          },
+          "hurts": {
+            "enum": [
+              "ai_discoverability",
+              "user_retention",
+              "both",
+              "unknown"
+            ],
+            "description": "plain-language tag: does this cost AI assistants finding/citing the site, visitors staying, or both"
+          },
+          "gate": {
+            "enum": [
+              "access",
+              "extractability",
+              "interpretability",
+              "freshness",
+              "engagement",
+              "unknown"
+            ]
+          },
+          "mechanism": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "latent",
+              "confirm_intent"
+            ],
+            "description": "active = live defect; latent = real but unobservable behind an access blocker; confirm_intent = looks like deliberate configuration, asked rather than asserted"
+          },
+          "confidence": {
+            "enum": [
+              "deterministic",
+              "heuristic"
+            ]
+          },
+          "measurement_basis": {
+            "enum": [
+              "static_fact",
+              "static_heuristic"
+            ]
+          },
+          "blast_radius": {
+            "enum": [
+              "site_wide",
+              "template",
+              "single_page"
+            ]
+          },
+          "severity_rationale": {
+            "type": "string",
+            "description": "the arithmetic behind the severity, auditable"
+          },
+          "affected_urls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "affected_url_count": {
+            "type": "integer"
+          },
+          "blocked_by": {
+            "type": "object",
+            "properties": {
+              "finding_check": {
+                "type": "string"
+              },
+              "agents_affected": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          },
+          "detail": {
+            "type": "object"
+          },
+          "intent_signals": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "why this reads as a deliberate choice rather than a defect"
+          },
+          "see_also": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "related check_ids, so two findings about one underlying fact are readable together"
+          }
+        }
+      }
+    },
+    "site_profile": {
+      "type": "object",
+      "properties": {
+        "bundle_schema_version": {
+          "type": "integer"
+        }
+      }
+    },
+    "coverage": {
+      "type": "object"
+    },
+    "checks_run": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "checks_skipped": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "check",
+          "reason"
+        ],
+        "properties": {
+          "check": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "impact": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "prioritized_actions": {
+      "type": "array"
+    },
+    "proactive_recommendations": {
+      "type": "array",
+      "description": "Only recommendations the site does not already satisfy; each carries applies_because"
+    },
+    "already_in_place": {
+      "type": "array",
+      "description": "Proactive recommendations the site already implements, with the evidence"
+    },
+    "limits": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mechanism_coverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "mechanism",
+          "status"
+        ],
+        "properties": {
+          "mechanism": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "covered",
+              "partially_covered",
+              "not_auditable_from_a_site_crawl"
+            ]
+          },
+          "checks": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "why": {
+            "type": "string"
+          },
+          "what_we_do_instead": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "which Round-2 mechanisms this audit covers, including deliberate non-coverage"
+    }
+  }
+}

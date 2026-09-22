@@ -1,0 +1,71 @@
+{
+ "sites": 100,
+ "run_status": {
+  "complete": 69,
+  "failed": 14,
+  "partial": 13,
+  "blocked": 4
+ },
+ "wall_s": {
+  "median": 31.0,
+  "max": 138.7
+ },
+ "findings_per_site": {
+  "median": 4.0,
+  "max": [
+   "glossier",
+   14
+  ]
+ },
+ "checks_never_fired": [
+  "A8_robots_token_unrecognised",
+  "C6_entity_name_conflict",
+  "D4_internal_contradiction",
+  "R_agent_review"
+ ]
+}
+
+problems:
+  same_check_repeated_over_3_times: 2 -> [('thehoxton', 'E1_unlabelled_input', 5), ('glossier', 'E1_unlabelled_input', 9)]
+
+check fire rate (readable sites):
+  C3_entity_unanchored              52 sites (63%)  {'medium': 52}
+  C1_structured_data_absent         51 sites (62%)  {'low': 51}
+  E1_unlabelled_input               38 sites (46%)  {'medium': 18, 'low': 20}
+  E6_heading_structure              37 sites (45%)  {'low': 37}
+  E3_unnamed_controls               36 sites (44%)  {'medium': 36}
+  A6_sitemap_missing                19 sites (23%)  {'low': 19}
+  A7_site_unreadable                18 sites (22%)  {'high': 14, 'critical': 4}
+  C5_faq_content_unmarked           13 sites (16%)  {'low': 13}
+  E4_images_missing_alt             13 sites (16%)  {'medium': 13}
+  C7_title_problem                  13 sites (16%)  {'medium': 13}
+  E5_no_lang                        10 sites (12%)  {'low': 10}
+  E10_no_next_step                  10 sites (12%)  {'medium': 10}
+  A1_retrieval_agent_blocked         9 sites (11%)  {'critical': 6, 'low': 3}
+  B1_fact_absent                     7 sites (9%)  {'high': 5, 'low': 2}
+  E11_no_viewport                    7 sites (9%)  {'medium': 7}
+  B6_filler_heavy                    7 sites (9%)  {'low': 7}
+  A5_canonical_missing               7 sites (9%)  {'low': 7}
+  C1_product_markup_absent           6 sites (7%)  {'medium': 6}
+  A9_broken_pages                    6 sites (7%)  {'low': 5, 'medium': 1}
+  X1_low_quotability                 6 sites (7%)  {'low': 6}
+  B4_empty_shell                     5 sites (6%)  {'high': 5}
+  E7_zoom_disabled                   5 sites (6%)  {'medium': 5}
+  E12_no_orientation                 5 sites (6%)  {'low': 5}
+  A3_noindex_utility                 4 sites (5%)  {'low': 4}
+  E1_form_friction                   4 sites (5%)  {'low': 4}
+  D2_stale_copyright                 3 sites (4%)  {'low': 3}
+  B1_fact_script_only                3 sites (4%)  {'medium': 3}
+  D1_no_date_signals                 3 sites (4%)  {'medium': 3}
+  C2_markup_text_contradiction       2 sites (2%)  {'medium': 2}
+  C1_structured_data_invalid         2 sites (2%)  {'high': 2}
+  A4_redirect_chain                  2 sites (2%)  {'info': 2}
+  A3_noindex                         2 sites (2%)  {'critical': 2}
+  E2_vague_link_text                 2 sites (2%)  {'low': 2}
+  A11_soft_404                       2 sites (2%)  {'low': 2}
+  E9_promise_payoff_mismatch         1 sites (1%)  {'medium': 1}
+  A2_snippet_suppressed              1 sites (1%)  {'high': 1}
+  A5_canonical_problem               1 sites (1%)  {'medium': 1}
+  A10_meta_refresh                   1 sites (1%)  {'low': 1}
+  A9_key_page_broken                 1 sites (1%)  {'medium': 1}
+  D3_content_stale                   1 sites (1%)  {'low': 1}

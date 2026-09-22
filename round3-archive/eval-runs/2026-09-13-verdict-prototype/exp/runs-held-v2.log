@@ -1,0 +1,18 @@
+[held] bosch: 136.9s $0.4135019999999999 adjudicated=False denials=0
+[held] curl: 137.3s $0.49044059999999995 adjudicated=True denials=2
+[held] deliveroo: 101.5s $0.5527618000000002 adjudicated=True denials=6
+[held] glossier: 140.1s $0.560756 adjudicated=False denials=3
+[held] khanacademy: 148.9s $0.40977519999999995 adjudicated=False denials=3
+[held] lego: 36.1s $0.2029256 adjudicated=False denials=1
+[held] linear: 4.1s $0 adjudicated=False denials=0
+[held] mistral: 4.1s $0 adjudicated=False denials=0
+[held] mit: 2.2s $0 adjudicated=False denials=0
+[held] nhs: 2.2s $0 adjudicated=False denials=0
+[held] paulgraham: 4.1s $0 adjudicated=False denials=0
+[held] pentagram: 4.2s $0 adjudicated=False denials=0
+[held] pfizer: 4.1s $0 adjudicated=False denials=0
+[held] pythondocs: 4.3s $0 adjudicated=False denials=0
+[held] tfl: 4.2s $0 adjudicated=False denials=0
+[held] theverge: 4.6s $0 adjudicated=False denials=0
+[held] vatican: 4.4s $0 adjudicated=False denials=0
+prototype tree unchanged: True (4b3e060b4f5c61eb -> 4b3e060b4f5c61eb)

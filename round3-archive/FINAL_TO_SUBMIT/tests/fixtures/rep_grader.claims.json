@@ -1,0 +1,66 @@
+{
+ "claims": [
+  {
+   "title": "Homepage value proposition is unclear to first-time visitors",
+   "why": "Visitors cannot tell what the company sells within seconds, so they leave.",
+   "mechanism": "on-site",
+   "hurts": "user_retention",
+   "severity": "high",
+   "nearest_check": null,
+   "affected_urls": [
+    "https://n.example/"
+   ],
+   "evidence": [
+    {
+     "url": "https://n.example/",
+     "type": "field",
+     "path": "status",
+     "op": "eq",
+     "value": 200
+    }
+   ],
+   "suggested_action": {
+    "summary": "Rewrite the hero headline to state the product.",
+    "how": [
+     "Rewrite hero."
+    ],
+    "verify": "Five-second test passes.",
+    "effort": "low"
+   }
+  },
+  {
+   "title": "No press page links to independent coverage anywhere",
+   "why": "A claim only the site makes is fragile for machines seeking agreement.",
+   "mechanism": "D",
+   "hurts": "ai_discoverability",
+   "severity": "medium",
+   "nearest_check": null,
+   "affected_urls": [
+    "https://n.example/",
+    "https://n.example/blog/x"
+   ],
+   "evidence": [
+    {
+     "url": "https://n.example/",
+     "type": "field",
+     "path": "status",
+     "op": "eq",
+     "value": 200
+    },
+    {
+     "url": "https://n.example/blog/x",
+     "type": "html_lacks",
+     "value": "/press"
+    }
+   ],
+   "suggested_action": {
+    "summary": "Add a press page linking outward.",
+    "how": [
+     "Add /press."
+    ],
+    "verify": "Press page exists on the site.",
+    "effort": "low"
+   }
+  }
+ ]
+}

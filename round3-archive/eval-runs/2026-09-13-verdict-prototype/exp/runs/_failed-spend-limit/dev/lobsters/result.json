@@ -1,0 +1,17 @@
+{
+ "slug": "lobsters",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 3.9,
+ "rc": 1,
+ "stderr": "",
+ "adjudicated": false,
+ "is_error": true,
+ "subtype": "success",
+ "num_turns": 1,
+ "duration_ms": 658,
+ "total_cost_usd": 0,
+ "result": "You've hit your monthly spend limit · raise it at claude.ai/settings/usage?from=cc_cli_limit_message · your session limit resets 2:20am (Asia/Kolkata)",
+ "permission_denials": [],
+ "raw_stdout": null
+}

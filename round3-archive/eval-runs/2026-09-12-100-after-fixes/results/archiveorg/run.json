@@ -1,0 +1,13 @@
+{
+ "slug": "archiveorg",
+ "url": "https://archive.org",
+ "category": "Digital archive",
+ "expect": "JS shell pages, large site",
+ "rc": 0,
+ "wall_s": 38.2,
+ "finished_at": "2026-09-12T17:11:50Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

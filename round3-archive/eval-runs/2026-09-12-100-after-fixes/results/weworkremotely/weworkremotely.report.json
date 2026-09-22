@@ -1,0 +1,294 @@
+{
+  "site": "weworkremotely.com",
+  "audited_at": "2026-09-12T17:09:25Z",
+  "summary": {
+    "total_findings": 3,
+    "critical": 0,
+    "high": 1,
+    "medium": 1,
+    "low": 1,
+    "active_findings": 3,
+    "latent_findings": 0,
+    "confirm_intent_findings": 0,
+    "info": 0,
+    "active_by_severity": {
+      "critical": 0,
+      "high": 1,
+      "medium": 1,
+      "low": 1
+    },
+    "by_hurts": {
+      "ai_discoverability": 1,
+      "user_retention": 2,
+      "both": 0
+    },
+    "run_status": "complete",
+    "headline": "3 finding(s); most severe: Malformed JSON-LD on 7 page(s)"
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "title": "Malformed JSON-LD on 7 page(s)",
+      "severity": "high",
+      "evidence": "application/ld+json blocks failed to parse as JSON on: ['https://weworkremotely.com/remote-jobs/zscaler-account-executive-commercial-west', 'https://weworkremotely.com/remote-jobs/samsara-staff-software-engineer', 'https://weworkremotely.com/remote-jobs/webflow-staff-brand-designer', 'https://weworkremotely.com/remote-jobs/6sense-senior-customer-success-manager']. Invalid markup is discarded entirely, so it provides no benefit.",
+      "suggested_action": {
+        "summary": "Fix the JSON syntax in the structured-data blocks.",
+        "priority": "high",
+        "effort": "low",
+        "how": [
+          "Validate each block with a JSON parser and with Google's Rich Results Test.",
+          "Watch for unescaped quotes in templated values and trailing commas."
+        ],
+        "verify": "python -c 'import json,sys;json.load(sys.stdin)' succeeds for each block."
+      },
+      "check_id": "C1_structured_data_invalid",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "interpretability",
+      "mechanism": "C",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "template",
+      "severity_rationale": "base=high (interpretability/C1_structured_data_invalid); blast=template x0.8 => high",
+      "affected_urls": [
+        "https://weworkremotely.com/remote-jobs/6sense-senior-customer-success-manager",
+        "https://weworkremotely.com/remote-jobs/ondeckglobal-igaming-ui-ux-designer",
+        "https://weworkremotely.com/remote-jobs/platform-sh-customer-retention-manager",
+        "https://weworkremotely.com/remote-jobs/salesloft-enterprise-account-director",
+        "https://weworkremotely.com/remote-jobs/samsara-staff-software-engineer",
+        "https://weworkremotely.com/remote-jobs/webflow-staff-brand-designer",
+        "https://weworkremotely.com/remote-jobs/zscaler-account-executive-commercial-west"
+      ],
+      "affected_url_count": 7
+    },
+    {
+      "id": "F-002",
+      "title": "Interactive controls without an accessible name on 12 page(s)",
+      "severity": "medium",
+      "evidence": "https://weworkremotely.com/: 12/502 controls expose no text, aria-label, aria-labelledby, title, SVG title or image alt; https://weworkremotely.com/company/6sense: 14/121 controls expose no text, aria-label, aria-labelledby, title, SVG title or image alt; https://weworkremotely.com/company/a-team: 14/125 controls expose no text, aria-label, aria-labelledby, title, SVG title or image alt; https://weworkremotely.com/remote-jobs/zscaler-account-executive-commercial-west: 14/116 controls expose no text, aria-label, aria-labelledby, title, SVG title or image alt. Controls whose name is bound by a JS framework (v-, x-, ng-, :, @, [) were assumed named at runtime and not counted.",
+      "suggested_action": {
+        "summary": "Give every control a name a machine can read.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Add visible text, or aria-label where the control is icon-only.",
+          "An unnamed control is unusable with a screen reader and invisible to any agent trying to understand what actions the page offers."
+        ],
+        "verify": "Every button/link resolves to a non-empty accessible name."
+      },
+      "check_id": "E3_unnamed_controls",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "template",
+      "severity_rationale": "base=medium (engagement/E3_unnamed_controls); blast=template x0.8 => medium",
+      "affected_urls": [
+        "https://weworkremotely.com/",
+        "https://weworkremotely.com/company/6sense",
+        "https://weworkremotely.com/company/a-team",
+        "https://weworkremotely.com/remote-jobs/6sense-senior-customer-success-manager",
+        "https://weworkremotely.com/remote-jobs/kindred-staff-product-manager",
+        "https://weworkremotely.com/remote-jobs/kiss-my-apps-lead-product-manager",
+        "https://weworkremotely.com/remote-jobs/ondeckglobal-igaming-ui-ux-designer",
+        "https://weworkremotely.com/remote-jobs/platform-sh-customer-retention-manager",
+        "https://weworkremotely.com/remote-jobs/salesloft-enterprise-account-director",
+        "https://weworkremotely.com/remote-jobs/samsara-staff-software-engineer",
+        "https://weworkremotely.com/remote-jobs/webflow-staff-brand-designer",
+        "https://weworkremotely.com/remote-jobs/zscaler-account-executive-commercial-west"
+      ],
+      "affected_url_count": 12
+    },
+    {
+      "id": "F-003",
+      "title": "No lang attribute on 12 page(s)",
+      "severity": "low",
+      "evidence": "12/12 pages omit <html lang>. Examples: ['https://weworkremotely.com/', 'https://weworkremotely.com/company/6sense', 'https://weworkremotely.com/company/a-team']. Language declaration affects pronunciation in screen readers and helps any consumer pick the right processing rules.",
+      "suggested_action": {
+        "summary": "Declare the page language.",
+        "priority": "low",
+        "effort": "low",
+        "how": [
+          "Set <html lang=\"en\"> (or the correct BCP-47 tag) on every page."
+        ],
+        "verify": "Every page's <html> element carries a lang attribute."
+      },
+      "check_id": "E5_no_lang",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "site_wide",
+      "severity_rationale": "base=low (engagement/E5_no_lang); blast=site_wide x1.0 => low",
+      "affected_urls": [
+        "https://weworkremotely.com/",
+        "https://weworkremotely.com/company/6sense",
+        "https://weworkremotely.com/company/a-team",
+        "https://weworkremotely.com/remote-jobs/6sense-senior-customer-success-manager",
+        "https://weworkremotely.com/remote-jobs/kindred-staff-product-manager",
+        "https://weworkremotely.com/remote-jobs/kiss-my-apps-lead-product-manager",
+        "https://weworkremotely.com/remote-jobs/ondeckglobal-igaming-ui-ux-designer",
+        "https://weworkremotely.com/remote-jobs/platform-sh-customer-retention-manager",
+        "https://weworkremotely.com/remote-jobs/salesloft-enterprise-account-director",
+        "https://weworkremotely.com/remote-jobs/samsara-staff-software-engineer",
+        "https://weworkremotely.com/remote-jobs/webflow-staff-brand-designer",
+        "https://weworkremotely.com/remote-jobs/zscaler-account-executive-commercial-west"
+      ],
+      "affected_url_count": 12
+    }
+  ],
+  "site_profile": {
+    "start_url": "https://weworkremotely.com/",
+    "pages_crawled": 12,
+    "roles_seen": [
+      "about",
+      "generic",
+      "home"
+    ],
+    "robots_present": true,
+    "ai_policy": {
+      "retrieval_agents_blocked": [],
+      "training_agents_blocked": [],
+      "interpretation": "Blocking training agents is a licensing choice and does not affect whether assistants can cite you. Only retrieval agents gate citation."
+    },
+    "user_agent_used": "AIReadinessAudit/1.0 (+https://github.com/kavyan256/adobe-group)"
+  },
+  "coverage": {
+    "elapsed_s": 24.4,
+    "pages_attempted": 12,
+    "pages_blocked_by_robots_for_our_ua": 0,
+    "pages_fetched": 12,
+    "pages_ok": 12,
+    "urls_discovered": 437
+  },
+  "checks_skipped": [
+    {
+      "check": "D6_cross_web_corroboration",
+      "reason": "Not assessed: whether independent third parties agree with this site's claims. Reason: that needs a search backend, which this marketplace does not assume. How to check it yourself: search your brand plus a key fact (price, founding year, HQ) and count independent sources that agree.",
+      "impact": "Claims that exist only on this site are not distinguished from claims corroborated across the web. The on-site corroboration checks still ran."
+    },
+    {
+      "check": "E_authenticated_flows",
+      "reason": "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account.",
+      "impact": "How to check it yourself: walk the signup, checkout or booking flow on a phone with a test account and count the required steps and fields."
+    },
+    {
+      "check": "E_behaviour_metrics",
+      "reason": "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion rate). Reason: they are observed, not inferred from markup, and a short visit from an AI answer is often a success - the visitor came to verify one fact and did.",
+      "impact": "How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate, not their bounce rate, with search traffic."
+    },
+    {
+      "check": "E_colour_contrast",
+      "reason": "Not assessed: colour contrast (WCAG 1.4.3). Reason: contrast ratios need computed styles, which need a browser; this marketplace runs without one to stay portable and deterministic.",
+      "impact": "How to check it yourself: run axe DevTools or Lighthouse on the top 3 page templates and read the contrast section."
+    },
+    {
+      "check": "E_copy_quality",
+      "reason": "Not assessed: copy quality, persuasion and jargon. Reason: subjective; no static threshold separates plain language from marketing copy across industries and languages without a high false-positive rate.",
+      "impact": "How to check it yourself: read the first paragraph of the homepage and one product page aloud to someone outside the company and ask what the site offers and for whom."
+    },
+    {
+      "check": "E_core_web_vitals",
+      "reason": "Not assessed: Core Web Vitals (LCP, CLS, INP). Reason: these are field metrics at the 75th percentile; a single synthetic fetch is not a measurement and INP cannot be measured synthetically at all.",
+      "impact": "How to check it yourself: open Google Search Console's Core Web Vitals report, which uses real-user data, or run Lighthouse for lab LCP/CLS."
+    },
+    {
+      "check": "E_rendered_experience",
+      "reason": "Not assessed: the rendered experience (overlay and cookie-banner timing, tap target size, focus visibility, layout at phone width). Reason: all of it depends on CSS and JavaScript executing, which needs a browser.",
+      "impact": "How to check it yourself: run Lighthouse and axe on the top 3 templates at phone width, then tab through each page once to confirm focus is visible."
+    }
+  ],
+  "agent_review": {
+    "status": "not_run"
+  },
+  "prioritized_actions": [
+    {
+      "rank": 1,
+      "finding_id": "F-001",
+      "title": "Malformed JSON-LD on 7 page(s)",
+      "priority_score": 4.0,
+      "severity": "high",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "low",
+      "action": "Fix the JSON syntax in the structured-data blocks."
+    },
+    {
+      "rank": 2,
+      "finding_id": "F-002",
+      "title": "Interactive controls without an accessible name on 12 page(s)",
+      "priority_score": 2.1,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Give every control a name a machine can read."
+    },
+    {
+      "rank": 3,
+      "finding_id": "F-003",
+      "title": "No lang attribute on 12 page(s)",
+      "priority_score": 1.4,
+      "severity": "low",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Declare the page language."
+    }
+  ],
+  "proactive_recommendations": [
+    {
+      "title": "Publish an llms.txt describing your site for AI clients",
+      "rationale": "An emerging convention: a short, stable, plain-text map of what your site covers and where the authoritative pages are. Cheap to add, and it gives retrieval agents an unambiguous starting point.",
+      "effort": "low",
+      "applies_because": "GET /llms.txt did not return a plain-text document"
+    },
+    {
+      "title": "Decide your AI-crawler policy deliberately, and write it down",
+      "rationale": "Training access and retrieval access are separate decisions. Blocking training crawlers while explicitly allowing retrieval agents is a coherent, defensible position - but it has to be configured on purpose, per user-agent.",
+      "effort": "low",
+      "applies_because": "robots.txt names no AI retrieval or training agent, so the current policy is whatever the wildcard group happens to say"
+    },
+    {
+      "title": "Add a machine-readable FAQ layer shaped for quotation",
+      "rationale": "FAQPage structured data pairs a question with a self-contained answer. That is exactly the shape an assistant wants to lift, and it survives text extraction.",
+      "effort": "medium",
+      "applies_because": "no crawled page carries FAQPage JSON-LD"
+    }
+  ],
+  "already_in_place": [
+    {
+      "title": "Publish a stable, citable facts page",
+      "because": "Organization sameAs links are already published"
+    },
+    {
+      "title": "Server-render your most-quoted facts even inside a SPA",
+      "because": "not a client-rendered app, or a specific finding already covers it"
+    },
+    {
+      "title": "Answer the question visitors arrive with on the first screen",
+      "because": "the homepage's first 60 words already name the site or state a concrete figure"
+    },
+    {
+      "title": "Every deep page links to its parent section and a contact route",
+      "because": "every substantial deep page already links onward from its content"
+    }
+  ],
+  "limits": [
+    "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion). Reason: a crawl sees markup, never visitors; engagement findings are structural risk factors, capped at medium for that reason. How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate with search traffic.",
+    "Not assessed: the rendered experience (layout, overlays and cookie banners, colour contrast, Core Web Vitals) and facts loaded by client-side requests after page load. Reason: no JavaScript is executed and no browser is used - which is also what non-rendering AI retrieval agents see; a fact fetched only by XHR can be a false negative here. How to check it yourself: run Lighthouse and axe on the top three templates, and open a key page with JavaScript disabled to see what a bot gets.",
+    "Not assessed: copy quality - whether the words persuade, or answer the visitor's question well. Reason: subjective, with no static threshold that holds across industries and languages; the scripted checks measure only structure and vocabulary overlap. How to check it yourself: read the first paragraph of the homepage and one product page to someone outside the company and ask what the site offers and for whom.",
+    "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account. How to check it yourself: walk the signup, checkout or booking flow with a test account and count the required steps and fields.",
+    "Not assessed: personalization of AI answers (appendix E). Reason: it happens inside the assistant, from the user's own context, and no site-side measurement exists; the site-side lever - self-contained, quotable facts - is what the extraction and quotability checks cover. How to check it yourself: ask an assistant the same question about your brand in a fresh session and in a long-running one, and compare.",
+    "Not assessed: cross-web corroboration - whether independent sources agree with the site's facts. Reason: it needs a search backend and off-site fetches, which this audit does not make; only on-site corroboration hooks (sameAs, press links) are checked. How to check it yourself: search Wikipedia, Wikidata, Crunchbase and the press for your founding date, HQ, leadership and pricing, and reconcile differences.",
+    "Not assessed: problems outside the scripted checks, unless an agent review ran (see agent_review). Reason: a fixed list of checks misses what it does not list. How to check it yourself: follow agent-review-audit/SKILL.md; every claim it admits was checked against the crawl and is capped at low severity."
+  ],
+  "notes": []
+}

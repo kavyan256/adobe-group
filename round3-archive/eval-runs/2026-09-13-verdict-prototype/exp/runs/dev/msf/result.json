@@ -1,0 +1,17 @@
+{
+ "slug": "msf",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 185.5,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 24,
+ "duration_ms": 182050,
+ "total_cost_usd": 0.6232442,
+ "result": "adjudicated.json exists at the target path with all changes applied.\n\n2 verdicts applied (0 rejected): A3_noindex downgraded critical→low as deliberate staff-only configuration, B1_fact_absent confirmed as a real defect (still high); 0 claims submitted; 1 fix submitted and merged onto B1_fact_absent; 0 rejections overall.",
+ "permission_denials": [],
+ "raw_stdout": null
+}

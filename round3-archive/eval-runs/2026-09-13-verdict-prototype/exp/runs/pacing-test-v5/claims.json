@@ -1,0 +1,114 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A3_noindex", "url": "https://www.msf.org/rewards/msf-staff-rewards"},
+      "verdict": "confirm_intent",
+      "reason": "deliberate_configuration",
+      "explanation": "All 9 noindexed pages sit under /rewards/ (staff benefits portal: MSF Staff Rewards, its Contacts and Principles and policies pages, plus AR/FR/ES translations), while the key public pages (home, who-we-are, contact-us, donation-plans, about-offices) carry no noindex.",
+      "evidence": [
+        {"url": "https://www.msf.org/rewards/msf-staff-rewards", "type": "field", "path": "title", "op": "contains", "value": "MSF Staff Rewards"},
+        {"url": "https://www.msf.org/", "type": "field", "path": "robots_directives", "op": "lacks", "value": "noindex"}
+      ]
+    },
+    {
+      "finding": {"check_id": "B1_fact_absent", "url": "https://www.msf.org/contact-us"},
+      "verdict": "not_a_defect",
+      "reason": "page_purpose_mismatch",
+      "urls": ["https://www.msf.org/contact-us"],
+      "explanation": "The page's own text is 'Get in touch with your nearest MSF Office' and it is a directory of Operational Centres and Partner Sections (105 external links) rather than a single office's contact card, so it owes links to the right office, not its own phone/email.",
+      "evidence": [
+        {"url": "https://www.msf.org/contact-us", "type": "text_contains", "value": "Get in touch with your nearest MSF Office", "scope": "extracted"},
+        {"url": "https://www.msf.org/contact-us", "type": "field", "path": "links.external", "op": "gt", "value": 50}
+      ]
+    },
+    {
+      "finding": {"check_id": "E11_no_viewport", "url": "https://www.msf.org/donation-plans"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "Both pages are live, real pages (not tests or placeholders) and their raw HTML has no viewport meta tag at all, so mobile visitors get the desktop-width layout on both.",
+      "evidence": [
+        {"url": "https://www.msf.org/donation-plans", "type": "field", "path": "title", "op": "eq", "value": "MSF Donation Plans"},
+        {"url": "https://www.msf.org/donation-plans", "type": "html_lacks", "value": "name=\"viewport\""},
+        {"url": "https://www.msf.org/about-offices", "type": "field", "path": "title", "op": "eq", "value": "About MSF - Our Offices"},
+        {"url": "https://www.msf.org/about-offices", "type": "html_lacks", "value": "name=\"viewport\""}
+      ]
+    },
+    {
+      "finding": {"check_id": "E3_unnamed_controls", "url": "https://www.msf.org/"},
+      "verdict": "downgrade",
+      "reason": "overstated_impact",
+      "explanation": "The finding's own counts are a handful out of many on every page it lists: 12 of 253 controls on the homepage, 4 of 418 on who-we-are, 4 of 229 on the staff-rewards page - under 5% of controls on each page, not a pervasive labelling gap.",
+      "evidence": [
+        {"url": "https://www.msf.org/", "type": "field", "path": "title", "op": "eq", "value": "MSF - Médecins Sans Frontières | Medical humanitarian organisation"}
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "title": "/donation-plans has no plan names or amounts outside a third-party payments iframe",
+      "why": "The page's own text is 9 words ('See our plans above'); every plan name and donation amount lives inside an iframe on a different domain, which a non-rendering fetcher does not read, so the page has nothing to quote and a visitor whose browser blocks the frame sees a blank page.",
+      "mechanism": "C",
+      "hurts": "both",
+      "severity": "high",
+      "nearest_check": null,
+      "affected_urls": ["https://www.msf.org/donation-plans"],
+      "evidence": [
+        {"url": "https://www.msf.org/donation-plans", "type": "field", "path": "iframes", "op": "contains", "value": "payments.thirdparty-msf.example/plans"},
+        {"url": "https://www.msf.org/donation-plans", "type": "field", "path": "words_extracted", "op": "lt", "value": 100},
+        {"url": "https://www.msf.org/donation-plans", "type": "text_contains", "value": "See our plans above", "scope": "extracted"}
+      ],
+      "suggested_action": {
+        "summary": "Render each plan's name and monthly amount as static HTML on donation-plans, alongside the payment iframe.",
+        "how": [
+          "Add a plain-HTML list of plan names and amounts above or beside the iframe.",
+          "Keep the iframe only for the actual payment step."
+        ],
+        "verify": "curl -s https://www.msf.org/donation-plans shows plan names and amounts in the HTML body, not just the iframe tag.",
+        "effort": "medium"
+      }
+    }
+  ],
+  "fixes": [
+    {
+      "check_id": "E11_no_viewport",
+      "url": "https://www.msf.org/donation-plans",
+      "quote": "MSF Donation Plans Donation Plans",
+      "site_specific": [
+        "Add a viewport meta tag setting width to device-width and initial-scale to 1 in the head of donation-plans.",
+        "Do the same on about-offices, the other page missing it."
+      ]
+    },
+    {
+      "check_id": "A5_canonical_missing",
+      "url": "https://www.msf.org/donation-plans",
+      "quote": "See our plans above.",
+      "site_specific": [
+        "Add a canonical link tag in the head of this page pointing to its own URL, donation-plans."
+      ]
+    },
+    {
+      "check_id": "C1_structured_data_absent",
+      "url": "https://www.msf.org/donation-plans",
+      "quote": "Donation Plans",
+      "site_specific": [
+        "Add JSON-LD describing the donation plans (name and amount for each) once the plan text itself is rendered on the page, not only inside the payments iframe."
+      ]
+    }
+  ],
+  "candidate_dispositions": [
+    {
+      "mechanism": "C",
+      "item": "main_content_in_iframe",
+      "url": "https://www.msf.org/donation-plans",
+      "disposition": "claimed",
+      "claim_title": "/donation-plans has no plan names or amounts outside a third-party payments iframe"
+    },
+    {
+      "mechanism": "D",
+      "item": "brand_name_differs_across_pages",
+      "url": "https://www.msf.org/donation-plans",
+      "disposition": "not_applicable",
+      "reason": "The 'MSF' value on this page is the organisation's own standard abbreviation of 'Medecins Sans Frontieres (MSF) International', the value on the homepage, not a different or ambiguous brand name."
+    }
+  ]
+}

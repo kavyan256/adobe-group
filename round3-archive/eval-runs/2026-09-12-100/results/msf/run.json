@@ -1,0 +1,13 @@
+{
+ "slug": "msf",
+ "url": "https://www.msf.org",
+ "category": "International medical charity",
+ "expect": "donation forms, news dates",
+ "rc": 0,
+ "wall_s": 48.2,
+ "finished_at": "2026-09-12T16:29:20Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

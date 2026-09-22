@@ -1,0 +1,636 @@
+{
+  "site": "www.mcmaster.com",
+  "audited_at": "2026-09-12T17:07:19Z",
+  "summary": {
+    "total_findings": 6,
+    "critical": 1,
+    "high": 0,
+    "medium": 2,
+    "low": 3,
+    "active_findings": 6,
+    "latent_findings": 0,
+    "confirm_intent_findings": 0,
+    "info": 0,
+    "active_by_severity": {
+      "critical": 1,
+      "high": 0,
+      "medium": 2,
+      "low": 3
+    },
+    "by_hurts": {
+      "ai_discoverability": 4,
+      "user_retention": 2,
+      "both": 1
+    },
+    "run_status": "complete",
+    "headline": "7 finding(s); most severe: 10 page(s) carry a noindex directive"
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "title": "10 page(s) carry a noindex directive",
+      "severity": "critical",
+      "evidence": "10/12 crawled pages emit noindex via meta robots or X-Robots-Tag. Examples: ['https://www.mcmaster.com/products/abrading-and-polishing', 'https://www.mcmaster.com/products/abrading-polishing', 'https://www.mcmaster.com/1%22-square-drive-handles']. A noindex page is removed from the indexes that assistants draw on.",
+      "suggested_action": {
+        "summary": "Remove noindex from pages that should be findable.",
+        "priority": "critical",
+        "effort": "low",
+        "how": [
+          "Delete the noindex value from the meta robots tag or the X-Robots-Tag response header on these URLs.",
+          "Check for a staging-environment header leaking into production."
+        ],
+        "verify": "curl -sI <url> | grep -i x-robots-tag  returns nothing, and the page source contains no noindex.",
+        "site_specific": [
+          "Remove the noindex directive (meta robots or X-Robots-Tag) from square-drive and other product-category listing pages such as this one.",
+          "Keep noindex only on pages that are genuinely duplicate, archived, or account/utility pages, not on primary category or product pages.",
+          "Re-crawl a sample of category pages after the change and confirm robots_directives no longer includes noindex."
+        ],
+        "grounded_on": {
+          "url": "https://www.mcmaster.com/1%22-square-drive-handles",
+          "quote": "McMaster-Carr"
+        }
+      },
+      "check_id": "A3_noindex",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "access",
+      "mechanism": "A",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "template",
+      "severity_rationale": "base=critical (access/A3_noindex); blast=template x0.8 => critical; agent verdict confirm (measurement_confirmed)",
+      "affected_urls": [
+        "https://www.mcmaster.com/1%22-square-drive-handles",
+        "https://www.mcmaster.com/1%22-square-drive-impact-wrenches",
+        "https://www.mcmaster.com/1%22-square-drive-ratchet-wrenches",
+        "https://www.mcmaster.com/1%22-square-drive-ratchets",
+        "https://www.mcmaster.com/1%22-square-drive-socket-wrench-adapters",
+        "https://www.mcmaster.com/1%22-square-drive-sockets",
+        "https://www.mcmaster.com/1%22-square-drive-wrenches",
+        "https://www.mcmaster.com/1%2f2-aa-cell-batteries",
+        "https://www.mcmaster.com/products/abrading-and-polishing",
+        "https://www.mcmaster.com/products/abrading-polishing"
+      ],
+      "affected_url_count": 10,
+      "detail": {
+        "agent_verdict": {
+          "verdict": "confirm",
+          "reason": "measurement_confirmed"
+        }
+      }
+    },
+    {
+      "id": "F-002",
+      "title": "Missing, generic or duplicated <title> on 12 page(s)",
+      "severity": "medium",
+      "evidence": "https://www.mcmaster.com/: title 'McMaster-Carr' shared by 12 pages; https://www.mcmaster.com/contact: title 'McMaster-Carr' shared by 12 pages; https://www.mcmaster.com/products/abrading-and-polishing: title 'McMaster-Carr' shared by 12 pages; https://www.mcmaster.com/products/abrading-polishing: title 'McMaster-Carr' shared by 12 pages. The title is the first thing an index stores and the label an assistant shows next to a citation; a blank or shared one gives the page no identity of its own.",
+      "suggested_action": {
+        "summary": "Give every page a unique title that names its subject.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Template the title as '<page subject> | <brand>' so no two pages share one.",
+          "Never ship the CMS default ('Home', 'Untitled', 'Document')."
+        ],
+        "verify": "curl -s <url> | grep -o '<title>[^<]*' differs across pages and is never empty.",
+        "site_specific": [
+          "Give each product-category page a distinct title tag built from its own category name, e.g. include 'Fastening & Joining' or the relevant category instead of just 'McMaster-Carr'.",
+          "Reserve the bare 'McMaster-Carr' title for the homepage only.",
+          "Verify by viewing source on a handful of category pages and confirming each title differs and names its category."
+        ],
+        "grounded_on": {
+          "url": "https://www.mcmaster.com/",
+          "quote": "Fastening & Joining"
+        }
+      },
+      "check_id": "C7_title_problem",
+      "source": "scripted",
+      "hurts": "both",
+      "gate": "interpretability",
+      "mechanism": "B",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "site_wide",
+      "severity_rationale": "base=medium (interpretability/C7_title_problem); blast=site_wide x1.0 => medium; agent verdict confirm (measurement_confirmed)",
+      "affected_urls": [
+        "https://www.mcmaster.com/",
+        "https://www.mcmaster.com/1%22-square-drive-handles",
+        "https://www.mcmaster.com/1%22-square-drive-impact-wrenches",
+        "https://www.mcmaster.com/1%22-square-drive-ratchet-wrenches",
+        "https://www.mcmaster.com/1%22-square-drive-ratchets",
+        "https://www.mcmaster.com/1%22-square-drive-socket-wrench-adapters",
+        "https://www.mcmaster.com/1%22-square-drive-sockets",
+        "https://www.mcmaster.com/1%22-square-drive-wrenches",
+        "https://www.mcmaster.com/1%2f2-aa-cell-batteries",
+        "https://www.mcmaster.com/contact",
+        "https://www.mcmaster.com/products/abrading-and-polishing",
+        "https://www.mcmaster.com/products/abrading-polishing"
+      ],
+      "affected_url_count": 12,
+      "detail": {
+        "agent_verdict": {
+          "verdict": "confirm",
+          "reason": "measurement_confirmed"
+        }
+      }
+    },
+    {
+      "id": "F-003",
+      "title": "Form field(s) without a label in a template used on 12 page(s)",
+      "severity": "medium",
+      "evidence": "Form action='(none)' (fields: ?, SrchEntryWebPart_InpBox) appears on 12 page(s); 1 of 2 field(s) have no associated label: text (unlabelled). Placeholder text disappears once typing starts, so a required field with nothing else naming it is easy to get wrong.",
+      "suggested_action": {
+        "summary": "Label every form field programmatically.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Associate every input with a <label for=\"id\">, or an aria-label where there is no room for visible text.",
+          "Keep the placeholder as an example value, not as the only name.",
+          "Add autocomplete tokens and the right type/inputmode so mobile keyboards match."
+        ],
+        "verify": "Every input, select and textarea resolves to a non-empty accessible name without relying on its placeholder.",
+        "site_specific": [
+          "Add a visible label element or an aria-label attribute (e.g. 'Search McMaster-Carr') to the SrchEntryWebPart_InpBox search input used in the site header.",
+          "Apply the same fix to the template so it updates on every page that reuses this header search form.",
+          "Verify with a screen reader or by inspecting the rendered DOM that the input now has an accessible name."
+        ],
+        "grounded_on": {
+          "url": "https://www.mcmaster.com/",
+          "quote": "Choose a Category"
+        }
+      },
+      "check_id": "E1_unlabelled_input",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "template",
+      "severity_rationale": "base=medium (engagement/E1_unlabelled_input); blast=template x0.8 => medium; agent verdict confirm (measurement_confirmed)",
+      "affected_urls": [
+        "https://www.mcmaster.com/",
+        "https://www.mcmaster.com/1%22-square-drive-handles",
+        "https://www.mcmaster.com/1%22-square-drive-impact-wrenches",
+        "https://www.mcmaster.com/1%22-square-drive-ratchet-wrenches",
+        "https://www.mcmaster.com/1%22-square-drive-ratchets",
+        "https://www.mcmaster.com/1%22-square-drive-socket-wrench-adapters",
+        "https://www.mcmaster.com/1%22-square-drive-sockets",
+        "https://www.mcmaster.com/1%22-square-drive-wrenches",
+        "https://www.mcmaster.com/1%2f2-aa-cell-batteries",
+        "https://www.mcmaster.com/contact",
+        "https://www.mcmaster.com/products/abrading-and-polishing",
+        "https://www.mcmaster.com/products/abrading-polishing"
+      ],
+      "affected_url_count": 12,
+      "detail": {
+        "agent_verdict": {
+          "verdict": "confirm",
+          "reason": "measurement_confirmed"
+        }
+      }
+    },
+    {
+      "id": "F-004",
+      "title": "No canonical link on 2 duplicate-prone page(s)",
+      "severity": "low",
+      "evidence": "2/12 product, pricing or blog pages declare no <link rel=\"canonical\">. Examples: ['https://www.mcmaster.com/products/abrading-and-polishing', 'https://www.mcmaster.com/products/abrading-polishing']. Without one, tracking parameters and trailing-slash variants of the same page compete as separate URLs.",
+      "suggested_action": {
+        "summary": "Give every indexable page a self-referencing canonical URL.",
+        "priority": "low",
+        "effort": "low",
+        "how": [
+          "Add <link rel=\"canonical\" href=\"<absolute self URL>\"> to each page."
+        ],
+        "verify": "Each page's canonical resolves to itself with HTTP 200."
+      },
+      "check_id": "A5_canonical_missing",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "access",
+      "mechanism": "A",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "template",
+      "severity_rationale": "base=low (access/A5_canonical_missing); blast=template x0.8 => low",
+      "affected_urls": [
+        "https://www.mcmaster.com/products/abrading-and-polishing",
+        "https://www.mcmaster.com/products/abrading-polishing"
+      ],
+      "affected_url_count": 2,
+      "detail": {
+        "note": "A missing canonical is a hygiene gap, not a blocker: an indexer picks a URL on its own, usually the one it crawled."
+      }
+    },
+    {
+      "id": "F-005",
+      "title": "No h1 heading on 11 page(s)",
+      "severity": "low",
+      "evidence": "11/12 pages contain no h1 element at all. Examples: ['https://www.mcmaster.com/contact', 'https://www.mcmaster.com/products/abrading-and-polishing', 'https://www.mcmaster.com/products/abrading-polishing', 'https://www.mcmaster.com/1%22-square-drive-handles']. Extractors and assistants use the top heading to decide what a page is about.",
+      "suggested_action": {
+        "summary": "Give each page one h1 that states its subject.",
+        "priority": "low",
+        "effort": "low",
+        "how": [
+          "Add a single h1 naming the page subject, then h2/h3 for sections in order.",
+          "If the visual title is styled as a div or span, change the element, not the CSS."
+        ],
+        "verify": "Each page has an h1 and its text matches the page's subject."
+      },
+      "check_id": "E6_heading_structure",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "template",
+      "severity_rationale": "base=low (engagement/E6_heading_structure); blast=template x0.8 => low",
+      "affected_urls": [
+        "https://www.mcmaster.com/1%22-square-drive-handles",
+        "https://www.mcmaster.com/1%22-square-drive-impact-wrenches",
+        "https://www.mcmaster.com/1%22-square-drive-ratchet-wrenches",
+        "https://www.mcmaster.com/1%22-square-drive-ratchets",
+        "https://www.mcmaster.com/1%22-square-drive-socket-wrench-adapters",
+        "https://www.mcmaster.com/1%22-square-drive-sockets",
+        "https://www.mcmaster.com/1%22-square-drive-wrenches",
+        "https://www.mcmaster.com/1%2f2-aa-cell-batteries",
+        "https://www.mcmaster.com/contact",
+        "https://www.mcmaster.com/products/abrading-and-polishing",
+        "https://www.mcmaster.com/products/abrading-polishing"
+      ],
+      "affected_url_count": 11
+    },
+    {
+      "id": "F-006",
+      "title": "No structured data on 1 significant page(s)",
+      "severity": "low",
+      "evidence": "1/12 crawled pages of type ['home'] contain no JSON-LD. Structured data is read by the indexing crawlers that build the search index assistants query, and it states a fact with a type attached. Examples: ['https://www.mcmaster.com/']",
+      "suggested_action": {
+        "summary": "Add schema.org JSON-LD appropriate to each page type.",
+        "priority": "low",
+        "effort": "medium",
+        "how": [
+          "Homepage/About -> Organization with name, url, logo, description, sameAs.",
+          "Pricing -> Product or Service per tier, or an Offer list.",
+          "Article/blog -> Article with headline, datePublished, dateModified, author."
+        ],
+        "verify": "A schema.org validator reports a detected item type with no errors."
+      },
+      "check_id": "C1_structured_data_absent",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "interpretability",
+      "mechanism": "C",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "template",
+      "severity_rationale": "base=low (interpretability/C1_structured_data_absent); blast=template x0.8 => low",
+      "affected_urls": [
+        "https://www.mcmaster.com/"
+      ],
+      "affected_url_count": 1
+    }
+  ],
+  "site_profile": {
+    "start_url": "https://www.mcmaster.com/",
+    "pages_crawled": 12,
+    "roles_seen": [
+      "contact",
+      "generic",
+      "home",
+      "product"
+    ],
+    "robots_present": false,
+    "ai_policy": {
+      "retrieval_agents_blocked": [],
+      "training_agents_blocked": [],
+      "interpretation": "Blocking training agents is a licensing choice and does not affect whether assistants can cite you. Only retrieval agents gate citation."
+    },
+    "user_agent_used": "AIReadinessAudit/1.0 (+https://github.com/kavyan256/adobe-group)"
+  },
+  "coverage": {
+    "elapsed_s": 31.6,
+    "pages_attempted": 12,
+    "pages_blocked_by_robots_for_our_ua": 0,
+    "pages_fetched": 12,
+    "pages_ok": 12,
+    "urls_discovered": 358
+  },
+  "checks_skipped": [
+    {
+      "check": "D6_cross_web_corroboration",
+      "reason": "Not assessed: whether independent third parties agree with this site's claims. Reason: that needs a search backend, which this marketplace does not assume. How to check it yourself: search your brand plus a key fact (price, founding year, HQ) and count independent sources that agree.",
+      "impact": "Claims that exist only on this site are not distinguished from claims corroborated across the web. The on-site corroboration checks still ran."
+    },
+    {
+      "check": "E_authenticated_flows",
+      "reason": "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account.",
+      "impact": "How to check it yourself: walk the signup, checkout or booking flow on a phone with a test account and count the required steps and fields."
+    },
+    {
+      "check": "E_behaviour_metrics",
+      "reason": "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion rate). Reason: they are observed, not inferred from markup, and a short visit from an AI answer is often a success - the visitor came to verify one fact and did.",
+      "impact": "How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate, not their bounce rate, with search traffic."
+    },
+    {
+      "check": "E_colour_contrast",
+      "reason": "Not assessed: colour contrast (WCAG 1.4.3). Reason: contrast ratios need computed styles, which need a browser; this marketplace runs without one to stay portable and deterministic.",
+      "impact": "How to check it yourself: run axe DevTools or Lighthouse on the top 3 page templates and read the contrast section."
+    },
+    {
+      "check": "E_copy_quality",
+      "reason": "Not assessed: copy quality, persuasion and jargon. Reason: subjective; no static threshold separates plain language from marketing copy across industries and languages without a high false-positive rate.",
+      "impact": "How to check it yourself: read the first paragraph of the homepage and one product page aloud to someone outside the company and ask what the site offers and for whom."
+    },
+    {
+      "check": "E_core_web_vitals",
+      "reason": "Not assessed: Core Web Vitals (LCP, CLS, INP). Reason: these are field metrics at the 75th percentile; a single synthetic fetch is not a measurement and INP cannot be measured synthetically at all.",
+      "impact": "How to check it yourself: open Google Search Console's Core Web Vitals report, which uses real-user data, or run Lighthouse for lab LCP/CLS."
+    },
+    {
+      "check": "E_rendered_experience",
+      "reason": "Not assessed: the rendered experience (overlay and cookie-banner timing, tap target size, focus visibility, layout at phone width). Reason: all of it depends on CSS and JavaScript executing, which needs a browser.",
+      "impact": "How to check it yourself: run Lighthouse and axe on the top 3 templates at phone width, then tab through each page once to confirm focus is visible."
+    }
+  ],
+  "agent_review": {
+    "status": "run",
+    "claims_submitted": 0,
+    "verified": 0,
+    "rejected": [],
+    "claim_limit": 6,
+    "fixes_submitted": 3,
+    "fixes_verified": 3,
+    "rejected_fixes": [],
+    "merged": 0,
+    "fixes_merged": 3,
+    "adjudicated_out": [
+      {
+        "check_id": "C3_entity_unanchored",
+        "title": "Brand identity is not anchored to any external profile",
+        "severity": "medium",
+        "reason": "duplicate_of_finding",
+        "verified_evidence": [
+          "the report also has C1_structured_data_absent on https://www.mcmaster.com/"
+        ]
+      }
+    ],
+    "verdicts_submitted": 4,
+    "verdicts_applied": 4,
+    "verdicts_rejected": [],
+    "adjudications": [
+      {
+        "check_id": "A3_noindex",
+        "verdict": "confirm",
+        "reason": "measurement_confirmed",
+        "urls": [
+          "https://www.mcmaster.com/1%22-square-drive-handles",
+          "https://www.mcmaster.com/1%22-square-drive-impact-wrenches",
+          "https://www.mcmaster.com/1%22-square-drive-ratchet-wrenches",
+          "https://www.mcmaster.com/1%22-square-drive-ratchets",
+          "https://www.mcmaster.com/1%22-square-drive-socket-wrench-adapters",
+          "https://www.mcmaster.com/1%22-square-drive-sockets",
+          "https://www.mcmaster.com/1%22-square-drive-wrenches",
+          "https://www.mcmaster.com/1%2f2-aa-cell-batteries",
+          "https://www.mcmaster.com/products/abrading-and-polishing",
+          "https://www.mcmaster.com/products/abrading-polishing"
+        ],
+        "explanation": "The affected pages are real product-category pages, not duplicates or utility pages, and the noindex directive is present on this one while the homepage and contact page carry no such directive, so it is a genuine, non-deliberate defect.",
+        "verified_evidence": [
+          "https://www.mcmaster.com/1%22-square-drive-handles: robots_directives contains \"noindex\" (actual [\"robots: noindex, noarchive, noimageindex\"])"
+        ],
+        "before": {
+          "severity": "critical",
+          "status": "active",
+          "affected_url_count": 10
+        },
+        "after": {
+          "severity": "critical",
+          "status": "active",
+          "affected_url_count": 10
+        }
+      },
+      {
+        "check_id": "C3_entity_unanchored",
+        "verdict": "not_a_defect",
+        "reason": "duplicate_of_finding",
+        "urls": [
+          "https://www.mcmaster.com/"
+        ],
+        "explanation": "The homepage's lack of an Organization/sameAs profile is a consequence of it carrying no JSON-LD at all, which C1_structured_data_absent already reports as empty for this same page.",
+        "verified_evidence": [
+          "the report also has C1_structured_data_absent on https://www.mcmaster.com/"
+        ],
+        "before": {
+          "severity": "medium",
+          "status": "active",
+          "affected_url_count": 1
+        },
+        "after": "removed"
+      },
+      {
+        "check_id": "C7_title_problem",
+        "verdict": "confirm",
+        "reason": "measurement_confirmed",
+        "urls": [
+          "https://www.mcmaster.com/",
+          "https://www.mcmaster.com/1%22-square-drive-handles",
+          "https://www.mcmaster.com/1%22-square-drive-impact-wrenches",
+          "https://www.mcmaster.com/1%22-square-drive-ratchet-wrenches",
+          "https://www.mcmaster.com/1%22-square-drive-ratchets",
+          "https://www.mcmaster.com/1%22-square-drive-socket-wrench-adapters",
+          "https://www.mcmaster.com/1%22-square-drive-sockets",
+          "https://www.mcmaster.com/1%22-square-drive-wrenches",
+          "https://www.mcmaster.com/1%2f2-aa-cell-batteries",
+          "https://www.mcmaster.com/contact",
+          "https://www.mcmaster.com/products/abrading-and-polishing",
+          "https://www.mcmaster.com/products/abrading-polishing"
+        ],
+        "explanation": "The category page's title tag is literally the site name and nothing else, identical across every crawled page, giving the page no identity of its own.",
+        "verified_evidence": [
+          "https://www.mcmaster.com/1%22-square-drive-handles: holds on every crawled page ('McMaster-Carr')"
+        ],
+        "before": {
+          "severity": "medium",
+          "status": "active",
+          "affected_url_count": 12
+        },
+        "after": {
+          "severity": "medium",
+          "status": "active",
+          "affected_url_count": 12
+        }
+      },
+      {
+        "check_id": "E1_unlabelled_input",
+        "verdict": "confirm",
+        "reason": "measurement_confirmed",
+        "urls": [
+          "https://www.mcmaster.com/",
+          "https://www.mcmaster.com/1%22-square-drive-handles",
+          "https://www.mcmaster.com/1%22-square-drive-impact-wrenches",
+          "https://www.mcmaster.com/1%22-square-drive-ratchet-wrenches",
+          "https://www.mcmaster.com/1%22-square-drive-ratchets",
+          "https://www.mcmaster.com/1%22-square-drive-socket-wrench-adapters",
+          "https://www.mcmaster.com/1%22-square-drive-sockets",
+          "https://www.mcmaster.com/1%22-square-drive-wrenches",
+          "https://www.mcmaster.com/1%2f2-aa-cell-batteries",
+          "https://www.mcmaster.com/contact",
+          "https://www.mcmaster.com/products/abrading-and-polishing",
+          "https://www.mcmaster.com/products/abrading-polishing"
+        ],
+        "explanation": "The site-wide search box's text input, identified in the markup as SrchEntryWebPart_InpBox, is present in the page HTML with no associated label element, matching the scripted finding.",
+        "verified_evidence": [
+          "https://www.mcmaster.com/: holds on every crawled page ('SrchEntryWebPart_InpBox')"
+        ],
+        "before": {
+          "severity": "medium",
+          "status": "active",
+          "affected_url_count": 12
+        },
+        "after": {
+          "severity": "medium",
+          "status": "active",
+          "affected_url_count": 12
+        }
+      }
+    ],
+    "unjudged_medium_or_above": []
+  },
+  "prioritized_actions": [
+    {
+      "rank": 1,
+      "finding_id": "F-001",
+      "title": "10 page(s) carry a noindex directive",
+      "priority_score": 5.0,
+      "severity": "critical",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "low",
+      "action": "Remove noindex from pages that should be findable."
+    },
+    {
+      "rank": 2,
+      "finding_id": "F-002",
+      "title": "Brand identity is not anchored to any external profile",
+      "priority_score": 3.0,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "low",
+      "action": "Publish Organization JSON-LD with sameAs links to authoritative profiles."
+    },
+    {
+      "rank": 3,
+      "finding_id": "F-003",
+      "title": "Missing, generic or duplicated <title> on 12 page(s)",
+      "priority_score": 3.0,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "both",
+      "effort": "low",
+      "action": "Give every page a unique title that names its subject."
+    },
+    {
+      "rank": 4,
+      "finding_id": "F-004",
+      "title": "Form field(s) without a label in a template used on 12 page(s)",
+      "priority_score": 2.1,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Label every form field programmatically."
+    },
+    {
+      "rank": 5,
+      "finding_id": "F-005",
+      "title": "No canonical link on 2 duplicate-prone page(s)",
+      "priority_score": 1.4,
+      "severity": "low",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "low",
+      "action": "Give every indexable page a self-referencing canonical URL."
+    },
+    {
+      "rank": 6,
+      "finding_id": "F-006",
+      "title": "No h1 heading on 11 page(s)",
+      "priority_score": 1.4,
+      "severity": "low",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Give each page one h1 that states its subject."
+    },
+    {
+      "rank": 7,
+      "finding_id": "F-007",
+      "title": "No structured data on 1 significant page(s)",
+      "priority_score": 1.25,
+      "severity": "low",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "medium",
+      "action": "Add schema.org JSON-LD appropriate to each page type."
+    }
+  ],
+  "proactive_recommendations": [
+    {
+      "title": "Publish an llms.txt describing your site for AI clients",
+      "rationale": "An emerging convention: a short, stable, plain-text map of what your site covers and where the authoritative pages are. Cheap to add, and it gives retrieval agents an unambiguous starting point.",
+      "effort": "low",
+      "applies_because": "GET /llms.txt did not return a plain-text document"
+    },
+    {
+      "title": "Decide your AI-crawler policy deliberately, and write it down",
+      "rationale": "Training access and retrieval access are separate decisions. Blocking training crawlers while explicitly allowing retrieval agents is a coherent, defensible position - but it has to be configured on purpose, per user-agent.",
+      "effort": "low",
+      "applies_because": "robots.txt names no AI retrieval or training agent, so the current policy is whatever the wildcard group happens to say"
+    },
+    {
+      "title": "Add a machine-readable FAQ layer shaped for quotation",
+      "rationale": "FAQPage structured data pairs a question with a self-contained answer. That is exactly the shape an assistant wants to lift, and it survives text extraction.",
+      "effort": "medium",
+      "applies_because": "no crawled page carries FAQPage JSON-LD"
+    },
+    {
+      "title": "Publish a stable, citable facts page",
+      "rationale": "Founding date, leadership, HQ, product line, pricing - in one durable URL that third parties can cite verbatim. Corroboration across independent sources is what makes a claim credible to a machine, and you can seed it.",
+      "effort": "medium",
+      "applies_because": "no crawled page declares Organization sameAs links, so there is no anchor for third parties to corroborate against"
+    }
+  ],
+  "already_in_place": [
+    {
+      "title": "Server-render your most-quoted facts even inside a SPA",
+      "because": "not a client-rendered app, or a specific finding already covers it"
+    },
+    {
+      "title": "Answer the question visitors arrive with on the first screen",
+      "because": "the homepage's first 60 words already name the site or state a concrete figure"
+    },
+    {
+      "title": "Every deep page links to its parent section and a contact route",
+      "because": "every substantial deep page already links onward from its content"
+    }
+  ],
+  "limits": [
+    "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion). Reason: a crawl sees markup, never visitors; engagement findings are structural risk factors, capped at medium for that reason. How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate with search traffic.",
+    "Not assessed: the rendered experience (layout, overlays and cookie banners, colour contrast, Core Web Vitals) and facts loaded by client-side requests after page load. Reason: no JavaScript is executed and no browser is used - which is also what non-rendering AI retrieval agents see; a fact fetched only by XHR can be a false negative here. How to check it yourself: run Lighthouse and axe on the top three templates, and open a key page with JavaScript disabled to see what a bot gets.",
+    "Not assessed: copy quality - whether the words persuade, or answer the visitor's question well. Reason: subjective, with no static threshold that holds across industries and languages; the scripted checks measure only structure and vocabulary overlap. How to check it yourself: read the first paragraph of the homepage and one product page to someone outside the company and ask what the site offers and for whom.",
+    "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account. How to check it yourself: walk the signup, checkout or booking flow with a test account and count the required steps and fields.",
+    "Not assessed: personalization of AI answers (appendix E). Reason: it happens inside the assistant, from the user's own context, and no site-side measurement exists; the site-side lever - self-contained, quotable facts - is what the extraction and quotability checks cover. How to check it yourself: ask an assistant the same question about your brand in a fresh session and in a long-running one, and compare.",
+    "Not assessed: cross-web corroboration - whether independent sources agree with the site's facts. Reason: it needs a search backend and off-site fetches, which this audit does not make; only on-site corroboration hooks (sameAs, press links) are checked. How to check it yourself: search Wikipedia, Wikidata, Crunchbase and the press for your founding date, HQ, leadership and pricing, and reconcile differences.",
+    "Not assessed: problems outside the scripted checks, unless an agent review ran (see agent_review). Reason: a fixed list of checks misses what it does not list. How to check it yourself: follow agent-review-audit/SKILL.md; every claim it admits was checked against the crawl and is capped at low severity."
+  ],
+  "notes": []
+}

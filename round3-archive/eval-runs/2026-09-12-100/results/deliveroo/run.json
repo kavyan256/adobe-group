@@ -1,0 +1,13 @@
+{
+ "slug": "deliveroo",
+ "url": "https://deliveroo.co.uk",
+ "category": "Food delivery marketplace",
+ "expect": "location walls, SPA",
+ "rc": 0,
+ "wall_s": 34.3,
+ "finished_at": "2026-09-12T16:22:25Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

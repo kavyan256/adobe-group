@@ -1,0 +1,104 @@
+{
+  "claims": [],
+  "fixes": [
+    {
+      "check_id": "B4_empty_shell",
+      "url": "https://supercell.com/clashofclans-gift/$language$",
+      "quote": "Clash of Clans freebies and Store Specials",
+      "site_specific": [
+        "Server-render the gift/freebies content for /clashofclans-gift and its locale variants instead of relying on the client-side __NEXT_DATA__ bundle alone.",
+        "Ship at least the offer heading and a short description in the initial HTML response so a non-executing fetcher sees more than 'Skip to content'."
+      ]
+    },
+    {
+      "check_id": "C3_entity_unanchored",
+      "url": "https://supercell.com/",
+      "quote": "Supercell Makers of Hay Day, Clash of Clans, Boom Beach, Clash Royale, Brawl Stars, Squad Busters and mo.co.",
+      "site_specific": [
+        "Add Organization JSON-LD to the homepage naming Supercell as the maker of Hay Day, Clash of Clans, Boom Beach, Clash Royale, Brawl Stars, Squad Busters and mo.co.",
+        "Include a sameAs array linking Supercell's official social profiles and Wikipedia entry so an assistant can disambiguate the brand."
+      ]
+    },
+    {
+      "check_id": "E6_heading_structure",
+      "url": "https://supercell.com/clashofclans-gift/$language$",
+      "quote": "Clash of Clans freebies and Store Specials",
+      "site_specific": [
+        "Wrap 'Clash of Clans freebies and Store Specials' in a top-level heading element on the gift page instead of leaving the page with no h1 at all."
+      ]
+    },
+    {
+      "check_id": "A11_soft_404",
+      "url": "https://supercell.com/404",
+      "quote": "Sorry, but the page or file you were trying to access does not exist.",
+      "site_specific": [
+        "Return an HTTP 404 status code for the /404 route itself, instead of HTTP 200 with the 'Page not found' text as the body.",
+        "Keep the 'Sorry, but the page or file you were trying to access does not exist.' copy, just pair it with the correct status code."
+      ]
+    },
+    {
+      "check_id": "C1_structured_data_absent",
+      "url": "https://supercell.com/en/about-us",
+      "quote": "Supercell is a game company based in Helsinki, Finland, with offices in San Francisco, Seoul, Shanghai, and London.",
+      "site_specific": [
+        "Add Organization JSON-LD to /en/about-us stating Supercell is based in Helsinki, Finland with offices in San Francisco, Seoul, Shanghai, and London.",
+        "Include foundingDate and numberOfEmployees where the page already states them in text."
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "finding": {"check_id": "B4_empty_shell"},
+      "verdict": "not_a_defect",
+      "reason": "error_or_placeholder_page",
+      "urls": ["https://supercell.com/404"],
+      "explanation": "This URL is the site's not-found page; its short text is the expected error message, not a failed content page.",
+      "evidence": [
+        {"url": "https://supercell.com/404", "type": "field", "path": "title", "op": "contains", "value": "Page not found"},
+        {"url": "https://supercell.com/404", "type": "field", "path": "h1.0", "op": "eq", "value": "Page not found"}
+      ]
+    },
+    {
+      "finding": {"check_id": "C3_entity_unanchored"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://supercell.com/"],
+      "explanation": "The homepage's JSON-LD carries no sameAs links, matching the finding: nothing anchors the Supercell brand to an external profile.",
+      "evidence": [
+        {"url": "https://supercell.com/", "type": "field", "path": "jsonld.sameas", "op": "eq", "value": []}
+      ]
+    },
+    {
+      "finding": {"check_id": "C7_title_problem"},
+      "verdict": "not_a_defect",
+      "reason": "duplicate_of_finding",
+      "urls": [
+        "https://supercell.com/brawlstars-gift",
+        "https://supercell.com/clashofclans-gift",
+        "https://supercell.com/clashroyale-gift",
+        "https://supercell.com/hayday-gift"
+      ],
+      "explanation": "All four pages with a missing title are already reported by B4_empty_shell as essentially empty HTML shells; the blank title is the same underlying defect, not a separate one.",
+      "evidence": [
+        {"type": "finding_exists", "check_id": "B4_empty_shell", "url": "https://supercell.com/brawlstars-gift"},
+        {"type": "finding_exists", "check_id": "B4_empty_shell", "url": "https://supercell.com/clashofclans-gift"},
+        {"type": "finding_exists", "check_id": "B4_empty_shell", "url": "https://supercell.com/clashroyale-gift"},
+        {"type": "finding_exists", "check_id": "B4_empty_shell", "url": "https://supercell.com/hayday-gift"}
+      ]
+    },
+    {
+      "finding": {"check_id": "E7_zoom_disabled"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": [
+        "https://supercell.com/clashofclans-gift/$language$",
+        "https://supercell.com/clashofclans-gift/ar",
+        "https://supercell.com/clashofclans-gift/ch"
+      ],
+      "explanation": "The raw HTML of the affected pages sets user-scalable=no in the viewport meta tag, confirming pinch-zoom is suppressed as the finding states.",
+      "evidence": [
+        {"url": "https://supercell.com/clashofclans-gift/$language$", "type": "html_contains", "value": "user-scalable=no"}
+      ]
+    }
+  ]
+}

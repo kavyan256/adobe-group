@@ -1,0 +1,46 @@
+{
+ "slug": "nba",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 110.8,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 24,
+ "duration_ms": 107329,
+ "total_cost_usd": 0.5309563999999999,
+ "result": "`adjudicated.json` is written. 1 verdict applied (A7_site_unreadable downgraded high→medium, reason access_block_unattributed), 0 claims and 0 fixes submitted (no crawled page had readable HTML to ground any), and nothing was rejected.",
+ "permission_denials": [
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01CgKkJJ7MJ85wwBcpxu6Bid",
+   "tool_input": {
+    "command": "python3 skills/agent-review-audit/scripts/page_profile.py /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/nba/bundle.json /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/nba/report.json > /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/nba/profile.json\necho exit:$?\nwc -l /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/nba/profile.json"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01AAnkTwkDvrCGJ5nDCa6bA8",
+   "tool_input": {
+    "command": "WORK=/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/nba\npython3 skills/agent-review-audit/scripts/page_profile.py \"$WORK/bundle.json\" \"$WORK/report.json\" > \"$WORK/profile.json\"\necho exit:$?"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01KmJnYByQiC1govjjwrjw7Q",
+   "tool_input": {
+    "command": "python3 skills/agent-review-audit/scripts/page_profile.py /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/nba/bundle.json /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/nba/report.json | tee /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/nba/profile.json > /dev/null\necho exit:$?"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01RjT84r5CQ9afjCRGExfjvY",
+   "tool_input": {
+    "command": "python3 skills/agent-review-audit/scripts/page_profile.py /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/nba/bundle.json /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/nba/report.json | tee /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/nba/profile.json > /dev/null"
+   }
+  }
+ ],
+ "raw_stdout": null
+}

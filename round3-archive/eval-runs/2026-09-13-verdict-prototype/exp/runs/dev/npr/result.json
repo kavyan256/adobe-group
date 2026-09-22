@@ -1,0 +1,17 @@
+{
+ "slug": "npr",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 212.4,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 23,
+ "duration_ms": 208890,
+ "total_cost_usd": 0.7114086000000002,
+ "result": "`/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/npr/adjudicated.json` now exists.\n\nResult: 2 verdicts submitted and applied (0 rejected) — C3_entity_unanchored confirmed, E3_unnamed_controls downgraded for overstated impact; 0 claims submitted (no new mechanism-checklist problems found with valid evidence); 2 fixes submitted and both merged (C3 and E3 site-specific remediation steps).",
+ "permission_denials": [],
+ "raw_stdout": null
+}

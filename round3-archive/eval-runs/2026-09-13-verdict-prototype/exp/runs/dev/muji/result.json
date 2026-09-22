@@ -1,0 +1,39 @@
+{
+ "slug": "muji",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 62.0,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 14,
+ "duration_ms": 58600,
+ "total_cost_usd": 0.316853,
+ "result": "`adjudicated.json` was produced successfully.\n\n1 verdict applied (the sole `A7_site_unreadable` critical finding was ruled `not_a_defect`/`auditor_side_failure` and removed, since robots.txt fetch failed with a ReadTimeout and no page was ever read); 0 claims and 0 fixes were submitted (no pages were crawled to review); 0 verdicts, claims, or fixes were rejected.",
+ "permission_denials": [
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_014jSX7erEvtjNwv9w8SfWEp",
+   "tool_input": {
+    "command": "python3 skills/agent-review-audit/scripts/page_profile.py /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/muji/bundle.json /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/muji/report.json > /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/muji/profile.json\necho exit=$?\nwc -l /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/muji/profile.json"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01LAG99WMmvEWEKVHUPmc34C",
+   "tool_input": {
+    "command": "export WORK=/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/muji\npython3 skills/agent-review-audit/scripts/page_profile.py \"$WORK/bundle.json\" \"$WORK/report.json\" > \"$WORK/profile.json\"\necho exit=$?"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01HytCXnwctt1Lgwfj9XpL7U",
+   "tool_input": {
+    "command": "python3 skills/audit-orchestrator/scripts/audit.py --replay /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/muji/bundle.json --agent-claims /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/muji/claims.json -o /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/muji/report.json\necho exit=$?"
+   }
+  }
+ ],
+ "raw_stdout": null
+}

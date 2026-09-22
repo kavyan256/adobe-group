@@ -1,0 +1,13 @@
+{
+ "slug": "glastonbury",
+ "url": "https://www.glastonburyfestivals.co.uk",
+ "category": "Music festival",
+ "expect": "ticket info, dated news, WordPress",
+ "rc": 0,
+ "wall_s": 40.0,
+ "finished_at": "2026-09-12T17:29:36Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

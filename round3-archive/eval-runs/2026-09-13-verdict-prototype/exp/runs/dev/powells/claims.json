@@ -1,0 +1,17 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A7_site_unreadable", "url": "https://www.powells.com/"},
+      "verdict": "downgrade",
+      "reason": "access_block_unattributed",
+      "urls": ["https://www.powells.com/"],
+      "explanation": "The refusal is a named challenge vendor (Cloudflare) with no page body left to read, and robots.txt itself returns 403 rather than a normal file, so the crawl cannot tell whether this targets bots specifically or is a network-level block that would also affect a human visitor from this vantage point.",
+      "evidence": [
+        {"url": "https://www.powells.com/", "type": "field", "path": "error", "op": "contains", "value": "bot_challenge:Cloudflare"},
+        {"type": "site_field", "path": "robots.status", "op": "eq", "value": 403}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": []
+}

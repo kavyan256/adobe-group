@@ -1,0 +1,13 @@
+{
+ "slug": "mit",
+ "url": "https://www.mit.edu",
+ "category": "University (US)",
+ "expect": "news dates, Org markup, many subdomains",
+ "rc": 0,
+ "wall_s": 21.4,
+ "finished_at": "2026-09-12T17:05:04Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

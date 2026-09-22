@@ -1,0 +1,13 @@
+{
+ "slug": "magalu",
+ "url": "https://www.magazineluiza.com.br",
+ "category": "E-commerce marketplace (Brazil)",
+ "expect": "R$ prices, Portuguese, heavy JS",
+ "rc": 0,
+ "wall_s": 5.7,
+ "finished_at": "2026-09-12T16:30:25Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

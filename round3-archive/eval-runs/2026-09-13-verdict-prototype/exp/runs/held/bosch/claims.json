@@ -1,0 +1,70 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "C3_entity_unanchored", "url": "https://www.bosch.de/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://www.bosch.de/"],
+      "explanation": "The homepage carries no JSON-LD at all, so there is no Organization/sameAs block to anchor the brand entity.",
+      "evidence": [
+        {"url": "https://www.bosch.de/", "type": "text_contains", "scope": "extracted", "value": "Preisträger spenden 240 000 Euro"}
+      ]
+    },
+    {
+      "finding": {"check_id": "E10_no_next_step", "url": "https://www.bosch.de/kontakt"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://www.bosch.de/kontakt"],
+      "explanation": "The phone number and chat/email options on the contact page are plain text, not tel:/mailto: links or a form, matching the finding's own link/form counts of zero.",
+      "evidence": [
+        {"url": "https://www.bosch.de/kontakt", "type": "text_contains", "scope": "extracted", "value": "0711 400 40990"}
+      ]
+    }
+  ],
+  "candidate_dispositions": [],
+  "claims": [
+    {
+      "title": "Open positions on /karriere are loaded through a job-search iframe widget",
+      "why": "A non-rendering fetcher reads the iframe tag pointing at jobs.bosch.de, not the job listings inside it, so no current openings appear in the page's own HTML for an assistant to quote.",
+      "mechanism": "C",
+      "hurts": "ai_discoverability",
+      "severity": "medium",
+      "nearest_check": null,
+      "affected_urls": ["https://www.bosch.de/karriere"],
+      "evidence": [
+        {"url": "https://www.bosch.de/karriere", "type": "field", "path": "iframes", "op": "contains", "value": "jobs.bosch.de/de/widgets/search"}
+      ],
+      "suggested_action": {
+        "summary": "Render at least a handful of current job titles as static HTML links on /karriere, alongside the search widget.",
+        "how": [
+          "List several current openings as plain HTML links (title, location) above or beside the widget.",
+          "Keep the interactive widget for filtering and full search."
+        ],
+        "verify": "curl -s https://www.bosch.de/karriere/ shows job titles in the HTML body, not only the iframe tag.",
+        "effort": "medium"
+      }
+    }
+  ],
+  "fixes": [
+    {
+      "check_id": "C3_entity_unanchored",
+      "url": "https://www.bosch.de/",
+      "quote": "Bosch-Geschäftsbericht 2025",
+      "site_specific": [
+        "Add an Organization JSON-LD block to the homepage naming 'Robert Bosch GmbH'.",
+        "Include a sameAs array linking the company's Wikidata/Wikipedia entry and official social profiles.",
+        "Repeat the same block, or a link to it, on the Impressum and Kontakt pages so the entity is consistent site-wide."
+      ]
+    },
+    {
+      "check_id": "E10_no_next_step",
+      "url": "https://www.bosch.de/kontakt",
+      "quote": "0711 400 40990",
+      "site_specific": [
+        "Turn '0711 400 40990' into a tel: link.",
+        "Turn the referenced email contact into a mailto: link.",
+        "Add a direct link to the live chat or a contact form at the point where 'Chat' is mentioned."
+      ]
+    }
+  ]
+}

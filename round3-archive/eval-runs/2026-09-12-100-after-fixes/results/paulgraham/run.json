@@ -1,0 +1,13 @@
+{
+ "slug": "paulgraham",
+ "url": "https://www.paulgraham.com",
+ "category": "Personal essay site (hand-written HTML)",
+ "expect": "no lang, no h1, no structured data, table layout",
+ "rc": 0,
+ "wall_s": 7.5,
+ "finished_at": "2026-09-12T17:03:00Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

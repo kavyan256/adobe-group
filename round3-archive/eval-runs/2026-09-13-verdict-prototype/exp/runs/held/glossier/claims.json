@@ -1,0 +1,48 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "C3_entity_unanchored", "url": "https://www.glossier.com/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://www.glossier.com/"],
+      "explanation": "The homepage carries no JSON-LD structured data at all, so there is no Organization/sameAs block to anchor the brand entity.",
+      "evidence": [
+        {"url": "https://www.glossier.com/", "type": "field", "path": "jsonld.types", "op": "eq", "value": []}
+      ]
+    },
+    {
+      "finding": {"check_id": "C2_markup_text_contradiction", "url": "https://www.glossier.com/products/balm-dotcom"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://www.glossier.com/products/balm-dotcom"],
+      "explanation": "The USD 16 price for Balm Dotcom exists only in the product:price:amount meta tag, not as readable page text, matching the finding.",
+      "evidence": [
+        {"url": "https://www.glossier.com/products/balm-dotcom", "type": "html_contains", "value": "property=\"product:price:amount\" content=\"16.00\""}
+      ]
+    },
+    {
+      "finding": {"check_id": "E1_unlabelled_input", "url": "https://www.glossier.com/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": [
+        "https://www.glossier.com/",
+        "https://www.glossier.com/pages/about",
+        "https://www.glossier.com/pages/contact-us",
+        "https://www.glossier.com/products/balm-dotcom",
+        "https://www.glossier.com/products/balm-dotcom-quintet",
+        "https://www.glossier.com/products/field-greens-blanket",
+        "https://www.glossier.com/products/futuredew",
+        "https://www.glossier.com/products/lash-slick-duo",
+        "https://www.glossier.com/products/priming-moisturizer-balance",
+        "https://www.glossier.com/products/super-pure"
+      ],
+      "explanation": "The country selector's select element named country_code carries no label, aria-label or aria-labelledby; its legend sits outside any fieldset, so it is not programmatically associated with the field.",
+      "evidence": [
+        {"url": "https://www.glossier.com/", "type": "html_contains", "value": "<select name=\"country_code\" class=\"input country-selector__select js-country-selector\">"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [],
+  "candidate_dispositions": []
+}

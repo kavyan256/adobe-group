@@ -1,0 +1,516 @@
+{
+ "dev": {
+  "strict_true": [
+   [
+    "thehindu",
+    "B1_fact_absent",
+    "no_output"
+   ],
+   [
+    "notion",
+    "B4_empty_shell",
+    "kept"
+   ],
+   [
+    "bluebottle",
+    "B4_empty_shell",
+    "kept"
+   ],
+   [
+    "duolingo",
+    "B4_empty_shell",
+    "kept"
+   ],
+   [
+    "aspendental",
+    "C1_structured_data_invalid",
+    "kept"
+   ],
+   [
+    "logitech",
+    "B1_fact_absent",
+    "no_output"
+   ],
+   [
+    "msf",
+    "B1_fact_absent",
+    "kept"
+   ]
+  ],
+  "knowable_false": [
+   [
+    "fnac",
+    "A7_site_unreadable",
+    "reduced"
+   ],
+   [
+    "magalu",
+    "A7_site_unreadable",
+    "reduced"
+   ],
+   [
+    "kraken",
+    "A7_site_unreadable",
+    "removed"
+   ],
+   [
+    "muji",
+    "A7_site_unreadable",
+    "removed"
+   ],
+   [
+    "supercell",
+    "B4_empty_shell",
+    "no_output"
+   ],
+   [
+    "websummit",
+    "B4_empty_shell",
+    "no_output"
+   ],
+   [
+    "mcmaster",
+    "A3_noindex",
+    "kept"
+   ],
+   [
+    "zoho",
+    "B1_fact_absent",
+    "no_output"
+   ],
+   [
+    "framer",
+    "A2_snippet_suppressed",
+    "removed"
+   ],
+   [
+    "msf",
+    "A3_noindex",
+    "reduced"
+   ]
+  ],
+  "unknowable_a7": [
+   [
+    "boots",
+    "A7_site_unreadable",
+    "reduced"
+   ],
+   [
+    "nypl",
+    "A7_site_unreadable",
+    "reduced"
+   ],
+   [
+    "easyjet",
+    "A7_site_unreadable",
+    "reduced"
+   ],
+   [
+    "britishmuseum",
+    "A7_site_unreadable",
+    "reduced"
+   ],
+   [
+    "mayoclinic",
+    "A7_site_unreadable",
+    "reduced"
+   ],
+   [
+    "lemonade",
+    "A7_site_unreadable",
+    "reduced"
+   ],
+   [
+    "tesla",
+    "A7_site_unreadable",
+    "reduced"
+   ],
+   [
+    "powells",
+    "A7_site_unreadable",
+    "reduced"
+   ],
+   [
+    "festool",
+    "A7_site_unreadable",
+    "reduced"
+   ],
+   [
+    "nycgov",
+    "A7_site_unreadable",
+    "reduced"
+   ],
+   [
+    "nba",
+    "A7_site_unreadable",
+    "reduced"
+   ],
+   [
+    "wework",
+    "A7_site_unreadable",
+    "no_output"
+   ]
+  ],
+  "uncertain": [
+   [
+    "weworkremotely",
+    "C1_structured_data_invalid",
+    "no_output"
+   ],
+   [
+    "lobsters",
+    "A7_site_unreadable",
+    "kept"
+   ],
+   [
+    "jio",
+    "A7_site_unreadable",
+    "removed"
+   ],
+   [
+    "notion",
+    "B1_fact_absent",
+    "removed"
+   ]
+  ],
+  "a1_posture_pending": [
+   [
+    "bbc",
+    "A1_retrieval_agent_blocked",
+    "kept"
+   ],
+   [
+    "thehindu",
+    "A1_retrieval_agent_blocked",
+    "no_output"
+   ],
+   [
+    "spiegel",
+    "A1_retrieval_agent_blocked",
+    "kept"
+   ],
+   [
+    "bhaskar",
+    "A1_retrieval_agent_blocked",
+    "kept"
+   ],
+   [
+    "wikihow",
+    "A1_retrieval_agent_blocked",
+    "no_output"
+   ],
+   [
+    "npr",
+    "A1_retrieval_agent_blocked",
+    "kept"
+   ]
+  ]
+ },
+ "heldout": {
+  "keep": [
+   [
+    "curl",
+    "C3_entity_unanchored",
+    "kept"
+   ],
+   [
+    "deliveroo",
+    "E4_images_missing_alt",
+    "kept"
+   ],
+   [
+    "khanacademy",
+    "C7_title_problem",
+    "no_output"
+   ],
+   [
+    "vatican",
+    "E11_no_viewport",
+    "no_output"
+   ],
+   [
+    "pentagram",
+    "D1_no_date_signals",
+    "no_output"
+   ],
+   [
+    "mit",
+    "A5_canonical_problem",
+    "no_output"
+   ]
+  ],
+  "either": [
+   [
+    "pythondocs",
+    "E1_unlabelled_input",
+    "no_output"
+   ],
+   [
+    "lego",
+    "A9_key_page_broken",
+    "no_output"
+   ]
+  ],
+  "reduce": [
+   [
+    "paulgraham",
+    "C3_entity_unanchored",
+    "no_output"
+   ],
+   [
+    "linear",
+    "E3_unnamed_controls",
+    "no_output"
+   ],
+   [
+    "nhs",
+    "E10_no_next_step",
+    "no_output"
+   ],
+   [
+    "bosch",
+    "E10_no_next_step",
+    "no_output"
+   ],
+   [
+    "theverge",
+    "B1_fact_script_only",
+    "no_output"
+   ],
+   [
+    "deliveroo",
+    "B1_fact_script_only",
+    "removed"
+   ],
+   [
+    "pfizer",
+    "C1_product_markup_absent",
+    "no_output"
+   ],
+   [
+    "mistral",
+    "C1_product_markup_absent",
+    "no_output"
+   ],
+   [
+    "glossier",
+    "C2_markup_text_contradiction",
+    "no_output"
+   ],
+   [
+    "tfl",
+    "A9_broken_pages",
+    "no_output"
+   ]
+  ]
+ },
+ "stability_diffs": [
+  [
+   "curl",
+   "C3_entity_unanchored",
+   "kept",
+   "no_output"
+  ],
+  [
+   "deliveroo",
+   "B1_fact_script_only",
+   "removed",
+   "no_output"
+  ],
+  [
+   "deliveroo",
+   "C3_entity_unanchored",
+   "kept",
+   "no_output"
+  ],
+  [
+   "deliveroo",
+   "E4_images_missing_alt",
+   "kept",
+   "no_output"
+  ]
+ ],
+ "rejected_verdicts": [
+  [
+   "duolingo",
+   "add one positive assertion that shows why"
+  ]
+ ],
+ "cost_usd": 18.82,
+ "criteria": {
+  "1 catch >=7/10": [
+   6,
+   false
+  ],
+  "2 keep: 0 removed, <=1 reduced": [
+   [
+    0,
+    0
+   ],
+   true
+  ],
+  "3 unknowable A7 <=1 removed": [
+   0,
+   true
+  ],
+  "4 held-out >=80% match, 0 true removed": [
+   [
+    3,
+    18,
+    0
+   ],
+   false
+  ],
+  "5 stability >=85%": [
+   [
+    18,
+    22
+   ],
+   false
+  ],
+  "6 verifier acceptance (applied/submitted)": [
+   [
+    52,
+    53
+   ],
+   true
+  ],
+  "7 runtime median<=180 max<=240": [
+   [
+    71.1,
+    366.9
+   ],
+   false
+  ],
+  "8 schema-valid and produced": [
+   [
+    [
+     "held",
+     "bosch",
+     "no adjudicated.json"
+    ],
+    [
+     "held",
+     "glossier",
+     "no adjudicated.json"
+    ],
+    [
+     "held",
+     "khanacademy",
+     "no adjudicated.json"
+    ],
+    [
+     "held",
+     "lego",
+     "no adjudicated.json"
+    ],
+    [
+     "held",
+     "linear",
+     "no adjudicated.json"
+    ],
+    [
+     "held",
+     "mistral",
+     "no adjudicated.json"
+    ],
+    [
+     "held",
+     "mit",
+     "no adjudicated.json"
+    ],
+    [
+     "held",
+     "nhs",
+     "no adjudicated.json"
+    ],
+    [
+     "held",
+     "paulgraham",
+     "no adjudicated.json"
+    ],
+    [
+     "held",
+     "pentagram",
+     "no adjudicated.json"
+    ],
+    [
+     "held",
+     "pfizer",
+     "no adjudicated.json"
+    ],
+    [
+     "held",
+     "pythondocs",
+     "no adjudicated.json"
+    ],
+    [
+     "held",
+     "tfl",
+     "no adjudicated.json"
+    ],
+    [
+     "held",
+     "theverge",
+     "no adjudicated.json"
+    ],
+    [
+     "held",
+     "vatican",
+     "no adjudicated.json"
+    ],
+    [
+     "repeat",
+     "bosch",
+     "no adjudicated.json"
+    ],
+    [
+     "repeat",
+     "curl",
+     "no adjudicated.json"
+    ],
+    [
+     "repeat",
+     "deliveroo",
+     "no adjudicated.json"
+    ],
+    [
+     "repeat",
+     "glossier",
+     "no adjudicated.json"
+    ],
+    [
+     "repeat",
+     "khanacademy",
+     "no adjudicated.json"
+    ],
+    [
+     "repeat",
+     "lego",
+     "no adjudicated.json"
+    ],
+    [
+     "repeat",
+     "linear",
+     "no adjudicated.json"
+    ],
+    [
+     "repeat",
+     "mistral",
+     "no adjudicated.json"
+    ],
+    [
+     "repeat",
+     "mit",
+     "no adjudicated.json"
+    ],
+    [
+     "repeat",
+     "nhs",
+     "no adjudicated.json"
+    ]
+   ],
+   false
+  ]
+ }
+}

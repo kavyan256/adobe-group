@@ -1,0 +1,11 @@
+[held] bosch: 126.5s $0.48732939999999997 adjudicated=True denials=1
+[held] curl: skipped
+[held] deliveroo: skipped
+[held] glossier: 298.3s $1.0664458 adjudicated=True denials=3
+[held] khanacademy: 138.9s $0.5611552 adjudicated=True denials=3
+[held] lego: 173.0s $0.6101676 adjudicated=True denials=2
+[held] linear: 143.3s $0.6038286 adjudicated=True denials=5
+[held] mistral: 303.4s $1.0149158 adjudicated=True denials=4
+[held] mit: 207.9s $0.807008 adjudicated=True denials=2
+[held] nhs: 140.6s $0.6375429999999999 adjudicated=True denials=0
+[held] paulgraham: 97.6s $0.388081 adjudicated=True denials=1

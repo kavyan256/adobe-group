@@ -1,0 +1,73 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A3_noindex"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The affected pages are real product-category pages, not duplicates or utility pages, and the noindex directive is present on this one while the homepage and contact page carry no such directive, so it is a genuine, non-deliberate defect.",
+      "evidence": [
+        {"url": "https://www.mcmaster.com/1%22-square-drive-handles", "type": "field", "path": "robots_directives", "op": "contains", "value": "noindex"}
+      ]
+    },
+    {
+      "finding": {"check_id": "C3_entity_unanchored"},
+      "verdict": "not_a_defect",
+      "reason": "duplicate_of_finding",
+      "explanation": "The homepage's lack of an Organization/sameAs profile is a consequence of it carrying no JSON-LD at all, which C1_structured_data_absent already reports as empty for this same page.",
+      "evidence": [
+        {"type": "finding_exists", "check_id": "C1_structured_data_absent", "url": "https://www.mcmaster.com/"}
+      ]
+    },
+    {
+      "finding": {"check_id": "C7_title_problem"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The category page's title tag is literally the site name and nothing else, identical across every crawled page, giving the page no identity of its own.",
+      "evidence": [
+        {"url": "https://www.mcmaster.com/1%22-square-drive-handles", "type": "field", "path": "title", "op": "eq", "value": "McMaster-Carr"}
+      ]
+    },
+    {
+      "finding": {"check_id": "E1_unlabelled_input"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The site-wide search box's text input, identified in the markup as SrchEntryWebPart_InpBox, is present in the page HTML with no associated label element, matching the scripted finding.",
+      "evidence": [
+        {"url": "https://www.mcmaster.com/", "type": "html_contains", "value": "SrchEntryWebPart_InpBox"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [
+    {
+      "check_id": "A3_noindex",
+      "url": "https://www.mcmaster.com/1%22-square-drive-handles",
+      "quote": "McMaster-Carr",
+      "site_specific": [
+        "Remove the noindex directive (meta robots or X-Robots-Tag) from square-drive and other product-category listing pages such as this one.",
+        "Keep noindex only on pages that are genuinely duplicate, archived, or account/utility pages, not on primary category or product pages.",
+        "Re-crawl a sample of category pages after the change and confirm robots_directives no longer includes noindex."
+      ]
+    },
+    {
+      "check_id": "C7_title_problem",
+      "url": "https://www.mcmaster.com/",
+      "quote": "Fastening & Joining",
+      "site_specific": [
+        "Give each product-category page a distinct title tag built from its own category name, e.g. include 'Fastening & Joining' or the relevant category instead of just 'McMaster-Carr'.",
+        "Reserve the bare 'McMaster-Carr' title for the homepage only.",
+        "Verify by viewing source on a handful of category pages and confirming each title differs and names its category."
+      ]
+    },
+    {
+      "check_id": "E1_unlabelled_input",
+      "url": "https://www.mcmaster.com/",
+      "quote": "Choose a Category",
+      "site_specific": [
+        "Add a visible label element or an aria-label attribute (e.g. 'Search McMaster-Carr') to the SrchEntryWebPart_InpBox search input used in the site header.",
+        "Apply the same fix to the template so it updates on every page that reuses this header search form.",
+        "Verify with a screen reader or by inspecting the rendered DOM that the input now has an accessible name."
+      ]
+    }
+  ]
+}

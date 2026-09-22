@@ -1,0 +1,232 @@
+{
+  "audited_at": "2026-09-11T00:00:00Z",
+  "bundle_schema_version": 2,
+  "coverage": {
+    "elapsed_s": 0.5,
+    "pages_attempted": 6,
+    "pages_blocked_by_robots_for_our_ua": 0,
+    "pages_fetched": 6,
+    "pages_ok": 6,
+    "urls_discovered": 6
+  },
+  "notes": [],
+  "pages": [
+    {
+      "derived": {
+        "jsonld": {
+          "block_count": 0,
+          "dates": [],
+          "empty_blocks": 0,
+          "malformed_blocks": 0,
+          "malformed_detail": [],
+          "nodes": [],
+          "sameas": [],
+          "text": "",
+          "truncated": false,
+          "types_present": []
+        },
+        "payload_islands": [],
+        "text": {
+          "extracted": "home home Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Contact us",
+          "full": "home home Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Contact us",
+          "words_extracted": 154
+        }
+      },
+      "elapsed_ms": 5,
+      "error": null,
+      "final_url": "https://acme.example/",
+      "headers": {
+        "content-type": "text/html"
+      },
+      "html": "<!doctype html><html lang=\"en\"><head><title>home</title></head><body><main><h1>home</h1><p>Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. </p><a href=\"/contact\">Contact us</a></main></body></html>",
+      "redirect_chain": [],
+      "role": "home",
+      "status": 200,
+      "url": "https://acme.example/"
+    },
+    {
+      "derived": {
+        "jsonld": {
+          "block_count": 0,
+          "dates": [],
+          "empty_blocks": 0,
+          "malformed_blocks": 0,
+          "malformed_detail": [],
+          "nodes": [],
+          "sameas": [],
+          "text": "",
+          "truncated": false,
+          "types_present": []
+        },
+        "payload_islands": [],
+        "text": {
+          "extracted": "pricing pricing Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Contact us",
+          "full": "pricing pricing Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Contact us",
+          "words_extracted": 154
+        }
+      },
+      "elapsed_ms": 5,
+      "error": null,
+      "final_url": "https://acme.example/pricing",
+      "headers": {
+        "content-type": "text/html"
+      },
+      "html": "<!doctype html><html lang=\"en\"><head><title>pricing</title></head><body><main><h1>pricing</h1><p>Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. </p><a href=\"/contact\">Contact us</a></main></body></html>",
+      "redirect_chain": [],
+      "role": "pricing",
+      "status": 200,
+      "url": "https://acme.example/pricing"
+    },
+    {
+      "derived": {
+        "jsonld": {
+          "block_count": 0,
+          "dates": [],
+          "empty_blocks": 0,
+          "malformed_blocks": 0,
+          "malformed_detail": [],
+          "nodes": [],
+          "sameas": [],
+          "text": "",
+          "truncated": false,
+          "types_present": []
+        },
+        "payload_islands": [],
+        "text": {
+          "extracted": "about about Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Contact us",
+          "full": "about about Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Contact us",
+          "words_extracted": 154
+        }
+      },
+      "elapsed_ms": 5,
+      "error": null,
+      "final_url": "https://acme.example/about",
+      "headers": {
+        "content-type": "text/html"
+      },
+      "html": "<!doctype html><html lang=\"en\"><head><title>about</title></head><body><main><h1>about</h1><p>Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. </p><a href=\"/contact\">Contact us</a></main></body></html>",
+      "redirect_chain": [],
+      "role": "about",
+      "status": 200,
+      "url": "https://acme.example/about"
+    },
+    {
+      "derived": {
+        "jsonld": {
+          "block_count": 0,
+          "dates": [],
+          "empty_blocks": 0,
+          "malformed_blocks": 0,
+          "malformed_detail": [],
+          "nodes": [],
+          "sameas": [],
+          "text": "",
+          "truncated": false,
+          "types_present": []
+        },
+        "payload_islands": [],
+        "text": {
+          "extracted": "blog blog Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Contact us",
+          "full": "blog blog Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Contact us",
+          "words_extracted": 154
+        }
+      },
+      "elapsed_ms": 5,
+      "error": null,
+      "final_url": "https://acme.example/blog/x",
+      "headers": {
+        "content-type": "text/html"
+      },
+      "html": "<!doctype html><html lang=\"en\"><head><title>blog</title></head><body><main><h1>blog</h1><p>Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. </p><a href=\"/contact\">Contact us</a></main></body></html>",
+      "redirect_chain": [],
+      "role": "blog",
+      "status": 200,
+      "url": "https://acme.example/blog/x"
+    },
+    {
+      "derived": {
+        "jsonld": {
+          "block_count": 0,
+          "dates": [],
+          "empty_blocks": 0,
+          "malformed_blocks": 0,
+          "malformed_detail": [],
+          "nodes": [],
+          "sameas": [],
+          "text": "",
+          "truncated": false,
+          "types_present": []
+        },
+        "payload_islands": [],
+        "text": {
+          "extracted": "legal legal Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Contact us",
+          "full": "legal legal Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Contact us",
+          "words_extracted": 154
+        }
+      },
+      "elapsed_ms": 5,
+      "error": null,
+      "final_url": "https://acme.example/legal/terms",
+      "headers": {
+        "content-type": "text/html"
+      },
+      "html": "<!doctype html><html lang=\"en\"><head><title>legal</title><meta name=\"robots\" content=\"noindex, nofollow\"></head><body><main><h1>legal</h1><p>Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. </p><a href=\"/contact\">Contact us</a></main></body></html>",
+      "redirect_chain": [],
+      "role": "legal",
+      "status": 200,
+      "url": "https://acme.example/legal/terms"
+    },
+    {
+      "derived": {
+        "jsonld": {
+          "block_count": 0,
+          "dates": [],
+          "empty_blocks": 0,
+          "malformed_blocks": 0,
+          "malformed_detail": [],
+          "nodes": [],
+          "sameas": [],
+          "text": "",
+          "truncated": false,
+          "types_present": []
+        },
+        "payload_islands": [],
+        "text": {
+          "extracted": "utility utility Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Contact us",
+          "full": "utility utility Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Contact us",
+          "words_extracted": 154
+        }
+      },
+      "elapsed_ms": 5,
+      "error": null,
+      "final_url": "https://acme.example/account",
+      "headers": {
+        "content-type": "text/html"
+      },
+      "html": "<!doctype html><html lang=\"en\"><head><title>utility</title><meta name=\"robots\" content=\"noindex, nofollow\"></head><body><main><h1>utility</h1><p>Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. Body copy for this page. </p><a href=\"/contact\">Contact us</a></main></body></html>",
+      "redirect_chain": [],
+      "role": "utility",
+      "status": 200,
+      "url": "https://acme.example/account"
+    }
+  ],
+  "probes": {
+    "ai_agents_named_in_robots": [],
+    "llms_txt": {
+      "present": false
+    }
+  },
+  "robots": {
+    "agents": {},
+    "crawl_delay_declared": null,
+    "present": true,
+    "sitemaps_declared": [],
+    "status": 200,
+    "unrecognised_agent_tokens": []
+  },
+  "run_status": "complete",
+  "site": "acme.example",
+  "sitemap_urls": [],
+  "start_url": "https://acme.example/",
+  "user_agent": "AIReadinessAudit/1.0 (+https://github.com/example/brand-ai-readiness-audit)"
+}

@@ -1,0 +1,38 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A3_noindex"},
+      "verdict": "confirm_intent",
+      "reason": "deliberate_configuration",
+      "explanation": "All 9 noindexed pages are the internal MSF-staff rewards/HR section (pay, benefits, staff contacts), not public content; the key public pages (home, contact-us, who-we-are) stay indexable.",
+      "evidence": [
+        {"url": "https://www.msf.org/rewards/contacts", "type": "text_contains", "value": "You are an MSF employee", "scope": "extracted"},
+        {"url": "https://www.msf.org/rewards/msf-staff-rewards", "type": "field", "path": "title", "op": "contains", "value": "Staff Rewards"},
+        {"url": "https://www.msf.org/rewards/principles-and-policies", "type": "field", "path": "title", "op": "contains", "value": "Principles and policies"},
+        {"url": "https://www.msf.org/contact-us", "type": "field", "path": "robots_directives", "op": "lacks", "value": "noindex"}
+      ]
+    },
+    {
+      "finding": {"check_id": "B1_fact_absent"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The page is titled and roled as the site's contact page and explicitly commits to putting visitors in touch with an office, yet its raw HTML carries no phone or email token anywhere, only a map widget.",
+      "evidence": [
+        {"url": "https://www.msf.org/contact-us", "type": "text_contains", "value": "Get in touch with your nearest MSF Office", "scope": "extracted"},
+        {"url": "https://www.msf.org/contact-us", "type": "field", "path": "links.tel", "op": "eq", "value": 0}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [
+    {
+      "check_id": "B1_fact_absent",
+      "url": "https://www.msf.org/contact-us",
+      "quote": "Get in touch with your nearest MSF Office",
+      "site_specific": [
+        "Add a visible general email address (e.g. a press or head-office contact) as plain text or a mailto: link directly on /contact-us, not only inside the interactive office map.",
+        "List at least one phone number in the page's static HTML so it survives without the map widget rendering."
+      ]
+    }
+  ]
+}

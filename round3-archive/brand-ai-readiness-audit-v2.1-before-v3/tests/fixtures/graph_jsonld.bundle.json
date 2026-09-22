@@ -1,0 +1,173 @@
+{
+  "audited_at": "2026-09-11T00:00:00Z",
+  "bundle_schema_version": 2,
+  "coverage": {
+    "elapsed_s": 0.4,
+    "pages_attempted": 2,
+    "pages_blocked_by_robots_for_our_ua": 0,
+    "pages_fetched": 2,
+    "pages_ok": 2,
+    "urls_discovered": 2
+  },
+  "notes": [],
+  "pages": [
+    {
+      "derived": {
+        "jsonld": {
+          "block_count": 1,
+          "dates": [],
+          "empty_blocks": 0,
+          "malformed_blocks": 0,
+          "malformed_detail": [],
+          "nodes": [
+            {
+              "id": "https://acme.example/#website",
+              "props": {
+                "@id": "https://acme.example/#website",
+                "@type": "WebSite",
+                "name": "Acme Robotics"
+              },
+              "types": [
+                "website"
+              ]
+            },
+            {
+              "id": "https://acme.example/#org",
+              "props": {
+                "@id": "https://acme.example/#org",
+                "@type": [
+                  "Organization",
+                  "Corporation"
+                ],
+                "name": "Acme Robotics",
+                "sameAs": [
+                  "https://www.wikidata.org/wiki/Q999",
+                  "https://www.linkedin.com/company/acme",
+                  "https://www.crunchbase.com/organization/acme"
+                ]
+              },
+              "types": [
+                "corporation",
+                "organization"
+              ]
+            }
+          ],
+          "sameas": [
+            "https://www.crunchbase.com/organization/acme",
+            "https://www.linkedin.com/company/acme",
+            "https://www.wikidata.org/wiki/Q999"
+          ],
+          "text": "WebSite https://acme.example/#website Acme Robotics Organization Corporation https://acme.example/#org Acme Robotics https://www.wikidata.org/wiki/Q999 https://www.linkedin.com/company/acme https://www.crunchbase.com/organization/acme",
+          "truncated": false,
+          "types_present": [
+            "corporation",
+            "organization",
+            "website"
+          ]
+        },
+        "payload_islands": [],
+        "text": {
+          "extracted": "Acme Robotics | Home Acme Robotics Acme Robotics builds warehouse automation for mid-size distributors. Pricing starts at $499 per month. How it works Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Talk to sales",
+          "full": "Acme Robotics | Home Acme Robotics Acme Robotics builds warehouse automation for mid-size distributors. Pricing starts at $499 per month. How it works Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Talk to sales \u00a9 2026 Acme Robotics",
+          "words_extracted": 110
+        }
+      },
+      "elapsed_ms": 10,
+      "error": null,
+      "final_url": "https://acme.example/",
+      "headers": {
+        "content-type": "text/html"
+      },
+      "html": "<!doctype html><html lang=\"en\"><head><title>Acme Robotics | Home</title>\n<meta name=\"description\" content=\"Acme Robotics builds warehouse automation for mid-size distributors.\">\n<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@graph\":[\n{\"@type\":\"WebSite\",\"@id\":\"https://acme.example/#website\",\"name\":\"Acme Robotics\"},\n{\"@type\":[\"Organization\",\"Corporation\"],\"@id\":\"https://acme.example/#org\",\"name\":\"Acme Robotics\",\n \"sameAs\":[\"https://www.wikidata.org/wiki/Q999\",\"https://www.linkedin.com/company/acme\",\n           \"https://www.crunchbase.com/organization/acme\"]}]}</script></head>\n<body><main><h1 id=\"top\">Acme Robotics</h1>\n<p>Acme Robotics builds warehouse automation for mid-size distributors. Pricing starts at $499 per month.</p>\n<h2 id=\"how\">How it works</h2><p>Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. Detailed operational copy about the pick-and-place workflow. </p>\n<a href=\"/contact\">Talk to sales</a></main><footer>&copy; 2026 Acme Robotics</footer></body></html>",
+      "redirect_chain": [],
+      "role": "home",
+      "status": 200,
+      "url": "https://acme.example/"
+    },
+    {
+      "derived": {
+        "jsonld": {
+          "block_count": 1,
+          "dates": [],
+          "empty_blocks": 0,
+          "malformed_blocks": 0,
+          "malformed_detail": [],
+          "nodes": [
+            {
+              "id": null,
+              "props": {
+                "@type": "Product",
+                "name": "Acme Pick-1",
+                "offers": {
+                  "@type": "Offer",
+                  "price": "499",
+                  "priceCurrency": "USD"
+                }
+              },
+              "types": [
+                "product"
+              ]
+            },
+            {
+              "id": null,
+              "props": {
+                "@type": "Offer",
+                "price": "499",
+                "priceCurrency": "USD"
+              },
+              "types": [
+                "offer"
+              ]
+            }
+          ],
+          "sameas": [],
+          "text": "Product Acme Pick-1 Offer 499 USD Offer 499 USD",
+          "truncated": false,
+          "types_present": [
+            "offer",
+            "product"
+          ]
+        },
+        "payload_islands": [],
+        "text": {
+          "extracted": "Pricing | Acme Robotics Pricing The Acme Pick-1 costs $499 per month. Founded 1999. Contact us",
+          "full": "Pricing | Acme Robotics Pricing The Acme Pick-1 costs $499 per month. Founded 1999. Contact us",
+          "words_extracted": 16
+        }
+      },
+      "elapsed_ms": 10,
+      "error": null,
+      "final_url": "https://acme.example/pricing",
+      "headers": {
+        "content-type": "text/html"
+      },
+      "html": "<!doctype html><html lang=\"en\"><head><title>Pricing | Acme Robotics</title>\n<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@graph\":[\n{\"@type\":\"Product\",\"name\":\"Acme Pick-1\",\"offers\":{\"@type\":\"Offer\",\"price\":\"499\",\"priceCurrency\":\"USD\"}}]}</script>\n</head><body><main><h1>Pricing</h1><p>The Acme Pick-1 costs $499 per month. Founded 1999.</p>\n<a href=\"/contact\">Contact us</a></main></body></html>",
+      "redirect_chain": [],
+      "role": "pricing",
+      "status": 200,
+      "url": "https://acme.example/pricing"
+    }
+  ],
+  "probes": {
+    "ai_agents_named_in_robots": [],
+    "llms_txt": {
+      "present": false,
+      "status": 404,
+      "url": "https://acme.example/llms.txt"
+    }
+  },
+  "robots": {
+    "agents": {},
+    "crawl_delay": null,
+    "crawl_delay_declared": null,
+    "present": true,
+    "sitemaps_declared": [],
+    "status": 200,
+    "unrecognised_agent_tokens": []
+  },
+  "run_status": "complete",
+  "site": "acme.example",
+  "sitemap_urls": [],
+  "start_url": "https://acme.example/",
+  "user_agent": "AIReadinessAudit/1.0 (+https://github.com/example/brand-ai-readiness-audit)"
+}

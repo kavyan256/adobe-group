@@ -1,0 +1,602 @@
+[
+ {
+  "slug": "bbc",
+  "url": "https://www.bbc.co.uk",
+  "category": "National broadcaster news (UK)",
+  "expect": "named AI-crawler blocks (A1 intent), large nav"
+ },
+ {
+  "slug": "thehindu",
+  "url": "https://www.thehindu.com",
+  "category": "Newspaper (India)",
+  "expect": "AI-bot policy, article dates, ads"
+ },
+ {
+  "slug": "spiegel",
+  "url": "https://www.spiegel.de",
+  "category": "News magazine (German)",
+  "expect": "non-English text, lang, date formats"
+ },
+ {
+  "slug": "bhaskar",
+  "url": "https://www.bhaskar.com",
+  "category": "Hindi-language news",
+  "expect": "Devanagari text, heavy JS"
+ },
+ {
+  "slug": "theverge",
+  "url": "https://www.theverge.com",
+  "category": "Tech magazine",
+  "expect": "Next.js payload islands, AI-bot blocks"
+ },
+ {
+  "slug": "smittenkitchen",
+  "url": "https://smittenkitchen.com",
+  "category": "Recipe blog (WordPress)",
+  "expect": "blog dates, image alt, FAQ-like headings"
+ },
+ {
+  "slug": "paulgraham",
+  "url": "https://www.paulgraham.com",
+  "category": "Personal essay site (hand-written HTML)",
+  "expect": "no lang, no h1, no structured data, table layout"
+ },
+ {
+  "slug": "pythondocs",
+  "url": "https://docs.python.org/3/",
+  "category": "Language documentation",
+  "expect": "heading anchors, quotability, no Product/Org markup"
+ },
+ {
+  "slug": "curl",
+  "url": "https://curl.se",
+  "category": "Open-source project site",
+  "expect": "minimal markup, no sitemap?, old copyright?"
+ },
+ {
+  "slug": "linear",
+  "url": "https://linear.app",
+  "category": "SaaS with pricing page (Next.js)",
+  "expect": "B1 price tiering, payload islands"
+ },
+ {
+  "slug": "notion",
+  "url": "https://www.notion.com",
+  "category": "Productivity SaaS (JS heavy)",
+  "expect": "script-only facts, pricing"
+ },
+ {
+  "slug": "webflow",
+  "url": "https://webflow.com",
+  "category": "Website builder (Webflow-built)",
+  "expect": "marketing site, canonical, pricing"
+ },
+ {
+  "slug": "framer",
+  "url": "https://www.framer.com",
+  "category": "Design tool (Framer-built)",
+  "expect": "SPA-like markup, unnamed controls"
+ },
+ {
+  "slug": "ghost",
+  "url": "https://ghost.org",
+  "category": "Publishing platform",
+  "expect": "pricing page, blog dates"
+ },
+ {
+  "slug": "ruggable",
+  "url": "https://ruggable.com",
+  "category": "DTC home goods (Shopify)",
+  "expect": "product markup, variants, E1 forms"
+ },
+ {
+  "slug": "gymshark",
+  "url": "https://www.gymshark.com",
+  "category": "DTC fashion (bot-protected)",
+  "expect": "WAF / 403 refusal (A7)"
+ },
+ {
+  "slug": "boots",
+  "url": "https://www.boots.com",
+  "category": "Pharmacy retailer (UK enterprise e-com)",
+  "expect": "bot protection, product prices £"
+ },
+ {
+  "slug": "bigbasket",
+  "url": "https://www.bigbasket.com",
+  "category": "Online grocery (India)",
+  "expect": "₹ prices, JS app shell"
+ },
+ {
+  "slug": "deliveroo",
+  "url": "https://deliveroo.co.uk",
+  "category": "Food delivery marketplace",
+  "expect": "location walls, SPA"
+ },
+ {
+  "slug": "shakeshack",
+  "url": "https://shakeshack.com",
+  "category": "Restaurant chain (US)",
+  "expect": "menu/prices, locations, PDFs"
+ },
+ {
+  "slug": "bluebottle",
+  "url": "https://bluebottlecoffee.com",
+  "category": "Coffee roaster + cafes",
+  "expect": "store product pages, cafe contact"
+ },
+ {
+  "slug": "thehoxton",
+  "url": "https://thehoxton.com",
+  "category": "Boutique hotel group",
+  "expect": "booking iframe/widgets, city pages"
+ },
+ {
+  "slug": "easyjet",
+  "url": "https://www.easyjet.com",
+  "category": "Low-cost airline",
+  "expect": "bot protection, JS booking, geo redirect"
+ },
+ {
+  "slug": "visitportugal",
+  "url": "https://www.visitportugal.com",
+  "category": "National tourism board",
+  "expect": "multilingual, hreflang, old CMS"
+ },
+ {
+  "slug": "britishmuseum",
+  "url": "https://www.britishmuseum.org",
+  "category": "Museum",
+  "expect": "events dates, opening hours, Drupal"
+ },
+ {
+  "slug": "nypl",
+  "url": "https://www.nypl.org",
+  "category": "Public library",
+  "expect": "locations, hours, contact, events"
+ },
+ {
+  "slug": "mit",
+  "url": "https://www.mit.edu",
+  "category": "University (US)",
+  "expect": "news dates, Org markup, many subdomains"
+ },
+ {
+  "slug": "ethz",
+  "url": "https://ethz.ch",
+  "category": "University (Switzerland, DE/EN)",
+  "expect": "hreflang, lang switch, redirects to /en"
+ },
+ {
+  "slug": "eton",
+  "url": "https://www.etoncollege.com",
+  "category": "Independent school",
+  "expect": "admissions PDFs, fees"
+ },
+ {
+  "slug": "khanacademy",
+  "url": "https://www.khanacademy.org",
+  "category": "Online learning (React SPA)",
+  "expect": "empty shell / script-only content"
+ },
+ {
+  "slug": "duolingo",
+  "url": "https://www.duolingo.com",
+  "category": "Language-learning app",
+  "expect": "app landing, SPA, lang"
+ },
+ {
+  "slug": "mayoclinic",
+  "url": "https://www.mayoclinic.org",
+  "category": "Hospital / health information",
+  "expect": "medical articles dates, bot protection"
+ },
+ {
+  "slug": "aspendental",
+  "url": "https://www.aspendental.com",
+  "category": "Dental clinic chain",
+  "expect": "local offices NAP, forms, phone"
+ },
+ {
+  "slug": "pfizer",
+  "url": "https://www.pfizer.com",
+  "category": "Pharmaceutical company",
+  "expect": "corporate Org markup, press, PDFs"
+ },
+ {
+  "slug": "nhs",
+  "url": "https://www.nhs.uk",
+  "category": "Public health service (gov)",
+  "expect": "accessible markup, dates, few problems"
+ },
+ {
+  "slug": "govuk",
+  "url": "https://www.gov.uk",
+  "category": "Central government portal",
+  "expect": "high-quality baseline (few findings expected)"
+ },
+ {
+  "slug": "nycgov",
+  "url": "https://www.nyc.gov",
+  "category": "City government",
+  "expect": "legacy CMS, PDFs, forms"
+ },
+ {
+  "slug": "incometax",
+  "url": "https://www.incometax.gov.in",
+  "category": "Tax authority (India, Angular)",
+  "expect": "empty shell B4, app-root mount"
+ },
+ {
+  "slug": "hdfcbank",
+  "url": "https://www.hdfcbank.com",
+  "category": "Retail bank (India)",
+  "expect": "interest rates, bot protection, forms"
+ },
+ {
+  "slug": "monzo",
+  "url": "https://monzo.com",
+  "category": "Neobank (UK)",
+  "expect": "fees/pricing, FAQ, legal pages"
+ },
+ {
+  "slug": "lemonade",
+  "url": "https://www.lemonade.com",
+  "category": "Insurance (insurtech)",
+  "expect": "quote forms, pricing claims, JS"
+ },
+ {
+  "slug": "kraken",
+  "url": "https://www.kraken.com",
+  "category": "Crypto exchange",
+  "expect": "fees page, Cloudflare, legal noindex"
+ },
+ {
+  "slug": "cliffordchance",
+  "url": "https://www.cliffordchance.com",
+  "category": "International law firm",
+  "expect": "offices contact, people pages, AEM"
+ },
+ {
+  "slug": "rightmove",
+  "url": "https://www.rightmove.co.uk",
+  "category": "Property portal",
+  "expect": "search pages, robots disallows"
+ },
+ {
+  "slug": "compass",
+  "url": "https://www.compass.com",
+  "category": "Real-estate brokerage (US)",
+  "expect": "listings JS, agent contact"
+ },
+ {
+  "slug": "tesla",
+  "url": "https://www.tesla.com",
+  "category": "Automotive brand",
+  "expect": "bot protection, geo redirect, pricing JS"
+ },
+ {
+  "slug": "carvana",
+  "url": "https://www.carvana.com",
+  "category": "Online used-car dealer",
+  "expect": "inventory SPA, price in payload"
+ },
+ {
+  "slug": "jio",
+  "url": "https://www.jio.com",
+  "category": "Telecom operator (India)",
+  "expect": "plan prices ₹, JS, multiple phone numbers"
+ },
+ {
+  "slug": "octopus",
+  "url": "https://octopus.energy",
+  "category": "Energy utility (UK)",
+  "expect": "tariff prices, FAQs"
+ },
+ {
+  "slug": "dhl",
+  "url": "https://www.dhl.com",
+  "category": "Logistics company",
+  "expect": "country selector redirect, contact per country"
+ },
+ {
+  "slug": "bosch",
+  "url": "https://www.bosch.de",
+  "category": "Industrial manufacturer (German)",
+  "expect": "German lang, € formats, corporate"
+ },
+ {
+  "slug": "mcmaster",
+  "url": "https://www.mcmaster.com",
+  "category": "Industrial supply catalog",
+  "expect": "JS-rendered catalog, empty shell"
+ },
+ {
+  "slug": "logitech",
+  "url": "https://www.logitech.com",
+  "category": "Consumer electronics brand",
+  "expect": "locale redirect, product markup"
+ },
+ {
+  "slug": "article",
+  "url": "https://www.article.com",
+  "category": "DTC furniture",
+  "expect": "product prices, reviews markup"
+ },
+ {
+  "slug": "glossier",
+  "url": "https://www.glossier.com",
+  "category": "Cosmetics DTC",
+  "expect": "Shopify, reviews widgets JS"
+ },
+ {
+  "slug": "lego",
+  "url": "https://www.lego.com",
+  "category": "Toy brand",
+  "expect": "age gate / locale redirect, bot protection"
+ },
+ {
+  "slug": "chewy",
+  "url": "https://www.chewy.com",
+  "category": "Pet supplies retailer",
+  "expect": "Akamai protection (A7), product pages"
+ },
+ {
+  "slug": "rhs",
+  "url": "https://www.rhs.org.uk",
+  "category": "Gardening charity / advice",
+  "expect": "plant advice articles, membership prices"
+ },
+ {
+  "slug": "festool",
+  "url": "https://www.festool.com",
+  "category": "Power-tool manufacturer",
+  "expect": "dealer locator, locale"
+ },
+ {
+  "slug": "manutd",
+  "url": "https://www.manutd.com",
+  "category": "Football club",
+  "expect": "fixtures dates, ticket forms, JS"
+ },
+ {
+  "slug": "nba",
+  "url": "https://www.nba.com",
+  "category": "Sports league",
+  "expect": "Next.js payload, live data via XHR"
+ },
+ {
+  "slug": "strava",
+  "url": "https://www.strava.com",
+  "category": "Fitness app",
+  "expect": "pricing/subscription, app landing"
+ },
+ {
+  "slug": "puregym",
+  "url": "https://www.puregym.com",
+  "category": "Gym chain (UK)",
+  "expect": "membership prices £, gym locations"
+ },
+ {
+  "slug": "supercell",
+  "url": "https://supercell.com",
+  "category": "Video-game studio",
+  "expect": "minimal text, JS, careers"
+ },
+ {
+  "slug": "gog",
+  "url": "https://www.gog.com",
+  "category": "PC game store",
+  "expect": "prices in JS, age gates"
+ },
+ {
+  "slug": "bandcamp",
+  "url": "https://bandcamp.com",
+  "category": "Music marketplace",
+  "expect": "artist pages, prices, lang"
+ },
+ {
+  "slug": "thisamericanlife",
+  "url": "https://www.thisamericanlife.org",
+  "category": "Podcast / radio show",
+  "expect": "episode dates, audio, transcripts"
+ },
+ {
+  "slug": "bfi",
+  "url": "https://www.bfi.org.uk",
+  "category": "Film institute / cinema",
+  "expect": "events, membership prices"
+ },
+ {
+  "slug": "glastonbury",
+  "url": "https://www.glastonburyfestivals.co.uk",
+  "category": "Music festival",
+  "expect": "ticket info, dated news, WordPress"
+ },
+ {
+  "slug": "websummit",
+  "url": "https://websummit.com",
+  "category": "Tech conference",
+  "expect": "ticket prices, event dates"
+ },
+ {
+  "slug": "weworkremotely",
+  "url": "https://weworkremotely.com",
+  "category": "Job board",
+  "expect": "listing pages, JobPosting markup, thin pages"
+ },
+ {
+  "slug": "hinge",
+  "url": "https://hinge.co",
+  "category": "Dating app",
+  "expect": "app landing, minimal content"
+ },
+ {
+  "slug": "lobsters",
+  "url": "https://lobste.rs",
+  "category": "Link aggregator community",
+  "expect": "user-generated lists, minimal markup"
+ },
+ {
+  "slug": "stackexchange",
+  "url": "https://stackexchange.com",
+  "category": "Q&A network hub",
+  "expect": "Q&A markup, bot protection"
+ },
+ {
+  "slug": "msf",
+  "url": "https://www.msf.org",
+  "category": "International medical charity",
+  "expect": "donation forms, news dates"
+ },
+ {
+  "slug": "vatican",
+  "url": "https://www.vatican.va",
+  "category": "Religious institution",
+  "expect": "frames/legacy HTML, multilingual"
+ },
+ {
+  "slug": "greenpeace",
+  "url": "https://www.greenpeace.org/international/",
+  "category": "Environmental NGO",
+  "expect": "country redirects, petitions forms"
+ },
+ {
+  "slug": "brookings",
+  "url": "https://www.brookings.edu",
+  "category": "Think tank",
+  "expect": "research reports PDFs, author dates"
+ },
+ {
+  "slug": "nature",
+  "url": "https://www.nature.com",
+  "category": "Scientific journal publisher",
+  "expect": "article markup, paywall, AI-bot policy"
+ },
+ {
+  "slug": "britannica",
+  "url": "https://www.britannica.com",
+  "category": "Reference encyclopedia",
+  "expect": "AI-bot blocks, ads, quotability"
+ },
+ {
+  "slug": "metoffice",
+  "url": "https://www.metoffice.gov.uk",
+  "category": "Weather service",
+  "expect": "live data via JS, forecasts"
+ },
+ {
+  "slug": "tfl",
+  "url": "https://tfl.gov.uk",
+  "category": "Public transport authority",
+  "expect": "fares prices, status data JS"
+ },
+ {
+  "slug": "wework",
+  "url": "https://www.wework.com",
+  "category": "Coworking spaces",
+  "expect": "location pages, pricing, forms"
+ },
+ {
+  "slug": "theknot",
+  "url": "https://www.theknot.com",
+  "category": "Wedding planning marketplace",
+  "expect": "vendor listings, bot protection"
+ },
+ {
+  "slug": "unsplash",
+  "url": "https://unsplash.com",
+  "category": "Stock photo platform",
+  "expect": "image alt coverage, SPA"
+ },
+ {
+  "slug": "zahahadid",
+  "url": "https://www.zaha-hadid.com",
+  "category": "Architecture firm",
+  "expect": "image-heavy portfolio, thin text"
+ },
+ {
+  "slug": "pentagram",
+  "url": "https://www.pentagram.com",
+  "category": "Design agency portfolio",
+  "expect": "image-heavy, unnamed controls"
+ },
+ {
+  "slug": "zoho",
+  "url": "https://www.zoho.com",
+  "category": "Business software suite (India)",
+  "expect": "pricing ₹/$ locale, many products"
+ },
+ {
+  "slug": "raycast",
+  "url": "https://www.raycast.com",
+  "category": "Developer productivity tool",
+  "expect": "Next.js, pricing tiers"
+ },
+ {
+  "slug": "mistral",
+  "url": "https://mistral.ai",
+  "category": "AI model company",
+  "expect": "thin marketing site, llms.txt?"
+ },
+ {
+  "slug": "muji",
+  "url": "https://www.muji.com/jp/ja/",
+  "category": "Retail brand (Japanese)",
+  "expect": "Japanese text, ¥ prices, lang ja"
+ },
+ {
+  "slug": "fnac",
+  "url": "https://www.fnac.com",
+  "category": "Electronics/books retailer (French)",
+  "expect": "French, €, bot protection"
+ },
+ {
+  "slug": "bbva",
+  "url": "https://www.bbva.com",
+  "category": "Bank corporate site (Spanish/EN)",
+  "expect": "hreflang, press, dates"
+ },
+ {
+  "slug": "magalu",
+  "url": "https://www.magazineluiza.com.br",
+  "category": "E-commerce marketplace (Brazil)",
+  "expect": "R$ prices, Portuguese, heavy JS"
+ },
+ {
+  "slug": "wikihow",
+  "url": "https://www.wikihow.com",
+  "category": "How-to guides",
+  "expect": "HowTo/FAQ markup, images alt"
+ },
+ {
+  "slug": "craigslist",
+  "url": "https://www.craigslist.org",
+  "category": "Classifieds (minimal legacy HTML)",
+  "expect": "geo redirect, no structured data"
+ },
+ {
+  "slug": "archiveorg",
+  "url": "https://archive.org",
+  "category": "Digital archive",
+  "expect": "JS shell pages, large site"
+ },
+ {
+  "slug": "berkshirehathaway",
+  "url": "https://www.berkshirehathaway.com",
+  "category": "Holding company (1990s HTML)",
+  "expect": "no lang, no viewport, PDFs only, no h1"
+ },
+ {
+  "slug": "npr",
+  "url": "https://www.npr.org",
+  "category": "Public radio news (US)",
+  "expect": "article dates, audio, AI-bot policy"
+ },
+ {
+  "slug": "powells",
+  "url": "https://www.powells.com",
+  "category": "Independent bookstore",
+  "expect": "book product pages, store locations/hours, events"
+ }
+]

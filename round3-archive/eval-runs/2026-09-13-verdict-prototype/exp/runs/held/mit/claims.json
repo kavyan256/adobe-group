@@ -1,0 +1,52 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A5_canonical_problem", "url": "https://www.mit.edu/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The homepage's canonical tag points to an unrelated spotlight article on a different host (tlecms.mit.edu), not to the homepage itself, and the same off-domain pattern hits the site's most important pages (about, contact, admissions-aid), so this is not confined to duplicate or archived pages.",
+      "evidence": [
+        {"url": "https://www.mit.edu/", "type": "field", "path": "canonical", "op": "eq", "value": "https://tlecms.mit.edu/spotlight/brain-boosting-sleep-saturday"}
+      ]
+    },
+    {
+      "finding": {"check_id": "C3_entity_unanchored", "url": "https://www.mit.edu/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The homepage carries no JSON-LD at all, so it declares no Organization or sameAs links that would anchor the MIT brand entity for a disambiguating assistant.",
+      "evidence": [
+        {"url": "https://www.mit.edu/", "type": "field", "path": "jsonld.types", "op": "eq", "value": []}
+      ]
+    },
+    {
+      "finding": {"check_id": "E3_unnamed_controls", "url": "https://www.mit.edu/contact"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The contact page's footer social links are bare anchors wrapping only an inline SVG icon, with no aria-label, title or accessible text, matching the unnamed-control defect the check reports.",
+      "evidence": [
+        {"url": "https://www.mit.edu/contact", "type": "html_contains", "value": "class=\"js-link-tool-tip-mod\" href=\"https://twitter.com/mit\""}
+      ]
+    }
+  ],
+  "fixes": [
+    {
+      "check_id": "A5_canonical_problem",
+      "url": "https://www.mit.edu/",
+      "quote": "MIT - Massachusetts Institute of Technology Skip to content",
+      "site_specific": [
+        "Change the canonical link tag on https://www.mit.edu/ to point at https://www.mit.edu/ itself, not the tlecms.mit.edu authoring host.",
+        "Apply the same fix to /about, /contact, /accessibility, /admissions-aid and the other pages currently canonicalizing to tlecms.mit.edu.",
+        "Confirm the CMS publish step rewrites the authoring-domain canonical to the public www.mit.edu URL before a page goes live."
+      ]
+    },
+    {
+      "check_id": "E3_unnamed_controls",
+      "url": "https://www.mit.edu/contact",
+      "quote": "Follow Us",
+      "site_specific": [
+        "Add aria-label values (\"Twitter\", \"Facebook\", \"Instagram\", etc.) to the anchors under the site-footer__social-list that currently wrap only an SVG icon.",
+        "Reuse the same fix across every page that includes this shared footer."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "C3_entity_unanchored", "url": "https://www.nhs.uk/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://www.nhs.uk/"],
+      "explanation": "About-us and every medicine/condition page carry Organization JSON-LD, but its sameAs array is empty everywhere crawled, including the page whose type declares Organization, so there is no external anchor.",
+      "evidence": [
+        {"url": "https://www.nhs.uk/about-us", "type": "field", "path": "jsonld.types", "op": "contains", "value": "organization"},
+        {"url": "https://www.nhs.uk/about-us", "type": "field", "path": "jsonld.sameas", "op": "empty", "value": null}
+      ]
+    },
+    {
+      "finding": {"check_id": "E10_no_next_step", "url": "https://www.nhs.uk/conditions/cyclospora"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": [
+        "https://www.nhs.uk/conditions/cyclospora",
+        "https://www.nhs.uk/conditions/stroke/symptoms",
+        "https://www.nhs.uk/medicines/chloramphenicol/pregnancy-breastfeeding-and-fertility-while-taking-chloramphenicol"
+      ],
+      "explanation": "Each page's only form is the site-wide /search/ box, and its internal links sit in the template's 'More in ...' and 'Support links' sections rather than the body copy, so a visitor who reads the answer has no in-content route onward.",
+      "evidence": [
+        {"url": "https://www.nhs.uk/conditions/cyclospora", "type": "field", "path": "forms", "op": "contains", "value": "/search/"},
+        {"url": "https://www.nhs.uk/conditions/stroke/symptoms", "type": "field", "path": "forms", "op": "contains", "value": "/search/"},
+        {"url": "https://www.nhs.uk/medicines/chloramphenicol/pregnancy-breastfeeding-and-fertility-while-taking-chloramphenicol", "type": "field", "path": "forms", "op": "contains", "value": "/search/"}
+      ]
+    }
+  ],
+  "candidate_dispositions": [],
+  "claims": [],
+  "fixes": []
+}

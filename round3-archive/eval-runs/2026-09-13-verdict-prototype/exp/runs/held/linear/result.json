@@ -1,0 +1,53 @@
+{
+ "slug": "linear",
+ "tag": "held",
+ "model": "sonnet",
+ "wall_s": 143.3,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 27,
+ "duration_ms": 140065,
+ "total_cost_usd": 0.6038286,
+ "result": "Both verdicts applied, zero rejected, no unjudged medium-or-above findings, and no review candidates were outstanding. Step 5 has rewritten `report.json` successfully.\n\n2 verdicts applied, 0 rejected; 0 claims and 0 fixes submitted (no unmeasured problems or review candidates found on this crawl).",
+ "permission_denials": [
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_018KruBscgnWwfpMJZNEsETb",
+   "tool_input": {
+    "command": "ls skills/agent-review-audit/scripts/ skills/audit-orchestrator/scripts/ 2>&1\nWORK=/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/linear\nls -la \"$WORK\"\necho ---\npython3 skills/agent-review-audit/scripts/page_profile.py \"$WORK/bundle.json\" \"$WORK/report.json\" > \"$WORK/profile.json\"\necho exit=$?\nwc -c \"$WORK/profile.json\""
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_014JsdLkH7FNrYGQ4MgPPFXr",
+   "tool_input": {
+    "command": "cd /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/v5-proto\nWORK=/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/linear\npython3 skills/agent-review-audit/scripts/page_profile.py \"$WORK/bundle.json\" \"$WORK/report.json\" > \"$WORK/profile.json\"\necho exit=$?\nwc -c \"$WORK/profile.json\""
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01BRGdAPajdyuDa7HWgozsrU",
+   "tool_input": {
+    "command": "export WORK=/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/linear\ncd /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/v5-proto\npython3 skills/agent-review-audit/scripts/page_profile.py \"$WORK/bundle.json\" \"$WORK/report.json\" > \"$WORK/profile.json\"\necho exit=$?\nwc -c \"$WORK/profile.json\""
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01VKA1jyNEHgeviqzE1UcUjK",
+   "tool_input": {
+    "command": "python3 -c \"\nimport json, re\nb=json.load(open('/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/linear/bundle.json'))\npages = b['pages']\np = next(pg for pg in pages if pg['url']=='https://linear.app/changelog')\nhtml = p.get('html','')\nprint(len(html))\n# find <button without aria-label/aria-labelledby/title, that also lacks text and svg title\nimport re\nbtns = re.findall(r'<button[^>]{0,200}>', html)\nprint(len(btns))\n\"\n"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_018d17ecVm4V11JsAxqh8faf",
+   "tool_input": {
+    "command": "cd /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/v5-proto\npython3 skills/audit-orchestrator/scripts/audit.py --replay /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/linear/bundle.json --agent-claims /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/linear/claims.json -o /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/linear/report.json\necho exit=$?"
+   }
+  }
+ ],
+ "raw_stdout": null
+}

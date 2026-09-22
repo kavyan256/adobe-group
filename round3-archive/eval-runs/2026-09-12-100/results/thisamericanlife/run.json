@@ -1,0 +1,13 @@
+{
+ "slug": "thisamericanlife",
+ "url": "https://www.thisamericanlife.org",
+ "category": "Podcast / radio show",
+ "expect": "episode dates, audio, transcripts",
+ "rc": 0,
+ "wall_s": 70.3,
+ "finished_at": "2026-09-12T16:28:44Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

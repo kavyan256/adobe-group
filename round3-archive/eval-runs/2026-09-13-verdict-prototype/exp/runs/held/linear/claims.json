@@ -1,0 +1,27 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "C3_entity_unanchored", "url": "https://linear.app/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://linear.app/"],
+      "explanation": "The homepage carries no JSON-LD Organization or similar entity markup, so there is no sameAs to anchor the brand.",
+      "evidence": [
+        {"url": "https://linear.app/", "type": "field", "path": "jsonld.types", "op": "eq", "value": []}
+      ]
+    },
+    {
+      "finding": {"check_id": "E3_unnamed_controls", "url": "https://linear.app/changelog"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://linear.app/changelog"],
+      "explanation": "The changelog page has an icon-only button whose svg is aria-hidden and carries no aria-label, text or title, so it has no accessible name.",
+      "evidence": [
+        {"url": "https://linear.app/changelog", "type": "html_contains", "value": "class=\"hbnAuG_root S36ykG_root S36ykG_variant-ghost S36ykG_size-default S36ykG_variant\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" role=\"img\" focusable=\"false\" aria-hidden=\"true\""}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [],
+  "candidate_dispositions": []
+}

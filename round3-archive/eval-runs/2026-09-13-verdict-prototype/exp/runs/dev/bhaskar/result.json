@@ -1,0 +1,17 @@
+{
+ "slug": "bhaskar",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 275.8,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 26,
+ "duration_ms": 272092,
+ "total_cost_usd": 1.0019934,
+ "result": "`adjudicated.json` exists at the target path. Summary: 0 claims submitted (none met the mechanism checklist bar for this site), 3 fixes submitted and all 3 applied, 4 verdicts submitted and all 4 applied (0 rejected) — confirming A1 and E3, clearing C2 (page purpose mismatch) and E9 (measurement wrong, all 9 pages) as not-a-defect.",
+ "permission_denials": [],
+ "raw_stdout": null
+}

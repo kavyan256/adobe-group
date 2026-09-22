@@ -1,0 +1,35 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "E3_unnamed_controls"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The homepage's theme-mode switcher is an icon-only button with no text, aria-label or title, matching the check's own description of an unnamed control.",
+      "evidence": [
+        {"url": "https://mistral.ai/", "type": "html_contains", "value": "js-theme-option cursor-pointer shrink-0 flex items-center justify-center size-7"}
+      ]
+    },
+    {
+      "finding": {"check_id": "E10_no_next_step"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The only apply link on the page is the persistent nav CTA (class nav-item-cta), not a link inside the article content, so the 813 words of body content itself has no route onward, matching the check.",
+      "evidence": [
+        {"url": "https://mistral.ai/careers", "type": "html_contains", "value": "nav-item-cta relative h-12 px-4 text-sm flex items-center"}
+      ]
+    },
+    {
+      "finding": {"check_id": "C1_product_markup_absent"},
+      "verdict": "not_a_defect",
+      "reason": "measurement_wrong",
+      "urls": ["https://mistral.ai/products/forge"],
+      "explanation": "The finding says the item's identity is stated only in prose, if at all, but /products/forge carries SoftwareApplication/Offer/PriceSpecification JSON-LD describing the item; it lacks the literal 'Product' type the check looked for, not structured data about the item.",
+      "evidence": [
+        {"url": "https://mistral.ai/products/forge", "type": "field", "path": "jsonld.types", "op": "contains", "value": "softwareapplication"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [],
+  "candidate_dispositions": []
+}

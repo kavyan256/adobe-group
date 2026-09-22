@@ -1,0 +1,39 @@
+{
+ "slug": "mayoclinic",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 101.9,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 24,
+ "duration_ms": 98261,
+ "total_cost_usd": 0.47711,
+ "result": "`adjudicated.json` is written. 1 verdict submitted and applied (downgrading `A7_site_unreadable` from high to medium via `access_block_unattributed`), 0 claims and 0 fixes submitted (the crawl only reached one bot-challenge page, leaving no other page-level evidence to base claims/fixes on), and 0 total rejected.",
+ "permission_denials": [
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01Xdgd2ZM2Ata1zErMT1Yjbi",
+   "tool_input": {
+    "command": "python3 skills/agent-review-audit/scripts/page_profile.py /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/mayoclinic/bundle.json /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/mayoclinic/report.json > /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/mayoclinic/profile.json\necho exit:$?\nwc -l /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/mayoclinic/profile.json"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_0119Kk2pN6EqdavoGZQY83UP",
+   "tool_input": {
+    "command": "WORK=/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/mayoclinic\npython3 skills/agent-review-audit/scripts/page_profile.py \"$WORK/bundle.json\" \"$WORK/report.json\" > \"$WORK/profile.json\"\necho exit:$?"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_011XwhVxYNS1vabyaAPWfWkn",
+   "tool_input": {
+    "command": "python3 skills/agent-review-audit/scripts/page_profile.py /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/mayoclinic/bundle.json /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/mayoclinic/report.json > /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/mayoclinic/profile.json; echo done $?"
+   }
+  }
+ ],
+ "raw_stdout": null
+}

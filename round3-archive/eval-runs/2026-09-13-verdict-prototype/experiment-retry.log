@@ -1,0 +1,89 @@
+NEG duolingo rejected | evidence does not hold: https://www.duolingo.com/: title contains "Page not found" (actual "Duolingo")
+NEG kraken rejected | evidence does not hold: the crawl notes contain 'ReadTimeout'
+NEG aspendental rejected | evidence does not hold: https://www.aspendental.com/mottoaligners/pricing: the raw HTML contains 'this JSON-LD parses cleanly'
+NEG mit rejected | evidence does not hold: the report also has A9_broken_pages on https://www.mit.edu/
+NEG thehindu rejected | evidence is true of every page: title contains 'The Hindu'
+NEG msf rejected | a critical finding is not downgraded for scope
+NEG logitech rejected | reason 'page_purpose_mismatch' goes with verdict 'not_a_defect'
+NEG supercell-zoom-intent rejected | reason 'deliberate_configuration' applies only to A2, A3, A5 findings
+NEG bluebottle-trivial rejected | evidence is true of every page: 'bluebottlecoffee.com'
+POS supercell accepted | None
+POS muji accepted | None
+POS fnac accepted | None
+POS tfl accepted | None
+control failures: 0
+[dev] aspendental: skipped
+[dev] bbc: skipped
+[dev] bhaskar: skipped
+[dev] bluebottle: skipped
+[dev] boots: skipped
+[dev] britishmuseum: skipped
+[dev] duolingo: skipped
+[dev] easyjet: skipped
+[dev] festool: skipped
+[dev] fnac: skipped
+[dev] framer: 264.3s $0.8689142000000002 adjudicated=True denials=0
+[dev] jio: skipped
+[dev] kraken: skipped
+[dev] lemonade: skipped
+[dev] lobsters: skipped
+[dev] logitech: skipped
+[dev] magalu: skipped
+[dev] mayoclinic: skipped
+[dev] mcmaster: 227.1s $0.8928906 adjudicated=True denials=1
+[dev] msf: 185.5s $0.6232442 adjudicated=True denials=0
+[dev] muji: 62.0s $0.316853 adjudicated=True denials=3
+[dev] nba: 110.8s $0.5309563999999999 adjudicated=True denials=4
+[dev] notion: 366.9s $1.1223296 adjudicated=True denials=2
+[dev] npr: 212.4s $0.7114086000000002 adjudicated=True denials=0
+[dev] nycgov: 102.9s $0.44080420000000003 adjudicated=True denials=1
+[dev] nypl: 120.3s $0.5281203999999999 adjudicated=True denials=3
+[dev] powells: 105.6s $0.45086960000000004 adjudicated=True denials=1
+[dev] spiegel: 152.2s $0.5518594000000001 adjudicated=True denials=1
+[dev] supercell: 146.3s $0.4733094 adjudicated=False denials=2
+[dev] tesla: 97.3s $0.38399200000000006 adjudicated=True denials=2
+[dev] thehindu: 97.7s $0.3309936 adjudicated=False denials=1
+[dev] websummit: 22.6s $0.1423278 adjudicated=False denials=1
+[dev] wework: 8.6s $0.0716088 adjudicated=False denials=0
+[dev] weworkremotely: 7.2s $0.059072 adjudicated=False denials=0
+[dev] wikihow: 1.8s $0 adjudicated=False denials=0
+[dev] zoho: 3.9s $0 adjudicated=False denials=0
+prototype tree unchanged: True (1f64230b1bc1862b -> 1f64230b1bc1862b)
+[held] bosch: 4.1s $0 adjudicated=False denials=0
+[held] curl: 3.9s $0 adjudicated=False denials=0
+[held] deliveroo: 3.9s $0 adjudicated=False denials=0
+[held] glossier: 4.2s $0 adjudicated=False denials=0
+[held] khanacademy: 4.3s $0 adjudicated=False denials=0
+[held] lego: 1.8s $0 adjudicated=False denials=0
+[held] linear: 4.4s $0 adjudicated=False denials=0
+[held] mistral: 4.1s $0 adjudicated=False denials=0
+[held] mit: 4.0s $0 adjudicated=False denials=0
+[held] nhs: 4.2s $0 adjudicated=False denials=0
+[held] paulgraham: 4.0s $0 adjudicated=False denials=0
+[held] pentagram: 4.2s $0 adjudicated=False denials=0
+[held] pfizer: 3.9s $0 adjudicated=False denials=0
+[held] pythondocs: 1.8s $0 adjudicated=False denials=0
+[held] tfl: 4.2s $0 adjudicated=False denials=0
+[held] theverge: 1.8s $0 adjudicated=False denials=0
+[held] vatican: 3.9s $0 adjudicated=False denials=0
+prototype tree unchanged: True (1f64230b1bc1862b -> 1f64230b1bc1862b)
+[repeat] supercell: 4.2s $0 adjudicated=False denials=0
+[repeat] fnac: 3.9s $0 adjudicated=False denials=0
+[repeat] kraken: 4.1s $0 adjudicated=False denials=0
+[repeat] mcmaster: 3.9s $0 adjudicated=False denials=0
+[repeat] zoho: 3.9s $0 adjudicated=False denials=0
+[repeat] msf: 3.8s $0 adjudicated=False denials=0
+[repeat] notion: 1.9s $0 adjudicated=False denials=0
+[repeat] duolingo: 3.9s $0 adjudicated=False denials=0
+[repeat] nhs: 3.8s $0 adjudicated=False denials=0
+[repeat] theverge: 4.3s $0 adjudicated=False denials=0
+prototype tree unchanged: True (1f64230b1bc1862b -> 1f64230b1bc1862b)
+FAIL 1 catch >=7/10: 6
+PASS 2 keep: 0 removed, <=1 reduced: [0, 0]
+PASS 3 unknowable A7 <=1 removed: 0
+FAIL 4 held-out >=80% match, 0 true removed: [0, 18, 0]
+FAIL 5 stability >=85%: [10, 29]
+PASS 6 verifier acceptance (applied/submitted): [50, 52]
+FAIL 7 runtime median<=180 max<=240: [22.6, 366.9]
+FAIL 8 schema-valid and produced: [["dev", "supercell", "no adjudicated.json"], ["dev", "thehindu", "no adjudicated.json"], ["dev", "websummit", "no adjudicated.json"], ["dev", "wework", "no adjudicated.json"], ["dev", "weworkremotely", "no adjudicated.json"], ["dev", "wikihow", "no adjudicated.json"], ["dev", "zoho", "no adjudicated.json"], ["held", "bosch", "no adjudicated.json"], ["held", "curl", "no adjudicated.json"], ["held"
+total cost USD: 17.93

@@ -1,0 +1,25 @@
+{
+ "slug": "jio",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 42.9,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 13,
+ "duration_ms": 39408,
+ "total_cost_usd": 0.26481580000000005,
+ "result": "`adjudicated.json` exists at the target path. Result: 1 verdict applied (0 claims, 0 fixes submitted since the crawl produced no pages), and 0 rejected — the sole scripted finding (A7_site_unreadable, a robots.txt ReadTimeout) was correctly cleared as an auditor-side transport failure rather than a real site defect.",
+ "permission_denials": [
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_017MJmQTh6ymy8jn89HXRKUu",
+   "tool_input": {
+    "command": "cd /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/v5-proto\nWORK=/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/jio\nls -la \"$WORK\"\npython3 skills/agent-review-audit/scripts/page_profile.py \"$WORK/bundle.json\" \"$WORK/report.json\" > \"$WORK/profile.json\"\necho \"exit: $?\"\nwc -c \"$WORK/profile.json\""
+   }
+  }
+ ],
+ "raw_stdout": null
+}

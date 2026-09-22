@@ -1,0 +1,13 @@
+{
+ "slug": "bandcamp",
+ "url": "https://bandcamp.com",
+ "category": "Music marketplace",
+ "expect": "artist pages, prices, lang",
+ "rc": 0,
+ "wall_s": 31.4,
+ "finished_at": "2026-09-12T17:09:00Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

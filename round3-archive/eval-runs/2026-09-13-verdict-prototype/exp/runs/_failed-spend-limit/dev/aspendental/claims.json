@@ -1,0 +1,60 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "C1_structured_data_invalid", "url": "https://www.aspendental.com/mottoaligners/pricing"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": [
+        "https://www.aspendental.com/mottoaligners/pricing",
+        "https://www.aspendental.com/mottoaligners/results"
+      ],
+      "explanation": "Both pages' profile entries show jsonld.malformed_blocks: 1, confirming a JSON-LD block on each page failed to parse.",
+      "evidence": [
+        {"url": "https://www.aspendental.com/mottoaligners/pricing", "type": "field", "path": "jsonld.malformed_blocks", "op": "gt", "value": 0},
+        {"url": "https://www.aspendental.com/mottoaligners/results", "type": "field", "path": "jsonld.malformed_blocks", "op": "gt", "value": 0}
+      ]
+    },
+    {
+      "finding": {"check_id": "C3_entity_unanchored", "url": "https://www.aspendental.com/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://www.aspendental.com/"],
+      "explanation": "The homepage's own JSON-LD carries no sameAs links (jsonld.sameas is empty), so the brand has nothing here that anchors it to an external profile.",
+      "evidence": [
+        {"url": "https://www.aspendental.com/", "type": "field", "path": "jsonld.sameas", "op": "empty", "value": true}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [
+    {
+      "check_id": "C1_structured_data_invalid",
+      "url": "https://www.aspendental.com/mottoaligners/pricing",
+      "quote": "MOTTO CLEAR ALIGNERS COST ONLY $2,999¹",
+      "site_specific": [
+        "Run the pricing page's application/ld+json blocks (breadcrumb and webpage schema) through a JSON validator before publishing.",
+        "Fix the syntax error so all blocks parse; a malformed block is discarded entirely and provides no benefit.",
+        "Apply the same check to /mottoaligners/results, which has the same defect."
+      ]
+    },
+    {
+      "check_id": "C3_entity_unanchored",
+      "url": "https://www.aspendental.com/",
+      "quote": "Explore dentures Denture types",
+      "site_specific": [
+        "Add Organization or LocalBusiness JSON-LD to the homepage.",
+        "Include sameAs links to Aspen Dental's official social and reference profiles so an assistant can disambiguate the brand from others sharing the name."
+      ]
+    },
+    {
+      "check_id": "C5_faq_content_unmarked",
+      "url": "https://www.aspendental.com/mottoaligners/pricing",
+      "quote": "How much do Motto clear aligners cost?",
+      "site_specific": [
+        "Wrap 'How much do Motto clear aligners cost?' and the answer paragraph beneath it in FAQPage/Question JSON-LD.",
+        "Do the same for the other 8 questions in the MOTTO PRICING FAQs section on this page.",
+        "Keep each answer self-contained so an assistant can lift the question and answer as one unit."
+      ]
+    }
+  ]
+}

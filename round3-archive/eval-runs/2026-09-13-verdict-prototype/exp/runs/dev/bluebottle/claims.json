@@ -1,0 +1,61 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "B4_empty_shell"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "These six pages return a real 200 response but the raw HTML has no body text at all, only the Next.js mount point; nothing in their content marks them as test, error or placeholder pages.",
+      "evidence": [
+        {"url": "https://bluebottlecoffee.com/us/eng/FAQ", "type": "field", "path": "words_extracted", "op": "eq", "value": 0}
+      ]
+    },
+    {
+      "finding": {"check_id": "C3_entity_unanchored"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The homepage states the brand's identity only in prose (its meta description calls it a specialty coffee roaster); no page in the crawl carries Organization/LocalBusiness JSON-LD with sameAs to anchor that identity.",
+      "evidence": [
+        {"url": "https://bluebottlecoffee.com/", "type": "field", "path": "meta.description", "op": "contains", "value": "specialty coffee roaster"},
+        {"url": "https://bluebottlecoffee.com/", "type": "field", "path": "jsonld.types", "op": "empty", "value": null}
+      ]
+    },
+    {
+      "finding": {"check_id": "C7_title_problem"},
+      "verdict": "not_a_defect",
+      "reason": "duplicate_of_finding",
+      "explanation": "The same six URLs already appear in B4_empty_shell: they return no HTML content at all, so their missing title tag is a symptom of that empty shell, not a separate defect.",
+      "evidence": [
+        {"type": "finding_exists", "check_id": "B4_empty_shell", "url": "https://bluebottlecoffee.com/us/eng/FAQ"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [
+    {
+      "check_id": "C3_entity_unanchored",
+      "url": "https://bluebottlecoffee.com/",
+      "quote": "This fall, we invite you to celebrate the art of slow living in every cup.",
+      "site_specific": [
+        "Add Organization JSON-LD to the homepage naming \"Blue Bottle Coffee\" with a sameAs array pointing at the brand's own verified social and reference profiles.",
+        "Reuse the same Organization block (or a matching Brand reference) on /us/eng/our-story so the two pages state the same identity."
+      ]
+    },
+    {
+      "check_id": "A6_sitemap_missing",
+      "url": "https://bluebottlecoffee.com/",
+      "quote": "Discover coffees, brew tools, and drinkware thoughtfully crafted to renew your daily rituals.",
+      "site_specific": [
+        "Publish an XML sitemap listing the homepage, /us/eng/subscriptions, /us/eng/our-story, /us/eng/brew-guides and the product pages, and declare it in robots.txt.",
+        "Regenerate the sitemap whenever a product or brew guide page is added or removed."
+      ]
+    },
+    {
+      "check_id": "C1_structured_data_absent",
+      "url": "https://bluebottlecoffee.com/us/eng/our-story",
+      "quote": "Our story is a reflection of our roots, our obsession with exceptional coffee, and the unique people and spaces that bring the Blue Bottle ritual to life.",
+      "site_specific": [
+        "Wrap this page's history and mission text in AboutPage or Organization JSON-LD so the story quoted here is machine-readable, not only prose."
+      ]
+    }
+  ]
+}

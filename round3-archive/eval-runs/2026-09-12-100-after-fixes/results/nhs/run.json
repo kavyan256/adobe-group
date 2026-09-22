@@ -1,0 +1,13 @@
+{
+ "slug": "nhs",
+ "url": "https://www.nhs.uk",
+ "category": "Public health service (gov)",
+ "expect": "accessible markup, dates, few problems",
+ "rc": 0,
+ "wall_s": 33.1,
+ "finished_at": "2026-09-12T17:06:02Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

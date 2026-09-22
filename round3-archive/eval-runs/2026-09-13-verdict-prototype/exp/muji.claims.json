@@ -1,0 +1,1 @@
+{"verdicts": [{"finding": {"check_id": "A7_site_unreadable"}, "verdict": "not_a_defect", "reason": "auditor_side_failure", "explanation": "robots.txt timed out at the transport level, which says nothing about the site.", "evidence": [{"type": "site_note_contains", "value": "ReadTimeout"}]}]}

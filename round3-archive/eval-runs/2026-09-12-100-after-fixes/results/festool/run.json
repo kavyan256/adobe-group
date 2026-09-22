@@ -1,0 +1,13 @@
+{
+ "slug": "festool",
+ "url": "https://www.festool.com",
+ "category": "Power-tool manufacturer",
+ "expect": "dealer locator, locale",
+ "rc": 0,
+ "wall_s": 6.2,
+ "finished_at": "2026-09-12T17:07:54Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

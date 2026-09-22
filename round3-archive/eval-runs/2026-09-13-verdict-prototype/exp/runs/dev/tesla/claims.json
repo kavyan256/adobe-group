@@ -1,0 +1,16 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A7_site_unreadable", "url": "https://www.tesla.com/"},
+      "verdict": "downgrade",
+      "reason": "access_block_unattributed",
+      "urls": ["https://www.tesla.com/"],
+      "explanation": "The crawl was stopped by a named challenge vendor (Akamai) with no page body left to read, and robots.txt itself returned 403 to the same client, so the block cannot be attributed specifically to AI retrieval agents rather than this auditor's network.",
+      "evidence": [
+        {"url": "https://www.tesla.com/", "type": "site_field", "path": "robots.status", "op": "eq", "value": 403}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": []
+}

@@ -1,0 +1,66 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A2_snippet_suppressed", "url": "https://www.framer.com/education/students"},
+      "verdict": "not_a_defect",
+      "reason": "measurement_wrong",
+      "urls": ["https://www.framer.com/education/students"],
+      "explanation": "data-nosnippet on this page wraps only decorative editor-UI mockup labels (e.g. 'Canvas', 'Dock', 'Layers'); the page's real primary content -- its h1 and its FAQ questions and answers -- carries no nosnippet attribute and is fully quotable.",
+      "evidence": [
+        {"url": "https://www.framer.com/education/students", "type": "html_contains", "value": "data-framer-name=\"Canvas\" data-nosnippet=\"true\""},
+        {"url": "https://www.framer.com/education/students", "type": "text_contains", "value": "Who qualifies for the discount?", "scope": "extracted"}
+      ]
+    },
+    {
+      "finding": {"check_id": "E1_unlabelled_input", "url": "https://www.framer.com/"},
+      "verdict": "downgrade",
+      "reason": "overstated_impact",
+      "explanation": "Most of the 12 counted fields are aria-hidden anti-spam honeypots (aria-hidden=\"true\", tabindex=\"-1\") that assistive tech never reaches, and the 'message' field already carries aria-label=\"message\". Only the visible required 'Prompt' textarea genuinely lacks a label, not 12 of 12 fields.",
+      "evidence": [
+        {"url": "https://www.framer.com/", "type": "html_contains", "value": "name=\"website\" tabindex=\"-1\" autocomplete=\"one-time-code\" aria-hidden=\"true\""},
+        {"url": "https://www.framer.com/", "type": "html_contains", "value": "aria-label=\"message\" name=\"message\""}
+      ]
+    },
+    {
+      "finding": {"check_id": "E3_unnamed_controls", "url": "https://www.framer.com/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The homepage carousel's pagination control is a real, visible button with no text, aria-label, or title -- just three unlabelled dots -- so a screen reader user cannot tell what it does.",
+      "evidence": [
+        {"url": "https://www.framer.com/", "type": "html_contains", "value": "data-framer-name=\"Pagination\" data-reset=\"button\""}
+      ]
+    },
+    {
+      "finding": {"check_id": "C1_product_markup_absent", "url": "https://www.framer.com/store/faq"},
+      "verdict": "not_a_defect",
+      "reason": "page_purpose_mismatch",
+      "urls": ["https://www.framer.com/store/faq"],
+      "explanation": "The page is the store's FAQ page (shipping, returns, sizing, payment methods), not a page for a single priced item, so it does not owe Product structured data the way a product detail page would.",
+      "evidence": [
+        {"url": "https://www.framer.com/store/faq", "type": "field", "path": "title", "op": "contains", "value": "FAQ"},
+        {"url": "https://www.framer.com/store/faq", "type": "text_contains", "value": "What is the shipping cost?", "scope": "extracted"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [
+    {
+      "check_id": "E1_unlabelled_input",
+      "url": "https://www.framer.com/",
+      "quote": "Design with an agent",
+      "site_specific": [
+        "Add aria-label=\"Describe what you want to design\" (or a visible label tied via for/id) to the required Prompt textarea in the homepage agent-input form.",
+        "Leave the anti-spam honeypot fields (website, company, subject, title, feedback, notes, details, remarks, comments) aria-hidden as they are -- they are not meant to be reachable, so they do not need labels."
+      ]
+    },
+    {
+      "check_id": "C5_faq_content_unmarked",
+      "url": "https://www.framer.com/pricing",
+      "quote": "What are credits?",
+      "site_specific": [
+        "Wrap the 11 pricing FAQ headings (starting with 'What are credits?') and each heading's following paragraph in FAQPage/Question/Answer JSON-LD.",
+        "Keep each answer self-contained in one paragraph so an assistant can lift the question and answer as a single unit."
+      ]
+    }
+  ]
+}

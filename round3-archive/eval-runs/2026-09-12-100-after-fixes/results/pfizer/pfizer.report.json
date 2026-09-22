@@ -1,0 +1,396 @@
+{
+  "site": "www.pfizer.com",
+  "audited_at": "2026-09-12T17:05:26Z",
+  "summary": {
+    "total_findings": 6,
+    "critical": 0,
+    "high": 0,
+    "medium": 2,
+    "low": 4,
+    "active_findings": 6,
+    "latent_findings": 0,
+    "confirm_intent_findings": 0,
+    "info": 0,
+    "active_by_severity": {
+      "critical": 0,
+      "high": 0,
+      "medium": 2,
+      "low": 4
+    },
+    "by_hurts": {
+      "ai_discoverability": 1,
+      "user_retention": 5,
+      "both": 0
+    },
+    "run_status": "complete",
+    "headline": "6 finding(s); most severe: Interactive controls without an accessible name on 1 page(s)"
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "title": "Interactive controls without an accessible name on 1 page(s)",
+      "severity": "medium",
+      "evidence": "https://www.pfizer.com/about: 84/541 controls expose no text, aria-label, aria-labelledby, title, SVG title or image alt. Controls whose name is bound by a JS framework (v-, x-, ng-, :, @, [) were assumed named at runtime and not counted.",
+      "suggested_action": {
+        "summary": "Give every control a name a machine can read.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Add visible text, or aria-label where the control is icon-only.",
+          "An unnamed control is unusable with a screen reader and invisible to any agent trying to understand what actions the page offers."
+        ],
+        "verify": "Every button/link resolves to a non-empty accessible name."
+      },
+      "check_id": "E3_unnamed_controls",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "template",
+      "severity_rationale": "base=medium (engagement/E3_unnamed_controls); blast=template x0.8 => medium",
+      "affected_urls": [
+        "https://www.pfizer.com/about"
+      ],
+      "affected_url_count": 1
+    },
+    {
+      "id": "F-002",
+      "title": "No Product structured data on 1 product page(s)",
+      "severity": "medium",
+      "evidence": "1/12 crawled product pages carry no Product JSON-LD, so the price, availability and identity of the item are stated only in prose, if at all. Examples: ['https://www.pfizer.com/products/how-drugs-are-made/biologics-and-biosimilars']. Structured data is read by the indexing crawlers that build the search index assistants query.",
+      "suggested_action": {
+        "summary": "Add Product JSON-LD with an Offer to each product page.",
+        "priority": "medium",
+        "effort": "medium",
+        "how": [
+          "Product -> name, description, sku, image, offers{price, priceCurrency, availability}.",
+          "Render the same price in the visible text, from the same source of truth."
+        ],
+        "verify": "A schema.org validator reports a Product with an Offer and no errors."
+      },
+      "check_id": "C1_product_markup_absent",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "interpretability",
+      "mechanism": "C",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "template",
+      "severity_rationale": "base=medium (interpretability/C1_product_markup_absent); blast=template x0.8 => medium",
+      "affected_urls": [
+        "https://www.pfizer.com/products/how-drugs-are-made/biologics-and-biosimilars"
+      ],
+      "affected_url_count": 1
+    },
+    {
+      "id": "F-003",
+      "title": "Long conversion form on 1 page(s)",
+      "severity": "low",
+      "evidence": "https://www.pfizer.com/contact: form '/antibot' has 18 visible fields, 8 required",
+      "suggested_action": {
+        "summary": "Ask for less up front on contact, demo, signup and checkout forms.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Completion drops sharply beyond about five required fields - ask only for what you need now and collect the rest later.",
+          "Split a long form into steps with a visible progress indicator, and never make the first step the long one.",
+          "Add autocomplete tokens and correct type/inputmode so mobile keyboards match."
+        ],
+        "verify": "No conversion form asks for more than five required fields, or more than eight fields in total, on its first step."
+      },
+      "check_id": "E1_form_friction",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "single_page",
+      "severity_rationale": "base=medium (engagement/E1_form_friction); blast=single_page x0.5; -> demoted to low => low",
+      "affected_urls": [
+        "https://www.pfizer.com/contact"
+      ],
+      "affected_url_count": 1
+    },
+    {
+      "id": "F-004",
+      "title": "Form field(s) without a label in a template used on 1 page(s)",
+      "severity": "low",
+      "evidence": "Form action='/about/careers' (fields: keywords, language-dropdown, workday_wrapper[category][], workday_wrapper[language_text], workday_wrapper[location][], w) appears on 1 page(s); 1 of 6 field(s) have no associated label: language-dropdown (unlabelled). Placeholder text disappears once typing starts, so a required field with nothing else naming it is easy to get wrong.",
+      "suggested_action": {
+        "summary": "Label every form field programmatically.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Associate every input with a <label for=\"id\">, or an aria-label where there is no room for visible text.",
+          "Keep the placeholder as an example value, not as the only name.",
+          "Add autocomplete tokens and the right type/inputmode so mobile keyboards match."
+        ],
+        "verify": "Every input, select and textarea resolves to a non-empty accessible name without relying on its placeholder."
+      },
+      "check_id": "E1_unlabelled_input",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "single_page",
+      "severity_rationale": "base=medium (engagement/E1_unlabelled_input); blast=single_page x0.5; -> demoted to low => low",
+      "affected_urls": [
+        "https://www.pfizer.com/about/careers"
+      ],
+      "affected_url_count": 1
+    },
+    {
+      "id": "F-005",
+      "title": "Form field(s) without a label in a template used on 1 page(s)",
+      "severity": "low",
+      "evidence": "Form action='/about/programs-policies/grants/quality-improvement/funded-initiatives' (fields: field_funded_initiative_area_value, field_funded_initiative_end_value, field_funded_initiative_end_value_1, field_funded) appears on 1 page(s); 2 of 9 field(s) have no associated label: field_funded_initiative_area_value (unlabelled), field_funded_initiative_status_value (unlabelled). Placeholder text disappears once typing starts, so a required field with nothing else naming it is easy to get wrong.",
+      "suggested_action": {
+        "summary": "Label every form field programmatically.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Associate every input with a <label for=\"id\">, or an aria-label where there is no room for visible text.",
+          "Keep the placeholder as an example value, not as the only name.",
+          "Add autocomplete tokens and the right type/inputmode so mobile keyboards match."
+        ],
+        "verify": "Every input, select and textarea resolves to a non-empty accessible name without relying on its placeholder."
+      },
+      "check_id": "E1_unlabelled_input",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "single_page",
+      "severity_rationale": "base=medium (engagement/E1_unlabelled_input); blast=single_page x0.5; -> demoted to low => low",
+      "affected_urls": [
+        "https://www.pfizer.com/about/programs-policies/grants/quality-improvement/funded-initiatives"
+      ],
+      "affected_url_count": 1
+    },
+    {
+      "id": "F-006",
+      "title": "Form field(s) without a label in a template used on 1 page(s)",
+      "severity": "low",
+      "evidence": "Form action='/contact' (fields: map_entries_86cdbe43-6d77-4703-ae6d-de3647bca5f3) appears on 1 page(s); 1 of 1 field(s) have no associated label: map_entries_86cdbe43-6d77-4703-ae6d-de3647bca5f3 (unlabelled). Placeholder text disappears once typing starts, so a required field with nothing else naming it is easy to get wrong.",
+      "suggested_action": {
+        "summary": "Label every form field programmatically.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Associate every input with a <label for=\"id\">, or an aria-label where there is no room for visible text.",
+          "Keep the placeholder as an example value, not as the only name.",
+          "Add autocomplete tokens and the right type/inputmode so mobile keyboards match."
+        ],
+        "verify": "Every input, select and textarea resolves to a non-empty accessible name without relying on its placeholder."
+      },
+      "check_id": "E1_unlabelled_input",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "single_page",
+      "severity_rationale": "base=medium (engagement/E1_unlabelled_input); blast=single_page x0.5; -> demoted to low => low",
+      "affected_urls": [
+        "https://www.pfizer.com/contact"
+      ],
+      "affected_url_count": 1
+    }
+  ],
+  "site_profile": {
+    "start_url": "https://www.pfizer.com/",
+    "pages_crawled": 12,
+    "roles_seen": [
+      "about",
+      "blog",
+      "contact",
+      "home",
+      "product"
+    ],
+    "robots_present": true,
+    "ai_policy": {
+      "retrieval_agents_blocked": [],
+      "training_agents_blocked": [],
+      "interpretation": "Blocking training agents is a licensing choice and does not affect whether assistants can cite you. Only retrieval agents gate citation."
+    },
+    "user_agent_used": "AIReadinessAudit/1.0 (+https://github.com/kavyan256/adobe-group)"
+  },
+  "coverage": {
+    "elapsed_s": 14.9,
+    "pages_attempted": 13,
+    "pages_blocked_by_robots_for_our_ua": 1,
+    "pages_fetched": 12,
+    "pages_ok": 12,
+    "urls_discovered": 260
+  },
+  "checks_skipped": [
+    {
+      "check": "D6_cross_web_corroboration",
+      "reason": "Not assessed: whether independent third parties agree with this site's claims. Reason: that needs a search backend, which this marketplace does not assume. How to check it yourself: search your brand plus a key fact (price, founding year, HQ) and count independent sources that agree.",
+      "impact": "Claims that exist only on this site are not distinguished from claims corroborated across the web. The on-site corroboration checks still ran."
+    },
+    {
+      "check": "E_authenticated_flows",
+      "reason": "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account.",
+      "impact": "How to check it yourself: walk the signup, checkout or booking flow on a phone with a test account and count the required steps and fields."
+    },
+    {
+      "check": "E_behaviour_metrics",
+      "reason": "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion rate). Reason: they are observed, not inferred from markup, and a short visit from an AI answer is often a success - the visitor came to verify one fact and did.",
+      "impact": "How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate, not their bounce rate, with search traffic."
+    },
+    {
+      "check": "E_colour_contrast",
+      "reason": "Not assessed: colour contrast (WCAG 1.4.3). Reason: contrast ratios need computed styles, which need a browser; this marketplace runs without one to stay portable and deterministic.",
+      "impact": "How to check it yourself: run axe DevTools or Lighthouse on the top 3 page templates and read the contrast section."
+    },
+    {
+      "check": "E_copy_quality",
+      "reason": "Not assessed: copy quality, persuasion and jargon. Reason: subjective; no static threshold separates plain language from marketing copy across industries and languages without a high false-positive rate.",
+      "impact": "How to check it yourself: read the first paragraph of the homepage and one product page aloud to someone outside the company and ask what the site offers and for whom."
+    },
+    {
+      "check": "E_core_web_vitals",
+      "reason": "Not assessed: Core Web Vitals (LCP, CLS, INP). Reason: these are field metrics at the 75th percentile; a single synthetic fetch is not a measurement and INP cannot be measured synthetically at all.",
+      "impact": "How to check it yourself: open Google Search Console's Core Web Vitals report, which uses real-user data, or run Lighthouse for lab LCP/CLS."
+    },
+    {
+      "check": "E_rendered_experience",
+      "reason": "Not assessed: the rendered experience (overlay and cookie-banner timing, tap target size, focus visibility, layout at phone width). Reason: all of it depends on CSS and JavaScript executing, which needs a browser.",
+      "impact": "How to check it yourself: run Lighthouse and axe on the top 3 templates at phone width, then tab through each page once to confirm focus is visible."
+    }
+  ],
+  "agent_review": {
+    "status": "not_run"
+  },
+  "prioritized_actions": [
+    {
+      "rank": 1,
+      "finding_id": "F-001",
+      "title": "Interactive controls without an accessible name on 1 page(s)",
+      "priority_score": 2.1,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Give every control a name a machine can read."
+    },
+    {
+      "rank": 2,
+      "finding_id": "F-002",
+      "title": "No Product structured data on 1 product page(s)",
+      "priority_score": 1.875,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "medium",
+      "action": "Add Product JSON-LD with an Offer to each product page."
+    },
+    {
+      "rank": 3,
+      "finding_id": "F-003",
+      "title": "Long conversion form on 1 page(s)",
+      "priority_score": 1.4,
+      "severity": "low",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Ask for less up front on contact, demo, signup and checkout forms."
+    },
+    {
+      "rank": 4,
+      "finding_id": "F-004",
+      "title": "Form field(s) without a label in a template used on 1 page(s)",
+      "priority_score": 1.4,
+      "severity": "low",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Label every form field programmatically."
+    },
+    {
+      "rank": 5,
+      "finding_id": "F-005",
+      "title": "Form field(s) without a label in a template used on 1 page(s)",
+      "priority_score": 1.4,
+      "severity": "low",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Label every form field programmatically."
+    },
+    {
+      "rank": 6,
+      "finding_id": "F-006",
+      "title": "Form field(s) without a label in a template used on 1 page(s)",
+      "priority_score": 1.4,
+      "severity": "low",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Label every form field programmatically."
+    }
+  ],
+  "proactive_recommendations": [
+    {
+      "title": "Publish an llms.txt describing your site for AI clients",
+      "rationale": "An emerging convention: a short, stable, plain-text map of what your site covers and where the authoritative pages are. Cheap to add, and it gives retrieval agents an unambiguous starting point.",
+      "effort": "low",
+      "applies_because": "GET /llms.txt did not return a plain-text document"
+    },
+    {
+      "title": "Decide your AI-crawler policy deliberately, and write it down",
+      "rationale": "Training access and retrieval access are separate decisions. Blocking training crawlers while explicitly allowing retrieval agents is a coherent, defensible position - but it has to be configured on purpose, per user-agent.",
+      "effort": "low",
+      "applies_because": "robots.txt names no AI retrieval or training agent, so the current policy is whatever the wildcard group happens to say"
+    },
+    {
+      "title": "Server-render your most-quoted facts even inside a SPA",
+      "rationale": "You do not have to abandon client-side rendering. Server-render the handful of facts you most want cited - price, what you do, how to contact you - and let the rest hydrate.",
+      "effort": "high",
+      "applies_because": "the site ships a client-side hydration payload; its key facts currently extract fine, so this is about keeping it that way as the app grows"
+    }
+  ],
+  "already_in_place": [
+    {
+      "title": "Add a machine-readable FAQ layer shaped for quotation",
+      "because": "FAQPage JSON-LD found on at least one crawled page"
+    },
+    {
+      "title": "Publish a stable, citable facts page",
+      "because": "Organization sameAs links are already published"
+    },
+    {
+      "title": "Answer the question visitors arrive with on the first screen",
+      "because": "the homepage's first 60 words already name the site or state a concrete figure"
+    },
+    {
+      "title": "Every deep page links to its parent section and a contact route",
+      "because": "every substantial deep page already links onward from its content"
+    }
+  ],
+  "limits": [
+    "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion). Reason: a crawl sees markup, never visitors; engagement findings are structural risk factors, capped at medium for that reason. How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate with search traffic.",
+    "Not assessed: the rendered experience (layout, overlays and cookie banners, colour contrast, Core Web Vitals) and facts loaded by client-side requests after page load. Reason: no JavaScript is executed and no browser is used - which is also what non-rendering AI retrieval agents see; a fact fetched only by XHR can be a false negative here. How to check it yourself: run Lighthouse and axe on the top three templates, and open a key page with JavaScript disabled to see what a bot gets.",
+    "Not assessed: copy quality - whether the words persuade, or answer the visitor's question well. Reason: subjective, with no static threshold that holds across industries and languages; the scripted checks measure only structure and vocabulary overlap. How to check it yourself: read the first paragraph of the homepage and one product page to someone outside the company and ask what the site offers and for whom.",
+    "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account. How to check it yourself: walk the signup, checkout or booking flow with a test account and count the required steps and fields.",
+    "Not assessed: personalization of AI answers (appendix E). Reason: it happens inside the assistant, from the user's own context, and no site-side measurement exists; the site-side lever - self-contained, quotable facts - is what the extraction and quotability checks cover. How to check it yourself: ask an assistant the same question about your brand in a fresh session and in a long-running one, and compare.",
+    "Not assessed: cross-web corroboration - whether independent sources agree with the site's facts. Reason: it needs a search backend and off-site fetches, which this audit does not make; only on-site corroboration hooks (sameAs, press links) are checked. How to check it yourself: search Wikipedia, Wikidata, Crunchbase and the press for your founding date, HQ, leadership and pricing, and reconcile differences.",
+    "Not assessed: problems outside the scripted checks, unless an agent review ran (see agent_review). Reason: a fixed list of checks misses what it does not list. How to check it yourself: follow agent-review-audit/SKILL.md; every claim it admits was checked against the crawl and is capped at low severity."
+  ],
+  "notes": []
+}

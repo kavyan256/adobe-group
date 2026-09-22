@@ -1,0 +1,633 @@
+<meta charset="utf-8">
+<title>AI-Readiness Audit — Architecture v2</title>
+<style>
+@page { size: A4; margin: 16mm 15mm 18mm 15mm; }
+
+:root{
+  --ink:#15202b; --ink2:#3d4c5a; --mut:#6b7a89;
+  --acc:#0b4f6c; --acc2:#1b7a9e; --line:#d7dee5;
+  --fatal:#9b1c1c; --major:#b45309; --minor:#4b5563;
+  --ok:#0f6b45; --bg-soft:#f6f8fa;
+}
+*{box-sizing:border-box}
+body{
+  font:10.5pt/1.55 "Charter","Bitstream Charter",Georgia,serif;
+  color:var(--ink); margin:0;
+}
+h1,h2,h3,h4{font-family:"Inter","Helvetica Neue",Arial,sans-serif;line-height:1.25;color:var(--acc)}
+h1{font-size:23pt;margin:0 0 4pt;letter-spacing:-.4pt}
+h2{font-size:14pt;margin:20pt 0 7pt;padding-bottom:3pt;border-bottom:1.5px solid var(--acc);
+   page-break-after:avoid}
+h3{font-size:11.5pt;margin:14pt 0 5pt;color:var(--acc2);page-break-after:avoid}
+h4{font-size:10pt;margin:10pt 0 3pt;color:var(--ink2);page-break-after:avoid}
+p{margin:0 0 7pt;text-align:justify;hyphens:auto}
+ul,ol{margin:0 0 8pt;padding-left:16pt}
+li{margin:0 0 3pt}
+code{font-family:"JetBrains Mono","DejaVu Sans Mono",monospace;font-size:8.6pt;
+     background:#eef2f5;padding:.5pt 3pt;border-radius:2px;color:#0a3d52}
+a{color:var(--acc2);text-decoration:none}
+small{font-size:8.6pt;color:var(--mut)}
+
+.doc-head{border-bottom:3px solid var(--acc);padding-bottom:9pt;margin-bottom:14pt}
+.sub{font-family:"Inter",Arial,sans-serif;font-size:11pt;color:var(--ink2);margin:2pt 0 0}
+.meta{font-family:"Inter",Arial,sans-serif;font-size:8.5pt;color:var(--mut);margin-top:6pt}
+
+table{width:100%;border-collapse:collapse;margin:7pt 0 11pt;font-size:9pt;
+      page-break-inside:avoid}
+th{background:var(--acc);color:#fff;text-align:left;padding:4.5pt 6pt;
+   font-family:"Inter",Arial,sans-serif;font-size:8.4pt;font-weight:600;
+   text-transform:uppercase;letter-spacing:.3pt}
+td{padding:4.5pt 6pt;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:var(--bg-soft)}
+table.tight td,table.tight th{padding:3.2pt 5pt;font-size:8.5pt}
+
+.tag{font-family:"Inter",Arial,sans-serif;font-size:7.2pt;font-weight:700;
+     padding:1pt 4pt;border-radius:2px;color:#fff;letter-spacing:.3pt;
+     white-space:nowrap;vertical-align:1pt}
+.t-fatal{background:var(--fatal)} .t-major{background:var(--major)}
+.t-minor{background:var(--minor)} .t-ok{background:var(--ok)}
+.t-new{background:var(--acc2)}
+
+.box{border-left:3px solid var(--acc2);background:var(--bg-soft);
+     padding:7pt 10pt;margin:9pt 0;page-break-inside:avoid}
+.box.warn{border-left-color:var(--fatal);background:#fdf4f4}
+.box.good{border-left-color:var(--ok);background:#f2f9f6}
+.box h4{margin-top:0}
+.box p:last-child{margin-bottom:0}
+
+.kicker{font-family:"Inter",Arial,sans-serif;font-size:7.8pt;font-weight:700;
+        text-transform:uppercase;letter-spacing:.6pt;color:var(--mut);margin-bottom:3pt}
+
+pre{background:#0f2733;color:#dde8ee;padding:8pt 10pt;border-radius:3px;
+    font-family:"JetBrains Mono","DejaVu Sans Mono",monospace;font-size:8pt;
+    line-height:1.45;overflow-x:auto;margin:7pt 0;page-break-inside:avoid}
+pre code{background:none;color:inherit;padding:0;font-size:8pt}
+.pre-light{background:#eef2f5;color:#12303d;border:1px solid var(--line)}
+
+.pipe{width:100%;margin:10pt 0 12pt;page-break-inside:avoid}
+.quote{font-style:italic;color:var(--ink2);border-left:2px solid var(--line);
+       padding-left:9pt;margin:7pt 0}
+.pb{page-break-before:always}
+.nb{page-break-inside:avoid}
+.two{column-count:2;column-gap:14pt}
+.two li{break-inside:avoid}
+.foot{margin-top:16pt;padding-top:6pt;border-top:1px solid var(--line);
+      font-family:"Inter",Arial,sans-serif;font-size:8pt;color:var(--mut)}
+.chk{font-family:"Inter",Arial,sans-serif;font-size:8.2pt}
+ul.tickless{list-style:none;padding-left:0}
+ul.tickless li{padding-left:13pt;text-indent:-13pt}
+</style>
+
+<div class="doc-head">
+  <div class="kicker">Adobe University Hackathon 2026 · Round 3 · Architecture Decision Record</div>
+  <h1>Brand AI-Readiness Audit</h1>
+  <p class="sub">Architecture v2 — revised after adversarial council review</p>
+  <p class="meta">Status: <strong>proposed, ready to build</strong> · Supersedes v1 · 2026-09-01 · 9 days to submission (2026-09-10)</p>
+</div>
+
+<h2>1. Executive summary</h2>
+
+<p>Architecture v1 was submitted to a five-member adversarial council — web-standards, systems
+engineering, detection science, an adversarial grader, and engagement measurement — in two rounds:
+independent attack, then convergence on the conflicts between them. The review found
+<strong>five fatal flaws</strong>, one of which would have made the submission unshippable, and one
+of which was a factual error that would have caused the flagship check to fire false positives on
+exactly the sophisticated sites a judge is most likely to spot-check.</p>
+
+<p>The resulting design is materially different from v1 and, on the grader's re-score, materially
+better. The headline changes:</p>
+
+<table>
+  <thead><tr><th style="width:23%">Area</th><th style="width:38%">v1</th><th>v2</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Rendering</strong></td>
+        <td>Playwright headless browser, load-bearing</td>
+        <td><strong>Zero browser.</strong> Pure HTTP + parse. Chrome is an optional confidence upgrade that may never create a finding</td></tr>
+    <tr><td><strong>Flagship check</strong></td>
+        <td>Raw HTML vs rendered DOM diff</td>
+        <td><strong>Extraction-difficulty tiering</strong> — is the fact in extractable <em>text</em>, or only in a script blob?</td></tr>
+    <tr><td><strong>AI-bot check</strong></td>
+        <td>Flat list of 8 tokens → "you are invisible"</td>
+        <td><strong>Retrieval vs training taxonomy.</strong> Only retrieval-gating agents produce findings</td></tr>
+    <tr><td><strong>Severity</strong></td>
+        <td>Derived by formula <code>f(gate, blast, conf)</code></td>
+        <td><strong>Explicit auditable table</strong> + printed <code>severity_rationale</code></td></tr>
+    <tr><td><strong>Code layout</strong></td>
+        <td>Shared <code>lib/</code> at marketplace root</td>
+        <td><strong>All code in entrypoint.</strong> Sub-skills are code-free knowledge skills</td></tr>
+    <tr><td><strong>Blocked findings</strong></td>
+        <td>Suppressed as moot</td>
+        <td><strong><code>status: latent</code></strong> + <code>blocked_by</code> naming which agents</td></tr>
+    <tr><td><strong>Engagement</strong></td>
+        <td>~20 heuristics incl. CWV, above-fold, CTA verbs</td>
+        <td><strong>~10 statically-evidenced checks</strong>, capped at medium severity</td></tr>
+    <tr><td><strong>Determinism</strong></td>
+        <td>Asserted absolutely</td>
+        <td><strong>Qualified and made true</strong> — quantized, stable-sorted, <code>--replay</code> over fixtures</td></tr>
+  </tbody>
+</table>
+
+<div class="box good">
+<h4>Grader re-score after applying all changes</h4>
+<table class="tight" style="margin:4pt 0 0">
+<thead><tr><th>Criterion</th><th style="width:9%">v1</th><th style="width:9%">v2</th><th>Remaining ceiling</th></tr></thead>
+<tbody>
+<tr><td>1 · Detection accuracy</td><td>6</td><td><strong>7</strong></td><td>Static-only caps it; no outcome labels</td></tr>
+<tr><td>2 · Suggested-action quality</td><td>5</td><td><strong>7</strong></td><td>Only if both differentiating extras ship</td></tr>
+<tr><td>3 · Output design</td><td>7</td><td><strong>8</strong></td><td><code>latent</code>/<code>coverage</code>/<code>measurement_basis</code> earn it</td></tr>
+<tr><td>4 · Skill-format &amp; hygiene</td><td>4</td><td><strong>8</strong></td><td>Biggest mover</td></tr>
+<tr><td>5 · Marketplace composition</td><td>4</td><td><strong>7</strong></td><td>Each sub-skill needs a standalone use case</td></tr>
+<tr><td>6 · Generalization</td><td>5</td><td><strong>6.5</strong></td><td>Weakest; counterexample hunt is the only lever</td></tr>
+</tbody></table>
+</div>
+
+<h2>2. The five fatal findings</h2>
+
+<h3>2.1 <span class="tag t-fatal">FATAL</span> The browser cannot ship</h3>
+<p>Measured on the target machine: Playwright's Chromium is <strong>379&nbsp;MB</strong>; the headless
+shell alone is <strong>273&nbsp;MB</strong>. The submission cap is <strong>50&nbsp;MB</strong>.
+Chromium ships as already-compressed binaries, so zip recovers perhaps 40% — a floor of roughly
+120–160&nbsp;MB. It does not fit. The only escape, <code>playwright install</code> at run time, is a
+~150&nbsp;MB CDN download, which violates the "self-contained, no external service required"
+constraint and fails outright on an offline or proxied grader machine.</p>
+<p><strong>Resolution:</strong> the static HTTP + parse pipeline <em>is</em> the product. It covers
+Gate 1 completely, Gate 3 completely, freshness completely, and most of engagement. A browser, if
+detected, may only stamp <code>render_confirmed: true</code> and raise confidence on a finding the
+static layer already fired. It may never create, delete, or re-severity one — so the graded output is
+byte-identical with or without it.</p>
+
+<h3>2.2 <span class="tag t-fatal">FATAL</span> The AI-bot list conflated training opt-out with retrieval blocking</h3>
+<p>Six of the eight user-agent tokens in v1 — <code>GPTBot</code>, <code>ClaudeBot</code>,
+<code>CCBot</code>, <code>Google-Extended</code>, <code>Applebot-Extended</code>,
+<code>Bytespider</code> — control <strong>training and corpus use only</strong> and have no effect on
+whether an assistant can cite a page. Google documents that blocking <code>Google-Extended</code>
+does not affect Search, and AI Overviews are served from the Googlebot index. <code>CCBot</code> is
+Common Crawl: a corpus, not live retrieval.</p>
+<p>As written, v1 would fire a high-severity "you are invisible to AI" finding against a publisher
+who made the correct, deliberate choice to block training while permitting retrieval — a textbook
+rubric-1 false positive on the check v1 called its differentiator.</p>
+
+<table class="tight">
+<thead><tr><th style="width:30%">Class</th><th style="width:42%">Agents</th><th>Treatment</th></tr></thead>
+<tbody>
+<tr><td><strong>Retrieval-blocking</strong></td>
+    <td><code>OAI-SearchBot</code>, <code>ChatGPT-User</code>, <code>Claude-SearchBot</code>, <code>Claude-User</code>, <code>PerplexityBot</code>, <code>Perplexity-User</code>, <code>Applebot</code>, <code>Googlebot</code>, <code>Bingbot</code></td>
+    <td><strong>Finding.</strong> This is what gates citation</td></tr>
+<tr><td><strong>Training-only</strong></td>
+    <td><code>GPTBot</code>, <code>ClaudeBot</code>, <code>CCBot</code>, <code>Google-Extended</code>, <code>Applebot-Extended</code>, <code>Bytespider</code></td>
+    <td><strong>No severity.</strong> Neutral <code>site_profile.ai_policy</code> observation with the tradeoff stated</td></tr>
+<tr><td><strong>Hybrid / ambiguous</strong></td>
+    <td><code>meta-externalagent</code>, undocumented agents</td>
+    <td>Observation, flagged as uncertain</td></tr>
+</tbody></table>
+
+<h3>2.3 <span class="tag t-fatal">FATAL</span> SKILL.md is the graded artifact and was treated as packaging</h3>
+<p>The spec states that evaluation targets "the skills' instructions, checks, logic and composition"
+and that no individual report is graded. Architecture v1 contained roughly 1,800 words on detection
+logic and JSON schema and <strong>zero words</strong> on what any SKILL.md would say. Combined with
+v1's own rule that all detection lives in deterministic scripts, the honest output was five SKILL.md
+files reading <em>"run <code>scripts/audit.py $URL</code>, emit the JSON."</em> That is a wrapper, not
+a skill.</p>
+<p><strong>Resolution:</strong> the SKILL.md bodies carry the reasoning — the gate model, the
+archetype decision table, the severity derivation, the named false-positive exclusions, the partial-
+result protocol — and <code>scripts/</code> becomes the deterministic executor of exactly those
+written rules. Writing time is budgeted equal to build time, and moved off the last day.</p>
+
+<h3>2.4 <span class="tag t-fatal">FATAL</span> The survey measured prevalence and was sold as validity</h3>
+<p>A survey of unlabelled sites yields the marginal distribution of site properties and no outcome
+variable. "78% of sites lack <code>Product.offers.price</code>" licenses exactly one inference —
+<em>this is common</em> — and none about detection accuracy. Worse, percentile thresholding is
+circular: a threshold at the 20th percentile flags 20% of sites <strong>by construction</strong>,
+regardless of whether any has a real problem. If a defect is near-universal it becomes invisible; if
+a good practice is rare, healthy sites get flagged.</p>
+<p><strong>Resolution:</strong> the corpus is retained but renamed and re-scoped. It is a
+<strong>robustness corpus</strong> — a crash-test harness, false-positive triage set, and fixture
+source for <code>--replay</code>. <em>No threshold may be set at a percentile.</em> Every threshold
+in the codebase carries a comment naming its mechanism, not its distribution.</p>
+
+<h3>2.5 <span class="tag t-fatal">FATAL</span> Engagement checks were a false-positive generator</h3>
+<p>Consent banners are legally mandated under ePrivacy/GDPR, so flagging their presence is a false
+positive on essentially every EU-facing site. Above-fold word count fires on Apple and Stripe.
+English action-verb lists fail on every non-English site, and the archetype detector did not detect
+language. A single headless run is not a Core Web Vitals measurement — Google ranks on field data at
+the 75th percentile, and <strong>INP, which replaced FID in 2024, cannot be measured synthetically
+at all</strong>.</p>
+<p>Underneath sat a framing error: <strong>bounce is the wrong target</strong>. GA4 deprecated it in
+favour of engagement rate precisely because a single-page visit that answered the question is a
+success. For AI-sourced traffic this matters more, not less — the assistant has already summarised
+the answer, so the residual click is usually <em>verification</em>, and a 15-second exit is a win.</p>
+
+<h2 class="pb">3. Core model</h2>
+
+<p>The three stated problems — invisibility, disengagement, staleness — are not parallel. Appendix A
+describes an ordered, blocking pipeline; two further concerns hang off its end.</p>
+
+<svg class="pipe" viewBox="0 0 720 208" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Arial,sans-serif">
+  <defs><marker id="ar" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto">
+    <path d="M0,0 L8,3 L0,6 Z" fill="#0b4f6c"/></marker></defs>
+
+  <rect x="4" y="16" width="150" height="52" rx="4" fill="#0b4f6c"/>
+  <text x="79" y="37" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">GATE 1</text>
+  <text x="79" y="52" text-anchor="middle" fill="#cfe3ec" font-size="9.5">Access</text>
+  <text x="79" y="63" text-anchor="middle" fill="#9dc4d5" font-size="8">let in?</text>
+
+  <rect x="186" y="16" width="150" height="52" rx="4" fill="#136b8c"/>
+  <text x="261" y="37" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">GATE 2</text>
+  <text x="261" y="52" text-anchor="middle" fill="#d3ecf5" font-size="9.5">Extractability</text>
+  <text x="261" y="63" text-anchor="middle" fill="#a5d2e2" font-size="8">fact in the text?</text>
+
+  <rect x="368" y="16" width="150" height="52" rx="4" fill="#1b7a9e"/>
+  <text x="443" y="37" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">GATE 3</text>
+  <text x="443" y="52" text-anchor="middle" fill="#d9f0f8" font-size="9.5">Interpretability</text>
+  <text x="443" y="63" text-anchor="middle" fill="#aadaea" font-size="8">typed &amp; unambiguous?</text>
+
+  <line x1="156" y1="42" x2="182" y2="42" stroke="#0b4f6c" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="338" y1="42" x2="364" y2="42" stroke="#0b4f6c" stroke-width="2" marker-end="url(#ar)"/>
+
+  <text x="540" y="34" fill="#9b1c1c" font-size="9" font-weight="700">invisible</text>
+  <text x="540" y="47" fill="#6b7a89" font-size="8">gates 1–2</text>
+  <text x="540" y="62" fill="#b45309" font-size="9" font-weight="700">misrepresented</text>
+  <text x="540" y="75" fill="#6b7a89" font-size="8">gate 3</text>
+
+  <line x1="443" y1="72" x2="443" y2="96" stroke="#0b4f6c" stroke-width="1.6"/>
+  <line x1="150" y1="96" x2="600" y2="96" stroke="#0b4f6c" stroke-width="1.6"/>
+  <line x1="150" y1="96" x2="150" y2="118" stroke="#0b4f6c" stroke-width="1.6" marker-end="url(#ar)"/>
+  <line x1="600" y1="96" x2="600" y2="118" stroke="#0b4f6c" stroke-width="1.6" marker-end="url(#ar)"/>
+
+  <rect x="46" y="124" width="208" height="46" rx="4" fill="#f6f8fa" stroke="#0b4f6c" stroke-width="1.2"/>
+  <text x="150" y="143" text-anchor="middle" fill="#15202b" font-size="10" font-weight="700">Trust &amp; Freshness</text>
+  <text x="150" y="158" text-anchor="middle" fill="#6b7a89" font-size="8">found, but the wrong thing is repeated</text>
+
+  <rect x="496" y="124" width="208" height="46" rx="4" fill="#f6f8fa" stroke="#0b4f6c" stroke-width="1.2"/>
+  <text x="600" y="143" text-anchor="middle" fill="#15202b" font-size="10" font-weight="700">Engagement</text>
+  <text x="600" y="158" text-anchor="middle" fill="#6b7a89" font-size="8">arrived to verify, could not</text>
+
+  <text x="4" y="192" fill="#6b7a89" font-size="8.5">Gates are ordered and blocking: a failure at gate <tspan font-weight="700">n</tspan> makes findings at gate <tspan font-weight="700">n+1</tspan> unobservable — reported as <tspan font-style="italic">latent</tspan>, never suppressed.</text>
+</svg>
+
+<h3>3.1 The flagship check — extraction-difficulty tiering</h3>
+
+<p>Four of five council members independently named fact-level analysis the strongest idea in v1.
+But it was specified as a raw-versus-rendered diff, which requires the browser that cannot ship. The
+convergence round resolved this by observing that <strong>the rendered DOM was never the
+measurement — it was only a fact source</strong>. Removing it does not degrade the check; correctly
+restated, it sharpens it.</p>
+
+<div class="box">
+<p style="margin:0"><strong>The mechanism, precisely.</strong> Assistant fetchers run a two-stage
+pipeline: raw bytes, then a boilerplate-stripping extractor of the Readability/Trafilatura class that
+converts HTML to text before the model sees anything. That stage discards <code>&lt;script&gt;</code>,
+<code>&lt;style&gt;</code>, nav and footer <em>by construction</em>. Hydration payloads are therefore
+present in the <strong>bytes</strong> and absent from the <strong>text</strong>. Present-in-bytes is
+not present-to-the-assistant.</p>
+</div>
+
+<p>So the defect is not "the HTML is an empty shell." It is: <strong>the fact does not survive
+bot-grade text extraction of the raw response.</strong> That is testable with one HTTP GET, roughly
+200&nbsp;ms per page, zero binaries, and no nondeterminism — both sides of the comparison come from
+the same response.</p>
+
+<table>
+<thead><tr><th style="width:8%">Tier</th><th style="width:44%">Where the fact lives</th><th style="width:16%">Verdict</th><th>Rationale</th></tr></thead>
+<tbody>
+<tr><td><strong>T0</strong></td><td>Visible prose or a heading</td><td><span class="tag t-ok">PASS</span></td><td>Directly quotable</td></tr>
+<tr><td><strong>T1</strong></td><td>JSON-LD / microdata / RDFa</td><td><span class="tag t-ok">PASS</span></td><td>Machine-readable by design</td></tr>
+<tr><td><strong>T2</strong></td><td>Only inside a minified hydration blob</td><td><span class="tag t-major">MEDIUM</span></td><td>Technically in the bytes, but no assistant reliably parses escape-chunked <code>self.__next_f</code>; Appendix F says filler-surrounded content is dropped</td></tr>
+<tr><td><strong>T3</strong></td><td>Absent from the raw bytes entirely</td><td><span class="tag t-fatal">HIGH</span></td><td>Genuinely invisible to every non-rendering fetcher</td></tr>
+</tbody></table>
+
+<p>The T2 tier is the honest core of the design. A naive competitor shipping "SPA therefore
+invisible" will false-positive across the entire Next.js and Nuxt web. Explicitly parsing the payload
+islands <em>before</em> firing is a precision advantage worth naming in the README — and where a
+fact <em>is</em> found only in <code>__NEXT_DATA__</code>, that is the single strongest evidence the
+design can produce.</p>
+
+<pre><code>Evidence: "$49/mo" occurs only in __NEXT_DATA__ (byte offset 41,208)
+          and og:price:amount; absent from all extracted text nodes.
+          GET https://example.com/pricing  (no JS, UA: AIReadinessAudit/1.0)
+          Reproduce: curl -s https://example.com/pricing | grep -c '\$49'</code></pre>
+
+<h4>Where expected facts come from — and why it is not circular</h4>
+<p>Sourcing expectations only from structured data would make the check strongest on the sites that
+need it least. Two independent sources are combined:</p>
+<ol>
+<li><strong>Declared literals</strong> — values the site asserts in JSON-LD/microdata/RDFa, OG and
+Twitter meta, <code>&lt;title&gt;</code>, sitemap and feed entries, <code>&lt;noscript&gt;</code>, and
+parsed payload islands (<code>__NEXT_DATA__</code>, <code>self.__next_f</code>, <code>__NUXT__</code>,
+<code>__APOLLO_STATE__</code>, <code>window.__INITIAL_STATE__</code>, any
+<code>&lt;script type="application/json"&gt;</code>). Test: does the literal also reach T0?
+<em>Catches: the fact exists in bytes but not text.</em></li>
+<li><strong>Role obligations</strong> — derived from surfaces <em>not under test</em>: the URL slug
+we crawled, the <code>&lt;title&gt;</code>, and the inbound internal anchor text that led us there. A
+page asserting "Pricing" is a commitment to contain a currency-and-numeral token; "Contact" to a
+contact method; a product page to a name and price.
+<em>Catches: the fact does not exist at all.</em></li>
+</ol>
+<p>Where neither applies — a pure client-side shell with no nav, title or payload — empty-shell
+detection covers the gap, narrowly scoped to <code>&lt;body&gt;</code> containing a single mount
+element with under 30 words of text. Near-zero false-positive rate, and complementary rather than
+redundant.</p>
+
+<div class="box warn">
+<h4>Declared limits</h4>
+<p>Facts fetched by XHR <em>after</em> load with no payload island are invisible to this method — a
+real false negative, covering pure CSR SPAs, third-party price widgets and app-injected blocks. Also
+lost: all layout geometry, CSS-hidden versus visible distinction, and anything requiring computed
+styles. These are declared in <code>checks_skipped[]</code> and <code>coverage</code>, never papered
+over. Same-origin API endpoints referenced in the HTML are listed so a human can check them.</p>
+</div>
+
+<h2 class="pb">4. Check inventory</h2>
+
+<h3>4.1 Gate 1 — Access &amp; retrieval policy</h3>
+<table class="tight">
+<thead><tr><th style="width:7%">ID</th><th style="width:30%">Check</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>A1</td><td>Per-agent robots.txt taxonomy</td><td>Retrieval / training / hybrid. Only retrieval yields a finding. Vendor <code>protego</code> — stdlib <code>urllib.robotparser</code> is <strong>not</strong> RFC 9309-conformant on wildcards and Allow-precedence</td></tr>
+<tr><td>A2</td><td>Snippet-preview controls <span class="tag t-new">NEW</span></td><td><code>nosnippet</code>, <code>data-nosnippet</code>, <code>max-snippet:0</code>, <code>noarchive</code> in meta and <code>X-Robots-Tag</code>. Suppresses text from AI answers <em>while leaving the page indexed</em> — a page can pass every other check and remain unquotable</td></tr>
+<tr><td>A3</td><td><code>noindex</code></td><td>Meta and header</td></tr>
+<tr><td>A4</td><td>Status &amp; redirect chains</td><td>Chain length, loops, 302-where-301-intended</td></tr>
+<tr><td>A5</td><td>Canonical correctness</td><td>Self / cross-domain / to-404 / chained</td></tr>
+<tr><td>A6</td><td>Sitemap integrity</td><td>Present, referenced in robots, parses, <code>lastmod</code> sane. Reported as sitemap-minus-crawl-reachable diff — "orphan pages" is undetectable by a bounded crawl by definition</td></tr>
+<tr><td>A7</td><td>Total-block detection</td><td>A fully blocked site must emit a <strong>critical Gate-1 finding</strong>, never zero findings. See §6.2</td></tr>
+<tr><td>A8</td><td>WAF / bot-management differential</td><td>Status <em>class</em> only, never body diffs; requires reproducibility across two spaced fetches; 429/503 whitelisted as inconclusive; low confidence</td></tr>
+</tbody></table>
+
+<h3>4.2 Gate 2 — Extractability</h3>
+<table class="tight">
+<thead><tr><th style="width:7%">ID</th><th style="width:30%">Check</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>B1</td><td>Extraction-difficulty tiering</td><td>T0–T3 per expected fact. The flagship</td></tr>
+<tr><td>B2</td><td>Role-obligation expectations</td><td>URL slug / title / inbound anchor → obligated fact type</td></tr>
+<tr><td>B3</td><td>Payload-island parsing</td><td>Six island types; fact-shaped value extraction</td></tr>
+<tr><td>B4</td><td>Empty-shell detection</td><td>Narrow scope only; fallback where no role is inferrable</td></tr>
+<tr><td>B5</td><td>Facts locked in non-text</td><td>Content-image <code>alt</code> coverage; PDF-only facts</td></tr>
+<tr><td>B6</td><td>Summarizer-hostile content <span class="tag t-new">APX F</span></td><td>Substance-to-filler ratio; key fact positioned below boilerplate</td></tr>
+</tbody></table>
+
+<h3>4.3 Gate 3 — Structured data &amp; entity</h3>
+<table class="tight">
+<thead><tr><th style="width:7%">ID</th><th style="width:30%">Check</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>C1</td><td>Structured-data validity, three tiers</td><td>Spec-invalid (malformed JSON / <code>@context</code> / <code>@type</code>) → rich-result-required-missing → recommended-missing. Only the first two are findings; the third goes to <code>proactive_recommendations[]</code>. Absent <code>sameAs</code> is <em>not</em> invalidity</td></tr>
+<tr><td>C2</td><td>Markup-vs-text contradiction</td><td>Normalise to <code>(currencyCode, Decimal)</code>. Fire only when both sides are unambiguously single-valued, same currency, differing beyond rounding. Sale-vs-list, <code>AggregateOffer</code>, variants, tax-inclusive and locale formats (<code>1.299,00&nbsp;€</code>) all route to <code>unverified</code>, capped medium</td></tr>
+<tr><td>C3</td><td>Entity clarity</td><td><code>sameAs</code> targets resolve and match; name consistency across title / OG / schema / body</td></tr>
+<tr><td>C4</td><td>Archetype expectation</td><td>PDP → price + availability; LocalBusiness → hours + phone; SaaS pricing showing only "Contact us"</td></tr>
+</tbody></table>
+
+<h3>4.4 Freshness &amp; corroboration</h3>
+<table class="tight">
+<thead><tr><th style="width:7%">ID</th><th style="width:30%">Check</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>D1</td><td>Date signals</td><td><code>datePublished</code>/<code>dateModified</code>, <code>Last-Modified</code>, sitemap <code>lastmod</code>, feed dates</td></tr>
+<tr><td>D2</td><td>Staleness indicators</td><td>Copyright year, blog cadence, deprecated version strings</td></tr>
+<tr><td>D3</td><td>Link rot</td><td>Broken outbound links as a decay proxy</td></tr>
+<tr><td>D4</td><td>Internal contradiction</td><td>Same fact differing across pages. Threshold-free and self-evidencing</td></tr>
+<tr><td>D5</td><td>Corroboration <em>infrastructure</em></td><td>Tier 1, always runs: absent <code>sameAs</code>, no press page, inconsistent NAP, no citable stable-facts page</td></tr>
+<tr><td>D6</td><td>Cross-web verification</td><td>Tier 2, key-gated. Skipped cleanly with a reason when unconfigured</td></tr>
+</tbody></table>
+
+<h3>4.5 Engagement — static only, severity capped at medium</h3>
+<p class="chk"><strong>Survives at full confidence:</strong> form friction (required-field count,
+<code>&lt;label for&gt;</code>/<code>aria-label</code> association, missing <code>autocomplete</code>,
+wrong <code>type</code>/<code>inputmode</code>) · link-purpose quality (non-descriptive anchor ratio;
+same anchor text resolving to different hrefs) · accessible-name presence on interactive elements ·
+content-image <code>alt</code> coverage · <code>&lt;html lang&gt;</code> (gates every lexical check) ·
+heading order and H1 · viewport meta blocking zoom (<code>user-scalable=no</code>, WCAG 1.4.4) ·
+archetype expectation failure · promise/payoff overlap (fires only on <strong>zero</strong>
+non-stopword overlap between title+description and body) · fact locatability.</p>
+<p class="chk"><strong>Degraded to low confidence:</strong> tap-target sizing (inline/attribute values
+only) · page weight (bytes, not render cost) · dead-end internal-link count (archetype-gated).</p>
+<p class="chk"><strong>Cut outright:</strong> colour contrast · LCP/CLS/FCP/INP · everything
+"above the fold" · focus visibility · CTA-is-an-image · action-verb detection · PageSpeed Insights
+API (external call, nondeterministic, and CrUX has no record for exactly the low-traffic sites that
+most need auditing).</p>
+<div class="box">
+<p style="margin:0"><strong>Cost of losing contrast, stated honestly.</strong> WCAG contrast was the
+single most unarguable number available — spec-defined, pass/fail, no taste involved. It requires
+computed styles and therefore a browser. Nothing replaces it, and it must not be faked from inline
+styles. It is declared in <code>checks_skipped[]</code> with the reason and the remedy.</p>
+</div>
+
+<h3>4.6 The two differentiating extras</h3>
+<p>Selected by the adversarial grader as both highest-differentiation and actually buildable. They
+compose into one story: <em>can an assistant quote you, and can it link to the quote?</em></p>
+<ul>
+<li><strong>Quotability scoring.</strong> For each candidate 40–80 word passage, flag unresolved
+anaphora ("this", "our platform", "as noted above"), a missing subject entity, and dependence on a
+preceding heading. Assistants quote <em>chunks</em>, not pages — a passage that cannot stand alone
+cannot be cited. Pure static, roughly half a day.</li>
+<li><strong>Citation surface / fact locatability.</strong> Stable heading <code>id</code> coverage,
+per-fact anchors, and scroll-to-text-fragment viability. Determines whether an assistant can link to
+a <em>location</em> rather than a homepage.</li>
+</ul>
+<p><small><strong>Cut to fund these:</strong> claim-fragility mapping (needs a search API we do not
+have), retrieval-chunk-boundary analysis (model-specific and unfalsifiable), synthetic CWV and mobile
+tap-targets, and the corpus from 50 sites down to 15–20.</small></p>
+
+<h2 class="pb">5. Severity: a table, not a formula</h2>
+
+<p>Architecture v1 proposed <code>severity = f(gate_position, blast_radius, confidence)</code> and
+called it the central insight. The detection-science critic showed it is a lookup table with extra
+steps: <strong><code>gate_position</code> and <code>confidence</code> are both constants per check
+type</strong> — gate is fixed by which check fired, confidence by whether the check is
+deterministic — so <code>f</code> collapses to <code>table[check_type] × blast_radius</code>. The
+systems critic and the adversarial grader both conceded the point.</p>
+
+<p>The gate <em>ordering</em> remains real and valuable — it just belongs as the table's structure,
+not as a computed function. Ship an explicit, auditable table plus a printed
+<code>severity_rationale</code> string showing the arithmetic. A judge can read a table.</p>
+
+<pre class="pre-light"><code>base           = SEVERITY_TABLE[check_id]        # defended integer, referenced to a mechanism
+                                                  # rationale in references/severity-rationale.md
+× blast_radius = site_wide 1.0 | template 0.8 | single_page 0.5    # banded, never a raw ratio
+cap            = measurement_basis == static_heuristic  -> max(medium)
+                 confidence        == heuristic         -> cannot reach critical
+                 coverage          &lt; floor              -> no blast-radius escalation
+
+severity_rationale: "base=high (Gate 1, blocks retrieval for 3 of 9 agents);
+                     blast=site_wide x1.0; no cap applied -> high"</code></pre>
+
+<p>Only <code>blast_radius</code> and <code>coverage</code> are genuine runtime terms; everything else
+is declared per check and reviewable. Severity may consume only <strong>bucketed</strong> thresholds,
+never raw floats — this is what makes the ordering reproducible across machines.</p>
+
+<h3>5.1 Latent findings, not suppression</h3>
+<p>v1 proposed suppressing downstream findings on a blocked URL. All five members rejected this. It
+destroys information and creates a second-audit trap: the user fixes robots.txt, re-audits, and meets
+a wave of findings they were never warned about — which reads as an unreliable tool. The mechanism
+argument is stronger still: <strong>robots is per-user-agent</strong>, so a page disallowed to
+<code>OAI-SearchBot</code> may be fully open to <code>Claude-User</code>, and user-initiated fetches
+reach it regardless. Suppression assumes a single crawler and is unsound on its own terms.</p>
+<pre class="pre-light"><code>{ "id": "F-014", "status": "latent",
+  "blocked_by": { "finding": "F-002",
+                  "agents_blocked": ["OAI-SearchBot", "PerplexityBot"],
+                  "agents_unaffected": ["Claude-User", "Googlebot"] },
+  "severity": "low",              // capped while latent
+  "note": "Will become active once F-002 is resolved." }</code></pre>
+<p>Latent findings are excluded from <code>summary.total_findings</code>, counted in
+<code>summary.latent_findings</code>, and surfaced in a report section titled <em>"What you will face
+after fixing the blockers."</em></p>
+
+<h2>6. Engineering posture</h2>
+
+<h3>6.1 Determinism — qualified, and made true</h3>
+<p>v1 asserted determinism absolutely and was wrong: A/B tests, conditionally-rendered consent
+banners, <code>networkidle</code> races, CDN variance, and machine-dependent performance floats all
+break it. Dropping the browser removes most of this. The remainder is handled explicitly:</p>
+<ul class="tickless">
+<li>▸ Every collection stable-sorted by an explicit key before emit</li>
+<li>▸ Crawl frontier seeded deterministically — sitemap order, then lexicographic BFS</li>
+<li>▸ Severity consumes bucketed thresholds only; no raw floats enter the scoring path</li>
+<li>▸ <code>--replay &lt;fixtures/&gt;</code> re-runs the decision layer over saved responses</li>
+<li>▸ <code>run_manifest</code> records per-URL content hashes</li>
+</ul>
+<p>The claim we make is the true one: <em>"the analysis layer is deterministic given fixed inputs;
+network observation is not."</em> That qualified claim scores better on hygiene than a false
+absolute.</p>
+
+<h3>6.2 Failure modes — never a silent clean bill of health</h3>
+<p>The most damaging possible output is zero findings for a site that could not be read. Every run
+carries <code>run_status</code> (<code>complete | partial | blocked | failed</code>) and per-check
+<code>coverage</code>, carried into the evidence string. Blast-radius escalation is disabled below a
+coverage floor, so a Cloudflare 403 after page three cannot produce "12 of 12 pages affected" from a
+denominator of three.</p>
+<table class="tight">
+<thead><tr><th style="width:26%">Condition</th><th>Named degraded outcome</th></tr></thead>
+<tbody>
+<tr><td>DNS failure / site down</td><td><code>run_status: failed</code>; single critical finding; no check results fabricated</td></tr>
+<tr><td>Redirects to login</td><td><code>run_status: blocked</code>; authenticated-area boundary respected; critical Gate-1 finding</td></tr>
+<tr><td>WAF challenge</td><td><code>run_status: partial</code>; A8 fires at low confidence; coverage recorded</td></tr>
+<tr><td>Robots disallows our UA</td><td>Crawl halts; <em>reported as a finding</em>, not an error</td></tr>
+</tbody></table>
+
+<h3>6.3 Safety posture</h3>
+<p>v1's user-agent differential test sent <code>User-Agent: GPTBot</code>. This is impersonation, and
+worse, it is self-defeating: claiming a user-agent binds you to that agent's robots group, so
+fetching paths <code>GPTBot</code> is disallowed becomes a real guardrail breach in a competition
+whose spec names robots.txt compliance. Resolved: a truthful identifying UA
+(<code>AIReadinessAudit/1.0 (+repo-url)</code>) throughout; bot policy is determined by
+<em>parsing</em> robots.txt, which is free, deterministic and costs zero requests; the WAF
+differential uses only a generic non-Chrome UA.</p>
+<p>Read-only throughout. No authenticated areas. Honoured crawl-delay capped at 2 s with page count
+reduced rather than stalling — a <code>Crawl-delay: 10</code> site would otherwise consume 400 s of a
+300 s budget before a single parse.</p>
+
+<h3>6.4 Marketplace structure</h3>
+<p>A skill folder is the unit of distribution. A <code>scripts/</code> file importing from a
+marketplace-root <code>lib/</code> dies the moment someone installs that skill alone — and
+<code>skills-ref validate</code> still passes, because it only checks frontmatter. The resolution
+satisfies both portability and the "SKILL.md is the artifact" finding:</p>
+<div class="box">
+<p style="margin:0"><strong>All executable code lives in the entrypoint's <code>scripts/</code> as a
+single package. Every other skill is a code-free knowledge skill</strong> — SKILL.md plus
+<code>references/</code> carrying mechanism explanations, decision tables, false-positive exclusion
+rules and remediation snippets. Zero cross-folder imports; every folder valid standalone.</p>
+</div>
+<p><strong>Open risk:</strong> the grader's closing warning is that four code-free skills may read as
+the padding rubric 5 explicitly names. Mitigation: each non-entrypoint skill must state a use case
+someone would genuinely invoke it alone for — <em>"check whether AI assistants can reach my
+site"</em> — declared in its <code>description</code> frontmatter. If a skill cannot pass that test,
+merge it. Three well-argued skills beat five thin ones; the spec is explicit that a single
+well-built skill scores fully on this criterion.</p>
+
+<h2 class="pb">7. Validation strategy</h2>
+
+<p>The design has two validation instruments with sharply different jobs. Conflating them was v1's
+fatal error.</p>
+
+<table>
+<thead><tr><th style="width:22%">Instrument</th><th style="width:39%">What it can tell you</th><th>What it cannot</th></tr></thead>
+<tbody>
+<tr><td><strong>Robustness corpus</strong><br><small>15–20 diverse sites</small></td>
+    <td>Does the parser survive real HTML? How many findings fire per site (target: median under 15 active)? Which check fires most, and is it right on manual review? Fixture capture for <code>--replay</code></td>
+    <td>Anything about validity. It has no outcome variable. <strong>No threshold may be derived from it</strong></td></tr>
+<tr><td><strong>Counterexample hunt</strong><br><small>15–20 sites, one model, one question</small></td>
+    <td>Does a site we score clean nonetheless fail? Does a site we score badly nonetheless succeed? One counterexample kills a check</td>
+    <td>Any rate, any threshold, any correlation. n=20 has no statistical power and Appendix E personalization is uncontrolled</td></tr>
+</tbody></table>
+
+<div class="box">
+<h4>On the multi-LLM council idea</h4>
+<p>The original proposal — fan a prompt across several assistants, check ground truth, log to a
+sheet — was rejected in v1 for lack of statistical power and absence of API keys. The council
+<strong>partially overturned that rejection</strong>, and the reasoning is worth recording: the
+statistical objection was correct about a design nobody should build (four models × eight prompt
+classes × twenty sites yields roughly one observation per cell), but wrong about the design that is
+actually needed.</p>
+<p>Reduced to <strong>one model, one question, one binary outcome per site</strong> — <em>"can an
+assistant with web access state this site's price correctly?"</em> — it becomes a half-day
+counterexample hunt on existing consumer accounts, requiring no API keys. Three of five members
+argued to keep it; notably, its own proposer argued to cut it to thirty minutes. The adversarial
+grader's argument carried: it is the only outcome-anchored evidence in the entire submission, and
+therefore <em>the one thing that makes criterion 6 an argument rather than an assertion.</em></p>
+<p><strong>Disposition:</strong> half a day, on Sep 8, performed by whoever is not on the critical
+path. Lives in <code>references/</code> labelled as an illustrative spot-check with stated limits.
+It never gates a build and never sets a threshold.</p>
+</div>
+
+<h3>7.1 What ships as visible proof of generalization</h3>
+<p>Rubric 6 is tested by construction on unseen sites, so the submission must <em>show</em> its
+generalization reasoning rather than assert it. Two artifacts do this and cost roughly a day:
+<code>references/thresholds.md</code>, giving every threshold with the mechanism that justifies it
+(never a percentile), and <code>references/prevalence.md</code>, reporting corpus observations
+explicitly framed as prevalence, not derived thresholds.</p>
+
+<h2>8. Nine-day plan</h2>
+
+<p>Two structural changes from the council's draft schedule. SKILL.md prose has been moved off the
+final day — it is the graded artifact and cannot absorb slippage. The schema freeze is tonight,
+because everything downstream depends on it.</p>
+
+<table class="tight">
+<thead><tr><th style="width:10%">Date</th><th style="width:32%">Deliverable</th><th>Gate / note</th></tr></thead>
+<tbody>
+<tr><td><strong>Sep 1</strong><br><small>tonight</small></td><td>Report schema frozen; <code>marketplace.json</code>; SKILL.md stubs with real <code>description</code> frontmatter</td><td>Slippage here slips everything</td></tr>
+<tr><td><strong>Sep 2</strong></td><td>Fetch layer: httpx, <code>protego</code> per-agent robots, sitemap, deterministic frontier, <code>run_status</code>/<code>coverage</code>, fixture recorder</td><td></td></tr>
+<tr><td><strong>Sep 3</strong></td><td>Finding model + emitter + severity table</td><td><strong>HARD GATE: schema-valid report end-to-end with 3 real checks.</strong> Non-negotiable</td></tr>
+<tr><td><strong>Sep 4</strong></td><td>Gate 1 complete + Gate 3 complete</td><td>Robots taxonomy, snippet controls, canonical, JSON-LD validity, contradiction</td></tr>
+<tr><td><strong>Sep 5</strong></td><td>Gate 2 — tiering, payload islands, role obligations + freshness</td><td>The flagship. Highest technical risk</td></tr>
+<tr><td><strong>Sep 6</strong></td><td>Engagement static set + prioritizer + the two extras</td><td></td></tr>
+<tr><td><strong>Sep 7</strong></td><td>Robustness corpus; false-positive triage; fixtures → <code>--replay</code></td><td>Delete any check firing on hand-verified-good sites</td></tr>
+<tr><td><strong>Sep 8</strong></td><td><strong>SKILL.md bodies as reasoning documents</strong> (full day) + counterexample hunt in parallel</td><td>Moved earlier — this is what is graded</td></tr>
+<tr><td><strong>Sep 9</strong></td><td>README, <code>references/</code>, zip, line-by-line rubric pass</td><td>Buffer day</td></tr>
+<tr><td><strong>Sep 10</strong></td><td>Final sanity run; submit</td><td></td></tr>
+</tbody></table>
+
+<h3>8.1 Cut list, decided in advance</h3>
+<p>Scope was assessed at roughly 2.5× capacity. Cut now, not on Sep 8: Tier-2 cross-web corroboration
+(<code>checks_skipped</code> instead) · mobile rendering · all performance metrics · archetype
+detection beyond two archetypes · claim-fragility mapping · chunk-boundary analysis · corpus reduced
+from 50 sites to 15–20 · <code>--render</code> built only if Sep 7 finishes clean.</p>
+
+<h2>9. Risk register</h2>
+<table class="tight">
+<thead><tr><th style="width:30%">Risk</th><th style="width:10%">Sev</th><th>Mitigation</th></tr></thead>
+<tbody>
+<tr><td>Role inference (slug/title/anchor → obligated fact) is load-bearing for the flagship check and is itself an untested heuristic</td><td><span class="tag t-fatal">HIGH</span></td><td><strong>Measure it first, not last</strong> — the first thing checked against the corpus on Sep 7. If it mislabels roles, the best check becomes the worst false-positive source</td></tr>
+<tr><td>Our vendored boilerplate extractor's strip rules differ from real fetchers'</td><td><span class="tag t-fatal">HIGH</span></td><td>Pin the library, ship its fixtures, declare it as a stated assumption in SKILL.md rather than an implicit one</td></tr>
+<tr><td>SKILL.md prose is the graded artifact and is written late</td><td><span class="tag t-major">MED</span></td><td>Moved to Sep 8 with a full day; stubs with real descriptions written tonight</td></tr>
+<tr><td>Four code-free skills read as padding under rubric 5</td><td><span class="tag t-major">MED</span></td><td>Each must declare a standalone use case; merge any that cannot. Consider three skills</td></tr>
+<tr><td>Engagement half is being rebuilt from scratch with no appendix support and no browser</td><td><span class="tag t-major">MED</span></td><td>Ten evidenced checks capped at medium, plus an explicit <code>limits</code> block. Ten defensible beats twenty heuristic</td></tr>
+<tr><td>Nine days, three people, zero code</td><td><span class="tag t-major">MED</span></td><td>Sep 3 hard gate; pre-decided cut list; buffer on Sep 9</td></tr>
+</tbody></table>
+
+<h2>10. What the council endorsed</h2>
+<p>Four ideas survived all five critics and both rounds unchanged, and should be treated as the
+submission's spine:</p>
+<ul>
+<li><strong>Fact-level analysis over volume metrics.</strong> The evidence is a literal string present
+in one artifact and absent from another — unfalsifiable, non-parametric, no threshold to calibrate.</li>
+<li><strong>Contradiction detection</strong> (markup versus text; the same fact differing across
+pages). Structurally high precision for the same reason.</li>
+<li><strong><code>checks_skipped[]</code> with reasons.</strong> It distinguishes "we looked and found
+nothing" from "we could not look" — the exact failure mode that makes audit tools untrustworthy.</li>
+<li><strong>Deterministic scripts detect; the agent narrates and never judges.</strong> Held
+unanimously, and the constraint that keeps the output reproducible.</li>
+</ul>
+
+<div class="foot">
+Architecture v2 · synthesised from a two-round adversarial review by five specialist critics
+(web standards · systems engineering · detection science · adversarial grader · engagement
+measurement) · 2026-09-01
+</div>

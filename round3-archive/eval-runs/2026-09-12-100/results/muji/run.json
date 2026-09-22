@@ -1,0 +1,13 @@
+{
+ "slug": "muji",
+ "url": "https://www.muji.com/jp/ja/",
+ "category": "Retail brand (Japanese)",
+ "expect": "Japanese text, ¥ prices, lang ja",
+ "rc": 0,
+ "wall_s": 14.2,
+ "finished_at": "2026-09-12T16:30:22Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

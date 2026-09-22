@@ -1,0 +1,64 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "B1_fact_absent", "url": "https://www.logitech.com/en-in/products/combos/pop-icon-combo"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": [
+        "https://www.logitech.com/en-in/products/combos/pop-icon-combo",
+        "https://www.logitech.com/en-in/products/tablet-keyboards/keys-to-go2-universal"
+      ],
+      "explanation": "Both pages are role=product with a named single product, their own Product JSON-LD offer has an empty price field, and no price-shaped token appears anywhere in the raw HTML, so the page cannot state its own price to a non-rendering reader.",
+      "evidence": [
+        {"url": "https://www.logitech.com/en-in/products/combos/pop-icon-combo", "type": "field", "path": "jsonld.offers", "op": "contains", "value": "POP Icon Combo"},
+        {"url": "https://www.logitech.com/en-in/products/combos/pop-icon-combo", "type": "html_lacks", "value": "₹"},
+        {"url": "https://www.logitech.com/en-in/products/tablet-keyboards/keys-to-go2-universal", "type": "field", "path": "jsonld.offers", "op": "contains", "value": "Keys-To-Go 2"},
+        {"url": "https://www.logitech.com/en-in/products/tablet-keyboards/keys-to-go2-universal", "type": "html_lacks", "value": "₹"}
+      ]
+    },
+    {
+      "finding": {"check_id": "C3_entity_unanchored", "url": "https://www.logitech.com/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://www.logitech.com/"],
+      "explanation": "The homepage does carry an Organization JSON-LD block, but it declares only url, name and a return policy, with no sameAs array linking to any external profile, so an assistant still has nothing to disambiguate the brand from others of the same name.",
+      "evidence": [
+        {"url": "https://www.logitech.com/", "type": "field", "path": "jsonld.types", "op": "contains", "value": "organization"},
+        {"url": "https://www.logitech.com/", "type": "field", "path": "jsonld.sameas", "op": "empty", "value": ""}
+      ]
+    },
+    {
+      "finding": {"check_id": "C1_product_markup_absent", "url": "https://www.logitech.com/fr-fr/shop/c/keyboards"},
+      "verdict": "not_a_defect",
+      "reason": "page_purpose_mismatch",
+      "urls": ["https://www.logitech.com/fr-fr/shop/c/keyboards"],
+      "explanation": "This page is a category/listing hub for the keyboards line (filters for connectivity, platform and series, sort-by-price options), not a single product's page. It already carries CollectionPage and ItemList JSON-LD, which is what a listing hub owes; Product markup belongs on the individual product pages it links to, not on the hub itself.",
+      "evidence": [
+        {"url": "https://www.logitech.com/fr-fr/shop/c/keyboards", "type": "field", "path": "jsonld.types", "op": "contains", "value": "itemlist"},
+        {"url": "https://www.logitech.com/fr-fr/shop/c/keyboards", "type": "text_contains", "value": "Tous les filtres", "scope": "extracted"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [
+    {
+      "check_id": "B1_fact_absent",
+      "url": "https://www.logitech.com/en-in/products/combos/pop-icon-combo",
+      "quote": "A stylish, compact keyboard and mouse combo",
+      "site_specific": [
+        "Add the current price for POP Icon Combo as visible text in the page's server-rendered HTML, next to the product description, not only inside the client-side add-to-cart widget.",
+        "Set the price field of the existing Product/Offer JSON-LD block (currently empty) to the same value.",
+        "Repeat this for Keys-To-Go 2's product page, which has the same empty offer price."
+      ]
+    },
+    {
+      "check_id": "C3_entity_unanchored",
+      "url": "https://www.logitech.com/",
+      "quote": "Introducing your new AI control center",
+      "site_specific": [
+        "Add a sameAs array to the existing homepage Organization JSON-LD block (@id https://www.logitech.com/#organization), listing Logitech's official Wikipedia, Wikidata and primary social profile URLs.",
+        "Keep the same @id so the sameAs links attach to the organization already declared on the page."
+      ]
+    }
+  ]
+}

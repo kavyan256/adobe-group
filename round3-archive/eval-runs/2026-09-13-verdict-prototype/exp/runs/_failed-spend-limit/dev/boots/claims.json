@@ -1,0 +1,16 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A7_site_unreadable", "url": "https://www.boots.com/"},
+      "verdict": "downgrade",
+      "reason": "access_block_unattributed",
+      "urls": ["https://www.boots.com/"],
+      "explanation": "The block came from a named challenge vendor (Incapsula) and no page body was retained, so the crawl cannot attribute the refusal specifically to AI or bot user agents rather than the auditor's own network path or IP reputation.",
+      "evidence": [
+        {"url": "https://www.boots.com/", "type": "field", "path": "error", "op": "contains", "value": "bot_challenge:Incapsula"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": []
+}

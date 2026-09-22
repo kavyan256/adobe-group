@@ -1,0 +1,11 @@
+[repeat] bosch: 4.5s $0 adjudicated=False denials=0
+[repeat] curl: 4.2s $0 adjudicated=False denials=0
+[repeat] deliveroo: 4.1s $0 adjudicated=False denials=0
+[repeat] glossier: 4.1s $0 adjudicated=False denials=0
+[repeat] khanacademy: 4.1s $0 adjudicated=False denials=0
+[repeat] lego: 4.3s $0 adjudicated=False denials=0
+[repeat] linear: 4.3s $0 adjudicated=False denials=0
+[repeat] mistral: 4.4s $0 adjudicated=False denials=0
+[repeat] mit: 2.3s $0 adjudicated=False denials=0
+[repeat] nhs: 4.6s $0 adjudicated=False denials=0
+prototype tree unchanged: True (4b3e060b4f5c61eb -> 4b3e060b4f5c61eb)

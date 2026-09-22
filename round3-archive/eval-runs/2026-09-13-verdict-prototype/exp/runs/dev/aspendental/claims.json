@@ -1,0 +1,56 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "C1_structured_data_invalid"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "Both affected pages carry a JSON-LD block that fails to parse (malformed_blocks: 1) alongside valid breadcrumb/webpage blocks, so the malformed block is discarded and contributes nothing, exactly as the finding states.",
+      "evidence": [
+        {"url": "https://www.aspendental.com/mottoaligners/pricing", "type": "field", "path": "jsonld.malformed_blocks", "op": "eq", "value": 1},
+        {"url": "https://www.aspendental.com/mottoaligners/results", "type": "field", "path": "jsonld.malformed_blocks", "op": "eq", "value": 1}
+      ]
+    },
+    {
+      "finding": {"check_id": "C3_entity_unanchored"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The homepage carries no JSON-LD at all (jsonld.types is empty), so there is no Organization/LocalBusiness block and no sameAs link for an assistant to anchor the brand to.",
+      "evidence": [
+        {"url": "https://www.aspendental.com/", "type": "field", "path": "jsonld.types", "op": "eq", "value": []}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [
+    {
+      "check_id": "C1_structured_data_invalid",
+      "url": "https://www.aspendental.com/mottoaligners/pricing",
+      "quote": "Your dream smile shouldn’t break the bank.",
+      "site_specific": [
+        "Run the JSON-LD on /mottoaligners/pricing and /mottoaligners/results through a validator (e.g. Google's Rich Results Test) to find the malformed block alongside the working BreadcrumbList/WebPage blocks.",
+        "Fix the syntax error (commonly a stray comma or unescaped quote from the templated price/offer text) rather than removing the block.",
+        "Add a Product or Service block with a priceSpecification for the $2,999 Motto price so the fixed markup actually states the fact, not just parses."
+      ]
+    },
+    {
+      "check_id": "C3_entity_unanchored",
+      "url": "https://www.aspendental.com/",
+      "quote": "Aspen Dental | Find a Dentist Near You for Dental Care",
+      "site_specific": [
+        "Add an Organization or LocalBusiness JSON-LD block to the homepage with name 'Aspen Dental'.",
+        "Include a sameAs array linking to Aspen Dental's Wikipedia, LinkedIn, Facebook and X/Twitter profiles.",
+        "Reuse the same block (or a per-location LocalBusiness variant) on /about, since that page also carries no structured data."
+      ]
+    },
+    {
+      "check_id": "C5_faq_content_unmarked",
+      "url": "https://www.aspendental.com/mottoaligners/how-do-aligners-work",
+      "quote": "How do Motto clear aligners work to straighten teeth?",
+      "site_specific": [
+        "Wrap 'How do Motto clear aligners work to straighten teeth?' and its answer paragraph in FAQPage/Question/Answer JSON-LD.",
+        "Keep each answer self-contained (one paragraph that does not depend on the surrounding page) so it can be lifted as a unit.",
+        "Repeat the pattern for the other FAQ headings on this page and the six other Motto pages the finding lists."
+      ]
+    }
+  ]
+}

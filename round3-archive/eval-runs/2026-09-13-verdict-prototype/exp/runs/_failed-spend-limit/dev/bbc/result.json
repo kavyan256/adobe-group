@@ -1,0 +1,39 @@
+{
+ "slug": "bbc",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 60.3,
+ "rc": 1,
+ "stderr": "",
+ "adjudicated": false,
+ "is_error": true,
+ "subtype": "success",
+ "num_turns": 14,
+ "duration_ms": 56935,
+ "total_cost_usd": 0.28649,
+ "result": "You've hit your monthly spend limit · raise it at claude.ai/settings/usage?from=cc_cli_limit_message · your session limit resets 2:20am (Asia/Kolkata)",
+ "permission_denials": [
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_017RpttgcGpGmDRtAp7uw4rE",
+   "tool_input": {
+    "command": "cd \"$(pwd)\" && WORK=/tmp/claude-1000/-home-kavyan2-Desktop-adobe/661eb840-02a7-4bfc-9a62-3cd624e22178/scratchpad/exp/runs/dev/bbc; ls \"$WORK\"; python3 skills/agent-review-audit/scripts/page_profile.py \"$WORK/bundle.json\" \"$WORK/report.json\" > \"$WORK/profile.json\"; echo EXIT=$?; wc -l \"$WORK/profile.json\""
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01MFsCz1XMoriC4qbkGQrLq2",
+   "tool_input": {
+    "command": "export WORK=/tmp/claude-1000/-home-kavyan2-Desktop-adobe/661eb840-02a7-4bfc-9a62-3cd624e22178/scratchpad/exp/runs/dev/bbc\nls \"$WORK\"\npython3 skills/agent-review-audit/scripts/page_profile.py \"$WORK/bundle.json\" \"$WORK/report.json\" > \"$WORK/profile.json\"\necho EXIT=$?\nwc -l \"$WORK/profile.json\""
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01EjwLmpmBVrcrDML6gM6GVD",
+   "tool_input": {
+    "command": "python3 skills/agent-review-audit/scripts/page_profile.py /tmp/claude-1000/-home-kavyan2-Desktop-adobe/661eb840-02a7-4bfc-9a62-3cd624e22178/scratchpad/exp/runs/dev/bbc/bundle.json /tmp/claude-1000/-home-kavyan2-Desktop-adobe/661eb840-02a7-4bfc-9a62-3cd624e22178/scratchpad/exp/runs/dev/bbc/report.json > /tmp/claude-1000/-home-kavyan2-Desktop-adobe/661eb840-02a7-4bfc-9a62-3cd624e22178/scratchpad/exp/runs/dev/bbc/profile.json\necho EXIT=$?\nwc -l /tmp/claude-1000/-home-kavyan2-Desktop-adobe/661eb840-02a7-4bfc-9a62-3cd624e22178/scratchpad/exp/runs/dev/bbc/profile.json"
+   }
+  }
+ ],
+ "raw_stdout": null
+}

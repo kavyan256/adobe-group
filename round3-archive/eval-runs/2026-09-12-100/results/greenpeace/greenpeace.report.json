@@ -1,0 +1,312 @@
+{
+  "site": "www.greenpeace.org",
+  "audited_at": "2026-09-12T16:28:59Z",
+  "summary": {
+    "total_findings": 4,
+    "critical": 0,
+    "high": 0,
+    "medium": 2,
+    "low": 2,
+    "active_findings": 4,
+    "latent_findings": 0,
+    "confirm_intent_findings": 0,
+    "info": 0,
+    "active_by_severity": {
+      "critical": 0,
+      "high": 0,
+      "medium": 2,
+      "low": 2
+    },
+    "by_hurts": {
+      "ai_discoverability": 2,
+      "user_retention": 1,
+      "both": 1
+    },
+    "run_status": "complete",
+    "headline": "4 finding(s); most severe: Interactive controls without an accessible name on 1 page(s)"
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "title": "Interactive controls without an accessible name on 1 page(s)",
+      "severity": "medium",
+      "evidence": "https://www.greenpeace.org/brasil: 7/332 controls expose no text, aria-label, aria-labelledby, title, SVG title or image alt. Controls whose name is bound by a JS framework (v-, x-, ng-, :, @, [) were assumed named at runtime and not counted.",
+      "suggested_action": {
+        "summary": "Give every control a name a machine can read.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Add visible text, or aria-label where the control is icon-only.",
+          "An unnamed control is unusable with a screen reader and invisible to any agent trying to understand what actions the page offers."
+        ],
+        "verify": "Every button/link resolves to a non-empty accessible name."
+      },
+      "check_id": "E3_unnamed_controls",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "template",
+      "severity_rationale": "base=medium (engagement/E3_unnamed_controls); blast=template x0.8 => medium",
+      "affected_urls": [
+        "https://www.greenpeace.org/brasil"
+      ],
+      "affected_url_count": 1
+    },
+    {
+      "id": "F-002",
+      "title": "Images missing alt attributes on 1 page(s)",
+      "severity": "medium",
+      "evidence": "https://www.greenpeace.org/africa/fr: 4/9 images have no alt attribute. Tracking pixels, images inside <noscript> and images marked presentational or aria-hidden are not counted.",
+      "suggested_action": {
+        "summary": "Add alt text to content images; use alt=\"\" for decorative ones.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Describe what the image conveys, not that it is an image.",
+          "If a price, specification table or contact detail exists only inside an image, restate it as text: retrieval agents do not read images.",
+          "Decorative images should carry an explicit empty alt=\"\" so assistive tech skips them."
+        ],
+        "verify": "No content <img> lacks an alt attribute entirely."
+      },
+      "check_id": "E4_images_missing_alt",
+      "source": "scripted",
+      "hurts": "both",
+      "gate": "engagement",
+      "mechanism": "C",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "template",
+      "severity_rationale": "base=medium (engagement/E4_images_missing_alt); blast=template x0.8 => medium",
+      "affected_urls": [
+        "https://www.greenpeace.org/africa/fr"
+      ],
+      "affected_url_count": 1
+    },
+    {
+      "id": "F-003",
+      "title": "No usable XML sitemap discovered",
+      "severity": "low",
+      "evidence": "robots.txt declared 0 sitemap(s) and /sitemap.xml yielded no parsable <loc> entries. Crawlers then rely entirely on link discovery.",
+      "suggested_action": {
+        "summary": "Publish an XML sitemap and reference it from robots.txt.",
+        "priority": "low",
+        "effort": "low",
+        "how": [
+          "Generate /sitemap.xml listing every canonical URL with an accurate <lastmod>.",
+          "Add 'Sitemap: https://<host>/sitemap.xml' to robots.txt."
+        ],
+        "verify": "curl -s https://<host>/sitemap.xml | grep -c '<loc>' returns > 0."
+      },
+      "check_id": "A6_sitemap_missing",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "access",
+      "mechanism": "A",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "site_wide",
+      "severity_rationale": "base=low (access/A6_sitemap_missing); blast=site_wide x1.0 => low",
+      "affected_urls": [
+        "https://www.greenpeace.org/international"
+      ],
+      "affected_url_count": 1
+    },
+    {
+      "id": "F-004",
+      "title": "Passages are hard to quote standalone on 2 page(s)",
+      "severity": "low",
+      "evidence": "https://www.greenpeace.org/africa/en: 2/6 candidate passages open with an unresolved reference; https://www.greenpeace.org/canada/en: 2/8 candidate passages open with an unresolved reference",
+      "suggested_action": {
+        "summary": "Rewrite key passages so each stands alone as a citable claim.",
+        "priority": "low",
+        "effort": "medium",
+        "how": [
+          "Assistants quote passages, not whole pages. A paragraph opening with 'This means...' or 'Our platform...' loses its subject when lifted out.",
+          "Name the subject explicitly in the first sentence of each key paragraph.",
+          "State the single most important fact as one self-contained sentence directly under its heading."
+        ],
+        "verify": "Read any key paragraph in isolation - the subject is unambiguous."
+      },
+      "check_id": "X1_low_quotability",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "interpretability",
+      "mechanism": "B",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "template",
+      "severity_rationale": "base=low (interpretability/X1_low_quotability); blast=template x0.8 => low",
+      "affected_urls": [
+        "https://www.greenpeace.org/africa/en",
+        "https://www.greenpeace.org/canada/en"
+      ],
+      "affected_url_count": 2
+    }
+  ],
+  "site_profile": {
+    "start_url": "https://www.greenpeace.org/international",
+    "pages_crawled": 12,
+    "roles_seen": [
+      "about",
+      "generic"
+    ],
+    "robots_present": true,
+    "ai_policy": {
+      "retrieval_agents_blocked": [],
+      "training_agents_blocked": [],
+      "interpretation": "Blocking training agents is a licensing choice and does not affect whether assistants can cite you. Only retrieval agents gate citation."
+    },
+    "user_agent_used": "AIReadinessAudit/1.0 (+https://github.com/kavyan256/adobe-group)"
+  },
+  "coverage": {
+    "elapsed_s": 25.8,
+    "pages_attempted": 12,
+    "pages_blocked_by_robots_for_our_ua": 0,
+    "pages_fetched": 12,
+    "pages_ok": 12,
+    "urls_discovered": 100
+  },
+  "checks_skipped": [
+    {
+      "check": "D6_cross_web_corroboration",
+      "reason": "Not assessed: whether independent third parties agree with this site's claims. Reason: that needs a search backend, which this marketplace does not assume. How to check it yourself: search your brand plus a key fact (price, founding year, HQ) and count independent sources that agree.",
+      "impact": "Claims that exist only on this site are not distinguished from claims corroborated across the web. The on-site corroboration checks still ran."
+    },
+    {
+      "check": "E_authenticated_flows",
+      "reason": "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account.",
+      "impact": "How to check it yourself: walk the signup, checkout or booking flow on a phone with a test account and count the required steps and fields."
+    },
+    {
+      "check": "E_behaviour_metrics",
+      "reason": "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion rate). Reason: they are observed, not inferred from markup, and a short visit from an AI answer is often a success - the visitor came to verify one fact and did.",
+      "impact": "How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate, not their bounce rate, with search traffic."
+    },
+    {
+      "check": "E_colour_contrast",
+      "reason": "Not assessed: colour contrast (WCAG 1.4.3). Reason: contrast ratios need computed styles, which need a browser; this marketplace runs without one to stay portable and deterministic.",
+      "impact": "How to check it yourself: run axe DevTools or Lighthouse on the top 3 page templates and read the contrast section."
+    },
+    {
+      "check": "E_copy_quality",
+      "reason": "Not assessed: copy quality, persuasion and jargon. Reason: subjective; no static threshold separates plain language from marketing copy across industries and languages without a high false-positive rate.",
+      "impact": "How to check it yourself: read the first paragraph of the homepage and one product page aloud to someone outside the company and ask what the site offers and for whom."
+    },
+    {
+      "check": "E_core_web_vitals",
+      "reason": "Not assessed: Core Web Vitals (LCP, CLS, INP). Reason: these are field metrics at the 75th percentile; a single synthetic fetch is not a measurement and INP cannot be measured synthetically at all.",
+      "impact": "How to check it yourself: open Google Search Console's Core Web Vitals report, which uses real-user data, or run Lighthouse for lab LCP/CLS."
+    },
+    {
+      "check": "E_rendered_experience",
+      "reason": "Not assessed: the rendered experience (overlay and cookie-banner timing, tap target size, focus visibility, layout at phone width). Reason: all of it depends on CSS and JavaScript executing, which needs a browser.",
+      "impact": "How to check it yourself: run Lighthouse and axe on the top 3 templates at phone width, then tab through each page once to confirm focus is visible."
+    }
+  ],
+  "agent_review": {
+    "status": "not_run"
+  },
+  "prioritized_actions": [
+    {
+      "rank": 1,
+      "finding_id": "F-001",
+      "title": "Interactive controls without an accessible name on 1 page(s)",
+      "priority_score": 2.1,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Give every control a name a machine can read."
+    },
+    {
+      "rank": 2,
+      "finding_id": "F-002",
+      "title": "Images missing alt attributes on 1 page(s)",
+      "priority_score": 2.1,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "both",
+      "effort": "low",
+      "action": "Add alt text to content images; use alt=\"\" for decorative ones."
+    },
+    {
+      "rank": 3,
+      "finding_id": "F-003",
+      "title": "No usable XML sitemap discovered",
+      "priority_score": 2.0,
+      "severity": "low",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "low",
+      "action": "Publish an XML sitemap and reference it from robots.txt."
+    },
+    {
+      "rank": 4,
+      "finding_id": "F-004",
+      "title": "Passages are hard to quote standalone on 2 page(s)",
+      "priority_score": 0.875,
+      "severity": "low",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "medium",
+      "action": "Rewrite key passages so each stands alone as a citable claim."
+    }
+  ],
+  "proactive_recommendations": [
+    {
+      "title": "Publish an llms.txt describing your site for AI clients",
+      "rationale": "An emerging convention: a short, stable, plain-text map of what your site covers and where the authoritative pages are. Cheap to add, and it gives retrieval agents an unambiguous starting point.",
+      "effort": "low",
+      "applies_because": "GET /llms.txt did not return a plain-text document"
+    },
+    {
+      "title": "Decide your AI-crawler policy deliberately, and write it down",
+      "rationale": "Training access and retrieval access are separate decisions. Blocking training crawlers while explicitly allowing retrieval agents is a coherent, defensible position - but it has to be configured on purpose, per user-agent.",
+      "effort": "low",
+      "applies_because": "robots.txt names no AI retrieval or training agent, so the current policy is whatever the wildcard group happens to say"
+    },
+    {
+      "title": "Add a machine-readable FAQ layer shaped for quotation",
+      "rationale": "FAQPage structured data pairs a question with a self-contained answer. That is exactly the shape an assistant wants to lift, and it survives text extraction.",
+      "effort": "medium",
+      "applies_because": "no crawled page carries FAQPage JSON-LD"
+    },
+    {
+      "title": "Server-render your most-quoted facts even inside a SPA",
+      "rationale": "You do not have to abandon client-side rendering. Server-render the handful of facts you most want cited - price, what you do, how to contact you - and let the rest hydrate.",
+      "effort": "high",
+      "applies_because": "the site ships a client-side hydration payload; its key facts currently extract fine, so this is about keeping it that way as the app grows"
+    }
+  ],
+  "already_in_place": [
+    {
+      "title": "Publish a stable, citable facts page",
+      "because": "Organization sameAs links are already published"
+    },
+    {
+      "title": "Answer the question visitors arrive with on the first screen",
+      "because": "the homepage's first 60 words already name the site or state a concrete figure"
+    },
+    {
+      "title": "Every deep page links to its parent section and a contact route",
+      "because": "every substantial deep page already links onward from its content"
+    }
+  ],
+  "limits": [
+    "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion). Reason: a crawl sees markup, never visitors; engagement findings are structural risk factors, capped at medium for that reason. How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate with search traffic.",
+    "Not assessed: the rendered experience (layout, overlays and cookie banners, colour contrast, Core Web Vitals) and facts loaded by client-side requests after page load. Reason: no JavaScript is executed and no browser is used - which is also what non-rendering AI retrieval agents see; a fact fetched only by XHR can be a false negative here. How to check it yourself: run Lighthouse and axe on the top three templates, and open a key page with JavaScript disabled to see what a bot gets.",
+    "Not assessed: copy quality - whether the words persuade, or answer the visitor's question well. Reason: subjective, with no static threshold that holds across industries and languages; the scripted checks measure only structure and vocabulary overlap. How to check it yourself: read the first paragraph of the homepage and one product page to someone outside the company and ask what the site offers and for whom.",
+    "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account. How to check it yourself: walk the signup, checkout or booking flow with a test account and count the required steps and fields.",
+    "Not assessed: personalization of AI answers (appendix E). Reason: it happens inside the assistant, from the user's own context, and no site-side measurement exists; the site-side lever - self-contained, quotable facts - is what the extraction and quotability checks cover. How to check it yourself: ask an assistant the same question about your brand in a fresh session and in a long-running one, and compare.",
+    "Not assessed: cross-web corroboration - whether independent sources agree with the site's facts. Reason: it needs a search backend and off-site fetches, which this audit does not make; only on-site corroboration hooks (sameAs, press links) are checked. How to check it yourself: search Wikipedia, Wikidata, Crunchbase and the press for your founding date, HQ, leadership and pricing, and reconcile differences.",
+    "Not assessed: problems outside the scripted checks, unless an agent review ran (see agent_review). Reason: a fixed list of checks misses what it does not list. How to check it yourself: follow agent-review-audit/SKILL.md; every claim it admits was checked against the crawl and is capped at low severity."
+  ],
+  "notes": []
+}

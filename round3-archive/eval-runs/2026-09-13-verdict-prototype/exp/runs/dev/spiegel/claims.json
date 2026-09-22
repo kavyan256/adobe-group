@@ -1,0 +1,16 @@
+{
+  "verdicts": [],
+  "claims": [],
+  "fixes": [
+    {
+      "check_id": "E6_heading_structure",
+      "url": "https://www.spiegel.de/",
+      "quote": "Wettstreit unter Archäologen Wo liegt die älteste Stadt Deutschlands?",
+      "site_specific": [
+        "Render one top-level heading element on the homepage template, e.g. wrapping the current top headline text ('Wettstreit unter Archäologen Wo liegt die älteste Stadt Deutschlands?') or the masthead label 'DER SPIEGEL', instead of a styled non-heading element.",
+        "Keep the visible masthead text unchanged; only the tag needs to change from a non-heading element to the top-level heading tag.",
+        "Verify by checking that exactly one top-level heading element appears in the homepage source."
+      ]
+    }
+  ]
+}

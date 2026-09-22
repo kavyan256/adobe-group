@@ -1,0 +1,13 @@
+{
+ "slug": "manutd",
+ "url": "https://www.manutd.com",
+ "category": "Football club",
+ "expect": "fixtures dates, ticket forms, JS",
+ "rc": 0,
+ "wall_s": 53.0,
+ "finished_at": "2026-09-12T16:27:46Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

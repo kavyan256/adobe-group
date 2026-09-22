@@ -1,0 +1,88 @@
+{
+  "claims": [],
+  "fixes": [
+    {
+      "check_id": "C1_product_markup_absent",
+      "url": "https://www.notion.com/product/ai",
+      "quote": "Enterprise Search finds answers across all your apps.",
+      "site_specific": [
+        "Add a Product or SoftwareApplication JSON-LD block to /product/ai naming the plan(s) this feature ships in (Free, Business, Enterprise) and linking to /pricing for current prices.",
+        "Include an offers array or a priceSpecification reference so a non-rendering fetcher can see which plan unlocks Enterprise Search without following a link."
+      ]
+    },
+    {
+      "check_id": "C3_entity_unanchored",
+      "url": "https://www.notion.com/",
+      "quote": "Trusted by 98% of the Forbes Cloud 100",
+      "site_specific": [
+        "Add an Organization JSON-LD block on the homepage naming Notion Labs, Inc. with a sameAs array listing the company's official Wikipedia, LinkedIn, X/Twitter and Crunchbase profiles.",
+        "Repeat the same Organization object (or reference it) on /about so both pages agree on the same identity."
+      ]
+    },
+    {
+      "check_id": "E3_unnamed_controls",
+      "url": "https://www.notion.com/templates/category/personal",
+      "quote": "Browse all collections",
+      "site_specific": [
+        "Audit the icon-only filter and sort controls on the template category grid and add an aria-label describing each action (e.g. 'Sort by most recent').",
+        "Apply the fix to the shared template-category component so all 7 affected category pages inherit it at once."
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "finding": {"check_id": "B4_empty_shell", "url": "https://www.notion.com/contact-sales"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The raw HTML of /contact-sales carries zero extractable words and relies on the __NEXT_DATA__ payload to render, so a non-rendering fetcher truly gets nothing from this page.",
+      "evidence": [
+        {"url": "https://www.notion.com/contact-sales", "type": "field", "path": "words_extracted", "op": "eq", "value": 0}
+      ]
+    },
+    {
+      "finding": {"check_id": "B1_fact_absent", "url": "https://www.notion.com/contact-sales"},
+      "verdict": "not_a_defect",
+      "reason": "duplicate_of_finding",
+      "explanation": "The missing phone/email on /contact-sales is a symptom of the whole page being an empty HTML shell, already reported and confirmed as B4_empty_shell on the same URL.",
+      "evidence": [
+        {"type": "finding_exists", "check_id": "B4_empty_shell", "url": "https://www.notion.com/contact-sales"}
+      ]
+    },
+    {
+      "finding": {"check_id": "C7_title_problem", "url": "https://www.notion.com/contact-sales"},
+      "verdict": "not_a_defect",
+      "reason": "duplicate_of_finding",
+      "explanation": "The missing page title on /contact-sales is a symptom of the whole page being an empty HTML shell, already reported and confirmed as B4_empty_shell on the same URL.",
+      "evidence": [
+        {"type": "finding_exists", "check_id": "B4_empty_shell", "url": "https://www.notion.com/contact-sales"}
+      ]
+    },
+    {
+      "finding": {"check_id": "C3_entity_unanchored", "url": "https://www.notion.com/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The homepage carries no JSON-LD types at all, so there is no Organization block and nothing for a sameAs link to hang off, unlike the template pages which do carry structured data.",
+      "evidence": [
+        {"url": "https://www.notion.com/", "type": "field", "path": "jsonld.types", "op": "eq", "value": []}
+      ]
+    },
+    {
+      "finding": {"check_id": "C1_product_markup_absent", "url": "https://www.notion.com/product/ai"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The /product/ai page carries no JSON-LD types at all, confirming it has no Product markup even though the page frames itself around a paid product tier.",
+      "evidence": [
+        {"url": "https://www.notion.com/product/ai", "type": "field", "path": "jsonld.types", "op": "eq", "value": []}
+      ]
+    },
+    {
+      "finding": {"check_id": "E3_unnamed_controls", "url": "https://www.notion.com/product/ai"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The affected page is the genuine, content-bearing /product/ai page rather than a placeholder or wrong page, so the unnamed-control count the script measured was taken on a real page that matters.",
+      "evidence": [
+        {"url": "https://www.notion.com/product/ai", "type": "text_contains", "value": "Trusted by teams at", "scope": "extracted"}
+      ]
+    }
+  ]
+}

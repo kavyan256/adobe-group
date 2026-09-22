@@ -1,0 +1,90 @@
+{
+  "claims": [
+    {
+      "title": "About Us and Our Company name different companies as the business behind the store",
+      "why": "The About Us page summary, which search engines and assistants show as the page description, presents Sennheiser electronic, the family-owned company in Wedemark near Hannover. The Our Company page says the consumer business now belongs to Sonova Consumer Hearing. An assistant asked who runs this store, or who honours its warranty, can repeat either one.",
+      "mechanism": "D",
+      "hurts": "ai_discoverability",
+      "severity": "medium",
+      "nearest_check": null,
+      "affected_urls": [
+        "http://in.sennheiser-hearing.com/pages/about-us",
+        "http://in.sennheiser-hearing.com/pages/our-company"
+      ],
+      "evidence": [
+        {
+          "url": "http://in.sennheiser-hearing.com/pages/about-us",
+          "type": "field",
+          "path": "meta.description",
+          "op": "contains",
+          "value": "Sennheiser electronic is an international organisation"
+        },
+        {
+          "url": "http://in.sennheiser-hearing.com/pages/our-company",
+          "type": "text_contains",
+          "value": "Sonova’s new Consumer Hearing business"
+        }
+      ],
+      "suggested_action": {
+        "summary": "Make the About Us summary name the company that actually operates the store today.",
+        "how": [
+          "Rewrite the About Us meta description to say who runs the Sennheiser India consumer store, matching the Our Company page.",
+          "Move the history of Sennheiser electronic and its 2010 turnover into the page body as background, not the summary.",
+          "Use the same operating entity name in the Organization markup the pages already emit (name and legalName)."
+        ],
+        "verify": "The About Us meta description and the Our Company page name the same operating company.",
+        "effort": "low"
+      }
+    }
+  ],
+  "fixes": [
+    {
+      "check_id": "C3_entity_unanchored",
+      "url": "http://in.sennheiser-hearing.com/",
+      "quote": "Official Online Store India",
+      "site_specific": [
+        "Every page already emits Organization JSON-LD with no sameAs; add a sameAs array to that block rather than a new one.",
+        "List the brand's official profile pages there: its Wikidata item, LinkedIn page, YouTube channel and Instagram account.",
+        "Set legalName to the company named on the Our Company page, so the store is not confused with Sennheiser electronic."
+      ]
+    },
+    {
+      "check_id": "C1_product_markup_absent",
+      "url": "https://in.sennheiser-hearing.com/products/hd-450btnc-black-wireless-headphones",
+      "quote": "MRP ₹16,990.00 ₹7,990.00",
+      "site_specific": [
+        "The HD 450BT, HD 350BT and HD 650 pages use a different product template from the accessory pages, which already emit Product JSON-LD; add the same Product block to this template.",
+        "State the selling price as offers.price 7990.00 with priceCurrency INR and availability.",
+        "Express the MRP of 16,990.00 as a list price with priceSpecification, so the markup matches the two prices shown in the heading."
+      ]
+    },
+    {
+      "check_id": "E6_heading_structure",
+      "url": "https://in.sennheiser-hearing.com/products/audio-cable-with-remote",
+      "quote": "Audio Cable with Remote",
+      "site_specific": [
+        "The accessory product template renders no h1; render the product title Audio Cable with Remote as the page's h1.",
+        "The flagship template already does this (HD 650 is an h1), so reuse that heading block."
+      ]
+    },
+    {
+      "check_id": "E1_unlabelled_input",
+      "url": "https://in.sennheiser-hearing.com/products/audio-cable-with-remote",
+      "quote": "Audio Cable with Remote",
+      "site_specific": [
+        "The quantity field in the add-to-cart form has only plus and minus icons around it; give it a visually hidden label reading Quantity.",
+        "Give the plus and minus buttons aria-labels such as Increase quantity and Decrease quantity."
+      ]
+    },
+    {
+      "check_id": "E3_unnamed_controls",
+      "url": "http://in.sennheiser-hearing.com/",
+      "quote": "Why Buy Directly from Sennheiser?",
+      "site_specific": [
+        "Add aria-label Close to the countdown banner's close button, which is an icon only.",
+        "Add aria-label Search to the icon-only search submit button.",
+        "Give each product hotspot button on the homepage an aria-label naming the product it reveals."
+      ]
+    }
+  ]
+}

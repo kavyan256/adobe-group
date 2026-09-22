@@ -1,0 +1,115 @@
+{
+  "audited_at": "2026-09-11T00:00:00Z",
+  "bundle_schema_version": 2,
+  "coverage": {
+    "elapsed_s": 0.2,
+    "pages_attempted": 2,
+    "pages_blocked_by_robots_for_our_ua": 0,
+    "pages_fetched": 2,
+    "pages_ok": 2,
+    "urls_discovered": 2
+  },
+  "notes": [],
+  "pages": [
+    {
+      "derived": {
+        "jsonld": {
+          "block_count": 1,
+          "dates": [],
+          "empty_blocks": 0,
+          "malformed_blocks": 0,
+          "malformed_detail": [],
+          "nodes": [
+            {
+              "id": null,
+              "props": {
+                "@type": "Organization",
+                "name": "Acme Robotics",
+                "sameAs": [
+                  "https://wikidata.org/Q9"
+                ]
+              },
+              "types": [
+                "organization"
+              ]
+            }
+          ],
+          "sameas": [
+            "https://wikidata.org/Q9"
+          ],
+          "text": "Organization Acme Robotics https://wikidata.org/Q9",
+          "truncated": false,
+          "types_present": [
+            "organization"
+          ]
+        },
+        "payload_islands": [],
+        "text": {
+          "extracted": "Widgets Direct | Northwind Trading Ltd Home What does feature 1 actually do? Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. What does feature 2 actually do? Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. What does feature 3 actually do? Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. What does feature 4 actually do? Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Pricing",
+          "full": "Widgets Direct | Northwind Trading Ltd Home What does feature 1 actually do? Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. What does feature 2 actually do? Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. What does feature 3 actually do? Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. What does feature 4 actually do? Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Pricing",
+          "words_extracted": 176
+        }
+      },
+      "elapsed_ms": 5,
+      "error": null,
+      "final_url": "https://n.example/",
+      "headers": {},
+      "html": "<!doctype html><html lang=en><head><title>Widgets Direct | Northwind Trading Ltd</title><meta property=\"og:site_name\" content=\"Zeta Holdings\"><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Organization\",\"name\":\"Acme Robotics\",\"sameAs\":[\"https://wikidata.org/Q9\"]}]}</script></head><body><main><h1>Home</h1><h2>What does feature 1 actually do?</h2><p>Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. </p><h2>What does feature 2 actually do?</h2><p>Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. </p><h2>What does feature 3 actually do?</h2><p>Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. </p><h2>What does feature 4 actually do?</h2><p>Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. Answer copy here. </p><a href=\"/pricing\">Pricing</a></main></body></html>",
+      "redirect_chain": [],
+      "role": "home",
+      "status": 200,
+      "url": "https://n.example/"
+    },
+    {
+      "derived": {
+        "jsonld": {
+          "block_count": 0,
+          "dates": [],
+          "empty_blocks": 0,
+          "malformed_blocks": 0,
+          "malformed_detail": [],
+          "nodes": [],
+          "sameas": [],
+          "text": "",
+          "truncated": false,
+          "types_present": []
+        },
+        "payload_islands": [],
+        "text": {
+          "extracted": "Deep article Article Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things.",
+          "full": "Deep article Home Article Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. About",
+          "words_extracted": 483
+        }
+      },
+      "elapsed_ms": 5,
+      "error": null,
+      "final_url": "https://n.example/blog/x",
+      "headers": {},
+      "html": "<!doctype html><html lang=en><head><title>Deep article</title></head><body><nav><a href=\"/\">Home</a></nav><main><h1>Article</h1><p>Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. Substantive article content that goes on for a while and says things. </p></main><footer><a href=\"/about\">About</a></footer></body></html>",
+      "redirect_chain": [],
+      "role": "blog",
+      "status": 200,
+      "url": "https://n.example/blog/x"
+    }
+  ],
+  "probes": {
+    "ai_agents_named_in_robots": [],
+    "llms_txt": {
+      "present": false
+    }
+  },
+  "robots": {
+    "agents": {},
+    "crawl_delay_declared": null,
+    "present": true,
+    "sitemaps_declared": [],
+    "sitemaps_fetched": 1,
+    "status": 200,
+    "unrecognised_agent_tokens": []
+  },
+  "run_status": "complete",
+  "site": "n.example",
+  "sitemap_urls": [],
+  "start_url": "https://n.example/",
+  "user_agent": "AIReadinessAudit/1.0 (+https://github.com/example/brand-ai-readiness-audit)"
+}

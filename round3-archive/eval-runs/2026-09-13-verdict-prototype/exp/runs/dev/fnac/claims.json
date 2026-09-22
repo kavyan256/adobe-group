@@ -1,0 +1,16 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A7_site_unreadable", "url": "https://www.fnac.com/"},
+      "verdict": "downgrade",
+      "reason": "access_block_unattributed",
+      "urls": ["https://www.fnac.com/"],
+      "explanation": "The crawl received a bare HTTP 403 on the first request with no challenge-vendor marker or body left to read, and robots.txt itself also returned 403, so the refusal looks like a blanket block rather than evidence of a rule aimed specifically at AI agents.",
+      "evidence": [
+        {"url": "https://www.fnac.com/", "type": "site_field", "path": "robots.status", "op": "eq", "value": 403}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": []
+}

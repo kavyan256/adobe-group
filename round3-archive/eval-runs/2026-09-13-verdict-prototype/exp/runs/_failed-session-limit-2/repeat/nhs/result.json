@@ -1,0 +1,17 @@
+{
+ "slug": "nhs",
+ "tag": "repeat",
+ "model": "sonnet",
+ "wall_s": 3.8,
+ "rc": 1,
+ "stderr": "",
+ "adjudicated": false,
+ "is_error": true,
+ "subtype": "success",
+ "num_turns": 1,
+ "duration_ms": 580,
+ "total_cost_usd": 0,
+ "result": "You've hit your session limit · resets 4pm (Asia/Kolkata)",
+ "permission_denials": [],
+ "raw_stdout": null
+}

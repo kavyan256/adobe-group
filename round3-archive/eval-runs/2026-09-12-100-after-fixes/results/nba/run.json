@@ -1,0 +1,13 @@
+{
+ "slug": "nba",
+ "url": "https://www.nba.com",
+ "category": "Sports league",
+ "expect": "Next.js payload, live data via XHR",
+ "rc": 0,
+ "wall_s": 5.4,
+ "finished_at": "2026-09-12T17:08:04Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

@@ -1,0 +1,13 @@
+{
+ "slug": "thehoxton",
+ "url": "https://thehoxton.com",
+ "category": "Boutique hotel group",
+ "expect": "booking iframe/widgets, city pages",
+ "rc": 0,
+ "wall_s": 54.2,
+ "finished_at": "2026-09-12T16:23:10Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

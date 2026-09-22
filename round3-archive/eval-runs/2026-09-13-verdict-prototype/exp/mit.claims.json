@@ -1,0 +1,1 @@
+{"verdicts": [{"finding": {"check_id": "A5_canonical_problem"}, "verdict": "not_a_defect", "reason": "duplicate_of_finding", "explanation": "The crawl shows this finding does not hold for the reason given here.", "evidence": [{"type": "finding_exists", "check_id": "A9_broken_pages", "url": "https://www.mit.edu/"}]}]}

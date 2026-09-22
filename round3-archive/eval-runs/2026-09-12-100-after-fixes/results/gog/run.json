@@ -1,0 +1,13 @@
+{
+ "slug": "gog",
+ "url": "https://www.gog.com",
+ "category": "PC game store",
+ "expect": "prices in JS, age gates",
+ "rc": 0,
+ "wall_s": 35.5,
+ "finished_at": "2026-09-12T17:08:43Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

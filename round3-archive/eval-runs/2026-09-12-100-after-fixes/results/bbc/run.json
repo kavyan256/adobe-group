@@ -1,0 +1,13 @@
+{
+ "slug": "bbc",
+ "url": "https://www.bbc.co.uk",
+ "category": "National broadcaster news (UK)",
+ "expect": "named AI-crawler blocks (A1 intent), large nav",
+ "rc": 0,
+ "wall_s": 35.1,
+ "finished_at": "2026-09-12T17:03:03Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

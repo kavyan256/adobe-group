@@ -1,0 +1,39 @@
+{
+ "slug": "glossier",
+ "tag": "held",
+ "model": "sonnet",
+ "wall_s": 298.3,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 39,
+ "duration_ms": 295008,
+ "total_cost_usd": 1.0664458,
+ "result": "All 3 verdicts applied successfully. Step 5's report.json has been rewritten. Two E1_unlabelled_input medium findings remain genuinely unjudged (their affected-page sets are strict subsets of the already-judged finding's pages, so the verifier can't resolve a unique target for a separate verdict) and are correctly reported under `unjudged_medium_or_above`, not as clean.\n\n3 verdicts submitted and applied, 0 claims and 0 fixes submitted, 0 rejected (after one explanation was corrected for markup in text and two undisambiguatable verdicts were dropped, not resubmitted).",
+ "permission_denials": [
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01VTGKaQGPqGK1yLjknuHDDZ",
+   "tool_input": {
+    "command": "python3 skills/agent-review-audit/scripts/page_profile.py /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/glossier/bundle.json /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/glossier/report.json > /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/glossier/profile.json\necho EXIT:$?\nwc -l /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/glossier/profile.json"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01YW2M1nMZR9LehDyBog46xA",
+   "tool_input": {
+    "command": "WORK=/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/glossier\npython3 -c \"\nimport json,re\nb=json.load(open('$WORK/bundle.json'))\nfor pg in b['pages']:\n    if pg['url']=='https://www.glossier.com/products/balm-dotcom':\n        html = pg.get('html') or pg.get('body') or ''\n        print(len(html))\n        # search for occurrences of 16 near \\$ or price\n        idxs=[m.start() for m in re.finditer(r'16', html)]\n        print('count 16:', len(idxs))\n        for i in idxs[:20]:\n            print(repr(html[max(0,i-40):i+40]))\n\"\n"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01XJxcZfKgbUXkzBaZ63V6WQ",
+   "tool_input": {
+    "command": "sed -n '1,90j' /dev/null 2>/dev/null; sed -n '1,100p' /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/v5-proto/skills/agent-review-audit/scripts/verify_claims.py"
+   }
+  }
+ ],
+ "raw_stdout": null
+}

@@ -1,0 +1,125 @@
+{
+  "audited_at": "2026-09-01T10:29:31Z",
+  "bundle_schema_version": 2,
+  "coverage": {
+    "elapsed_s": 0.1,
+    "pages_attempted": 3,
+    "pages_blocked_by_robots_for_our_ua": 0,
+    "pages_fetched": 3,
+    "pages_ok": 3,
+    "urls_discovered": 3
+  },
+  "notes": [],
+  "pages": [
+    {
+      "derived": {
+        "jsonld": {
+          "block_count": 0,
+          "dates": [],
+          "empty_blocks": 0,
+          "malformed_blocks": 0,
+          "malformed_detail": [],
+          "nodes": [],
+          "sameas": [],
+          "text": "",
+          "truncated": false,
+          "types_present": []
+        },
+        "payload_islands": [],
+        "text": {
+          "extracted": "Pricing Pricing The Pro plan costs $49/mo billed monthly for teams of any size.",
+          "full": "Pricing Pricing The Pro plan costs $49/mo billed monthly for teams of any size.",
+          "words_extracted": 14
+        }
+      },
+      "elapsed_ms": 10,
+      "error": null,
+      "final_url": "https://synthetic.test/pricing-visible",
+      "headers": {},
+      "html": "<html lang=\"en\"><head><title>Pricing</title></head><body><main>\n<h1>Pricing</h1><p>The Pro plan costs $49/mo billed monthly for teams of any size.</p>\n</main></body></html>",
+      "redirect_chain": [],
+      "role": "pricing",
+      "status": 200,
+      "url": "https://synthetic.test/pricing-visible"
+    },
+    {
+      "derived": {
+        "jsonld": {
+          "block_count": 0,
+          "dates": [],
+          "empty_blocks": 0,
+          "malformed_blocks": 0,
+          "malformed_detail": [],
+          "nodes": [],
+          "sameas": [],
+          "text": "",
+          "truncated": false,
+          "types_present": []
+        },
+        "payload_islands": [
+          "__NEXT_DATA__",
+          "application/json"
+        ],
+        "text": {
+          "extracted": "Pricing Choose the plan that fits your team. Contact sales for more information today.",
+          "full": "Pricing Choose the plan that fits your team. Contact sales for more information today.",
+          "words_extracted": 14
+        }
+      },
+      "elapsed_ms": 10,
+      "error": null,
+      "final_url": "https://synthetic.test/pricing-payload",
+      "headers": {},
+      "html": "<html lang=\"en\"><head><title>Pricing</title></head><body>\n<div id=\"__next\"></div>\n<script id=\"__NEXT_DATA__\" type=\"application/json\">\n{\"props\":{\"pageProps\":{\"plan\":{\"name\":\"Pro\",\"price\":\"$49/mo\",\"currency\":\"USD\"}}}}\n</script>\n<p>Choose the plan that fits your team. Contact sales for more information today.</p>\n</body></html>",
+      "redirect_chain": [],
+      "role": "pricing",
+      "status": 200,
+      "url": "https://synthetic.test/pricing-payload"
+    },
+    {
+      "derived": {
+        "jsonld": {
+          "block_count": 0,
+          "dates": [],
+          "empty_blocks": 0,
+          "malformed_blocks": 0,
+          "malformed_detail": [],
+          "nodes": [],
+          "sameas": [],
+          "text": "",
+          "truncated": false,
+          "types_present": []
+        },
+        "payload_islands": [],
+        "text": {
+          "extracted": "Pricing Pricing Flexible plans for teams of every size. Get started today.",
+          "full": "Pricing Pricing Flexible plans for teams of every size. Get started today.",
+          "words_extracted": 12
+        }
+      },
+      "elapsed_ms": 10,
+      "error": null,
+      "final_url": "https://synthetic.test/pricing-absent",
+      "headers": {},
+      "html": "<html lang=\"en\"><head><title>Pricing</title></head><body><main>\n<h1>Pricing</h1><p>Flexible plans for teams of every size. Get started today.</p>\n</main></body></html>",
+      "redirect_chain": [],
+      "role": "pricing",
+      "status": 200,
+      "url": "https://synthetic.test/pricing-absent"
+    }
+  ],
+  "robots": {
+    "agents": {},
+    "crawl_delay_declared": null,
+    "present": true,
+    "sitemaps_declared": [],
+    "status": 200
+  },
+  "run_status": "complete",
+  "site": "synthetic.test",
+  "sitemap_urls": [
+    "x"
+  ],
+  "start_url": "https://synthetic.test",
+  "user_agent": "AIReadinessAudit/1.0"
+}

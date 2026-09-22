@@ -1,0 +1,46 @@
+{
+ "slug": "framer",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 251.8,
+ "rc": 1,
+ "stderr": "",
+ "adjudicated": false,
+ "is_error": true,
+ "subtype": "success",
+ "num_turns": 37,
+ "duration_ms": 248319,
+ "total_cost_usd": 0.9590322000000001,
+ "result": "You've hit your session limit · resets 5am (Asia/Kolkata)",
+ "permission_denials": [
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01B3yk71FSKKtPhc4XicEyA1",
+   "tool_input": {
+    "command": "WORK=/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/framer && python3 skills/agent-review-audit/scripts/page_profile.py $WORK/bundle.json $WORK/report.json > $WORK/profile.json && echo OK && wc -l $WORK/profile.json"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01KYdgqrrt7SrcEuFkSxJvjv",
+   "tool_input": {
+    "command": "export WORK=/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/framer\npython3 skills/agent-review-audit/scripts/page_profile.py \"$WORK/bundle.json\" \"$WORK/report.json\" > \"$WORK/profile.json\" && echo OK && wc -l \"$WORK/profile.json\""
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_0137nkJLK7uyCf9pSSRBG954",
+   "tool_input": {
+    "command": "python3 -c \"\nimport json,re\nb=json.load(open('/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/framer/bundle.json'))\nfor p in b['pages']:\n    if 'education/students' in p.get('url',''):\n        html = p['html']\n        # find all data-nosnippet occurrences\n        for m in re.finditer('data-nosnippet', html):\n            i = m.start()\n            print('---')\n            print(html[max(0,i-200):i+400])\n\"\n"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01DMygWVgBJYSYzU4EugUUcu",
+   "tool_input": {
+    "command": "python3 -c \"\nimport json\nb=json.load(open('/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/framer/bundle.json'))\nfor p in b['pages']:\n    if 'education/students' in p.get('url',''):\n        html=p['html']\n        idx=html.find('Who qualifies for the discount?')\n        print(idx)\n        # check nearest preceding data-nosnippet before this idx vs nearest closing\n        print(html[max(0,idx-100):idx+50])\n\"\n"
+   }
+  }
+ ],
+ "raw_stdout": null
+}

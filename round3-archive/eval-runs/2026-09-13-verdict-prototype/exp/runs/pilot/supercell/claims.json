@@ -1,0 +1,98 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "B4_empty_shell", "url": "https://supercell.com/404"},
+      "verdict": "not_a_defect",
+      "reason": "error_or_placeholder_page",
+      "urls": ["https://supercell.com/404"],
+      "explanation": "The /404 URL is the site's own not-found page; its near-empty body is expected for an error page, so its thin content costs nothing as a defect here.",
+      "evidence": [
+        {"url": "https://supercell.com/404", "type": "field", "path": "title", "op": "contains", "value": "Page not found"}
+      ]
+    },
+    {
+      "finding": {"check_id": "C3_entity_unanchored", "url": "https://supercell.com/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The homepage states the brand name only in meta tags and carries no JSON-LD at all, so nothing machine-readable anchors 'Supercell' to a checkable external identity.",
+      "evidence": [
+        {"url": "https://supercell.com/", "type": "field", "path": "jsonld.types", "op": "empty", "value": []},
+        {"url": "https://supercell.com/", "type": "field", "path": "meta.og:site_name", "op": "eq", "value": "Supercell"}
+      ]
+    },
+    {
+      "finding": {"check_id": "C7_title_problem", "url": "https://supercell.com/brawlstars-gift"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "brawlstars-gift, clashofclans-gift, clashroyale-gift and hayday-gift render with no title element, and their extracted text is only the page's skip-link, confirming these pages produced no distinguishing content.",
+      "evidence": [
+        {"url": "https://supercell.com/brawlstars-gift", "type": "field", "path": "title", "op": "eq", "value": ""},
+        {"url": "https://supercell.com/clashofclans-gift", "type": "text_contains", "value": "Skip to content", "scope": "extracted"}
+      ]
+    },
+    {
+      "finding": {"check_id": "E7_zoom_disabled", "url": "https://supercell.com/clashofclans-gift/ar"},
+      "verdict": "confirm_intent",
+      "reason": "deliberate_configuration",
+      "urls": [
+        "https://supercell.com/clashofclans-gift/$language$",
+        "https://supercell.com/clashofclans-gift/ar",
+        "https://supercell.com/clashofclans-gift/ch"
+      ],
+      "explanation": "Zoom is disabled only on the three translated regional variants of the Clash of Clans gift-store page, not on the site's primary pages, which is the profile of a duplicate template restriction rather than a site-wide failure.",
+      "evidence": [
+        {"url": "https://supercell.com/clashofclans-gift/$language$", "type": "field", "path": "title", "op": "eq", "value": "Clash of Clans freebies and Store Specials"},
+        {"url": "https://supercell.com/clashofclans-gift/ar", "type": "field", "path": "title", "op": "eq", "value": "هدايا وعروض محل خاصة لـ Clash of Clans"},
+        {"url": "https://supercell.com/clashofclans-gift/ch", "type": "field", "path": "title", "op": "eq", "value": "《部落冲突》免费礼物和商城特惠"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [
+    {
+      "check_id": "B4_empty_shell",
+      "url": "https://supercell.com/clashofclans-gift",
+      "quote": "Skip to content",
+      "site_specific": [
+        "Have the Next.js gift-page templates (clashofclans-gift, brawlstars-gift, clashroyale-gift, hayday-gift) server-render or statically generate the promo copy instead of leaving it to client-side hydration.",
+        "Confirm the fix by fetching the URL without executing JavaScript and checking that more than the skip-link text is present in the HTML."
+      ]
+    },
+    {
+      "check_id": "C7_title_problem",
+      "url": "https://supercell.com/brawlstars-gift",
+      "quote": "Skip to content",
+      "site_specific": [
+        "Add a unique title tag (for example 'Brawl Stars Gifts and Store Specials times Supercell') to the brawlstars-gift, clashofclans-gift, clashroyale-gift and hayday-gift templates.",
+        "Reuse the pattern already used on the localized gift pages, which do carry titles such as 'Clash of Clans freebies and Store Specials'."
+      ]
+    },
+    {
+      "check_id": "C3_entity_unanchored",
+      "url": "https://supercell.com/",
+      "quote": "Makers of Hay Day, Clash of Clans, Boom Beach, Clash Royale, Brawl Stars, Squad Busters and mo.co.",
+      "site_specific": [
+        "Add an Organization JSON-LD block to the homepage naming Supercell as the maker of Hay Day, Clash of Clans, Boom Beach, Clash Royale, Brawl Stars, Squad Busters and mo.co.",
+        "Include sameAs links to the company's own verified social and reference profiles so assistants can disambiguate the brand."
+      ]
+    },
+    {
+      "check_id": "E7_zoom_disabled",
+      "url": "https://supercell.com/clashofclans-gift/$language$",
+      "quote": "Clash of Clans freebies and Store Specials",
+      "site_specific": [
+        "Remove user-scalable=no and the maximum-scale restriction from the viewport meta tag on the translated Clash of Clans gift-store templates.",
+        "Verify on Android Chrome that pinch-zoom works on the fixed page."
+      ]
+    },
+    {
+      "check_id": "A11_soft_404",
+      "url": "https://supercell.com/404",
+      "quote": "Sorry, but the page or file you were trying to access does not exist.",
+      "site_specific": [
+        "Configure the /404 route to return an HTTP 404 status code instead of 200 while still serving the same 'page or file you were trying to access does not exist' message.",
+        "Re-crawl the URL and confirm the response status is 404, not 200."
+      ]
+    }
+  ]
+}

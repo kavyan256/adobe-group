@@ -1,0 +1,1 @@
+{"verdicts": [{"finding": {"check_id": "B4_empty_shell"}, "verdict": "not_a_defect", "reason": "error_or_placeholder_page", "urls": ["https://supercell.com/404"], "explanation": "This is the site's not-found page, so an empty body costs nothing.", "evidence": [{"url": "https://supercell.com/404", "type": "field", "path": "title", "op": "contains", "value": "Page not found"}]}]}

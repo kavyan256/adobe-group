@@ -1,0 +1,66 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "C3_entity_unanchored", "url": "https://curl.se/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://curl.se/"],
+      "explanation": "The home page itself raises the question of brand identity ('Who makes curl?') but carries no Organization or sameAs markup that would let an assistant anchor curl.se to a verified entity, so the gap the check reports is real.",
+      "evidence": [
+        {"url": "https://curl.se/", "type": "text_contains", "scope": "extracted", "value": "Who makes curl?"}
+      ]
+    }
+  ],
+  "candidate_dispositions": [],
+  "claims": [],
+  "fixes": [
+    {
+      "check_id": "C3_entity_unanchored",
+      "url": "https://curl.se/",
+      "quote": "Who makes curl?",
+      "site_specific": [
+        "Add an Organization JSON-LD block to the home page naming curl.se as the publisher.",
+        "Include a sameAs array pointing at the project's own official profiles (its GitHub org, official mailing lists page) so an assistant can confirm this is the same curl referenced elsewhere.",
+        "Keep the block on the home page since that is the page the check and most inbound links target."
+      ]
+    },
+    {
+      "check_id": "C5_faq_content_unmarked",
+      "url": "https://curl.se/",
+      "quote": "What is curl used for?",
+      "site_specific": [
+        "Wrap 'What is curl used for?' and the paragraph that follows it in FAQPage/Question JSON-LD.",
+        "Do the same for 'Who makes curl?' and 'What is the latest curl?' since both are already phrased as questions in the page's own headings.",
+        "Keep each answer self-contained so an assistant can lift the question and answer as one unit without the surrounding page."
+      ]
+    },
+    {
+      "check_id": "A6_sitemap_missing",
+      "url": "https://curl.se/",
+      "quote": "curl command line tool and library for transferring data with URLs",
+      "site_specific": [
+        "Publish an XML sitemap listing the site's pages (docs, dev/ section, release notes) at a stable path such as /sitemap.xml.",
+        "Declare that sitemap's location in robots.txt with a Sitemap: line.",
+        "Regenerate the sitemap when new release or dev pages are added so link discovery does not depend solely on crawling internal links."
+      ]
+    },
+    {
+      "check_id": "E5_no_lang",
+      "url": "https://curl.se/book.html",
+      "quote": "Everything curl is an extensive, detailed and totally free book, available in multiple formats.",
+      "site_specific": [
+        "Add a lang attribute set to en on the top-level html element in the site's shared page template.",
+        "Rebuild the generated pages (book.html, dashboard.html, the dev section) from that template so the attribute appears on all of them, not just the home page."
+      ]
+    },
+    {
+      "check_id": "E6_heading_structure",
+      "url": "https://curl.se/",
+      "quote": "curl command line tool and library for transferring data with URLs",
+      "site_specific": [
+        "Add a single top-level heading (h1) to the home page stating what curl is, for example wrapping the existing opening line 'curl command line tool and library for transferring data with URLs'.",
+        "Keep the current headings (What is curl used for?, Who makes curl?, etc.) as subordinate h2 headings under it."
+      ]
+    }
+  ]
+}

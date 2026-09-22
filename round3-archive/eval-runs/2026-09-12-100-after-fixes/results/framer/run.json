@@ -1,0 +1,13 @@
+{
+ "slug": "framer",
+ "url": "https://www.framer.com",
+ "category": "Design tool (Framer-built)",
+ "expect": "SPA-like markup, unnamed controls",
+ "rc": 0,
+ "wall_s": 45.3,
+ "finished_at": "2026-09-12T17:04:02Z",
+ "stderr_tail": [
+  "agent review not run - problems outside the scripted checks are not reported; see agent-review-audit/SKILL.md"
+ ],
+ "report_written": true
+}

@@ -1,0 +1,16 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A7_site_unreadable", "url": "https://www.fnac.com/"},
+      "verdict": "confirm_intent",
+      "reason": "access_block_not_bot_specific",
+      "urls": ["https://www.fnac.com/"],
+      "explanation": "The refused homepage's own body states the site is under maintenance and currently unavailable, not that it is blocking bots specifically.",
+      "evidence": [
+        {"url": "https://www.fnac.com/", "type": "html_contains", "value": "Malheureusement notre site n'est actuellement pas disponible"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": []
+}

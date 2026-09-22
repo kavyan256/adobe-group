@@ -1,0 +1,16 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A7_site_unreadable", "url": "https://www.festool.com/"},
+      "verdict": "downgrade",
+      "reason": "access_block_unattributed",
+      "urls": ["https://www.festool.com/"],
+      "explanation": "The 403 page served is an Azure WAF JS challenge page with no site content left, not a bare refusal or maintenance notice, so the crawl cannot tell whether it targets bots specifically or is a generic anti-automation gate that would also affect the auditor's network.",
+      "evidence": [
+        {"url": "https://www.festool.com/", "type": "html_contains", "value": "Azure WAF JS Challenge"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": []
+}

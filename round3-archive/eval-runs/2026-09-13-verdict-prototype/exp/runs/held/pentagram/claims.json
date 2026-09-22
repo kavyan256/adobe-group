@@ -1,0 +1,25 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "D1_no_date_signals"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The news pages show their date only as plain text (e.g. 'Preview — Sep 15, 2025'); their JSON-LD is typed Organization/PostalAddress, not an article type carrying datePublished, so no machine-readable date exists.",
+      "evidence": [
+        {"url": "https://www.pentagram.com/news/caligra-computers-for-experts", "type": "field", "path": "jsonld.types", "op": "contains", "value": "organization"}
+      ]
+    },
+    {
+      "finding": {"check_id": "E3_unnamed_controls"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The homepage's search-toggle button contains only an aria-hidden SVG icon and no text, aria-label or title, so it exposes no accessible name to assistive tech or a non-visual agent.",
+      "evidence": [
+        {"url": "https://www.pentagram.com/", "type": "html_contains", "value": "<button type=\"button\" class=\"w-20 h-20 header__item--search\" data-behavior=\"searchToggle\">"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [],
+  "candidate_dispositions": []
+}
