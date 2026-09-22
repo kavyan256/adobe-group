@@ -1,0 +1,17 @@
+{
+ "slug": "weworkremotely",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 7.2,
+ "rc": 1,
+ "stderr": "",
+ "adjudicated": false,
+ "is_error": true,
+ "subtype": "success",
+ "num_turns": 2,
+ "duration_ms": 3993,
+ "total_cost_usd": 0.059072,
+ "result": "You've hit your session limit · resets 4pm (Asia/Kolkata)",
+ "permission_denials": [],
+ "raw_stdout": null
+}

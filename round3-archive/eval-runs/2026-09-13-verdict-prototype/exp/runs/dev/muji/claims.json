@@ -1,0 +1,16 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A7_site_unreadable", "url": "https://www.muji.com/jp/ja"},
+      "verdict": "not_a_defect",
+      "reason": "auditor_side_failure",
+      "urls": ["https://www.muji.com/jp/ja"],
+      "explanation": "robots.txt could not be fetched due to a ReadTimeout, which is a transport failure on the auditor's side, not an answer from the site; no page was ever read, so nothing about the site's own behavior is shown.",
+      "evidence": [
+        {"url": "https://www.muji.com/jp/ja", "type": "site_note_contains", "value": "ReadTimeout"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": []
+}

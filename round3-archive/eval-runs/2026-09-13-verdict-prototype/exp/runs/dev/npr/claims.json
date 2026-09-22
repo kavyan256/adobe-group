@@ -1,0 +1,45 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "C3_entity_unanchored"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The /about page declares Organization structured data but its sameAs list is empty, and the homepage has no JSON-LD at all, so no crawled page links the NPR entity to an external profile.",
+      "evidence": [
+        {"url": "https://www.npr.org/about", "type": "field", "path": "jsonld.types", "op": "contains", "value": "organization"},
+        {"url": "https://www.npr.org/about", "type": "field", "path": "jsonld.sameas", "op": "empty"},
+        {"url": "https://www.npr.org/", "type": "field", "path": "jsonld.types", "op": "empty"}
+      ]
+    },
+    {
+      "finding": {"check_id": "E3_unnamed_controls"},
+      "verdict": "downgrade",
+      "reason": "overstated_impact",
+      "explanation": "6 unnamed controls out of 521 is a small fraction (about 1%) of the interactive surface of a homepage that itself carries 336 internal links, so the impact is limited rather than pervasive.",
+      "evidence": [
+        {"url": "https://www.npr.org/", "type": "field", "path": "links.internal", "op": "eq", "value": 336}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [
+    {
+      "check_id": "C3_entity_unanchored",
+      "url": "https://www.npr.org/",
+      "quote": "This is NPR.",
+      "site_specific": [
+        "Add Organization JSON-LD to the homepage naming NPR as the publisher entity.",
+        "Include a sameAs array on that Organization block linking to NPR's Wikipedia page and its verified social profiles, so assistants can disambiguate NPR from similarly named brands."
+      ]
+    },
+    {
+      "check_id": "E3_unnamed_controls",
+      "url": "https://www.npr.org/",
+      "quote": "Skip to main content",
+      "site_specific": [
+        "Find the 6 icon-only controls on the homepage (likely share, menu or search toggles) that expose no text, aria-label or title.",
+        "Add an aria-label describing each control's action, then re-run an accessibility scan to confirm none remain unnamed."
+      ]
+    }
+  ]
+}

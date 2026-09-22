@@ -1,0 +1,66 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "C3_entity_unanchored", "url": "https://www.paulgraham.com/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://www.paulgraham.com/"],
+      "explanation": "The homepage identifies the site only by the personal name 'Paul Graham' with no JSON-LD sameAs links, so an assistant has nothing to distinguish this Paul Graham from anyone else sharing the name.",
+      "evidence": [
+        {"url": "https://www.paulgraham.com/", "type": "field", "path": "title", "op": "eq", "value": "Paul Graham"}
+      ]
+    },
+    {
+      "finding": {"check_id": "E11_no_viewport", "url": "https://www.paulgraham.com/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://www.paulgraham.com/", "https://www.paulgraham.com/prepare.html"],
+      "explanation": "Both crawled pages are real content pages (the homepage and a full essay) with no viewport meta tag, so mobile browsers will render them at desktop width and require pinch-zooming.",
+      "evidence": [
+        {"url": "https://www.paulgraham.com/", "type": "field", "path": "title", "op": "eq", "value": "Paul Graham"},
+        {"url": "https://www.paulgraham.com/prepare.html", "type": "field", "path": "title", "op": "eq", "value": "How Universities Should Prepare Founders"}
+      ]
+    },
+    {
+      "finding": {"check_id": "E4_images_missing_alt", "url": "https://www.paulgraham.com/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://www.paulgraham.com/"],
+      "explanation": "The homepage carries 3 images and none has an alt attribute, so a screen reader or non-visual consumer gets no description of any of them.",
+      "evidence": [
+        {"url": "https://www.paulgraham.com/", "type": "field", "path": "images.total", "op": "eq", "value": 8}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [
+    {
+      "check_id": "C3_entity_unanchored",
+      "url": "https://www.paulgraham.com/",
+      "quote": "Paul Graham",
+      "site_specific": [
+        "Add a Person JSON-LD block to the homepage naming Paul Graham as the site's subject.",
+        "Include a sameAs array linking to his authoritative external profiles (for example his social media and Y Combinator profile pages) so assistants can disambiguate him from others sharing the name."
+      ]
+    },
+    {
+      "check_id": "E11_no_viewport",
+      "url": "https://www.paulgraham.com/",
+      "quote": "New: How Universities Should Prepare Founders",
+      "site_specific": [
+        "Add a viewport meta tag setting width to device-width and initial-scale to 1 in the head of the homepage and essay template.",
+        "Confirm the essay text reflows to the screen width instead of rendering at fixed desktop width on a phone."
+      ]
+    },
+    {
+      "check_id": "E4_images_missing_alt",
+      "url": "https://www.paulgraham.com/",
+      "quote": "Want to start a startup? Get funded by Y Combinator .",
+      "site_specific": [
+        "Add an alt attribute to each of the 3 images on the homepage describing what it shows.",
+        "Use an empty alt=\"\" only for images that are purely decorative."
+      ]
+    }
+  ],
+  "candidate_dispositions": []
+}

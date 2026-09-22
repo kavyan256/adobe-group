@@ -1,0 +1,25 @@
+{
+ "slug": "muji",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 33.9,
+ "rc": 1,
+ "stderr": "",
+ "adjudicated": false,
+ "is_error": true,
+ "subtype": "success",
+ "num_turns": 8,
+ "duration_ms": 30448,
+ "total_cost_usd": 0.14725540000000004,
+ "result": "You've hit your session limit · resets 5am (Asia/Kolkata)",
+ "permission_denials": [
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_019GarvdunVAegsHELgBKkYs",
+   "tool_input": {
+    "command": "python3 skills/agent-review-audit/scripts/page_profile.py /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/muji/bundle.json /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/muji/report.json > /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/muji/profile.json\necho exit:$?\nwc -l /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/muji/profile.json"
+   }
+  }
+ ],
+ "raw_stdout": null
+}

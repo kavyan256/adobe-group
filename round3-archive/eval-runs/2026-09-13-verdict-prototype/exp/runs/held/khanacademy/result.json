@@ -1,0 +1,42 @@
+{
+ "slug": "khanacademy",
+ "tag": "held",
+ "model": "sonnet",
+ "wall_s": 138.9,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 18,
+ "duration_ms": 135608,
+ "total_cost_usd": 0.5611552,
+ "result": "Both verdicts applied cleanly, no rejections, no unjudged medium+ findings, no claims/fixes submitted. Report has been rewritten. Task complete.\n\n2 verdicts applied (both \"confirm\"), 0 claims and 0 fixes submitted (none written), 0 rejected.",
+ "permission_denials": [
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01RAN1ufgwougbrdCEy52SzN",
+   "tool_input": {
+    "command": "python3 skills/agent-review-audit/scripts/page_profile.py /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/khanacademy/bundle.json /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/khanacademy/report.json > /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/khanacademy/profile.json\necho EXIT:$?\nwc -l /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/khanacademy/profile.json",
+    "description": "Run page_profile.py to build profile.json"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01FAbhNarqm5uwFuR424yBFM",
+   "tool_input": {
+    "command": "WORK=/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/khanacademy\npython3 skills/agent-review-audit/scripts/page_profile.py \"$WORK/bundle.json\" \"$WORK/report.json\" > \"$WORK/profile.json\"\necho EXIT:$?",
+    "description": "Run page_profile.py to build profile.json"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01BeYt42WWM1pE9WVKYimCmr",
+   "tool_input": {
+    "command": "python3 skills/audit-orchestrator/scripts/audit.py --replay /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/khanacademy/bundle.json --agent-claims /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/khanacademy/claims.json -o /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/khanacademy/report.json\necho EXIT:$?",
+    "description": "Run audit.py replay to verify and apply claims/verdicts"
+   }
+  }
+ ],
+ "raw_stdout": null
+}

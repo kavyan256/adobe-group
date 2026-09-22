@@ -1,0 +1,32 @@
+{
+ "slug": "curl",
+ "tag": "held",
+ "model": "sonnet",
+ "wall_s": 137.3,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 18,
+ "duration_ms": 133802,
+ "total_cost_usd": 0.49044059999999995,
+ "result": "All applied cleanly now. Step 5 has rewritten `report.json`.\n\n1 verdict applied (0 rejected), 0 claims submitted (0 rejected), 5 fixes applied (0 rejected) — total 6 items submitted, all 6 accepted, 0 rejected.",
+ "permission_denials": [
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_018rk7RsthVmHRHyBVLtiV5V",
+   "tool_input": {
+    "command": "WORK=/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/curl && python3 skills/agent-review-audit/scripts/page_profile.py $WORK/bundle.json $WORK/report.json > $WORK/profile.json && echo OK && wc -c $WORK/profile.json"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_0137s5eTjaK2hzBTroWP5y6E",
+   "tool_input": {
+    "command": "python3 skills/agent-review-audit/scripts/page_profile.py /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/curl/bundle.json /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/curl/report.json > /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/curl/profile.json\necho EXIT:$?\nwc -c /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/curl/profile.json"
+   }
+  }
+ ],
+ "raw_stdout": null
+}

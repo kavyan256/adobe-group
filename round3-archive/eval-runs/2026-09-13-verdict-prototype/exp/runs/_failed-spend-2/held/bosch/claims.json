@@ -1,0 +1,46 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "C3_entity_unanchored", "url": "https://www.bosch.de/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://www.bosch.de/"],
+      "explanation": "The homepage carries real brand content (this exact headline) but no Organization/sameAs markup anywhere in its JSON-LD, so the absence is real, not a crawl artifact.",
+      "evidence": [
+        {"url": "https://www.bosch.de/", "type": "field", "path": "h1.0", "op": "eq", "value": "Preisträger spenden 240 000 Euro für Nachwuchsforschung"}
+      ]
+    },
+    {
+      "finding": {"check_id": "E10_no_next_step", "url": "https://www.bosch.de/kontakt"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://www.bosch.de/kontakt"],
+      "explanation": "The page lists a real phone number as plain text, not as a tel: link, and has no form or mailto: either, so a visitor who reads it has nothing to click.",
+      "evidence": [
+        {"url": "https://www.bosch.de/kontakt", "type": "text_contains", "value": "0711 400 40990", "scope": "extracted"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [
+    {
+      "check_id": "E10_no_next_step",
+      "url": "https://www.bosch.de/kontakt",
+      "quote": "0711 400 40990",
+      "site_specific": [
+        "Wrap the phone number '0711 400 40990' in a tel: link so mobile visitors can call directly.",
+        "Add a mailto: or contact-form link next to each customer-service heading (Hausgeräte, Elektrowerkzeuge, Smart Home, etc.) so every service area has its own clickable next step."
+      ]
+    },
+    {
+      "check_id": "C3_entity_unanchored",
+      "url": "https://www.bosch.de/",
+      "quote": "Preisträger spenden 240 000 Euro für Nachwuchsforschung",
+      "site_specific": [
+        "Add an Organization JSON-LD block to the homepage naming 'Robert Bosch GmbH', with a sameAs array listing Bosch's own official social-media and reference profiles.",
+        "Reuse the same Organization block (or link to it by @id) on the other key pages crawled, such as /kontakt and /impressum, so the entity is anchored consistently across the site."
+      ]
+    }
+  ],
+  "candidate_dispositions": []
+}

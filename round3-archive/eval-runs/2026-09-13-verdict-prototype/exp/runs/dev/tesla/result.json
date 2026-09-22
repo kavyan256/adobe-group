@@ -1,0 +1,34 @@
+{
+ "slug": "tesla",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 97.3,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 17,
+ "duration_ms": 94008,
+ "total_cost_usd": 0.38399200000000006,
+ "result": "`adjudicated.json` is written at `/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/tesla/adjudicated.json`.\n\n1 verdict was judged (downgraded the sole A7 bot-challenge finding from high to medium under `access_block_unattributed`, since the crawl only reached a named-vendor challenge page with no readable body); 0 claims and 0 fixes were submitted (the crawl yielded no readable page content to claim anything from); nothing was rejected.",
+ "permission_denials": [
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01TiAkADPVKUXSJ4vxbo1rJF",
+   "tool_input": {
+    "command": "python3 skills/agent-review-audit/scripts/page_profile.py /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/tesla/bundle.json /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/tesla/report.json > /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/tesla/profile.json\necho exit:$?\nwc -l /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/tesla/profile.json",
+    "description": "Run page_profile.py to build profile.json"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01AUkF9ks7hmmjVJ1PSjtNuJ",
+   "tool_input": {
+    "command": "cd /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/v5-proto\nWORK=\"/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/tesla\"\npython3 skills/agent-review-audit/scripts/page_profile.py \"$WORK/bundle.json\" \"$WORK/report.json\" > \"$WORK/profile.json\"\necho \"exit:$?\"\nwc -l \"$WORK/profile.json\"",
+    "description": "Run page_profile.py with variable-based paths"
+   }
+  }
+ ],
+ "raw_stdout": null
+}

@@ -1,0 +1,16 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A7_site_unreadable", "url": "https://www.easyjet.com/"},
+      "verdict": "downgrade",
+      "reason": "access_block_unattributed",
+      "urls": ["https://www.easyjet.com/"],
+      "explanation": "The homepage returned a 403 with an Akamai bot-challenge and no response body, a named challenge vendor with nothing left to attribute the block to AI agents specifically rather than the auditor's own network or IP.",
+      "evidence": [
+        {"url": "https://www.easyjet.com/", "type": "field", "path": "error", "op": "eq", "value": "bot_challenge:Akamai"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": []
+}

@@ -1,0 +1,25 @@
+{
+ "slug": "nycgov",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 102.9,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 22,
+ "duration_ms": 99664,
+ "total_cost_usd": 0.44080420000000003,
+ "result": "1 verdict submitted and applied (A7_site_unreadable downgraded high→medium, reason access_block_unattributed); 0 claims and 0 fixes were submitted (no readable page content existed beyond the bot-challenge block to support any); 0 rejected.",
+ "permission_denials": [
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_017ZwDqVyCViSJBsAg3kE1iY",
+   "tool_input": {
+    "command": "cd /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/v5-proto\nWORK=/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/nycgov\npython3 skills/audit-orchestrator/scripts/audit.py --replay $WORK/bundle.json --agent-claims $WORK/claims.json -o $WORK/report.json\necho \"exit: $?\""
+   }
+  }
+ ],
+ "raw_stdout": null
+}

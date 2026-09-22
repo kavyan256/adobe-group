@@ -1,0 +1,15 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A7_site_unreadable", "url": "https://www.nypl.org/"},
+      "verdict": "downgrade",
+      "reason": "access_block_unattributed",
+      "explanation": "The response body is empty; only the x-iinfo header, Incapsula's own trace-ID header, shows this is Incapsula's WAF challenge. The crawl cannot tell whether it targets AI/bot clients specifically or blocks this auditor's network generally.",
+      "evidence": [
+        {"url": "https://www.nypl.org/", "type": "header_contains", "header": "x-iinfo", "value": "53-185628182-0"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": []
+}

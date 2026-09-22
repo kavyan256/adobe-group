@@ -1,0 +1,17 @@
+{
+ "slug": "framer",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 264.3,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 29,
+ "duration_ms": 260809,
+ "total_cost_usd": 0.8689142000000002,
+ "result": "All 4 verdicts and both fixes were applied; 0 claims submitted (none met the evidence bar to write), 0 rejected. `adjudicated.json` now exists.\n\n**4 verdicts applied (0 rejected), 0 claims submitted, 2 fixes applied (0 rejected).**",
+ "permission_denials": [],
+ "raw_stdout": null
+}

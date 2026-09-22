@@ -1,0 +1,17 @@
+{
+ "slug": "pythondocs",
+ "tag": "held",
+ "model": "sonnet",
+ "wall_s": 1.1,
+ "rc": 1,
+ "stderr": "",
+ "adjudicated": false,
+ "is_error": true,
+ "subtype": "success",
+ "num_turns": 1,
+ "duration_ms": 177,
+ "total_cost_usd": 0,
+ "result": "Not logged in · Please run /login",
+ "permission_denials": [],
+ "raw_stdout": null
+}

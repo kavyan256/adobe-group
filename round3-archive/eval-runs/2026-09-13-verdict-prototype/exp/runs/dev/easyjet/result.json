@@ -1,0 +1,17 @@
+{
+ "slug": "easyjet",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 71.1,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 18,
+ "duration_ms": 69615,
+ "total_cost_usd": 0.45450199999999996,
+ "result": "`WORK/adjudicated.json` was written. 1 verdict submitted and applied (A7_site_unreadable downgraded high→medium, reason access_block_unattributed), 0 claims and 0 fixes submitted (the crawl had no successfully-read pages to ground any), and nothing was rejected.",
+ "permission_denials": [],
+ "raw_stdout": null
+}

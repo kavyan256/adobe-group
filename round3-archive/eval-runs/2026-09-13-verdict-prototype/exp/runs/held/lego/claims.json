@@ -1,0 +1,36 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A9_key_page_broken", "url": "https://www.lego.com/product/disney-tim-burton-s-the-nightmare-before-christmas-21351"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://www.lego.com/product/disney-tim-burton-s-the-nightmare-before-christmas-21351"],
+      "explanation": "The URL returns HTTP 404 and its own markup is the site's rendered not-found template, so the product page genuinely is gone, not a crawl artefact.",
+      "evidence": [
+        {"url": "https://www.lego.com/product/disney-tim-burton-s-the-nightmare-before-christmas-21351", "type": "html_contains", "value": "data-test=\"not-found\""},
+        {"url": "https://www.lego.com/product/disney-tim-burton-s-the-nightmare-before-christmas-21351", "type": "html_contains", "value": "NotFound_contentWrapper"}
+      ]
+    }
+  ],
+  "candidate_dispositions": [
+    {
+      "mechanism": "F",
+      "item": "thin_content_page",
+      "url": "https://www.lego.com/product/disney-tim-burton-s-the-nightmare-before-christmas-21351",
+      "disposition": "not_applicable",
+      "reason": "This URL renders the site's generic not-found template (only global navigation and footer markup, a not-found content wrapper, and no product name, image or price), so there is no product page here for content to be thin on."
+    }
+  ],
+  "claims": [],
+  "fixes": [
+    {
+      "check_id": "E6_heading_structure",
+      "url": "https://www.lego.com/",
+      "quote": "Forever flowers",
+      "site_specific": [
+        "Add one h1 heading to the homepage that names the page, for example 'LEGO Official Online Store', instead of leaving the heading level empty.",
+        "Keep the 'Forever flowers' promotional headline as a lower-level heading below it so extractors and visitors see what the page is first."
+      ]
+    }
+  ]
+}

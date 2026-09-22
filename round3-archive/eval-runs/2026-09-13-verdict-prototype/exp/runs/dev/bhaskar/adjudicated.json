@@ -1,0 +1,555 @@
+{
+  "site": "www.bhaskar.com",
+  "audited_at": "2026-09-12T17:03:01Z",
+  "summary": {
+    "total_findings": 4,
+    "critical": 1,
+    "high": 0,
+    "medium": 1,
+    "low": 2,
+    "active_findings": 4,
+    "latent_findings": 0,
+    "confirm_intent_findings": 0,
+    "info": 0,
+    "active_by_severity": {
+      "critical": 1,
+      "high": 0,
+      "medium": 1,
+      "low": 2
+    },
+    "by_hurts": {
+      "ai_discoverability": 2,
+      "user_retention": 2,
+      "both": 2
+    },
+    "run_status": "complete",
+    "headline": "6 finding(s); most severe: robots.txt blocks 7 AI retrieval agent(s)"
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "title": "robots.txt blocks 7 AI retrieval agent(s)",
+      "severity": "critical",
+      "evidence": "robots.txt disallows these retrieval/indexing agents: Applebot, ChatGPT-User, Claude-SearchBot, Claude-User, OAI-SearchBot, Perplexity-User, PerplexityBot. Blocked paths sampled: ['/', '/contact-us', '/web-stories/beauty/side-effects-of-sleeping-with-makeup-on', '/web-stories/entertainment/10-incredible-roles-of-shakti-kapoor', '/web-stories/fashion/disadvantages-of-bad-quality-lipsticks', '/web-stories/food/8-delicious-coconut-recipes']. These agents fetch pages in order to answer user questions, so pages they cannot reach cannot be cited. (Note: Applebot-Extended, Bytespider, CCBot, ClaudeBot, GPTBot, Google-Extended are also blocked, but those are training-only agents and do not affect citation -- reported separately as policy, not as a defect.) Deciding robots.txt rule(s): ['Disallow: /'].",
+      "suggested_action": {
+        "summary": "Allow retrieval agents even if you continue to block training crawlers.",
+        "priority": "critical",
+        "effort": "low",
+        "how": [
+          "In robots.txt, add explicit Allow groups for the retrieval agents you want citing you: OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User, Applebot.",
+          "Keep any GPTBot / ClaudeBot / Google-Extended / CCBot blocks if refusing training is a deliberate policy -- those are independent of citation.",
+          "Example:\n  User-agent: OAI-SearchBot\n  Allow: /\n\n  User-agent: GPTBot\n  Disallow: /"
+        ],
+        "verify": "Re-run this audit; A1 should no longer fire for retrieval agents."
+      },
+      "check_id": "A1_retrieval_agent_blocked",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "access",
+      "mechanism": "A",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "site_wide",
+      "severity_rationale": "base=critical (access/A1_retrieval_agent_blocked); blast=site_wide x1.0 => critical; agent verdict confirm (measurement_confirmed)",
+      "affected_urls": [
+        "https://www.bhaskar.com/robots.txt"
+      ],
+      "affected_url_count": 1,
+      "detail": {
+        "blocked_retrieval_agents": [
+          "Applebot",
+          "ChatGPT-User",
+          "Claude-SearchBot",
+          "Claude-User",
+          "OAI-SearchBot",
+          "Perplexity-User",
+          "PerplexityBot"
+        ],
+        "blocked_training_agents": [
+          "Applebot-Extended",
+          "Bytespider",
+          "CCBot",
+          "ClaudeBot",
+          "GPTBot",
+          "Google-Extended"
+        ],
+        "blocked_paths": [
+          "/",
+          "/contact-us",
+          "/web-stories/beauty/side-effects-of-sleeping-with-makeup-on",
+          "/web-stories/entertainment/10-incredible-roles-of-shakti-kapoor",
+          "/web-stories/fashion/disadvantages-of-bad-quality-lipsticks",
+          "/web-stories/food/8-delicious-coconut-recipes",
+          "/web-stories/health/health-benefits-medicinal-uses-of-neem",
+          "/web-stories/health/how-to-get-rid-of-neck-pain",
+          "/web-stories/trending/countries-that-practice-female-circumcision",
+          "/web-stories/trending/the-countries-where-rats-are-eaten",
+          "/web-stories/trending/things-to-consider-before-swiping-right-on-dating-apps",
+          "/web-stories/trending/what-is-parallel-universe"
+        ],
+        "agent_verdict": {
+          "verdict": "confirm",
+          "reason": "measurement_confirmed"
+        }
+      }
+    },
+    {
+      "id": "F-002",
+      "title": "Interactive controls without an accessible name on 1 page(s)",
+      "severity": "medium",
+      "evidence": "https://www.bhaskar.com/: 5/426 controls expose no text, aria-label, aria-labelledby, title, SVG title or image alt. Controls whose name is bound by a JS framework (v-, x-, ng-, :, @, [) were assumed named at runtime and not counted.",
+      "suggested_action": {
+        "summary": "Give every control a name a machine can read.",
+        "priority": "medium",
+        "effort": "low",
+        "how": [
+          "Add visible text, or aria-label where the control is icon-only.",
+          "An unnamed control is unusable with a screen reader and invisible to any agent trying to understand what actions the page offers."
+        ],
+        "verify": "Every button/link resolves to a non-empty accessible name.",
+        "site_specific": [
+          "Add an aria-label to each icon-only header control (search, watch, video) that currently exposes no accessible name.",
+          "Add alt text to the one image on the homepage that is missing it."
+        ],
+        "grounded_on": {
+          "url": "https://www.bhaskar.com/",
+          "quote": "होम वीडियो सर्च वॉच वेब स्टोरीज"
+        }
+      },
+      "check_id": "E3_unnamed_controls",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "template",
+      "severity_rationale": "base=medium (engagement/E3_unnamed_controls); blast=template x0.8 => medium; agent verdict confirm (measurement_confirmed)",
+      "affected_urls": [
+        "https://www.bhaskar.com/"
+      ],
+      "affected_url_count": 1,
+      "detail": {
+        "agent_verdict": {
+          "verdict": "confirm",
+          "reason": "measurement_confirmed"
+        }
+      }
+    },
+    {
+      "id": "F-003",
+      "title": "Copyright year is out of date on 2 page(s)",
+      "severity": "low",
+      "evidence": "https://www.bhaskar.com/: latest copyright year 2024 (now 2026); https://www.bhaskar.com/contact-us?ref=inbound_RHS: latest copyright year 2024 (now 2026)",
+      "suggested_action": {
+        "summary": "Render the copyright year dynamically.",
+        "priority": "low",
+        "effort": "low",
+        "how": [
+          "Generate the year at build or request time rather than hard-coding it.",
+          "A stale year is a cheap but widely-used freshness cue - it suggests the whole site may be unmaintained."
+        ],
+        "verify": "The footer shows the current year.",
+        "site_specific": [
+          "Update the footer copyright string on bhaskar.com from '2024-25' to the current year range.",
+          "Generate the year from the server clock at render time so the footer never goes stale again."
+        ],
+        "grounded_on": {
+          "url": "https://www.bhaskar.com/contact-us?ref=inbound_RHS",
+          "quote": "Copyright © 2024-25 DB Corp ltd., All Rights Reserved"
+        }
+      },
+      "check_id": "D2_stale_copyright",
+      "source": "scripted",
+      "hurts": "ai_discoverability",
+      "gate": "freshness",
+      "mechanism": "D",
+      "status": "active",
+      "confidence": "deterministic",
+      "measurement_basis": "static_fact",
+      "blast_radius": "template",
+      "severity_rationale": "base=low (freshness/D2_stale_copyright); blast=template x0.8 => low",
+      "affected_urls": [
+        "https://www.bhaskar.com/",
+        "https://www.bhaskar.com/contact-us?ref=inbound_RHS"
+      ],
+      "affected_url_count": 2
+    },
+    {
+      "id": "F-004",
+      "title": "No h1 heading on 1 page(s)",
+      "severity": "low",
+      "evidence": "1/12 pages contain no h1 element at all. Examples: ['https://www.bhaskar.com/web-stories/trending/countries-that-practice-female-circumcision']. Extractors and assistants use the top heading to decide what a page is about.",
+      "suggested_action": {
+        "summary": "Give each page one h1 that states its subject.",
+        "priority": "low",
+        "effort": "low",
+        "how": [
+          "Add a single h1 naming the page subject, then h2/h3 for sections in order.",
+          "If the visual title is styled as a div or span, change the element, not the CSS."
+        ],
+        "verify": "Each page has an h1 and its text matches the page's subject.",
+        "site_specific": [
+          "Add a single h1 to this web-story page carrying its own headline text, e.g. '10 देश, जहां महिलाओं का भी होता है खतना'.",
+          "Apply the same fix to the web-story template so no story in this section ships without an h1."
+        ],
+        "grounded_on": {
+          "url": "https://www.bhaskar.com/web-stories/trending/countries-that-practice-female-circumcision",
+          "quote": "दुनिया भर में आज भी कई देश ऐसे हैं"
+        }
+      },
+      "check_id": "E6_heading_structure",
+      "source": "scripted",
+      "hurts": "user_retention",
+      "gate": "engagement",
+      "mechanism": "on-site",
+      "status": "active",
+      "confidence": "heuristic",
+      "measurement_basis": "static_heuristic",
+      "blast_radius": "template",
+      "severity_rationale": "base=low (engagement/E6_heading_structure); blast=template x0.8 => low",
+      "affected_urls": [
+        "https://www.bhaskar.com/web-stories/trending/countries-that-practice-female-circumcision"
+      ],
+      "affected_url_count": 1
+    }
+  ],
+  "site_profile": {
+    "start_url": "https://www.bhaskar.com/",
+    "pages_crawled": 12,
+    "roles_seen": [
+      "contact",
+      "generic",
+      "home"
+    ],
+    "robots_present": true,
+    "ai_policy": {
+      "retrieval_agents_blocked": [
+        "Applebot",
+        "ChatGPT-User",
+        "Claude-SearchBot",
+        "Claude-User",
+        "OAI-SearchBot",
+        "Perplexity-User",
+        "PerplexityBot"
+      ],
+      "training_agents_blocked": [
+        "Applebot-Extended",
+        "Bytespider",
+        "CCBot",
+        "ClaudeBot",
+        "GPTBot",
+        "Google-Extended"
+      ],
+      "interpretation": "Blocking training agents is a licensing choice and does not affect whether assistants can cite you. Only retrieval agents gate citation."
+    },
+    "user_agent_used": "AIReadinessAudit/1.0 (+https://github.com/kavyan256/adobe-group)"
+  },
+  "coverage": {
+    "elapsed_s": 32.9,
+    "pages_attempted": 12,
+    "pages_blocked_by_robots_for_our_ua": 0,
+    "pages_fetched": 12,
+    "pages_ok": 12,
+    "urls_discovered": 360
+  },
+  "checks_skipped": [
+    {
+      "check": "D6_cross_web_corroboration",
+      "reason": "Not assessed: whether independent third parties agree with this site's claims. Reason: that needs a search backend, which this marketplace does not assume. How to check it yourself: search your brand plus a key fact (price, founding year, HQ) and count independent sources that agree.",
+      "impact": "Claims that exist only on this site are not distinguished from claims corroborated across the web. The on-site corroboration checks still ran."
+    },
+    {
+      "check": "E_authenticated_flows",
+      "reason": "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account.",
+      "impact": "How to check it yourself: walk the signup, checkout or booking flow on a phone with a test account and count the required steps and fields."
+    },
+    {
+      "check": "E_behaviour_metrics",
+      "reason": "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion rate). Reason: they are observed, not inferred from markup, and a short visit from an AI answer is often a success - the visitor came to verify one fact and did.",
+      "impact": "How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate, not their bounce rate, with search traffic."
+    },
+    {
+      "check": "E_colour_contrast",
+      "reason": "Not assessed: colour contrast (WCAG 1.4.3). Reason: contrast ratios need computed styles, which need a browser; this marketplace runs without one to stay portable and deterministic.",
+      "impact": "How to check it yourself: run axe DevTools or Lighthouse on the top 3 page templates and read the contrast section."
+    },
+    {
+      "check": "E_copy_quality",
+      "reason": "Not assessed: copy quality, persuasion and jargon. Reason: subjective; no static threshold separates plain language from marketing copy across industries and languages without a high false-positive rate.",
+      "impact": "How to check it yourself: read the first paragraph of the homepage and one product page aloud to someone outside the company and ask what the site offers and for whom."
+    },
+    {
+      "check": "E_core_web_vitals",
+      "reason": "Not assessed: Core Web Vitals (LCP, CLS, INP). Reason: these are field metrics at the 75th percentile; a single synthetic fetch is not a measurement and INP cannot be measured synthetically at all.",
+      "impact": "How to check it yourself: open Google Search Console's Core Web Vitals report, which uses real-user data, or run Lighthouse for lab LCP/CLS."
+    },
+    {
+      "check": "E_rendered_experience",
+      "reason": "Not assessed: the rendered experience (overlay and cookie-banner timing, tap target size, focus visibility, layout at phone width). Reason: all of it depends on CSS and JavaScript executing, which needs a browser.",
+      "impact": "How to check it yourself: run Lighthouse and axe on the top 3 templates at phone width, then tab through each page once to confirm focus is visible."
+    }
+  ],
+  "agent_review": {
+    "status": "run",
+    "claims_submitted": 0,
+    "verified": 0,
+    "rejected": [],
+    "claim_limit": 6,
+    "fixes_submitted": 3,
+    "fixes_verified": 3,
+    "rejected_fixes": [],
+    "merged": 0,
+    "fixes_merged": 3,
+    "adjudicated_out": [
+      {
+        "check_id": "C2_markup_text_contradiction",
+        "title": "Structured-data price not present in the visible text on 1 page(s)",
+        "severity": "medium",
+        "reason": "page_purpose_mismatch",
+        "verified_evidence": [
+          "https://www.bhaskar.com/: title contains \"Hindi News\" (actual \"Hindi News; Latest Hindi News, Breaking Hindi News Live, Hindi Samachar (हिंदी समाचार), Hindi News Paper Today - Dai...)",
+          "https://www.bhaskar.com/: jsonld.types contains \"mobileapplication\" (actual [\"aggregaterating\", \"imageobject\", \"mobileapplication\", \"newsmediaorganization\", \"offer\", \"organization\", \"postaladdr...)"
+        ]
+      },
+      {
+        "check_id": "E9_promise_payoff_mismatch",
+        "title": "Page content shares no vocabulary with its own title on 9 page(s)",
+        "severity": "medium",
+        "reason": "measurement_wrong",
+        "verified_evidence": [
+          "https://www.bhaskar.com/web-stories/entertainment/10-incredible-roles-of-shakti-kapoor: the extracted text contains 'शक्ति कपूर'",
+          "https://www.bhaskar.com/web-stories/trending/the-countries-where-rats-are-eaten: the extracted text contains 'चूहे खाना'",
+          "https://www.bhaskar.com/web-stories/trending/what-is-parallel-universe: the extracted text contains 'ब्रह्मांड'",
+          "https://www.bhaskar.com/web-stories/trending/things-to-consider-before-swiping-right-on-dating-apps: the extracted text contains 'स्वाइप'",
+          "https://www.bhaskar.com/web-stories/fashion/disadvantages-of-bad-quality-lipsticks: the extracted text contains 'लिपस्टिक'",
+          "https://www.bhaskar.com/web-stories/food/8-delicious-coconut-recipes: the extracted text contains 'नारियल'",
+          "https://www.bhaskar.com/web-stories/trending/countries-that-practice-female-circumcision: the extracted text contains 'खतना करने'",
+          "https://www.bhaskar.com/web-stories/beauty/side-effects-of-sleeping-with-makeup-on: the extracted text contains 'मेकअप लगा'",
+          "https://www.bhaskar.com/web-stories/health/how-to-get-rid-of-neck-pain: the extracted text contains 'गर्दन में दर्द'"
+        ]
+      }
+    ],
+    "verdicts_submitted": 4,
+    "verdicts_applied": 4,
+    "verdicts_rejected": [],
+    "adjudications": [
+      {
+        "check_id": "A1_retrieval_agent_blocked",
+        "verdict": "confirm",
+        "reason": "measurement_confirmed",
+        "urls": [
+          "https://www.bhaskar.com/robots.txt"
+        ],
+        "explanation": "robots.txt fully blocks 7 named AI retrieval agents; this is a robots.txt rule naming AI agents, so it is left as the scripted check reported it, not treated as deliberate configuration.",
+        "verified_evidence": [
+          "crawl robots.status eq 200 (actual 200)"
+        ],
+        "before": {
+          "severity": "critical",
+          "status": "active",
+          "affected_url_count": 1
+        },
+        "after": {
+          "severity": "critical",
+          "status": "active",
+          "affected_url_count": 1
+        }
+      },
+      {
+        "check_id": "C2_markup_text_contradiction",
+        "verdict": "not_a_defect",
+        "reason": "page_purpose_mismatch",
+        "urls": [
+          "https://www.bhaskar.com/"
+        ],
+        "explanation": "The homepage is a Hindi news portal, not a shop or product page. The JSON-LD offer of INR 0 belongs to the site's mobileapplication/organization markup (a free app listing), not to the news content the page actually owes text about.",
+        "verified_evidence": [
+          "https://www.bhaskar.com/: title contains \"Hindi News\" (actual \"Hindi News; Latest Hindi News, Breaking Hindi News Live, Hindi Samachar (हिंदी समाचार), Hindi News Paper Today - Dai...)",
+          "https://www.bhaskar.com/: jsonld.types contains \"mobileapplication\" (actual [\"aggregaterating\", \"imageobject\", \"mobileapplication\", \"newsmediaorganization\", \"offer\", \"organization\", \"postaladdr...)"
+        ],
+        "before": {
+          "severity": "medium",
+          "status": "active",
+          "affected_url_count": 1
+        },
+        "after": "removed"
+      },
+      {
+        "check_id": "E3_unnamed_controls",
+        "verdict": "confirm",
+        "reason": "measurement_confirmed",
+        "urls": [
+          "https://www.bhaskar.com/"
+        ],
+        "explanation": "The homepage does have at least one image with no alt text, consistent with the check's own definition of an unnamed control (a control is counted unnamed when it exposes no text, aria-label, aria-labelledby, title, SVG title, or image alt).",
+        "verified_evidence": [
+          "https://www.bhaskar.com/: images.missing_alt eq 1 (actual 1)"
+        ],
+        "before": {
+          "severity": "medium",
+          "status": "active",
+          "affected_url_count": 1
+        },
+        "after": {
+          "severity": "medium",
+          "status": "active",
+          "affected_url_count": 1
+        }
+      },
+      {
+        "check_id": "E9_promise_payoff_mismatch",
+        "verdict": "not_a_defect",
+        "reason": "measurement_wrong",
+        "urls": [
+          "https://www.bhaskar.com/web-stories/beauty/side-effects-of-sleeping-with-makeup-on",
+          "https://www.bhaskar.com/web-stories/entertainment/10-incredible-roles-of-shakti-kapoor",
+          "https://www.bhaskar.com/web-stories/fashion/disadvantages-of-bad-quality-lipsticks",
+          "https://www.bhaskar.com/web-stories/food/8-delicious-coconut-recipes",
+          "https://www.bhaskar.com/web-stories/health/how-to-get-rid-of-neck-pain",
+          "https://www.bhaskar.com/web-stories/trending/countries-that-practice-female-circumcision",
+          "https://www.bhaskar.com/web-stories/trending/the-countries-where-rats-are-eaten",
+          "https://www.bhaskar.com/web-stories/trending/things-to-consider-before-swiping-right-on-dating-apps",
+          "https://www.bhaskar.com/web-stories/trending/what-is-parallel-universe"
+        ],
+        "explanation": "The check extracts only ASCII words from the English meta description and compares them to the Hindi-script body text, so it always finds zero overlap on these Hindi pages. Every one of the 9 pages does state its own topic in the Hindi body text; the measurement, not the content, is wrong.",
+        "verified_evidence": [
+          "https://www.bhaskar.com/web-stories/entertainment/10-incredible-roles-of-shakti-kapoor: the extracted text contains 'शक्ति कपूर'",
+          "https://www.bhaskar.com/web-stories/trending/the-countries-where-rats-are-eaten: the extracted text contains 'चूहे खाना'",
+          "https://www.bhaskar.com/web-stories/trending/what-is-parallel-universe: the extracted text contains 'ब्रह्मांड'",
+          "https://www.bhaskar.com/web-stories/trending/things-to-consider-before-swiping-right-on-dating-apps: the extracted text contains 'स्वाइप'",
+          "https://www.bhaskar.com/web-stories/fashion/disadvantages-of-bad-quality-lipsticks: the extracted text contains 'लिपस्टिक'",
+          "https://www.bhaskar.com/web-stories/food/8-delicious-coconut-recipes: the extracted text contains 'नारियल'",
+          "https://www.bhaskar.com/web-stories/trending/countries-that-practice-female-circumcision: the extracted text contains 'खतना करने'",
+          "https://www.bhaskar.com/web-stories/beauty/side-effects-of-sleeping-with-makeup-on: the extracted text contains 'मेकअप लगा'",
+          "https://www.bhaskar.com/web-stories/health/how-to-get-rid-of-neck-pain: the extracted text contains 'गर्दन में दर्द'"
+        ],
+        "before": {
+          "severity": "medium",
+          "status": "active",
+          "affected_url_count": 9
+        },
+        "after": "removed"
+      }
+    ],
+    "unjudged_medium_or_above": []
+  },
+  "prioritized_actions": [
+    {
+      "rank": 1,
+      "finding_id": "F-001",
+      "title": "robots.txt blocks 7 AI retrieval agent(s)",
+      "priority_score": 5.0,
+      "severity": "critical",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "low",
+      "action": "Allow retrieval agents even if you continue to block training crawlers."
+    },
+    {
+      "rank": 2,
+      "finding_id": "F-002",
+      "title": "Structured-data price not present in the visible text on 1 page(s)",
+      "priority_score": 2.1,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "both",
+      "effort": "low",
+      "action": "Make the marked-up price and the displayed price agree."
+    },
+    {
+      "rank": 3,
+      "finding_id": "F-003",
+      "title": "Interactive controls without an accessible name on 1 page(s)",
+      "priority_score": 2.1,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Give every control a name a machine can read."
+    },
+    {
+      "rank": 4,
+      "finding_id": "F-004",
+      "title": "Page content shares no vocabulary with its own title on 9 page(s)",
+      "priority_score": 1.312,
+      "severity": "medium",
+      "status": "active",
+      "hurts": "both",
+      "effort": "medium",
+      "action": "Make the page deliver what its title and description promise."
+    },
+    {
+      "rank": 5,
+      "finding_id": "F-005",
+      "title": "Copyright year is out of date on 2 page(s)",
+      "priority_score": 2.0,
+      "severity": "low",
+      "status": "active",
+      "hurts": "ai_discoverability",
+      "effort": "low",
+      "action": "Render the copyright year dynamically."
+    },
+    {
+      "rank": 6,
+      "finding_id": "F-006",
+      "title": "No h1 heading on 1 page(s)",
+      "priority_score": 1.4,
+      "severity": "low",
+      "status": "active",
+      "hurts": "user_retention",
+      "effort": "low",
+      "action": "Give each page one h1 that states its subject."
+    }
+  ],
+  "proactive_recommendations": [
+    {
+      "title": "Publish an llms.txt describing your site for AI clients",
+      "rationale": "An emerging convention: a short, stable, plain-text map of what your site covers and where the authoritative pages are. Cheap to add, and it gives retrieval agents an unambiguous starting point.",
+      "effort": "low",
+      "applies_because": "GET /llms.txt did not return a plain-text document"
+    },
+    {
+      "title": "Add a machine-readable FAQ layer shaped for quotation",
+      "rationale": "FAQPage structured data pairs a question with a self-contained answer. That is exactly the shape an assistant wants to lift, and it survives text extraction.",
+      "effort": "medium",
+      "applies_because": "no crawled page carries FAQPage JSON-LD"
+    },
+    {
+      "title": "Server-render your most-quoted facts even inside a SPA",
+      "rationale": "You do not have to abandon client-side rendering. Server-render the handful of facts you most want cited - price, what you do, how to contact you - and let the rest hydrate.",
+      "effort": "high",
+      "applies_because": "the site ships a client-side hydration payload; its key facts currently extract fine, so this is about keeping it that way as the app grows"
+    }
+  ],
+  "already_in_place": [
+    {
+      "title": "Decide your AI-crawler policy deliberately, and write it down",
+      "because": "robots.txt already addresses AI agents by name"
+    },
+    {
+      "title": "Publish a stable, citable facts page",
+      "because": "Organization sameAs links are already published"
+    },
+    {
+      "title": "Answer the question visitors arrive with on the first screen",
+      "because": "the homepage's first 60 words already name the site or state a concrete figure"
+    },
+    {
+      "title": "Every deep page links to its parent section and a contact route",
+      "because": "every substantial deep page already links onward from its content"
+    }
+  ],
+  "limits": [
+    "Not assessed: behaviour metrics (bounce rate, dwell time, scroll depth, conversion). Reason: a crawl sees markup, never visitors; engagement findings are structural risk factors, capped at medium for that reason. How to check it yourself: in your analytics, segment sessions by referrer (chatgpt.com, perplexity.ai, claude.ai) and compare their conversion rate with search traffic.",
+    "Not assessed: the rendered experience (layout, overlays and cookie banners, colour contrast, Core Web Vitals) and facts loaded by client-side requests after page load. Reason: no JavaScript is executed and no browser is used - which is also what non-rendering AI retrieval agents see; a fact fetched only by XHR can be a false negative here. How to check it yourself: run Lighthouse and axe on the top three templates, and open a key page with JavaScript disabled to see what a bot gets.",
+    "Not assessed: copy quality - whether the words persuade, or answer the visitor's question well. Reason: subjective, with no static threshold that holds across industries and languages; the scripted checks measure only structure and vocabulary overlap. How to check it yourself: read the first paragraph of the homepage and one product page to someone outside the company and ask what the site offers and for whom.",
+    "Not assessed: anything behind a login, checkout step or account area. Reason: the audit is read-only and never authenticates, submits a form or creates an account. How to check it yourself: walk the signup, checkout or booking flow with a test account and count the required steps and fields.",
+    "Not assessed: personalization of AI answers (appendix E). Reason: it happens inside the assistant, from the user's own context, and no site-side measurement exists; the site-side lever - self-contained, quotable facts - is what the extraction and quotability checks cover. How to check it yourself: ask an assistant the same question about your brand in a fresh session and in a long-running one, and compare.",
+    "Not assessed: cross-web corroboration - whether independent sources agree with the site's facts. Reason: it needs a search backend and off-site fetches, which this audit does not make; only on-site corroboration hooks (sameAs, press links) are checked. How to check it yourself: search Wikipedia, Wikidata, Crunchbase and the press for your founding date, HQ, leadership and pricing, and reconcile differences.",
+    "Not assessed: problems outside the scripted checks, unless an agent review ran (see agent_review). Reason: a fixed list of checks misses what it does not list. How to check it yourself: follow agent-review-audit/SKILL.md; every claim it admits was checked against the crawl and is capped at low severity."
+  ],
+  "notes": []
+}

@@ -1,0 +1,1 @@
+{"verdicts": [{"finding": {"check_id": "A3_noindex"}, "verdict": "downgrade", "reason": "overstated_impact", "explanation": "The crawl shows this finding does not hold for the reason given here.", "evidence": [{"url": "https://www.msf.org/rewards/msf-staff-rewards", "type": "field", "path": "title", "op": "contains", "value": "Rewards"}]}]}

@@ -1,0 +1,16 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A7_site_unreadable", "url": "https://www.kraken.com/"},
+      "verdict": "not_a_defect",
+      "reason": "auditor_side_failure",
+      "urls": ["https://www.kraken.com/"],
+      "explanation": "robots.txt could not be reached due to a ConnectError, so the crawler treated it as disallow-all and never fetched a single page. No page returned an HTTP answer, so this measures the auditor's network path, not the site's behavior.",
+      "evidence": [
+        {"url": "https://www.kraken.com/", "type": "site_note_contains", "value": "ConnectError"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": []
+}

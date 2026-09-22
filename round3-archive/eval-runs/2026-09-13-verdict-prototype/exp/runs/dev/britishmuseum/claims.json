@@ -1,0 +1,16 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A7_site_unreadable", "url": "https://www.britishmuseum.org/"},
+      "verdict": "downgrade",
+      "reason": "access_block_unattributed",
+      "urls": ["https://www.britishmuseum.org/"],
+      "explanation": "The refusal is a named challenge vendor (Cloudflare) with no page body left in the crawl, so the crawl cannot tell whether it targets bots generally or only this auditor's network.",
+      "evidence": [
+        {"type": "site_field", "path": "run_status", "op": "eq", "value": "failed"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": []
+}

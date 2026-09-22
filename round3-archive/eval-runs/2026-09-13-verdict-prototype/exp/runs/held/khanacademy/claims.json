@@ -1,0 +1,25 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "C3_entity_unanchored", "url": "https://www.khanacademy.org/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The homepage carries no JSON-LD sameAs links at all, so the finding that brand identity is unanchored holds.",
+      "evidence": [
+        {"url": "https://www.khanacademy.org/", "type": "field", "path": "jsonld.sameas", "op": "eq", "value": []}
+      ]
+    },
+    {
+      "finding": {"check_id": "C7_title_problem", "url": "https://www.khanacademy.org/science/revision-up-science-class-6-full-term"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "This course page's title is the generic 'Khan Academy', identical to the homepage and every other crawled page, confirming the duplication.",
+      "evidence": [
+        {"url": "https://www.khanacademy.org/science/revision-up-science-class-6-full-term", "type": "field", "path": "title", "op": "eq", "value": "Khan Academy"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [],
+  "candidate_dispositions": []
+}

@@ -1,0 +1,25 @@
+{
+ "slug": "britishmuseum",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 100.8,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 25,
+ "duration_ms": 97315,
+ "total_cost_usd": 0.4931228,
+ "result": "adjudicated.json exists with the applied verdict.\n\n1 verdict applied (downgraded A7_site_unreadable from high to medium, reason access_block_unattributed), 0 claims and 0 fixes submitted (no further evidence-worthy content was available beyond the single blocked page), and 0 verdicts/claims/fixes rejected.",
+ "permission_denials": [
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01KTEgjgCQEA5BTcfNgDofUm",
+   "tool_input": {
+    "command": "python3 skills/agent-review-audit/scripts/page_profile.py /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/britishmuseum/bundle.json /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/britishmuseum/report.json > /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/britishmuseum/profile.json\necho exit=$?\nwc -l /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/britishmuseum/profile.json"
+   }
+  }
+ ],
+ "raw_stdout": null
+}

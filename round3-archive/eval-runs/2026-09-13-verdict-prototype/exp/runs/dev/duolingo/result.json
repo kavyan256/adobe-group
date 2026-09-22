@@ -1,0 +1,39 @@
+{
+ "slug": "duolingo",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 181.0,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 23,
+ "duration_ms": 177333,
+ "total_cost_usd": 0.6780664000000002,
+ "result": "`adjudicated.json` is written. Summary: **4 verdicts** submitted (3 applied — confirmed B4_empty_shell, C7_title_problem, E7_zoom_disabled; 1 rejected — C3_entity_unanchored, for lacking a positive assertion), **0 claims** (nothing on Duolingo's homogeneous JS-shell pages cleared the mechanism checklist without duplicating scripted findings), and **2 fixes** submitted and merged (B4_empty_shell, C1_structured_data_absent), 0 rejected.",
+ "permission_denials": [
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_0189TqbxRzKx16bv9FqbSgug",
+   "tool_input": {
+    "command": "cd /home/kavyan2/Desktop/adobe/brand-ai-readiness-audit-v4 && WORK=/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/duolingo && python3 skills/agent-review-audit/scripts/page_profile.py \"$WORK/bundle.json\" \"$WORK/report.json\" > \"$WORK/profile.json\" && wc -l \"$WORK/profile.json\""
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01RAC9ErNtTJSUPtZ6YziRh6",
+   "tool_input": {
+    "command": "cd /home/kavyan2/Desktop/adobe/brand-ai-readiness-audit-v4 && python3 skills/agent-review-audit/scripts/page_profile.py /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/duolingo/bundle.json /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/duolingo/report.json > /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/duolingo/profile.json\nwc -l /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/duolingo/profile.json"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_014GKcG7WEDNUVWt74eY3FCP",
+   "tool_input": {
+    "command": "python3 /home/kavyan2/Desktop/adobe/brand-ai-readiness-audit-v4/skills/audit-orchestrator/scripts/audit.py --replay /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/duolingo/bundle.json --agent-claims /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/duolingo/claims.json -o /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/duolingo/report.json\necho EXIT=$?"
+   }
+  }
+ ],
+ "raw_stdout": null
+}

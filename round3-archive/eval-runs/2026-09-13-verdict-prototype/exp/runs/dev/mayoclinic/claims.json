@@ -1,0 +1,16 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A7_site_unreadable", "url": "https://www.mayoclinic.org/"},
+      "verdict": "downgrade",
+      "reason": "access_block_unattributed",
+      "urls": ["https://www.mayoclinic.org/"],
+      "explanation": "The homepage returned an Akamai bot-challenge page with no body left to inspect, so the crawl cannot tell whether the wall targets bots generally or only this auditor's network/IP.",
+      "evidence": [
+        {"url": "https://www.mayoclinic.org/", "type": "field", "path": "error", "op": "contains", "value": "bot_challenge:Akamai"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": []
+}

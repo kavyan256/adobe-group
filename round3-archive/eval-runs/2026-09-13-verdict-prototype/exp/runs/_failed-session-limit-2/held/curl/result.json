@@ -1,0 +1,17 @@
+{
+ "slug": "curl",
+ "tag": "held",
+ "model": "sonnet",
+ "wall_s": 3.9,
+ "rc": 1,
+ "stderr": "",
+ "adjudicated": false,
+ "is_error": true,
+ "subtype": "success",
+ "num_turns": 1,
+ "duration_ms": 621,
+ "total_cost_usd": 0,
+ "result": "You've hit your session limit · resets 4pm (Asia/Kolkata)",
+ "permission_denials": [],
+ "raw_stdout": null
+}

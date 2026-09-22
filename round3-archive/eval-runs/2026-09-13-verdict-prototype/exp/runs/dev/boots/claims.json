@@ -1,0 +1,15 @@
+{
+  "claims": [],
+  "fixes": [],
+  "verdicts": [
+    {
+      "finding": {"check_id": "A7_site_unreadable", "url": "https://www.boots.com/"},
+      "verdict": "downgrade",
+      "reason": "access_block_unattributed",
+      "explanation": "The refusal is a named bot-challenge vendor (Incapsula) page with no body kept by the crawl, so it cannot be attributed to a bot-specific wall versus this crawler's network alone.",
+      "evidence": [
+        {"url": "https://www.boots.com/", "type": "field", "path": "error", "op": "contains", "value": "Incapsula"}
+      ]
+    }
+  ]
+}

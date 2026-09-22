@@ -1,0 +1,16 @@
+{
+  "claims": [],
+  "fixes": [],
+  "verdicts": [
+    {
+      "finding": {"check_id": "A7_site_unreadable", "url": "https://www.nba.com/"},
+      "verdict": "downgrade",
+      "reason": "access_block_unattributed",
+      "urls": ["https://www.nba.com/"],
+      "explanation": "The refusal is a named challenge vendor (Akamai) with no page body left, so the crawl cannot attribute it to bot-specific targeting rather than a block on the auditor's own network.",
+      "evidence": [
+        {"url": "https://www.nba.com/", "type": "field", "path": "error", "op": "eq", "value": "bot_challenge:Akamai"}
+      ]
+    }
+  ]
+}

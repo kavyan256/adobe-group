@@ -1,0 +1,42 @@
+{
+ "slug": "bbc",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 129.2,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 28,
+ "duration_ms": 125586,
+ "total_cost_usd": 0.7476592000000001,
+ "result": "`adjudicated.json` is written. 1 verdict submitted, 1 applied (confirming F-002 medium finding), 0 rejected; 0 claims and 0 fixes were submitted (none had checkable evidence in this crawl), so 0 claims/fixes merged and 0 rejected; the critical A1 finding was left unjudged per the adjudication rule for AI-named robots.txt directives.",
+ "permission_denials": [
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01EpLjfR5fauezgi33H22Acg",
+   "tool_input": {
+    "command": "python3 skills/agent-review-audit/scripts/page_profile.py /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/bbc/bundle.json /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/bbc/report.json > /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/bbc/profile.json\necho exit:$?\nwc -l /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/bbc/profile.json",
+    "description": "Generate crawl profile for BBC"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01G6nJNS9dM9purdMMRB6aAG",
+   "tool_input": {
+    "command": "python3 skills/agent-review-audit/scripts/page_profile.py /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/bbc/bundle.json /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/bbc/report.json > /tmp/profile_bbc.json\necho \"EXIT:$?\"",
+    "description": "Generate crawl profile for BBC, write to tmp first"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01UX2sxXbi1qqJu9AQAC47oj",
+   "tool_input": {
+    "command": "python3 -c \"\nimport json,re\nb = json.load(open('../exp/runs/dev/bbc/bundle.json'))\nfor p in b['pages']:\n    if p['url'] in ('https://www.bbc.co.uk/contact','https://www.bbc.co.uk/'):\n        text = p.get('text_full') or p.get('text_extracted') or ''\n        print(p['url'], len(text))\n        # find phone-like patterns\n        for m in re.finditer(r'(\\+?\\d[\\d \\-()]{7,}\\d)', text):\n            print('  phone-like:', m.group())\n\"\n",
+    "description": "Search contact and home pages for phone numbers"
+   }
+  }
+ ],
+ "raw_stdout": null
+}

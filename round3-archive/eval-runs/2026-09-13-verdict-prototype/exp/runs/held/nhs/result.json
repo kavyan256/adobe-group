@@ -1,0 +1,17 @@
+{
+ "slug": "nhs",
+ "tag": "held",
+ "model": "sonnet",
+ "wall_s": 140.6,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 26,
+ "duration_ms": 137028,
+ "total_cost_usd": 0.6375429999999999,
+ "result": "2 verdicts submitted and applied (0 rejected), 0 claims submitted (0 rejected), 0 fixes submitted (0 rejected).",
+ "permission_denials": [],
+ "raw_stdout": null
+}

@@ -1,0 +1,11 @@
+[repeat] supercell: 1.1s $0 adjudicated=False denials=0
+[repeat] fnac: 1.1s $0 adjudicated=False denials=0
+[repeat] kraken: 1.1s $0 adjudicated=False denials=0
+[repeat] mcmaster: 1.1s $0 adjudicated=False denials=0
+[repeat] zoho: 1.1s $0 adjudicated=False denials=0
+[repeat] msf: 1.1s $0 adjudicated=False denials=0
+[repeat] notion: 1.1s $0 adjudicated=False denials=0
+[repeat] duolingo: 1.1s $0 adjudicated=False denials=0
+[repeat] nhs: 1.1s $0 adjudicated=False denials=0
+[repeat] theverge: 1.1s $0 adjudicated=False denials=0
+prototype tree unchanged: True (1f64230b1bc1862b -> 1f64230b1bc1862b)

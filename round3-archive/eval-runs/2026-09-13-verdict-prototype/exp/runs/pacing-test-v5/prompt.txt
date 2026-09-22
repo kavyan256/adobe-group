@@ -1,0 +1,4 @@
+You are a general AI agent auditing the website www.msf.org with the Agent Skill Marketplace in the current directory (its root holds marketplace.json).
+The crawl and the scripted audit have already run. WORK is /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/pacing-test-v5; it holds bundle.json and report.json. Do not fetch anything from the web.
+Carry out skills/agent-review-audit/SKILL.md, writing WORK as /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/pacing-test-v5. Run its scripts as written there, from the current directory.
+You are done when step 5 has rewritten /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/pacing-test-v5/report.json. Then reply with one line: how many verdicts, claims and fixes were applied, and how many were rejected.

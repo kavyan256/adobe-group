@@ -1,0 +1,39 @@
+{
+ "slug": "khanacademy",
+ "tag": "held",
+ "model": "sonnet",
+ "wall_s": 148.9,
+ "rc": 1,
+ "stderr": "",
+ "adjudicated": false,
+ "is_error": true,
+ "subtype": "success",
+ "num_turns": 20,
+ "duration_ms": 145406,
+ "total_cost_usd": 0.40977519999999995,
+ "result": "You've hit your monthly spend limit · raise it at claude.ai/settings/usage?from=cc_cli_limit_message · your session limit resets 4:30pm (Asia/Kolkata)",
+ "permission_denials": [
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_015kPo7gZZa3qaodyD96Cgcv",
+   "tool_input": {
+    "command": "find /home/kavyan2/Desktop/adobe -maxdepth 1 -type d; echo ---; find /home/kavyan2/Desktop/adobe/*/skills/agent-review-audit -maxdepth 2 2>/dev/null"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01HRkrQHjvHBFwviaRzHrJWJ",
+   "tool_input": {
+    "command": "python3 skills/agent-review-audit/scripts/page_profile.py /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/khanacademy/bundle.json /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/khanacademy/report.json > /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/khanacademy/profile.json\necho exit:$?\nwc -l /home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/khanacademy/profile.json"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_0181wX6ctQcqGiMD52FLQZgY",
+   "tool_input": {
+    "command": "WORK=/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/held/khanacademy\npython3 skills/agent-review-audit/scripts/page_profile.py \"$WORK/bundle.json\" \"$WORK/report.json\" > \"$WORK/profile.json\"\necho exit:$?\nwc -l \"$WORK/profile.json\""
+   }
+  }
+ ],
+ "raw_stdout": null
+}

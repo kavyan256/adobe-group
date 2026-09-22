@@ -1,0 +1,37 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "B1_fact_script_only", "url": "https://deliveroo.co.uk/contact"},
+      "verdict": "not_a_defect",
+      "reason": "measurement_wrong",
+      "urls": ["https://deliveroo.co.uk/contact"],
+      "explanation": "The value quoted as a phone number, 103.142.225.136, is the requester's own IP address from the page's __NEXT_DATA__ payload (the JSON key is \"ip\"), not a phone number withheld from the visible text.",
+      "evidence": [
+        {"url": "https://deliveroo.co.uk/contact", "type": "html_contains", "value": "\"ip\":\"103.142.225.136\""}
+      ]
+    },
+    {
+      "finding": {"check_id": "C3_entity_unanchored", "url": "https://deliveroo.co.uk/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://deliveroo.co.uk/"],
+      "explanation": "The homepage's only JSON-LD type is WebSite, with no Organization or LocalBusiness block and no sameAs links anywhere in the 12-page crawl, so the brand has no anchor distinguishing it from others sharing the name.",
+      "evidence": [
+        {"url": "https://deliveroo.co.uk/", "type": "field", "path": "jsonld.types", "op": "eq", "value": ["website"]}
+      ]
+    },
+    {
+      "finding": {"check_id": "E4_images_missing_alt", "url": "https://deliveroo.co.uk/about-us"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://deliveroo.co.uk/about-us"],
+      "explanation": "The about-us page has 7 images and 6 of them carry no alt attribute, matching the scripted count exactly.",
+      "evidence": [
+        {"url": "https://deliveroo.co.uk/about-us", "type": "field", "path": "images.missing_alt", "op": "eq", "value": 6}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [],
+  "candidate_dispositions": []
+}

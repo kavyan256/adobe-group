@@ -1,0 +1,32 @@
+{
+ "slug": "festool",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 62.8,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 17,
+ "duration_ms": 59275,
+ "total_cost_usd": 0.3208226,
+ "result": "`adjudicated.json` is written. 1 verdict submitted and applied (A7_site_unreadable downgraded high→medium, reason access_block_unattributed), 0 claims and 0 fixes submitted (only one page crawled, no basis for new claims), and 0 rejections overall.",
+ "permission_denials": [
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_014QhCv1hXyM9yFGgLvF7cSn",
+   "tool_input": {
+    "command": "WORK=/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/festool && python3 skills/agent-review-audit/scripts/page_profile.py $WORK/bundle.json $WORK/report.json > $WORK/profile.json && echo OK && wc -l $WORK/profile.json"
+   }
+  },
+  {
+   "tool_name": "Bash",
+   "tool_use_id": "toolu_01YLLZYNtFRzPrERtZhxSEvX",
+   "tool_input": {
+    "command": "export WORK=/home/kavyan2/Desktop/adobe/eval-runs/2026-09-13-verdict-prototype/exp/runs/dev/festool\npython3 skills/agent-review-audit/scripts/page_profile.py \"$WORK/bundle.json\" \"$WORK/report.json\" > \"$WORK/profile.json\"\necho exit:$?\nwc -l \"$WORK/profile.json\""
+   }
+  }
+ ],
+ "raw_stdout": null
+}

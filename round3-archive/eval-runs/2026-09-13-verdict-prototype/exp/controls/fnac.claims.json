@@ -1,0 +1,1 @@
+{"verdicts": [{"finding": {"check_id": "A7_site_unreadable"}, "verdict": "confirm_intent", "reason": "access_block_not_bot_specific", "explanation": "The refused page is a maintenance page, not a wall aimed at bots.", "evidence": [{"url": "https://www.fnac.com/", "type": "html_contains", "value": "FNAC DARTY - Maintenance"}]}]}

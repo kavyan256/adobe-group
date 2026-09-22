@@ -9,3 +9,6 @@ venv/
 !brand-ai-readiness-audit*/tests/fixtures/*.bundle.json
 report*.json
 verdicts-*.json
+
+# raw crawl bundles from evaluation runs (large, regenerable)
+bundle.json

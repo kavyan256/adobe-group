@@ -1,0 +1,17 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "C3_entity_unanchored", "url": "https://www.bbc.co.uk/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://www.bbc.co.uk/"],
+      "explanation": "The homepage declares NewsMediaOrganization structured data but its sameAs array is empty, so the finding's claim holds on the crawled evidence.",
+      "evidence": [
+        {"url": "https://www.bbc.co.uk/", "type": "field", "path": "jsonld.types", "op": "contains", "value": "newsmediaorganization"},
+        {"url": "https://www.bbc.co.uk/", "type": "field", "path": "jsonld.sameas", "op": "empty"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": []
+}

@@ -1,0 +1,62 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "B4_empty_shell"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The homepage's initial HTML carries only the title text and a meta-refresh to /nojs/splash; there is no rendered content for a non-JS fetcher to read.",
+      "evidence": [
+        {"url": "https://www.duolingo.com/", "type": "field", "path": "words_extracted", "op": "eq", "value": 1}
+      ]
+    },
+    {
+      "finding": {"check_id": "C3_entity_unanchored"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The homepage carries no JSON-LD sameAs links to an external profile (Wikidata, Wikipedia, a verified social profile), so nothing anchors the Duolingo entity beyond its own domain.",
+      "evidence": [
+        {"url": "https://www.duolingo.com/", "type": "field", "path": "jsonld.sameas", "op": "empty", "value": null}
+      ]
+    },
+    {
+      "finding": {"check_id": "C7_title_problem"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "Eleven course pages, each for a different language, share the identical generic title 'Duolingo' instead of a title naming the course, so a title-only reader cannot tell them apart.",
+      "evidence": [
+        {"url": "https://www.duolingo.com/course/ar/en/Learn-Arabic", "type": "field", "path": "title", "op": "eq", "value": "Duolingo"},
+        {"url": "https://www.duolingo.com/course/cs/en/Learn-Czech", "type": "field", "path": "title", "op": "eq", "value": "Duolingo"}
+      ]
+    },
+    {
+      "finding": {"check_id": "E7_zoom_disabled"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "explanation": "The homepage's viewport meta tag sets user-scalable=no, which blocks pinch-zoom on browsers that still honour the directive.",
+      "evidence": [
+        {"url": "https://www.duolingo.com/", "type": "html_contains", "value": "user-scalable=no"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [
+    {
+      "check_id": "B4_empty_shell",
+      "url": "https://www.duolingo.com/chess",
+      "quote": "Duolingo Chess - Play Games - Learn Chess Online - For Free",
+      "site_specific": [
+        "Serve the page's real heading, intro paragraph and chess-lesson list as HTML in the initial response, instead of only the title tag and a meta-refresh to /nojs/splash.",
+        "Keep the client-side app for interaction, but render the same text server-side so a non-JS fetch of /chess returns more than the title."
+      ]
+    },
+    {
+      "check_id": "C1_structured_data_absent",
+      "url": "https://www.duolingo.com/",
+      "quote": "Duolingo",
+      "site_specific": [
+        "Add Organization or WebSite JSON-LD to the homepage's initial HTML response, including name, url and logo, rather than relying on the client-rendered app to add it.",
+        "Verify the tag is present in the server-rendered response, not only after JavaScript runs."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A7_site_unreadable", "url": "https://lobste.rs/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://lobste.rs/"],
+      "explanation": "robots.txt disallows our auditor's user-agent via a wildcard Disallow: / rule, so the crawl never fetched any page; the run is genuinely blocked, not a crawler bug.",
+      "evidence": [
+        {"type": "site_field", "path": "run_status", "op": "eq", "value": "blocked"},
+        {"type": "site_field", "path": "coverage.pages_fetched", "op": "eq", "value": 0},
+        {"type": "site_field", "path": "coverage.pages_ok", "op": "eq", "value": 0}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": []
+}

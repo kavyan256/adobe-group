@@ -1,0 +1,93 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A1_retrieval_agent_blocked"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://www.bhaskar.com/robots.txt"],
+      "explanation": "robots.txt fully blocks 7 named AI retrieval agents; this is a robots.txt rule naming AI agents, so it is left as the scripted check reported it, not treated as deliberate configuration.",
+      "evidence": [
+        {"type": "site_field", "path": "robots.status", "op": "eq", "value": 200}
+      ]
+    },
+    {
+      "finding": {"check_id": "C2_markup_text_contradiction", "url": "https://www.bhaskar.com/"},
+      "verdict": "not_a_defect",
+      "reason": "page_purpose_mismatch",
+      "urls": ["https://www.bhaskar.com/"],
+      "explanation": "The homepage is a Hindi news portal, not a shop or product page. The JSON-LD offer of INR 0 belongs to the site's mobileapplication/organization markup (a free app listing), not to the news content the page actually owes text about.",
+      "evidence": [
+        {"url": "https://www.bhaskar.com/", "type": "field", "path": "title", "op": "contains", "value": "Hindi News"},
+        {"url": "https://www.bhaskar.com/", "type": "field", "path": "jsonld.types", "op": "contains", "value": "mobileapplication"}
+      ]
+    },
+    {
+      "finding": {"check_id": "E3_unnamed_controls", "url": "https://www.bhaskar.com/"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": ["https://www.bhaskar.com/"],
+      "explanation": "The homepage does have at least one image with no alt text, consistent with the check's own definition of an unnamed control (a control is counted unnamed when it exposes no text, aria-label, aria-labelledby, title, SVG title, or image alt).",
+      "evidence": [
+        {"url": "https://www.bhaskar.com/", "type": "field", "path": "images.missing_alt", "op": "eq", "value": 1}
+      ]
+    },
+    {
+      "finding": {"check_id": "E9_promise_payoff_mismatch"},
+      "verdict": "not_a_defect",
+      "reason": "measurement_wrong",
+      "urls": [
+        "https://www.bhaskar.com/web-stories/beauty/side-effects-of-sleeping-with-makeup-on",
+        "https://www.bhaskar.com/web-stories/entertainment/10-incredible-roles-of-shakti-kapoor",
+        "https://www.bhaskar.com/web-stories/fashion/disadvantages-of-bad-quality-lipsticks",
+        "https://www.bhaskar.com/web-stories/food/8-delicious-coconut-recipes",
+        "https://www.bhaskar.com/web-stories/health/how-to-get-rid-of-neck-pain",
+        "https://www.bhaskar.com/web-stories/trending/countries-that-practice-female-circumcision",
+        "https://www.bhaskar.com/web-stories/trending/the-countries-where-rats-are-eaten",
+        "https://www.bhaskar.com/web-stories/trending/things-to-consider-before-swiping-right-on-dating-apps",
+        "https://www.bhaskar.com/web-stories/trending/what-is-parallel-universe"
+      ],
+      "explanation": "The check extracts only ASCII words from the English meta description and compares them to the Hindi-script body text, so it always finds zero overlap on these Hindi pages. Every one of the 9 pages does state its own topic in the Hindi body text; the measurement, not the content, is wrong.",
+      "evidence": [
+        {"url": "https://www.bhaskar.com/web-stories/entertainment/10-incredible-roles-of-shakti-kapoor", "type": "text_contains", "value": "शक्ति कपूर", "scope": "extracted"},
+        {"url": "https://www.bhaskar.com/web-stories/trending/the-countries-where-rats-are-eaten", "type": "text_contains", "value": "चूहे खाना", "scope": "extracted"},
+        {"url": "https://www.bhaskar.com/web-stories/trending/what-is-parallel-universe", "type": "text_contains", "value": "ब्रह्मांड", "scope": "extracted"},
+        {"url": "https://www.bhaskar.com/web-stories/trending/things-to-consider-before-swiping-right-on-dating-apps", "type": "text_contains", "value": "स्वाइप", "scope": "extracted"},
+        {"url": "https://www.bhaskar.com/web-stories/fashion/disadvantages-of-bad-quality-lipsticks", "type": "text_contains", "value": "लिपस्टिक", "scope": "extracted"},
+        {"url": "https://www.bhaskar.com/web-stories/food/8-delicious-coconut-recipes", "type": "text_contains", "value": "नारियल", "scope": "extracted"},
+        {"url": "https://www.bhaskar.com/web-stories/trending/countries-that-practice-female-circumcision", "type": "text_contains", "value": "खतना करने", "scope": "extracted"},
+        {"url": "https://www.bhaskar.com/web-stories/beauty/side-effects-of-sleeping-with-makeup-on", "type": "text_contains", "value": "मेकअप लगा", "scope": "extracted"},
+        {"url": "https://www.bhaskar.com/web-stories/health/how-to-get-rid-of-neck-pain", "type": "text_contains", "value": "गर्दन में दर्द", "scope": "extracted"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [
+    {
+      "check_id": "D2_stale_copyright",
+      "url": "https://www.bhaskar.com/contact-us?ref=inbound_RHS",
+      "quote": "Copyright © 2024-25 DB Corp ltd., All Rights Reserved",
+      "site_specific": [
+        "Update the footer copyright string on bhaskar.com from '2024-25' to the current year range.",
+        "Generate the year from the server clock at render time so the footer never goes stale again."
+      ]
+    },
+    {
+      "check_id": "E6_heading_structure",
+      "url": "https://www.bhaskar.com/web-stories/trending/countries-that-practice-female-circumcision",
+      "quote": "दुनिया भर में आज भी कई देश ऐसे हैं",
+      "site_specific": [
+        "Add a single h1 to this web-story page carrying its own headline text, e.g. '10 देश, जहां महिलाओं का भी होता है खतना'.",
+        "Apply the same fix to the web-story template so no story in this section ships without an h1."
+      ]
+    },
+    {
+      "check_id": "E3_unnamed_controls",
+      "url": "https://www.bhaskar.com/",
+      "quote": "होम वीडियो सर्च वॉच वेब स्टोरीज",
+      "site_specific": [
+        "Add an aria-label to each icon-only header control (search, watch, video) that currently exposes no accessible name.",
+        "Add alt text to the one image on the homepage that is missing it."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "B4_empty_shell"},
+      "verdict": "confirm",
+      "reason": "measurement_confirmed",
+      "urls": [
+        "https://bluebottlecoffee.com/us/eng/FAQ",
+        "https://bluebottlecoffee.com/us/eng/accessibility",
+        "https://bluebottlecoffee.com/us/eng/blue-bottle-studio",
+        "https://bluebottlecoffee.com/us/eng/blue-bottle-sustainability",
+        "https://bluebottlecoffee.com/us/eng/product/bella-donovan?a_oID=bella-donovan",
+        "https://bluebottlecoffee.com/us/eng/product/beyond-arabica"
+      ],
+      "explanation": "These six pages return HTTP 200 but their crawled HTML carries zero extractable words and rely on the __NEXT_DATA__ client-side mount; a non-rendering fetcher gets nothing.",
+      "evidence": [
+        {"url": "https://bluebottlecoffee.com/us/eng/FAQ", "type": "field", "path": "words_extracted", "op": "eq", "value": 0}
+      ]
+    },
+    {
+      "finding": {"check_id": "C3_entity_unanchored", "url": "https://bluebottlecoffee.com/"},
+      "verdict": "not_a_defect",
+      "reason": "duplicate_of_finding",
+      "urls": ["https://bluebottlecoffee.com/"],
+      "explanation": "The homepage has no sameAs links only because it carries no JSON-LD at all, which C1_structured_data_absent already reports as empty for this same URL.",
+      "evidence": [
+        {"url": "https://bluebottlecoffee.com/", "type": "finding_exists", "check_id": "C1_structured_data_absent", "value": "https://bluebottlecoffee.com/"}
+      ]
+    },
+    {
+      "finding": {"check_id": "C7_title_problem"},
+      "verdict": "not_a_defect",
+      "reason": "duplicate_of_finding",
+      "urls": [
+        "https://bluebottlecoffee.com/us/eng/FAQ",
+        "https://bluebottlecoffee.com/us/eng/accessibility",
+        "https://bluebottlecoffee.com/us/eng/blue-bottle-studio",
+        "https://bluebottlecoffee.com/us/eng/blue-bottle-sustainability",
+        "https://bluebottlecoffee.com/us/eng/product/bella-donovan?a_oID=bella-donovan",
+        "https://bluebottlecoffee.com/us/eng/product/beyond-arabica"
+      ],
+      "explanation": "The missing <title> on these six pages is the same empty-shell defect B4_empty_shell already reports for the identical URLs; the blank head is a symptom of the unrendered shell, not a separate defect.",
+      "evidence": [
+        {"url": "https://bluebottlecoffee.com/us/eng/FAQ", "type": "finding_exists", "check_id": "B4_empty_shell", "value": "https://bluebottlecoffee.com/us/eng/FAQ"},
+        {"url": "https://bluebottlecoffee.com/us/eng/accessibility", "type": "finding_exists", "check_id": "B4_empty_shell", "value": "https://bluebottlecoffee.com/us/eng/accessibility"},
+        {"url": "https://bluebottlecoffee.com/us/eng/blue-bottle-studio", "type": "finding_exists", "check_id": "B4_empty_shell", "value": "https://bluebottlecoffee.com/us/eng/blue-bottle-studio"},
+        {"url": "https://bluebottlecoffee.com/us/eng/blue-bottle-sustainability", "type": "finding_exists", "check_id": "B4_empty_shell", "value": "https://bluebottlecoffee.com/us/eng/blue-bottle-sustainability"},
+        {"url": "https://bluebottlecoffee.com/us/eng/product/bella-donovan?a_oID=bella-donovan", "type": "finding_exists", "check_id": "B4_empty_shell", "value": "https://bluebottlecoffee.com/us/eng/product/bella-donovan?a_oID=bella-donovan"},
+        {"url": "https://bluebottlecoffee.com/us/eng/product/beyond-arabica", "type": "finding_exists", "check_id": "B4_empty_shell", "value": "https://bluebottlecoffee.com/us/eng/product/beyond-arabica"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": [
+    {
+      "check_id": "A6_sitemap_missing",
+      "url": "https://bluebottlecoffee.com/",
+      "quote": "Blue Bottle Coffee | Specialty Coffee",
+      "site_specific": [
+        "Generate an XML sitemap listing the /us/eng storefront, product, subscriptions, our-story and brew-guides paths.",
+        "Declare the sitemap's location with a Sitemap: line in robots.txt.",
+        "Make sure /sitemap.xml actually returns parsable <loc> entries instead of an empty or unparsable file."
+      ]
+    },
+    {
+      "check_id": "C1_structured_data_absent",
+      "url": "https://bluebottlecoffee.com/us/eng/our-story",
+      "quote": "Our story is a reflection of our roots, our obsession with exceptional coffee",
+      "site_specific": [
+        "Add Organization JSON-LD to the site (name, url, logo, sameAs) so /us/eng/our-story states the company's identity as data.",
+        "Add AboutPage or Organization JSON-LD on /us/eng/our-story reflecting the story text already on the page.",
+        "Add Product/Offer JSON-LD on /us/eng/subscriptions describing the subscription plans shown there."
+      ]
+    }
+  ]
+}

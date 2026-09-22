@@ -1,0 +1,17 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A7_site_unreadable", "url": "https://www.magazineluiza.com.br/"},
+      "verdict": "downgrade",
+      "reason": "access_block_unattributed",
+      "urls": ["https://www.magazineluiza.com.br/"],
+      "explanation": "The 403 page carries no maintenance or geo-block message, just a generic 'try again in a minute' retry notice with an Akamai request ID, so the crawl cannot tell whether this targets bots specifically or is a transient rate limit that would also affect a human visitor.",
+      "evidence": [
+        {"url": "https://www.magazineluiza.com.br/", "type": "html_contains", "value": "tente novamente em 1 minuto"},
+        {"url": "https://www.magazineluiza.com.br/", "type": "html_contains", "value": "Por favor, tente novamente"}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": []
+}

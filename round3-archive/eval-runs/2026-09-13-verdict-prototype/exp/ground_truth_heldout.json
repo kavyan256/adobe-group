@@ -1,0 +1,110 @@
+{
+ "keep": [
+  [
+   "curl",
+   "C3_entity_unanchored",
+   "ambiguous project name, no sameAs anywhere"
+  ],
+  [
+   "deliveroo",
+   "E4_images_missing_alt",
+   "6 of 7 content images on about-us have no alt"
+  ],
+  [
+   "khanacademy",
+   "C7_title_problem",
+   "raw HTML title 'Khan Academy' on 8 different pages"
+  ],
+  [
+   "vatican",
+   "E11_no_viewport",
+   "no viewport meta on the homepage"
+  ],
+  [
+   "pentagram",
+   "D1_no_date_signals",
+   "visible dates but no time tag, meta date or header"
+  ],
+  [
+   "mit",
+   "A5_canonical_problem",
+   "canonicals point to the tlecms.mit.edu CMS host"
+  ]
+ ],
+ "either": [
+  [
+   "pythondocs",
+   "E1_unlabelled_input",
+   "search box unlabelled on archived doc versions"
+  ],
+  [
+   "lego",
+   "A9_key_page_broken",
+   "linked product 404s in the en-in locale"
+  ]
+ ],
+ "reduce": [
+  [
+   "paulgraham",
+   "C3_entity_unanchored",
+   "personal essay site, brand entity markup of little weight (overstated)"
+  ],
+  [
+   "linear",
+   "E3_unnamed_controls",
+   "3 of 195 controls (overstated)"
+  ],
+  [
+   "nhs",
+   "E10_no_next_step",
+   "content does link onward (Stroke Association, 111 online, related pages)"
+  ],
+  [
+   "bosch",
+   "E10_no_next_step",
+   "kontakt page links to 24 service contact routes"
+  ],
+  [
+   "theverge",
+   "B1_fact_script_only",
+   "'phone' 0.13712291199202 is a decimal"
+  ],
+  [
+   "deliveroo",
+   "B1_fact_script_only",
+   "'phone' 103.142.225.136 is an IP address"
+  ],
+  [
+   "pfizer",
+   "C1_product_markup_absent",
+   "explainer page about biologics, not a product for sale"
+  ],
+  [
+   "mistral",
+   "C1_product_markup_absent",
+   "SaaS platform pages, no product offered for sale"
+  ],
+  [
+   "glossier",
+   "C2_markup_text_contradiction",
+   "$16 is in the page's full text"
+  ],
+  [
+   "tfl",
+   "A9_broken_pages",
+   "homepage links use a trailing slash; the crawler dropped it and got 404"
+  ]
+ ],
+ "repeat_sites": [
+  "bosch",
+  "curl",
+  "deliveroo",
+  "glossier",
+  "khanacademy",
+  "lego",
+  "linear",
+  "mistral",
+  "mit",
+  "nhs"
+ ]
+}

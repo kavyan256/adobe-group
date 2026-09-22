@@ -1,0 +1,17 @@
+{
+ "slug": "lobsters",
+ "tag": "dev",
+ "model": "sonnet",
+ "wall_s": 106.0,
+ "rc": 0,
+ "stderr": "",
+ "adjudicated": true,
+ "is_error": false,
+ "subtype": "success",
+ "num_turns": 19,
+ "duration_ms": 102432,
+ "total_cost_usd": 0.46850460000000005,
+ "result": "`adjudicated.json` exists as expected. Site is entirely blocked by robots.txt (0 pages crawled), so no page-level claims or fixes were possible — I only submitted 1 verdict.\n\n1 verdict submitted and applied (confirming the A7 critical finding), 0 claims, 0 fixes, 0 rejected.",
+ "permission_denials": [],
+ "raw_stdout": null
+}

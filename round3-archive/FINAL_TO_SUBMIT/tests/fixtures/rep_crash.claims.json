@@ -1,0 +1,161 @@
+{
+ "claims": [
+  {
+   "title": "Crash probe with list-valued url",
+   "why": "Assistants quote a wrong price of $99 for this brand, costing citations.",
+   "mechanism": "B",
+   "hurts": "both",
+   "severity": "high",
+   "nearest_check": null,
+   "affected_urls": [
+    "https://n.example/"
+   ],
+   "evidence": [
+    {
+     "url": [
+      "https://n.example/"
+     ],
+     "type": "field",
+     "path": "status",
+     "op": "eq",
+     "value": 200
+    }
+   ],
+   "suggested_action": {
+    "summary": "Fix the thing on the page now.",
+    "how": [
+     "Do it."
+    ],
+    "verify": "Re-run the audit.",
+    "effort": "low"
+   }
+  },
+  {
+   "title": "ChatGPT misquotes this site's price as $99",
+   "why": "Assistants quote a wrong price of $99 for this brand, costing citations.",
+   "mechanism": "B",
+   "hurts": "both",
+   "severity": "high",
+   "nearest_check": null,
+   "affected_urls": [
+    "https://n.example/"
+   ],
+   "evidence": [
+    {
+     "url": "https://n.example/",
+     "type": "field",
+     "path": "status",
+     "op": "eq",
+     "value": 200
+    },
+    {
+     "url": "https://n.example/",
+     "type": "html_lacks",
+     "value": "qqzzxx"
+    }
+   ],
+   "suggested_action": {
+    "summary": "Fix the thing on the page now.",
+    "how": [
+     "Do it."
+    ],
+    "verify": "Re-run the audit.",
+    "effort": "low"
+   }
+  },
+  {
+   "title": "Restated scripted finding: Question-and-answer content is not marked up on 1 page(s)",
+   "why": "Same problem the scripted check already reported, restated with nearest_check null.",
+   "mechanism": "B",
+   "hurts": "both",
+   "severity": "medium",
+   "nearest_check": null,
+   "affected_urls": [
+    "https://n.example/"
+   ],
+   "evidence": [
+    {
+     "url": "https://n.example/",
+     "type": "field",
+     "path": "url",
+     "op": "nonempty"
+    }
+   ],
+   "suggested_action": {
+    "summary": "Fix the thing on the page now.",
+    "how": [
+     "Do it."
+    ],
+    "verify": "Re-run the audit.",
+    "effort": "low"
+   }
+  },
+  {
+   "title": "Canonical missing proven via string None eq null",
+   "why": "Assistants quote a wrong price of $99 for this brand, costing citations.",
+   "mechanism": "B",
+   "hurts": "both",
+   "severity": "high",
+   "nearest_check": null,
+   "affected_urls": [
+    "https://n.example/"
+   ],
+   "evidence": [
+    {
+     "url": "https://n.example/",
+     "type": "field",
+     "path": "canonical",
+     "op": "eq",
+     "value": "None"
+    },
+    {
+     "url": "https://n.example/",
+     "type": "field",
+     "path": "words_extracted",
+     "op": "gt",
+     "value": -1
+    }
+   ],
+   "suggested_action": {
+    "summary": "Fix the thing on the page now.",
+    "how": [
+     "Do it."
+    ],
+    "verify": "Re-run the audit.",
+    "effort": "low"
+   }
+  },
+  {
+   "title": "Site-wide trivial positive on every page",
+   "why": "Assistants quote a wrong price of $99 for this brand, costing citations.",
+   "mechanism": "B",
+   "hurts": "both",
+   "severity": "medium",
+   "nearest_check": null,
+   "affected_urls": [
+    "https://n.example/",
+    "https://n.example/blog/x"
+   ],
+   "evidence": [
+    {
+     "url": "https://n.example/",
+     "type": "html_contains",
+     "value": "</html>"
+    },
+    {
+     "url": "https://n.example/blog/x",
+     "type": "html_contains",
+     "value": "</html>"
+    }
+   ],
+   "suggested_action": {
+    "summary": "Fix the thing on the page now.",
+    "how": [
+     "Do it."
+    ],
+    "verify": "Re-run the audit.",
+    "effort": "low"
+   }
+  }
+ ]
+}

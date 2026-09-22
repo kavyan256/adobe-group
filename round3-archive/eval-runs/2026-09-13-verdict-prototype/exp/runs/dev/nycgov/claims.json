@@ -1,0 +1,15 @@
+{
+  "verdicts": [
+    {
+      "finding": {"check_id": "A7_site_unreadable", "url": "https://www.nyc.gov/"},
+      "verdict": "downgrade",
+      "reason": "access_block_unattributed",
+      "explanation": "The only fetched page returned a bare 403 behind a named challenge vendor (Akamai) with no body left to read, so the crawl cannot tell whether this wall targets bots specifically or only this auditor's network.",
+      "evidence": [
+        {"url": "https://www.nyc.gov/", "type": "site_field", "path": "robots.status", "op": "eq", "value": 403}
+      ]
+    }
+  ],
+  "claims": [],
+  "fixes": []
+}
