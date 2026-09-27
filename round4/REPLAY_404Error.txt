@@ -1,0 +1,103 @@
+TEST_SITE_URLS:   https://www.arduino.cc/, https://ghost.org/, https://www.blender.org/
+
+LLM_MODEL:        Claude Opus 5.5 (claude-opus-5-5), effort level: medium
+
+AGENT_HARNESS:    Claude Code 2.1.280, interactive CLI session (not headless)
+
+ENV_SETUP:        Tested on Linux with Python 3.13.9. Uses the Round 3 package
+                  unchanged: brand-ai-readiness-audit-FINAL.zip
+                  sha256 22aa9491490fac0bef88c7f1767ac551a625ea78c081e42313fb1b230dc94f14
+
+                    unzip brand-ai-readiness-audit-FINAL.zip
+                    cd brand-ai-readiness-audit
+                    python3 -m venv .venv
+                    . .venv/bin/activate
+                    pip install httpx==0.28.1 beautifulsoup4==4.13.5 soupsieve==2.5 anyio==4.10.0 certifi==2026.1.4 h11==0.16.0 httpcore==1.0.9 idna==3.11 sniffio==1.3.0 typing-extensions==4.15.0
+                    python3 tests/run_tests.py
+                    mkdir -p WORK
+
+                  The last-but-one command is an offline self-check: it should
+                  print "398 passed, 0 failed" in about 20 seconds.
+                  These pins are the exact versions we ran. requirements.txt in
+                  the package gives ranges (httpx>=0.27,<1, beautifulsoup4>=4.12,<5);
+                  a fresh unpinned install currently resolves beautifulsoup4 4.15.0,
+                  which we did not record the demo on.
+
+TEST_STEPS:
+  1. In the same terminal, with .venv still active and from the folder that
+     holds marketplace.json, start the harness:
+
+       claude
+
+  2. Paste this prompt verbatim. For the other two test sites, change only
+     the URL:
+
+       Audit https://www.arduino.cc/ for AI-discoverability and on-site-engagement problems. Follow skills/audit-orchestrator/SKILL.md exactly, all six steps, using WORK/ for intermediate files and WORK/report.json for the final report.
+
+  3. Approve the python3 commands and the file writes into WORK/ when the
+     harness asks. The agent then runs the entrypoint skill: one polite crawl
+     of up to 12 pages (robots.txt honoured, no JavaScript, User-Agent
+     AIReadinessAudit/1.0), the four scripted audit skills, then the agent
+     review, whose claims verify_claims.py checks against the saved crawl
+     before any enter the report. It ends by presenting the headline, the top
+     prioritized actions with evidence, and the Not-assessed list, as step 6
+     of skills/audit-orchestrator/SKILL.md specifies.
+
+  4. Before the next test site, exit the session, run  rm -rf WORK && mkdir WORK,
+     and start a fresh  claude  session, so no context carries over.
+
+  If the agent reports "ModuleNotFoundError: No module named 'httpx'", the
+  harness was started outside the venv: exit, run  . .venv/bin/activate , and
+  start  claude  again.
+
+  FALLBACK, no LLM or agent harness needed. It reproduces every scripted
+  finding deterministically; only the agent-review findings (source
+  "agent_review", capped at low severity) are absent, and the report says
+  agent_review.status "not_run":
+
+       python3 skills/audit-orchestrator/scripts/audit.py https://www.arduino.cc/ --max-pages 12 --bundle WORK/bundle.json -o WORK/report.json
+
+EXPECTED_OUTPUT:  WORK/report.json
+
+                  One JSON report. summary.run_status is "complete" when the
+                  crawl finished. findings[] are ordered by severity band, then
+                  priority; prioritized_actions[] ranks every finding.
+
+                  The crawl takes 20-40 s. The whole agent session took about
+                  3 minutes when approvals were answered promptly (2.7-2.8 min
+                  on ghost.org and blender.org).
+
+                  What we observed on 2026-09-23, 12 of 12 pages read on each site:
+
+                  https://www.arduino.cc/  11 findings: 1 high, 3 medium, 7 low
+                    (summary.total_findings). One of the lows is a
+                    confirm_intent finding, so the agent's summary reports
+                    "10 findings" plus 1 to confirm with the owner.
+                    Most severe, B1_fact_absent: https://www.arduino.cc/en/contact-us
+                    has no phone number or email address anywhere in the raw response.
+                    Agent review added 2 verified claims, in both of our runs:
+                    og:title "Arduino - Home" on /qualcomm, /hardware and
+                    /ambassador-program; product pages marked up only as FAQPage.
+
+                  https://ghost.org/  8 findings: 4 medium, 3 low, 1 info.
+                    Agent review added 3 verified claims, including review author
+                    names stored with literal quote marks ("\"Isaac Saul\"") in
+                    the JSON-LD on /love.
+
+                  https://www.blender.org/  5 findings: 1 medium, 4 low.
+                    Agent review added 3 verified claims, including press
+                    releases published 2010-2012 that all declare dateModified
+                    2024-08-13, stamped within two seconds of each other.
+
+                  Scripted findings, counts, headline and ranking reproduce
+                  exactly: two separate live crawls of arduino.cc gave identical
+                  scripted findings, severities and order, and the fallback
+                  command above gave the same 9 scripted findings again.
+                  Agent-review findings are worded differently on each run and
+                  their number can vary by one; both arduino.cc runs found the
+                  same two problems.
+
+                  Live sites change. If a site has fixed something since
+                  2026-09-23, that finding will be absent on replay. Every
+                  finding's evidence names the exact URL and text, so either
+                  outcome can be checked by hand.

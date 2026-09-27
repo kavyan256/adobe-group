@@ -1,0 +1,106 @@
+{
+  "claims": [
+    {
+      "title": "Homepage declares the organisation twice under one @id, with two different LinkedIn company pages",
+      "why": "Both Organization nodes use the id vyaparapp.in/#organization, so a structured-data consumer merges them into one entity that claims two separate LinkedIn companies (vyapar-tech-solutions and vyaparapp) and both twitter.com and x.com. Conflicting sameAs anchors weaken the link between the brand and its profiles, and that link is how an assistant tells which Vyapar is meant.",
+      "mechanism": "D",
+      "hurts": "ai_discoverability",
+      "severity": "medium",
+      "nearest_check": "C3_entity_unanchored",
+      "affected_urls": ["https://vyaparapp.in/"],
+      "evidence": [
+        {"url": "https://vyaparapp.in/", "type": "html_contains", "value": "https://in.linkedin.com/company/vyaparapp/"},
+        {"url": "https://vyaparapp.in/", "type": "html_contains", "value": "https://www.linkedin.com/company/vyapar-tech-solutions/"},
+        {"url": "https://vyaparapp.in/", "type": "html_contains", "value": "Simply Vyapar Apps Private Limited"}
+      ],
+      "suggested_action": {
+        "summary": "Merge the two homepage Organization blocks into one node with a single, deliberate sameAs list.",
+        "how": [
+          "Find the two JSON-LD blocks on the homepage whose @id is https://vyaparapp.in/#organization: one from the SEO plugin, one hand-written with legalName Simply Vyapar Apps Private Limited.",
+          "Keep one block only, and carry legalName, logo and the app-store links into it.",
+          "Pick the one LinkedIn company page the company actually maintains and drop the other; keep one of twitter.com or x.com, not both.",
+          "Use the same sameAs list on every page that emits the organisation node."
+        ],
+        "verify": "Fetch https://vyaparapp.in/ and confirm exactly one JSON-LD node has @id https://vyaparapp.in/#organization, with one LinkedIn URL.",
+        "effort": "low"
+      }
+    },
+    {
+      "title": "/faq answers 38 questions with no FAQPage markup, and some answers are written as internal support notes",
+      "why": "The FAQ is the page an assistant is most likely to lift answers from, but nothing marks where each answer ends. Some answers address support staff rather than the customer, for example telling the reader to probe the customer about their registered number, so a quoted answer reads as instructions to an agent, not to the user who asked.",
+      "mechanism": "C",
+      "hurts": "both",
+      "severity": "medium",
+      "nearest_check": "C5_faq_content_unmarked",
+      "affected_urls": ["https://vyaparapp.in/faq"],
+      "evidence": [
+        {"url": "https://vyaparapp.in/faq", "type": "text_contains", "scope": "full", "value": "First you need to probe the customer whether he has the current registered mobile/email"},
+        {"url": "https://vyaparapp.in/faq", "type": "text_contains", "scope": "full", "value": "Q. How to change the registered mobile/email through which the license has been generated?"},
+        {"url": "https://vyaparapp.in/faq", "type": "field", "path": "jsonld.types", "op": "empty"}
+      ],
+      "suggested_action": {
+        "summary": "Rewrite the staff-facing FAQ answers for customers and mark up /faq as FAQPage.",
+        "how": [
+          "Search the FAQ for answers that mention the customer in the third person, such as the answer on changing the registered mobile or email, and rewrite them to speak to the user directly.",
+          "Make each answer a self-contained paragraph that names the menu path it refers to.",
+          "Add one FAQPage JSON-LD block to /faq listing each question and its answer text, generated from the same source as the visible FAQ so they cannot drift."
+        ],
+        "verify": "Fetch https://vyaparapp.in/faq and confirm a FAQPage JSON-LD block is present and no answer says probe the customer.",
+        "effort": "medium"
+      }
+    }
+  ],
+  "fixes": [
+    {
+      "check_id": "A3_noindex",
+      "url": "https://vyaparapp.in/about-us",
+      "quote": "Built for Businesses. Built for Bharat.",
+      "site_specific": [
+        "The About Us page sends two robots meta tags: the SEO plugin's index, follow and a second one reading noindex, nofollow. Search engines obey the stricter one, so the page is dropped.",
+        "Remove the second robots meta tag (noindex, nofollow) from the About Us template or page settings; keep the plugin's index, follow.",
+        "Check the other page templates for the same hard-coded tag.",
+        "Request re-indexing of https://vyaparapp.in/about-us in Search Console once the tag is gone."
+      ]
+    },
+    {
+      "check_id": "B1_fact_absent",
+      "url": "https://vyaparapp.in/pricing",
+      "quote": "Vyapar Plans and Pricing",
+      "site_specific": [
+        "The /pricing app loads plans from JavaScript under /pricing/assets, so a non-rendering fetch sees only the title Vyapar Plans and Pricing and no rupee amount.",
+        "Write each plan name, its yearly price in rupees and what it includes into the HTML the server sends for /pricing.",
+        "Add Offer JSON-LD with price and priceCurrency INR for each plan, generated from the same data the React app renders."
+      ]
+    },
+    {
+      "check_id": "B4_empty_shell",
+      "url": "https://vyaparapp.in/pricing",
+      "quote": "Vyapar Plans and Pricing",
+      "site_specific": [
+        "The /pricing page is a Vite and React build that ships an empty root div; prerender it at build time (for example with a static-generation step) so the served HTML carries the headings, plan table and FAQ.",
+        "Give the prerendered page one h1, such as Vyapar Plans and Pricing, and a canonical link to https://vyaparapp.in/pricing.",
+        "Keep the React app for the interactive parts, hydrating over the prerendered markup."
+      ]
+    },
+    {
+      "check_id": "E1_unlabelled_input",
+      "url": "https://vyaparapp.in/",
+      "quote": "Login using mobile",
+      "site_specific": [
+        "In the Login and Create account dialogs, the phone, OTP and email fields have no label; the phone field has only placeholder text.",
+        "Add a visible label to each field, for example Mobile number, OTP sent to your mobile, and Email address, tied to the field by its id.",
+        "Set autocomplete to tel on the phone field and one-time-code on the OTP field so phones can fill them."
+      ]
+    },
+    {
+      "check_id": "E7_zoom_disabled",
+      "url": "https://vyaparapp.in/pricing",
+      "quote": "Vyapar Plans and Pricing",
+      "site_specific": [
+        "The viewport meta tag in the /pricing index.html sets maximum-scale=1.0 and user-scalable=no.",
+        "Change it to width=device-width, initial-scale=1.0 so visitors can pinch-zoom the plan table.",
+        "If the zoom block was added to stop iOS zooming into inputs, set input font-size to at least 16px instead."
+      ]
+    }
+  ]
+}
