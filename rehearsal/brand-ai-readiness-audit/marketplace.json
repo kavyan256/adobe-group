@@ -1,0 +1,39 @@
+{
+  "name": "brand-ai-readiness-audit",
+  "version": "4.0.0",
+  "description": "Audit any website for AI-discoverability and on-site-engagement problems, and emit a single prioritized JSON report of findings plus suggested actions. Read-only and recommend-only.",
+  "license": "Apache-2.0",
+  "skills": [
+    {
+      "id": "audit-orchestrator",
+      "path": "skills/audit-orchestrator",
+      "entrypoint": true,
+      "summary": "Performs the single crawl, invokes the four scripted skills and the agent review, composes their findings into one report, derives severity and prioritizes."
+    },
+    {
+      "id": "crawl-access-audit",
+      "path": "skills/crawl-access-audit",
+      "summary": "Gate 1 - can an AI retrieval agent reach the page? Per-agent robots.txt, retrieval-vs-training taxonomy, noindex, snippet suppression, canonicals, sitemaps."
+    },
+    {
+      "id": "fact-extractability-audit",
+      "path": "skills/fact-extractability-audit",
+      "summary": "Gates 2 and 3 - does the specific fact survive bot-grade text extraction, and is it typed unambiguously? Extraction tiering T0-T3, payload islands, structured data, quotability."
+    },
+    {
+      "id": "freshness-corroboration-audit",
+      "path": "skills/freshness-corroboration-audit",
+      "summary": "Is the information current, internally consistent, and corroborable? Date signals, staleness, cross-page price contradiction, links to independent press coverage."
+    },
+    {
+      "id": "engagement-audit",
+      "path": "skills/engagement-audit",
+      "summary": "Will a visitor who arrives be able to act? Form friction, control naming, link purpose, alt coverage, heading structure, zoom, promise/payoff match, next step."
+    },
+    {
+      "id": "agent-review-audit",
+      "path": "skills/agent-review-audit",
+      "summary": "What did the scripted checks miss? An agent reviews a compact profile of the crawl against a mechanism checklist and writes claims; a deterministic verifier admits only claims whose evidence holds against the crawled pages."
+    }
+  ]
+}
